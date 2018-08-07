@@ -1,0 +1,1520 @@
+Konsep Dasar
+============================================
+
+Laravel memiliki struktur pembanngun yang cukup kompleks, oleh karena itu dalam bagian ini akan sedikit dijelaskan mengenai beberapa hal dasar yang menyangkut ke `framework` laravel.
+
+.. contents:: Table of Contents
+
+
+============================================
+JSON (JavaScript Object Notation)
+============================================
+
+JSON adalah format data yang digunakan untuk bertukar data antar bahasa pemrograman.
+
+Awalnya JSON ini hanya digunakan di Javascript.
+
+Tapi, seiring waktu, JSON juga digunakan oleh bahasa pemrograman yang lain.
+
+Syntax dasar::
+
+    {
+        key1 : value1,
+        key2 : {
+            key3 : value3,
+            key4 : value4
+        }
+    }
+
+
+**Tipe Data Dalam JSON**
+
+==========  ========================================================================================================================
+Tipe Data   Penjelasan
+==========  ========================================================================================================================
+Number      berisi bilangan bulat atau desimal.
+
+String      teks yang diapit tanda petik.
+
+Boolean     Isian benar ``TRUE`` atau salah ``FALSE``.
+
+Array       Data terurut yang diapit ``[ ]`` dan dibatasi koma. Larik bisa berisi gabungan tipe data yang lain.
+
+Object      Data tidak terurut yang diapit ``{ }`` dan dibatasi koma. Setiap elemen object berisi key dan value dibatasi :.
+
+Null        nilai kosong, diisi dengan keyword null.
+==========  ========================================================================================================================
+
+Contoh data JSON::
+
+    {
+        "nomor_antrian" : 20,
+        "nama" : "Firman",
+        "menikah" : false,
+        "hobi" : [
+            "memancing", 
+            "berenang", 
+            "bersepeda"
+            ],
+        "alamat" : {
+            "jalan" : "Pakuan No. 12",
+            "kota" : "Bandung",
+            "provinsi" : "Jawa Barat",
+            "kode_pos" : "43655"
+        },
+        "telpon" : {
+            {
+                "jenis" : "rumah", 
+                "nomor" : "022-345352" 
+            },
+            { 
+                "jenis" : "mobile", 
+                "nomor" : "0878-23422321" 
+            }
+        },
+        "istri" : null
+    }
+
+.. note::
+
+    Data dalam JSON berisikan object dimana di dalamnya hanya terdapat key dan value, namun value dari key bisa juga bertipe data object.
+
+============================================
+Anonymous Function (Closure)
+============================================
+
+Anonymous function adalah function yang tidak memiliki nama.
+
+Anonymous function biasa digunakan pada callback(parameter yang berisi/value function).
+
+Anonymous juga dapat di-assign ke dalam variabel, dan variabel tersebut dapat dipanggil layaknya sebuah function.
+
+Sebelum lebih jauh membahas mengenai ``Closure``, maka perlu sedikit pengetahuan dasar mengenai function biasa(Regular Function).
+
+Regular Function
+```````````````````````````` 
+
+1. Panggilan secara
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+     
+    function panggilan($panggilan_prefix,$nama) {
+        return $panggilan_prefix." ".$nama;
+    }
+     
+    echo panggilan($panggilan_prefix,$nama);
+
+hasil::
+
+    Mas Ryan
+
+2. Passing Function ke dalam parameter.
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    function panggilan($panggilan_prefix,$nama) {
+        return $panggilan_prefix." ".$nama;
+    }
+
+    function memanggil($panggilan) {
+        return $panggilan.", Pasti bisa!!!";
+    }
+     
+    echo memanggil(panggilan($panggilan_prefix, $nama));
+
+hasil::
+
+    Mas Ryan, Pasti bisa!!!
+
+.. note::
+
+    Dalam proses diatas, maka yang akan diakses pertama kali adalah function yang menjadi parameter (function ``panggilan``)
+
+    Dari function ``panggilan`` tersebut akan menghasilkan return value berupa `string` dan akan menjadi parameter di function ``memanggil``
+
+3. Function tidak dapat mengakses variabel selain yang ada di local function
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    function panggil() {
+        return $panggilan_prefix." ".$nama;
+    }
+ 
+    echo panggil();
+
+hasil::
+
+    Notice: Undefined variable: panggilan_prefix in C:\xamppcoll\183\htdocs\new_php_me\function\10.closure.php on line 32
+     
+    Notice: Undefined variable: nama in C:\xamppcoll\183\htdocs\new_php_me\function\10.closure.php on line 32
+
+4. Default value pada parameter function dapat menghindari adanya error tidak dapat diaksesnya local variabel
+
+.. code-block:: ruby
+    :linenos:
+
+    function xxx($panggilan_prefix = "Mas", $nama = "Ryan") {
+        return $panggilan_prefix." ".$nama;
+    }
+
+    echo xxx();
+
+hasil::
+
+    Mas Ryan
+
+.. note::
+
+    seperti yang diketahui bahwa untuk dapat mengakses variabel di function(bersifat "local scope" memerlukan adanya passing ke dalam parameter dan saat pemanggilan function diberikan argument).
+
+Anonymous Function (``Closure``)
+``````````````````````````````````````
+
+1. Anonymous funtion juga dapat dipass dengan global variable
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    $panggilan = function($panggilan_prefix,$nama) {
+        return $panggilan_prefix." ".$nama;
+    };
+     
+    echo $panggilan($panggilan_prefix,$nama);
+
+hasil::
+
+    Mas Ryan
+
+2. Passing closure ke dalam paramter regular function
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    $panggilan = function($panggilan_prefix,$nama) {
+            return $panggilan_prefix." ".$nama;
+    };
+
+    function memanggil($panggilan) {
+        return $panggilan.", Pasti Bisa!!!";
+    }
+     
+    echo memanggil($panggilan($panggilan_prefix,$nama));
+
+hasil::
+
+    Mas Ryan, Pasti Bisa!!!
+
+3. Anonymous function juga tidak dapat mengakses variabel selain yang ada di local function
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    $panggil = function() {
+        return $panggilan_prefix." ".$nama;
+    };
+     
+    echo $panggil();
+
+hasil::
+
+    Notice: Undefined variable: panggilan_prefix in C:\xamppcoll\183\htdocs\new_php_me\function\11.closure.php on line 23
+     
+    Notice: Undefined variable: nama in C:\xamppcoll\183\htdocs\new_php_me\function\11.closure.php on line 23
+
+4. Namun anonymous function dapat menggunakan closure untuk dapat menggunakan global variabel menjadi local variabel (closure menggunakan syntax ``use``)
+
+.. code-block:: ruby
+    :linenos:
+
+    $panggilan_prefix = "Mas";
+    $nama = "Ryan";
+
+    $xxx = function() use($panggilan_prefix,$nama){
+        return $panggilan_prefix." ".$nama;
+    };
+
+    //Kita dapat memanggil anonymous function tanpa memberikan adanya argument/parameter, namun masih tetap dapat mengakses global variable
+    echo $xxx();
+
+hasil::
+
+    Mas Ryan
+
+.. note::
+
+    anonymous function dapat mengakses global variabel dimana kita tidak akan memberikan argument global variabel tersebut saat pengaksesan function
+
+
+.. hint::
+
+    **Kesimpulan**
+
+    *Function anonymous* adalah suatu function yang tidak dapat dipanggil secara langsung, kecuali dengan cara di-passing ke dalam variabel atau dijadikan ke dalam callback(parameter berupa function).
+
+    Closure adalah bentuk anonymous function yang dapat mengakses variabel global(parent scope) tanpa memberikan adanya parameter dan argument variabel global ke dalam anonymous function tersebut.
+
+
+Studi kasus penggunaan anonymous function/closure pada parameter/argument
+````````````````````````````````````````````````````````````````````````````
+
+PHP memiliki function  ``array_walk``, yaitu function yang akan mengakses array dengan berulang (iteration) mirip seperti foreach namun dalam bentuk function.
+
+Berikut format syntas dari function ``array_walk``::
+
+    bool array_walk ( array &$array , callable $callback [, mixed $userdata = NULL ] )
+
+Keterangan parameter
+    
+=============   ==========================================================================================================================================================================================================================================================================
+parameter       Penjelasan
+=============   ==========================================================================================================================================================================================================================================================================
+$array          Array yang akan dilakukan iteration (perulangan)
+$callback       Anonymous function yang akan digunakan dalam memanipulasi array (setiap perulangan, akan menggunakan function ini), 
+                perlu diketahui bahwa dalam function ini diharuskan memiliki 2 parameter, dimana parameter 1 adalah ``value`` dan paramter kedua sebagia ``key``
+$userdata       Jika parameter ini diisi maka ini akan menjadi parameter ketiga dalam anonymous function dari parameter 2
+=============   ==========================================================================================================================================================================================================================================================================
+
+**Contoh penggunaan dalam anonymous function**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    $buah = [
+        "a" => "apel",
+        "b" => "berry",
+        "c" => "cherry"
+    ];
+
+    echo "struktur array awal";
+    echo "<pre>";
+    print_r($buah);
+    echo "</pre>";
+
+    echo "=================================================================================="."<br>";
+
+    function pemberianPrefix(&$value, $key, $prefix) {
+        $value = "$prefix $value";
+    }
+
+    array_walk($buah,'pemberianPrefix',"buah");
+
+    echo "struktur array setalah ada prefix";
+    echo "<pre>";
+    print_r($buah);
+    echo "</pre>";
+    ?>
+
+hasil::
+
+    struktur array awal
+    Array
+    (
+        [a] => apel
+        [b] => berry
+        [c] => cherry
+    )
+    ==================================================================================
+    struktur array setalah ada prefix
+    Array
+    (
+        [a] => buah apel
+        [b] => buah berry
+        [c] => buah cherry
+    )
+
+**Contoh penggunaan dalam ``Closure``**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    $minimal = 75;
+    $dataNilai = [
+        ["nama"=>"Rangga", "nilai"=>90],
+        ["nama"=>"Bisma", "nilai"=>80],
+        ["nama"=>"Dicky", "nilai"=>40],
+        ["nama"=>"Morgan", "nilai"=>75],
+    ];
+     
+    array_walk($dataNilai, function($value, $key) use ($minimal) {
+        echo "Siswa : " . $value['nama'] . "<br>";
+        echo "Nilai : " . $value['nilai'] . "<br>";
+        echo "Status : ";
+        if ($value['nilai'] >= $minimal) {
+            echo "Lulus<br>";
+        }
+        else {
+            echo "Tidak Lulus<br>";
+        }
+        echo "================================"."<br>";
+    });
+
+hasil::
+
+    Siswa : Rangga
+    Nilai : 90
+    Status : Lulus
+    ================================
+    Siswa : Bisma
+    Nilai : 80
+    Status : Lulus
+    ================================
+    Siswa : Dicky
+    Nilai : 40
+    Status : Tidak Lulus
+    ================================
+    Siswa : Morgan
+    Nilai : 75
+    Status : Lulus
+    ================================
+
+============================================
+PHP 5 Autoloader
+============================================
+
+Dalam PHP 5, terdapat fitur baru dalam menyertakan (include) suatu file yang mana file tersebut dalam bentuk ``class``.
+
+Fitur ini terdapat pada function ``spl_autoload_register()``.
+
+function ``spl_autoload_register()`` akan dijalankan begitu adanya instansiasi class.
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    function jika_ada_instansiasi($class){
+        echo "ada instansiasi daripada class ".$class;
+    }
+     
+    spl_autoload_register('jika_ada_instansiasi');
+
+    new A;
+    ?>
+
+hasil::
+
+    ada instansiasi daripada class A
+
+.. note::
+
+    contoh diatas sebenarnya sudah cukup jelas dalam mempresentasikan `function` ``spl_autoload_register``
+
+    yaitu akan dijalankan begitu adanya instansiasi suatu class, dan parameter `callback` nya adalah nama instansiasi
+    
+    hanya saja terdapat keanehan disini
+
+    ketika terdapat adanya class (deklarasi class), maka `function` ``spl_autoload_register``, tidak akan dieksekusi.
+
+    jika misalkan terdapat syntax class seperti berikut::
+
+        class A {}
+    
+    maka syntax "new A" tidak akan menjalankan `function` ``spl_autoload_register``
+
+Penggunaan **Autoloader**
+````````````````````````````````
+
+Autoloader akan digunakan untuk mempermudah dalam penyertaan(include) file yang berisikan class.
+
+Misalkan terdapat 2 class dan 1 file eksekusi daripada 2 class tersebut, tanpa adanya `function` ``spl_autoload_register``, maka berikut adalah cara penggunaannya
+
+file **Class_a.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    class Class_a {
+        public function method_class_a() {
+            return "value_method_a";
+        }
+    }
+    ?>
+
+file **Class_b.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    class Class_b {
+        public function method_class_b() {
+            return "value_method_b";
+        }
+    }
+    ?>
+
+file **eksekusi.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+        include "class_a.php";
+        $pertama = new Class_a;
+        echo $pertama->method_class_a();
+        echo "<br>";
+        include "class_b.php";
+        $kedua = new Class_b;
+        echo $kedua->method_class_b();
+         
+    ?>
+
+penggunaan include untuk menginstansiasi class ini sangatlah sulit apabila class yang diinclude berada pada lebih dari 100 file class.
+
+Maka dari itu `function` ``spl_autoload_register`` ini akan digunakan, penggunaannya adalah sebagai berikut:
+
+file **eksekusi2.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    spl_autoload_register(function ($class) {
+        include $class.'.php';
+    });
+     
+    $pertama = new class_a;
+    echo $pertama->method_class_a();
+    echo "<br>";
+    $kedua = new class_b;
+    echo $kedua->method_class_b();
+    ?>
+
+.. attention::
+
+    perlu diketahui, pembuatan class biasanya disimpan pada satu file yang mana nama filenya adalah nama classnya,
+
+
+Penyertaan file dari beberapa direktori
+``````````````````````````````````````````````
+
+Jika semisal file yang disertakan berada pada folder tertentu, kita dapat mengubahnya dengan memberikan "prefix" atau "suffix" yang akan menuju file path tersebut.
+
+file **class/Class_c.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    Class Class_c {
+        public function __construct() {
+            echo "Method Class_c";
+        }
+    }
+    ?>
+
+file **class/Class_d.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    Class Class_d {
+        public function __construct() {
+            echo "Method Class_d";
+        }
+    }
+    ?>
+
+file **eksekusi3.php**
+
+.. code-block:: php
+    :linenos:
+
+    <?php
+    spl_autoload_register(function($class){
+        include "class/".$class.".php";
+    });
+     
+    $c = new Class_c();
+    echo "<br>";
+    $d = new Class_d();
+    ?>
+
+.. caution::
+
+    Dalam beberapa kasus seringkali kita membutuhkan suatu file yang berada pada folder tertentu, yang tentu saja tidak kesemuanya berada dalam kesatuan folder(berada pada folder yang terpisah).
+
+    Untuk hal tersebut kita akan mempelajarinya pada materi berikutnya, pada **namespace**.
+
+============================================
+PHP 5 Abstract dan Interfaces
+============================================
+
+Abstract Class
+``````````````````````````````
+
+Abstract class dan abstract method adalah suatu cara dalam mengharuskan suatu `class` turunannya(``inheritance``) untuk menggunakan setiap ``abstract method`` nya (dan parameternya jika ada).
+
+Abstract class dan abstract method dapat dipahami sebagai kerangka dasar yang mana akan menjadi dasar suatu aplikasi.
+
+.. caution::
+
+    Mengapa menggunakan abstract class dan abstarct method ???
+
+    Karena penggunaan suatu aplikasi dalam menjalankan fungsi-fungsinya, biasanya menggunakan suatu metode yang sama namun dengan cara yang berbeda.
+
+    Semisal seorang pembeli ingin membeli barang secara online pada suatu website, dalam website tersebut memberikan 2 cara dalam melakukan pembayaran, yang pertama dengan transfer melalui internet banking sedangkan cara kedua dengan PayPal.
+
+    Tentu keduanya memiliki kesamaan metode yaitu pembayaran, hanya saja cara dalam keduanya berbeda(dan tentu juga akan menghasilkan value yang berbeda).
+
+Sebelum dijelaskan alasan yang tepat mengapa menggunakan abstract class dan abstract method, mari kita sejenak memahami konsep class secara luas dibawah ini.
+
+``````````````````````````````
+Konsep Class dasar
+``````````````````````````````
+
+**Class** adalah kumpulan property dan method yang memiliki kesatuan kesamaan.
+
+Object merupakan bentuk nyata daripada class, atau dapat dikatakan suatu bentuk yang tercipta dari class yang sudah ada.
+
+Di dalam suatu aplikasi, akan dibutuhkan beberapa sumber-sumber yang akan diolah (dikumpukan menurut kebutuhan dan diproses menjadi suatu value),
+
+Sumber-sumber antara satu dengan yang lainnya tentu tidaklah sama.
+
+Sumber tersebut berupa object (yang berasal daripada class kerangka nya).
+
+Intinya setiap class tidak akan memiliki property atau method yang sudah kompleks(mencakup semuanya), namun hanya berisikan dasar-dasarnya.
+
+Yang kemudian akan dikumpulkan dengan sumber lain(object daripada instansiasi class lain) yang nantinya akan diproses dan menghasilkan value.
+
+Kita contohkan ``aplikasi pembelian menggunakan internet banking``.
+
+pada aplikasi tersebut kita punya sumber **pembeli** dan **bank**.
+
+Artinya kita akan memiliki 2 class yaitu class ``Pembeli`` dan class ``Bank``.
+
+Mari kita telaah lebih jauh,
+
+Apakah antara class ``Pembeli`` dan class ``Bank`` memiliki kesamaan yang diturunkan(inheritance/pewarisan) ?? Tentu jawabnya **TIDAK**, yang artinya tidak akan ada keyword **extends** disini.
+
+namun apakah kedua class saling memiliki keterikatan ??? jawabnya "YA"
+
+Seperti pembeli memiliki deposit di bank, yang mana dalam deposit tersebut akan disimpan sebagai saldo, dan dapat berkurang jika dilakukan adanya pembelian.
+
+mungkin berikut gambaran tentang property dan method dari kedua class.
+
+===================================
+
+class ``Pembeli``
+
+property => 'nama'
+
+method => 'beli'
+
+===================================
+
+class ``Bank``
+
+property => 'saldo'
+
+method => 'deposit,kredit,catatTransaksi dan cekSaldo'
+
+===================================
+
+kemudian masalah muncul disini, yaitu jika memang dipisah menjadi 2 class, kemudian bagaimana kita bisa melakukan transaksi yang melibatkan 2 object(dari instansiasi 2 class) tersebut, mengingat tidak ada keterikatan secara langsung(kedua class tidak saling mewarisi dan dipastikan memang berada dalam 2 class/tidak satu class yang kompleks).
+
+Maka satu class satu membutuhkan class lain, ini disebut sebagai **depedency Injection**.
+
+Dari kasus diatas, maka bank membutuhkan pembeli untuk melakukan `pembelian` dan bukan pembeli membutuhkan bank, maka dari itu object ``bank`` akan dimasukkan ke dalam object ``pembeli``.
+
+Maksudnya kita akan membuat object ``bank`` ke dalam object ``pembeli`` dan selanjutnya biarkan object pembeli itu melakukan beberapa method pada object ``bank``, dan bukan membuat object ``pembeli`` ke dalam object bank, ilustrasi mudahnya adalah berikut::
+
+    //jika dari sisi pembeli
+    $ryan->beli();
+    //artinya ryan (pembeli) akan melakukan transaksi, transaksi tersebut akan melibatkan object ``bank``, dan bukan bank yang melakukan transaksi
+
+    //jika dari sisi bank
+    $mandiri-> 
+    //weits mau kemana nih object mandiri;
+
+**Berikut contoh konkritnya**
+
+file **BNI.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/konsep_class/BNI.php
+    :linenos:
+    :language: php
+
+file **Pembeli.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/konsep_class/Pembeli.php
+    :linenos:
+    :language: php
+
+file **beli-pakai-bni.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/konsep_class/beli-pakai-bni.php
+    :linenos:
+    :language: php
+
+hasil::
+
+    Berhasil mengaktifkan Kartu BNI!
+    Mencatat transaksi deposit dana sejumlah 100000 ke Buku Tabungan.
+    Mencatat transaksi transfer keluar sejumlah 80000 ke Buku Tabungan.
+    Berhasil melakukan pembelian Sepatu - Bata seharga Rp80000.
+    Terima kasih Ryan :)
+    Saldo terakhir Rp20000
+
+````````````````````````````````````````````````````````````
+Alasan penggunaan ``abstract class``
+````````````````````````````````````````````````````````````
+
+Alasan utama pengguanaan ``abstract class`` adalah jika apabila terdapat suatu cara lain yang menggunakan method yang sama dengan class lain.
+
+Misalkan dari kasus diatas, aplikasi pembelian (online/website) ternyata selain menggunakan pembayaran melalui ``internet banking`` juga menawarkan adanya pembayaran melalui ``PayPal``, untuk memberikan cara lain bagi para pembeli yang memang kebetulan tidak memiliki akun BNI namun memiliki akun ``PayPal``.
+
+Pembayaran dengan ``PayPal`` ini tidaklah berbeda dengan pembayaran dengan bank BNI, seperti adanya method yang mempengaruhi deposit, kredit dan lainnya, namun apakah caranya sama ??? tentu tidak, karena ternyata dengan pembayaran ``PayPal`` dibutuhkan adanya Login dan tentu konfirmasi/laporan pembelian dalam bentuk email.
+
+Selain itu cara dalam kredit ataupun deposit juga mungkin berbeda, sehingga tidak mungkin melakukan inheritance (``extends``) kepada class BNI.
+
+Meskipun memang ada method yang sama (kredit, deposit, cekSaldo) namun apabila statement(isi/caranya) berbeda apa ya mau di-``extends`` kemudian di-override ???
+
+Maka dari itu dibutuhkan adanya ``abstract class`` dan abstract method sehingga kedua class (BNI dan ``PayPal``) menggunakan method yang sama namun isi statement-nya berbeda.
+
+**Tapi, tunggu dulu....**
+
+Kalaupun begitu bukankah kita bisa saja membuat class biasa dengan method kosongan, yang nantinya class tersebut diwariskan pada class BNI dan ``PayPal``, dan juga method kosongnya dapat di-override.
+
+Ya cara ini bisa saja, namun ingat Abstract class tidak dapat di-instansiasi sedangkan class biasa dapat diinstansiasi, sedangkan kita tahu bahwa definisi class sebelumnya adalah **kumpulan property dan method yang memiliki kesatuan kesamaan**.
+
+Tentu penggunaan class biasa dan method kosong tidak akan baik secara teknis untuk dijadikan dependency injection.
+
+Berikut contoh konkritnya:
+
+file **Pembeli.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/Pembeli.php
+    :linenos:
+    :language: php
+
+file **MetodePembayaran.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/PaymentMethod.php
+    :linenos:
+    :language: php
+
+file **DebitBNI.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/DebitBNI.php
+    :linenos:
+    :language: php
+
+file **beli-pakai-debit-BNI.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/beli-pakai-debit-bni.php
+    :linenos:
+    :language: php
+
+file **Paypal.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/Paypal.php
+    :linenos:
+    :language: php
+
+file **beli-pakai-paypal.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.1.abstract/versi_abstract/beli-pakai-paypal.php
+    :linenos:
+    :language: php
+
+
+hasil::
+
+    file **beli-pakai-debit-bni.php**
+
+    Berhasil mengaktifkan Kartu Debit!
+    Mencatat transaksi deposit dana sejumlah 20000000 ke Buku Tabungan.
+    Mencatat transaksi transfer keluar sejumlah 250000 ke Buku Tabungan.
+    Terima kasih Morgan :) Berhasil melakukan pembelian Sepatu Dance seharga Rp250,000
+    Saldo terakhir Rp19,750,000
+    Anda melakukan pembayaran dengan DebitBNI
+
+
+    file **beli-pakai-paypal.php**
+
+    Berhasil login ke Paypal!
+    Mengirim email notifikasi penerimaan dana ke morgan@gmail.com 
+    Mengirim email notifikasi pengeluaran dana ke morgan@gmail.com 
+    Terima kasih Morgan :) Berhasil melakukan pembelian Poster Smash Full Color seharga Rp100,000
+    Saldo terakhir Rp11,900,000
+    Anda melakukan pembayaran dengan Paypal
+
+
+Inteface
+``````````````````````````````
+
+``Interface`` memiliki kesamaan dengan ``class``, yaitu setiap ``class`` yang menggunakan ``interface``(disebut ``implements``) harus me-``override`` method yang ada pada ``interface``.
+
+Perbedaannya adalah satu ``class`` hanya dapat mewarisi(``inheritance``/``extends``) satu ``class`` abstract, seperti contohnya ``class`` **kucing** hanya mewarisi ``class`` **HewanMamalia**.
+
+Namun satu ``class`` dapat menggunakan(implements) lebih dari 1 ``interface``, seperti contohnya ``class`` kucing dapat menggunakan ``interface`` **cakar**, dan dalam ``interface`` **cakar** tersebut memiliki method **mencakar**.
+
+Dan ``class`` **kucing** ini juga dapat menggunakan ``interface`` **taring**, dan dalam ``interface`` **taring** tersebut memiliki method **menggigit**.
+
+berikut ilstrasi dalam gambar
+
+.. image:: /images/belajar_laravel_ex/1.4.1.abstract/konsep_class/abstract_class.jpg
+
+.. image:: /images/belajar_laravel_ex/1.4.1.abstract/konsep_class/interface.jpg
+
+``````````````````````````````
+Penggunaan Interface
+``````````````````````````````
+
+``Interface`` memiliki banyak kegunaan yang hampir sama dengan abstract ``class``, hanya saja ``class`` yang menggunakan/me-implements ``interface`` bisa lebih dari 1 ``interface``.
+
+Namun dalam bahasan ini hanya dijabarkan penggunaan ``interface`` secara sederhana.
+
+Salah satu contoh penggunaan ``interface`` adalah untuk membuat suatu komunikasi(hubungan yang berelasi) antar 2 objek yang sebenarnya tidak memiliki adanya suatu persamaan teknis, namun memiliki kesamaan dalam hal value(nilainya).
+
+Seperti misalkan pembuatan aplikasi pembanding kepopuleran antara 2 orang melalui akun facebook dan twitter. Misalkan orang pertama menggunakan facebook sedang orang kedua menggunakan twitter.
+
+Dasar kepopuleran kedua orang tersebut berbeda dari bentuknya. Dalam facebook mengenal ``Like`` sedang twitter mengenal ``Favorite``.
+
+Baik ``like`` maupun ``favorite`` sama sama menjadi acuan dalam menilai kepopuleran sesorang, ``like`` dan ``favorite`` memiliki value yang sama meski method antar keduanya jelas dipastikan berbeda(yang dimaksud caranya dalam menentukan berbeda namun value/nilai/hasilnya sama).
+
+Jika keduanya berasal dari ``class`` yang berbeda(dengan method di dalamnya yang berbeda juga), bagaimana membandingkan 2 object (dari 2 ``class``) tersebut dari kesamaan valuenya ???
+
+Mungkinkah kita akan menggunakan konsep abstract ``class`` sehingga ``class`` facebook dan twitter harus memiliki method tertentu yang nantinya dapat diajadikan acuan pembanding ??? tentu sangat bisa, namun coba kita telaah sekali lagi, abstract ``class`` hanyalah ``class`` kerangka yang diturunkan ke dalam ``class``, sedangkan yang akan kita buat disini adalah aplikasi "pembanding kepopuleran".
+
+Bagaimana jika ada pembanding yang lain seperti "pembanding jumlah teman" atau "pembanding jumlah foto", tentu ini tidak dapat menggunakan abstract ``class``, karena sejatinya ``class`` itu adalah komponen dan bukan utility(penggunaan).
+
+Maka dari sini disimpulkan kita akan menggunakan ``interface`` untuk membandingkan kepopuleran 2 orang dari 2 akun object yang berbeda.
+
+Dari sini dapat terlihat perbedaan antara interfce dan abstract ``class`` yang cukup jelas, yang mana abstract ``class`` digunakan sebagai dasar pembangunan sedangkan interface adalah untuk utility (penggunaan)nya.
+
+Jika dimisalkan dari 2 object ``facebook`` dan ``twitter``, maka abstract class yang cocok adaaah seperti method pengelolaan teman(method tambah_teman(), method hapus_teman) atau mungkin method posting (jika di facebook adalah "buat_status()" sedangkan di twitter adalah "buat tweet").
+
+**Abstract SocialMedia**::
+
+    abstract class SocialMedia {
+
+        abstract public function <tentang_teman>(method tambah_teman();, method hapus_teman();)
+
+        abstract public function posting(); // dalam facebook nantinya akan menyimpan ke property "status", sedangkan dlaam twitter akan menyimpan ke property "tweet"
+
+    }
+
+Sedangkan interface dari 2 class facebook dan twitter adalah::
+
+    interface Popularity {
+
+        public function platform();
+
+        public function like();
+
+        public function totalLike();
+
+    }
+
+
+
+file **Popularity.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.2.interface/pembanding/Popularity.php
+    :linenos:
+    :language: php
+
+
+file **Facebook.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.2.interface/pembanding/Facebook.php
+    :linenos:
+    :language: php
+
+
+file **Twitter.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.4.2.interface/pembanding/Twitter.php
+    :linenos:
+    :language: php
+
+file **SocialGraph.php**
+
+ .. literalinclude:: source-code/bukularavel_ex/1.4.2.interface/pembanding/SocialGraph.php
+    :linenos:
+    :language: php
+
+file **pembanding-kepopuleran.php**
+
+ .. literalinclude:: source-code/bukularavel_ex/1.4.2.interface/pembanding/pembanding-kepopuleran.php
+    :linenos:
+    :language: php
+
+
+hasil::
+
+    file **pembanding-kepopuleran.php**
+
+    Twitter Joko Widodo Lebih populer dari Facebook Tukul Arwana
+
+.. hint::
+
+    Class Facebook dan Twitter diatas sebenarnya juga dapat dikombinasikan dengan abstract class. 
+
+    Yang mana class Facebook dan Twitter akan mewarisi (extends) abstract class "MediaSocial".
+
+    Dan di dalam abstract class "MediaSocial" tersebut terdapat abstract method "jumlah_teman()", "tambah_teman()", "hapus_teman()", "posting()".
+
+.. note::
+
+    Abstract dan interface memiliki kesamaan yang serupa, seperti dalam hal syntax nya, selain harus di-overrie, setiap method yang bersifat abstract atau berada di dalam interface dipastikan menjadi suatu syntax (dan bukan menjadi method/function), maka dari itu akhiran daripada kedua method itu adalah semicolon.
+
+    Seperti "abstract public function methodA();" pada abstract class atau "public function methodA();" pada interface.
+
+    Dan kedua method tersebut juga tidak dapat berisikan body(tanda {} dan statement nya).
+
+============================================
+PHP 5 ``Traits``
+============================================
+
+``Traits`` sama halnya seperti abstract class atau interface, namun lebih mirip dengan interface karena ``trait`` lebih mengarah kepada ``utility`` (penggunaannya) daripada untuk membangun.
+
+``Traits`` berisikan method yang memiliki logic(statement) di dalamnya.
+
+``Traits`` digunakan pada class, yang mana class tersebut tidak memerlukan adanya override method daripada ``trait``.
+
+Konsep ``Traits`` ini sama seperti copy paste method ke dalam suatu class.
+
+Class yang menggunakan ``traits`` biasanya adalah class ``child`` (trurunan) yang membutuhkan adanya fungsionalitas(fitur) tambahan lain, yang mana class turunan lian dari class parent yang sama tidak memerlukannya.
+
+Misalkan adalah class **SocialThing** yang mana class tersebut berisikan hal-hal dalam sosial media.
+
+Class turunan daipada class **SocialThing** seperti class **Status**, **Foto** dan **Pesan**.
+
+class **Status**, **Foto** dan **Pesan** sama-sama sebagai class turunan(``child`` class) daripada class **SocialThing**, namun ada beberapa perbedaan fungsionalitas dalam ketiga class turunan tersebut.
+
+Yaitu masalah **shareable** atau content daripada class tersebut dapat di-share atau tidak, tentu pada class **Status** dan **Foto**, content-nya dapat di-share, namun bagaimana dengan **Pesan**, tentu ini tidak bisa, dikarenakan ini bersifat ``private``.
+
+Lantas bukankah kita dapat membuat method tersendiri akan hal ini ??? tentu saja bisa, namun bukankah cara/method dan value daripada method ini sama, yaitu akan membuat content dapat di-share atau tidak, maka dari itu sebaiknya membuat ``traits`` yang bisa digunakan atau tidak.
+
+file **SocialThing**
+
+.. literalinclude:: source-code/bukularavel_ex/1.5.traits/penggunaan_traits.php/SocialThing.php
+    :linenos:
+    :language: php
+
+
+file **Shareable.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.5.traits/penggunaan_traits.php/Shareable.php
+    :linenos:
+    :language: php
+
+file **Status.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.5.traits/penggunaan_traits.php/Status.php
+    :linenos:
+    :language: php
+
+file **Photo.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.5.traits/penggunaan_traits.php/Foto.php
+    :linenos:
+    :language: php
+
+file "message.php"
+
+.. literalinclude:: source-code/bukularavel_ex/1.5.traits/Message.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    .. file Status.php
+
+    Sharing Menikah itu mendewasakan. Bukan menunggu dewasa. Berhentilah mencari alasan. Move On!
+
+    .. file Photo.php
+    
+    Sharing Motivasi_meminang.jpg
+
+    .. file message.php
+
+    .. print Parse Error
+
+============================================
+PHP 5 ``Namespace``
+============================================
+
+``Namespace`` dalam PHP berfungsi untuk mengelompokkan class class sehingga nama class bisa saja sama antara satu sama lain namun masih dapat diakses satu persatu (secara spesifik) karena menggunakan ``namespace`` yang berbeda.
+
+Satu hal yang perlu diperhatikan adalah bahwa ``namespace`` harusnya berada di paling atas script daripada class, atau pastikan bahwa tidak ada script selain pendeklarasian class diatas ``namespace``, atau akan terjadi error.
+
+Misal adalah mengakses namespace pada file yang sama.
+
+file **2.dengannamespace.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/2.dengannamespace.php
+    :linenos:
+    :language: php
+
+
+hasil:
+
+.. code-block:: rst
+
+    Membuat shortener...
+    Membuat shortener dengan API Bitly...
+
+
+Pengaksesan namespace dalam direktori lain
+````````````````````````````````````````````````
+
+namespace tidak akan berjalan selama tidak ada proses penyertaan file(include) namespace tersebut.
+
+Misalkan kita memiliki struktur file dan direktori seperti berikut :
+
+.. code-block:: rst
+
+    root/
+    ├── namespace_dir_luar.php
+    ├── dir_utama
+        └── eksekusi.php
+        └── sub_dir
+             └── namespace_sub_dir.php
+
+
+di dalam file "eksekusi.php" terdapat pengeksekusian file class dengan namespace yang berada pada direktori tertentu.
+
+file **eksekusi.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/namespace_dalam_direktori_beda/dir_utama/eksekusi.php
+    :linenos:
+    :language: php
+
+file **namespace_dir_luar.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/namespace_dalam_direktori_beda/namespace_dir_luar.php
+    :linenos:
+    :language: php
+
+file **namespace_sub_dir.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/namespace_dalam_direktori_beda/dir_utama/sub_dir/namespace_sub_dir.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    .. file **eksekusi.php**
+
+    return methodA
+    return methodB
+    return methodC
+
+
+
+Perpaduan namespace dengan spl_autoload_register()
+``````````````````````````````````````````````````````
+
+Dalam materi ``autoload`` dijelaskan bahwa function ``spl_autoload_register`` akan dijalankan apabila terdapat adanya instansiasi suatu class baru.
+
+Jika kita memadukan antara namespace dengan function ``spl_autoload_register`` maka kita tidak lagi membutuhkan adanya syntax include(bahkan pada statement function ``spl_autoload_register``).
+
+Semisal kita memiliki Tree Structure
+
+.. code-block:: rst
+
+    1.6.namespace/
+    ├── Adfly
+    │   └── URLShortener.php
+    ├── Bitly
+    │   ├── Auth
+    │   │   └── Login.php
+    │   └── URLShortener.php
+    ├── eksekusi.php
+    ├── URLShortener.php
+
+
+    Ket:
+
+    Tanda ``**`` adalah file yang akan diakses.
+
+file **Adfly/URLShortener.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/Adfly/URLShortener.php
+    :linenos:
+    :language: php
+
+
+file **Bitly/URLShortener.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/Bitly/URLShortener.php
+    :linenos:
+    :language: php
+
+file **eksekusi.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/eksekusi.php
+    :linenos:
+    :language: php
+
+file **Login.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.6.namespace/Bitly/Auth/Login.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. image:: images/belajar_laravel_ex/1.4.1.abstract/konsep_class/namespace_autoload.jpg
+
+.. danger::
+
+    Masalahnya adalah file **eksekusi.php** sebenarnya tidak seperti diatas saat terakhir kali dicoba, sehingga penulis hanya menyediakan screenshot saat file tersebut berjalan pada pertama kalinya.
+
+.. note::
+
+    dengan adanya function spl_autoload_register(), maka setiap ada instansiasi class dengan namespace akan me-include file(yang berisi class) yang mana berada pada direktori yang didekalarasian dalam namespace
+
+.. hint::
+
+    Untuk memadukan namespace dengan function ``spl_autoload_register`` maka dibutuhkan beberapa aturan :
+
+    1. nama file harus sama dengan nama class(harus, dan juga dengan format tulisan camel_case)
+
+    2. file eksekusi yang menjalankan function ``spl_autoload_register`` harus berada pada file terluar daripada folder namespace
+
+    3. nama namespace adalah path direktori yang berada dalam jangkauan pengaksesan file eksekusi.
+
+    Untuk yang no.3 yang menjadi acuan sebenarnya adalah file eksekusi, yang mana file class tersebut berada dalam path darimana dari file eksekusi
+
+    Seperti pada contoh diatas, maka file ``Login.php`` berada pada direktori ``Bitly/Auth``.
+
+    Maka dibuatlah namespace dengan nama ``Bitly\Auth`` pada file ``Login.php``.
+
+
+============================================
+PHP 5 ``Reflection``
+============================================
+
+``Reflection`` : cermin
+
+Dalam pemrograman ``reflection`` adalah suatu cara pemrograman dalam mengidentifikasi apa yang ada di dalam dirinya sendiri.
+
+PHP 5 memiliki fitur ``Reflection API`` , yaitu kumpulan method yang berfungsi untuk mengidentifikasi object dirinya sendiri dalam ranah OOP, seperti ``class``, ``method``, ``object``, ``parameter`` dan ``property``.
+
+Untuk kedepannya fitur ini dapat digunakan sebagai ``depedency injection``, misalkan dalam beberapa(lebih dari satu) class hanya dibutuhkan satu object yang di-instansiasi yang selanjutnya akan membuat object-object dari class lainnya dan akan mendapatkan hasil akhir dari olahan object-object tersebut.
+
+Sebelum memasuki Reflection API, sebenarnya ada function pada class/object di PHP 5 yang dapat mengidentifikasi dirinya sendiri seperti berikut
+
+file function_objectclass.php
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/function_objectclass/function_objectclass.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    .. file function_objectclass.php
+
+    Mario
+    Menikahi orang yang dicintai adalah kemungkinan. Tapi, mencintai orang yang dinikahi adalah kewajiban. Itu.
+    ---------------------------------------------------------------------------------------------------------------
+    class dari object $twMario : 'Twitter'
+    ---------------------------------------------------------------------------------------------------------------
+    method daripada object $twMario : 
+    Array ( [0] => __construct [1] => tweet [2] => get_username ) 
+    ---------------------------------------------------------------------------------------------------------------
+    parent class dari object $twMario : 'Social'
+
+========================================================================================
+
+file **Social.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/Social.php
+    :linenos:
+    :language: php
+
+file **Twitter.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/Twitter.php
+    :linenos:
+    :language: php
+
+========================================================================================
+
+``Reflection`` Object
+````````````````````````````````
+
+Dalam ``Reflection API``, terdapat beberapa object yang kesetiap objectnya dapat digunakan untuk mengidentifikasi komponen sesuai dengan ranahnya.
+
+misal Object ``Reflection`` Class dapat untuk mengidentifikasi nama class, nama parent class
+
+misal Object ``Reflection`` Method dapat untuk mengidentifikasi parameter method tersebut
+
+misal Object ``Reflection`` Parameter dapat untuk mengidentifikasi parameter parameter
+
+file **Penulis.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/reflectionclass/Penulis.php
+    :linenos:
+    :language: php
+
+file **Buku.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/reflectionclass/Buku.php
+    :linenos:
+    :language: php
+
+file **coba-reflection-class.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/reflectionclass/coba-reflection-class.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    Judul buku : Membingkai Surga dalam Rumah Tangga
+    Penulis : Aam Amiruddin
+    Alamat : Bandung
+
+    -------------------------------------------------------
+
+    ReflectionClass Object
+    (
+        [name] => Buku
+    )
+    class dari object $buku : Buku
+    parent class dari object $buku : Tulisan
+    Interface dari object $buku : 
+    Array
+    (
+        [0] => publishable
+        [1] => printable
+    )
+    Method dari object $buku : 
+    Array
+    (
+        [0] => ReflectionMethod Object
+            (
+                [name] => __construct
+                [class] => Buku
+            )
+
+        [1] => ReflectionMethod Object
+            (
+                [name] => __toString
+                [class] => Buku
+            )
+
+    )
+    Constructor dari object $buku : 
+    ReflectionMethod Object
+    (
+        [name] => __construct
+        [class] => Buku
+    )
+    Array
+    (
+        [0] => ReflectionParameter Object
+            (
+                [name] => judul
+            )
+
+        [1] => ReflectionParameter Object
+            (
+                [name] => penulis
+            )
+
+    )
+    ReflectionClass Object
+    (
+        [name] => Penulis
+    )
+    Belum ada judul
+    bukan array
+
+
+Untuk apa itu Reflection ???
+````````````````````````````````````
+
+Terkadang dalam membuat suatu aplikasi yang melibatkan 2 object (dari 2 class yang berbeda), ternyata antar object memiliki ketergantungan dengan object lain(depedency injection).
+
+Secara normal maka kita bisa saja membuat object pertama, kemudian membuat object kedua yang mana object kedua membutuhkan object pertama.
+
+Namun bagaimana jika object yang membutuhkan depedency injection ini membutuhkan paling tidak 5 ibject atau lebih, tentu sangat merepotkan apabila harus membuat object satu persatu.
+
+Dengan menggunakan Reflection maka kita bisa membuat depedency injection tersebut supaya lebih mudah.
+
+Mari kita coba membuat aplikasi **make-automatic-depedency-object** atau akan membuat object depedency secara otomatis dari object buku diatas
+
+file **Penulis.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/Penulis.php
+    :linenos:
+    :language: php
+
+file **Buku.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/Buku.php
+    :linenos:
+    :language: php
+
+file **App.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/App.php
+    :linenos:
+    :language: php
+
+file **automatic-resolution.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/automatic-resolution.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    Judul buku : Belum ada judul
+    Penulis : Seseorang
+    Alamat : Alamat Penulis
+
+Alur reflection
+````````````````````
+
+Mari kita telaah alur daripada reflection diatas dengan membuat file berikut:
+
+file **Appmodified.php**
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/Appmodified.php
+    :linenos:
+    :language: php
+
+file **automatic-resolution-modified.php** 
+
+.. literalinclude:: source-code/bukularavel_ex/1.8.reflection/automatic_resolution/automatic-resolution-modified.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    $reflector
+    ReflectionClass Object
+    (
+        [name] => Buku
+    )
+    $constructor
+    ReflectionMethod Object
+    (
+        [name] => __construct
+        [class] => Buku
+    )
+    is_null($constructor)
+    not null
+    $dependencies
+    Array
+    (
+        [0] => ReflectionParameter Object
+            (
+                [name] => judul
+            )
+
+        [1] => ReflectionParameter Object
+            (
+                [name] => penulis
+            )
+
+    )
+
+    ------------------------------------------------------
+
+    hai
+    $reflector
+    ReflectionClass Object
+    (
+        [name] => Penulis
+    )
+    $constructor
+    ReflectionMethod Object
+    (
+        [name] => __construct
+        [class] => Penulis
+    )
+    is_null($constructor)
+    not null
+    $dependencies
+    Array
+    (
+        [0] => ReflectionParameter Object
+            (
+                [name] => nama
+            )
+
+        [1] => ReflectionParameter Object
+            (
+                [name] => alamat
+            )
+
+    )
+
+    ------------------------------------------------------
+
+    hai
+
+
+============================================
+``Composer``
+============================================
+
+``Composer`` adalah tool `depedency` management untuk PHP.
+
+Dengan ``composer`` maka library yang dibutuhkan dalam suatu aplikasi dapat diisntal dengan lebih mudah tanpa harus mengunjungi situs pemberi library.
+
+Selain itu jika library tersebut memiliki `depedency` dengan library lain maka ``composer`` juga secara otomatis akan mengunduh depedency library tersebut.
+
+Untuk menggunakan library tersebut kita hanya membutuhkan keyword `use` diikuti dengan nama namespace daripada library tersebut.
+
+Library yang dapat diunduh/diinstal oleh ``composer`` tersedia pada website www.packagist.com
+
+Setiap library yang kita unduh/install akan diletakkan pada direktori "vendor", dan ``composer`` akan membuat beberapa struktur file dan direktori saat terdapat penginstalan suatu library.
+
+Instalasi ``composer``
+``````````````````````````
+
+**Empty Content**
+
+Penggunaan library ``composer``
+````````````````````````````````````
+
+Jika kita telah menginstall suatu library, maka untuk menggunakannya kita hanya perlu menggunakan keyword `use` berikut nama namespace beserta nama classnya.
+
+Sebelum menggunakan library tersebut terlebih dahulu kita harus menyertakan file ``autoloader.php`` yang berada pada direktori ``vendor/``.
+
+Selanjutnya kita dapat menggunakan library tanpa perlu mengubah namespace meski pada sub direktori yang paling dalam atau direktori terluar sekalipun.
+
+misalkan kita memiliki library ``carbon``, library ini adalah untuk penggunaan date/time function, seperti **2 minutes ago**, **3 day ago**. dll
+
+dan kita memiliki struktur berikut:
+
+.. code-block:: rst
+
+    ├── carbon
+    │   ├── composer.json
+    │   ├── composer.lock
+    │   ├── **eksekusi-utama.php**
+    │   ├── sub_dir
+    │   │   └── **eksekusi_sub_dir.php**
+    │   └── vendor
+    │       ├── autoload.php
+    │       ├── composer
+    │       │   ├── autoload_classmap.php
+    │       │   ├── autoload_namespaces.php
+    │       │   ├── autoload_psr4.php
+    │       │   ├── autoload_real.php
+    │       │   ├── ClassLoader.php
+    │       │   ├── installed.json
+    │       │   └── LICENSE
+    │       └── nesbot
+    │           └── carbon
+    │               ├── composer.json
+    │               ├── history.md
+    │               ├── LICENSE
+    │               ├── phpunit.xml.dist
+    │               ├── readme.md
+    │               ├── src
+    │               │   └── Carbon
+    │               │       └── Carbon.php
+    │               └── tests
+    │                   ├── AddTest.php
+    │                   ├── ComparisonTest.php
+    │                   ├── ConstructTest.php
+    │                   ├── CopyTest.php
+    │                   ├── CreateFromDateTest.php
+    │                   ├── CreateFromFormatTest.php
+    │                   ├── CreateFromTimestampTest.php
+    │                   ├── CreateFromTimeTest.php
+    │                   ├── CreateTest.php
+    │                   ├── DayOfWeekModifiersTest.php
+    │                   ├── DiffTest.php
+    │                   ├── FluidSettersTest.php
+    │                   ├── GettersTest.php
+    │                   ├── InstanceTest.php
+    │                   ├── IssetTest.php
+    │                   ├── IsTest.php
+    │                   ├── NowAndOtherStaticHelpersTest.php
+    │                   ├── SettersTest.php
+    │                   ├── StartEndOfTest.php
+    │                   ├── StringsTest.php
+    │                   ├── SubTest.php
+    │                   ├── TestFixture.php
+    │                   └── TestingAidsTest.php
+    └── **eksekusi-luar.php**
+
+    9 directories, 42 files
+
+    ket: tanda ``**`` adalah yang digunakan
+
+file **eksekusi-luar.php** 
+
+.. literalinclude:: source-code/bukularavel_ex/1.9.composer/eksekusi-luar.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    Kapan Indonesia Merdeka? 72 years ago
+
+file **eksekusi-utama.php** 
+
+.. literalinclude:: source-code/bukularavel_ex/1.9.composer/carbon/eksekusi-utama.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    Kapan Indonesia Merdeka? 72 years ago
+
+file **eksekusi-sub-dir.php** 
+
+.. literalinclude:: source-code/bukularavel_ex/1.9.composer/carbon/sub_dir/eksekusi_sub_dir.php
+    :linenos:
+    :language: php
+
+hasil:
+
+.. code-block:: rst
+
+    Kapan Indonesia Merdeka? 72 years ago
+

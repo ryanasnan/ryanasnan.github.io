@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Array PHP ke Array Javascript &mdash; javascript-mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="javascript-mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="jQuery proses value tiap class" href="jquery-class-each-process.html"/>
+        <link rel="prev" title="Memasukkan bahasa pemrograman lain ke dalam javascript" href="javascript-input-another-language.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> javascript-mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="javascript-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-variable.html">Javascript Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-object.html">1&nbsp;&nbsp;&nbsp;Javascript Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-function.html">1&nbsp;&nbsp;&nbsp;Javascript Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-dom.html">Javascript DOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html">Catatan Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html#apa-itu-span">apa itu span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html">JQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html#jquery-object-architecture">Jquery Object architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-selector.html">JQuery Selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-note.html">Catatan jQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-library-and-plugin.html">Javascript Library dan Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-library-and-plugin.html">jQuery Library and Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-input-another-language.html">Memasukkan bahasa pemrograman lain ke dalam javascript</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Array PHP ke Array Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-class-each-process.html">jQuery proses value tiap class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-integration-in-ie.html">1&nbsp;&nbsp;&nbsp;Integrasi Javascript di Browser Internet Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-stack-problem-fix.html">Kumpulan perbaikan masalah Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="temporary-list-record.html">Daftar Catatan Sementara</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">javascript-mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Array PHP ke Array Javascript</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/array-php-to-array-javascript.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="array-php-ke-array-javascript">
+<h1>Array PHP ke Array Javascript<a class="headerlink" href="#array-php-ke-array-javascript" title="Permalink to this headline">¶</a></h1>
+<p>misalkan akan mempassing array php ke dalam suatu element html.</p>
+<p>Jika semisal menggunakan post request tentu akan jauh lebih membahayakan data dari sisi keamanan dan kepastian.</p>
+<p>Maka dari itu dianjurkan menggunakan proses php dalam menghasilkan data array tersebut kemudian dipassing di suatu value element html (dianjurkan element textarea)</p>
+<p>Untuk dapat mengconvert dari data array php ke dalam array javascript tidaklah mudah.</p>
+<p>Butuh beberapa hal yang perlu diketahui.</p>
+<p>array javascript memiliki format dalam bentuk <code class="docutils literal"><span class="pre">['value1','value2','value1n]</span></code>.</p>
+<p>Selain itu value array javascript adalah hal yang pasti, jika terdapat tanda kurung <code class="docutils literal"><span class="pre">''</span></code> maka value tersebut akan berbentuk string(char).</p>
+<p>Ini tentu menjadi masalah tersendiri karena setiap pengambilan value/text dari element html ke dalam javascript, pasti akan diubah menjadi string.</p>
+<p>Jadi jika semisal value/text di suatu element html adalah number, namun ketika diambil dengan javascript, maka akan diubah menjadi string(char).</p>
+<p>Jika value/text tersebut berbentuk single number tentu tidak akan menjadi masalah, namun bagaimana jika dalam bentuk <strong>array</strong>.</p>
+<p>Tentu akan sangat menyulitkan dalam memecah nya dari string ke number dari bentuk array.</p>
+<p>Oleh karena itu ada tips tersendiri dalam mengconvert data array php ke dalam array javascript.</p>
+<p>Yang paling mudah adalah pastikan memiliki bungkus <code class="docutils literal"><span class="pre">[</span></code> dan <code class="docutils literal"><span class="pre">]</span></code> untuk mengapit array php yang dipass ke value/text element html.</p>
+<p>untuk melakukannya, cara paling mudah adalah mengconvert array php ke dalam json:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo json_encode($arrValue);
+</pre></div>
+</div>
+<p>selain itu pastikan bahwa data di dalamnya memiliki tipe data yang diinginkan semisal adalah number atau string.</p>
+<p>karena biasanya ketika mengambil data dalam bentuk integer dari database, data belum tentu berbentuk number.</p>
+<p>Bisa menggunakan type cast <code class="docutils literal"><span class="pre">int(`value`)</span></code>.</p>
+<p>Selanjutnya adalah mempassing ke dalam element html (dianjurkan menggunakan textarea)</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">textarea</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;view-daily-adzone&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;display:none;&quot;</span><span class="o">&gt;</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">textarea</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Setelah itu adalah mengambil data dari element dan di pass ke variable dengan javascript</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>var arrValue;
+arrValue = $(&quot;#view-daily-adzone&quot;).val();
+arrValue = JSON.parse(arrValue);
+</pre></div>
+</div>
+<p>syntax <code class="docutils literal"><span class="pre">arrValue</span> <span class="pre">=</span> <span class="pre">$(&quot;#view-daily-adzone&quot;).val();</span></code> adalah mengambil data dari element ke dalam javascript, disini biasanya meski data arraynya berisikan value integer, namun belum tantu akan menjadi integer dalam javascript, melainkan akan menjadi string atau char.</p>
+<p>oleh sebab itu dibutuhkan adanya syntax <code class="docutils literal"><span class="pre">arrValue</span> <span class="pre">=</span> <span class="pre">JSON.parse(arrValue);</span></code>.</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">Penuli baru menemukan cara dalam convert array php ke javascript yang valuenya bertipe data integer ini dengan menggunakan library jQuery, sedangkan dengan cara javascript sendiri masih belum diketahui</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="jquery-class-each-process.html" class="btn btn-neutral float-right" title="jQuery proses value tiap class" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="javascript-input-another-language.html" class="btn btn-neutral" title="Memasukkan bahasa pemrograman lain ke dalam javascript" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

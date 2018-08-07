@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Laravel Tips &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Catatan laravel" href="laravel-emergency.html"/>
+        <link rel="prev" title="Rekomendasi struktur project baru laravel" href="laravel-new-project-recommended-structure.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Laravel Tips</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parent-menu-and-sub-menu-active">Parent Menu and Sub Menu active</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#return-this-kepada-method-yang-mereturn-redirect-page-atau-load-view"><code class="docutils literal"><span class="pre">return</span> <span class="pre">this</span></code> kepada method yang mereturn <cite>redirect page</cite> atau <cite>load view</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Laravel Tips</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/laravel-tips.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="laravel-tips">
+<h1>Laravel Tips<a class="headerlink" href="#laravel-tips" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parent-menu-and-sub-menu-active">
+<h2>Parent Menu and Sub Menu active<a class="headerlink" href="#parent-menu-and-sub-menu-active" title="Permalink to this headline">¶</a></h2>
+<p>Dalam beberapa template, terdapat adanya beberapa yang dibutuhkan untuk mengetahui bahwa terdapat bagian yang aktif, seperti misalkan menu atau sub menu yang sedang aktif.</p>
+<p>Dari hal tersebut maka dibutuhkan adanya pengiriman data yang mana selanjutnya akan memberikan tambahan property seperti class misalkan.</p>
+<p>cara termudah adalah dengan memberikan adanya variabel dari controller yang akan dikirim ke view.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">return \View::make(&#39;views.views-index&#39;,[&#39;page&#39;=&gt;&#39;page-active&#39;,&#39;data&#39;=&gt;$data]);</span>
+</pre></div>
+</div>
+<p>sedangkan di view akan diproses apakah dia mendapatkan adanya data yang akan memberikan tambahan property pada suatu element(menu/sub menu)</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span>&lt;li {{ (strcmp($page,&#39;page-active&#39;)==0)? &#39;class=active&#39;:&#39;&#39;}}&gt;
+        &lt;a href=&quot;{{URL::to(&#39;route&#39;)}}&quot;&gt;
+                &lt;i class=&quot;fa fa-table&quot;&gt;&lt;/i&gt; &lt;span&gt;Menu Name&lt;/span&gt;
+        &lt;/a&gt;
+&lt;/li&gt;
+</pre></div>
+</div>
+<p>Ini juga dapat diberikan dengan sub menu.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">return \View::make(&#39;views.views-index&#39;,[&#39;page&#39;=&gt;&#39;page-active&#39;,&#39;parentpage&#39; =&gt; &#39;report-zone&#39;,&#39;data&#39;=&gt;$data]);</span>
+</pre></div>
+</div>
+<div class="highlight-html"><div class="highlight"><pre><span></span>&lt;li class=&quot;treeview {{ isset($parentpage) ? ((strcmp($parentpage,&#39;report-zone&#39;)==0) ? &#39;active&#39;:&#39;&#39;) : &#39;&#39; }}&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;
+                &lt;i class=&quot;fa fa-pie-chart&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Parent Menu Name&lt;/span&gt;
+                &lt;i class=&quot;fa fa-angle-left pull-right&quot;&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        &lt;ul class=&quot;treeview-menu&quot;&gt;
+                &lt;li {{ (strcmp($page,&#39;page-active&#39;)==0)? &#39;class=active&#39;:&#39;&#39;}}&gt;
+                        &lt;a href=&quot;{{URL::to(&#39;route&#39;)}}&quot;&gt;
+                                &lt;i class=&quot;fa fa-area-chart&quot;&gt;&lt;/i&gt; &lt;span&gt;Child Menu level 1 Name&lt;/span&gt;
+                        &lt;/a&gt;
+                &lt;/li&gt;
+        &lt;/ul&gt;
+&lt;/li&gt;
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Namun pada sub menu jauh lebih dianjurkan menggunakan array, sehingga tidak akan menjadi masalah jika memiliki tingkat yang banyak.</p>
+</div>
+</div>
+<div class="section" id="return-this-kepada-method-yang-mereturn-redirect-page-atau-load-view">
+<h2><code class="docutils literal"><span class="pre">return</span> <span class="pre">this</span></code> kepada method yang mereturn <cite>redirect page</cite> atau <cite>load view</cite><a class="headerlink" href="#return-this-kepada-method-yang-mereturn-redirect-page-atau-load-view" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Syntax ini mungkin hanya ada di laravel dan tidak berhubungan dengan hukum pada function/method secara umumnya.</p>
+</div>
+<p>Dalam suatu controller di laravel, suatu method dapat pula mengakses method lain dengan menggunakan <cite>pseudo</cite> <code class="docutils literal"><span class="pre">this</span></code>.</p>
+<p>Namun yang perlu diperhatikan disini adalah bahwa ketika mengakses method tersebut maka harus ditentukan bahwa kita hanya mengakses suatu data saja (pada method tersebut) atau juga mereturn method tersebut ke dalam method yang sekarang digunakan.</p>
+<p>Karena pada method yang mereturn <cite>redirect()</cite> atau <cite>meload view</cite>, maka untuk benar benar dapat melakukan hal tersebut method yang menjadi trigger harus mereturn nya dan bukan dengan hanya mengakses method tersebut.</p>
+<p>jika tidak maka pengaksesan <cite>redirect</cite> maupun <cite>view</cite> tidak akan dijalankan.</p>
+<p>jika semisal trigger dalam mengakses method lain tidak direturn, maka ketika method tujuan memiliki return redirect tidak akan dijalankan.</p>
+<p>misal berikut terdapat method triggerUpdate yang mana menjalankan method lain yaitu updateAction, namun tidak direturn maka yang terjadi adalah kita akan melwatinya saja dan tidak akan mengakses redirect().</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function triggerUpdate($id) {</span>
+<span class="x">    $this-&gt;updateAction($id);</span>
+<span class="x">}</span>
+
+<span class="x">public function updateAction($id) {</span>
+<span class="x">    $book = Books::findOrFail($id);</span>
+<span class="x">    $data = [</span>
+<span class="x">        &#39;isbn&#39; =&gt; &#39;123123&#39;,</span>
+<span class="x">        &#39;title&#39; =&gt; &#39;title edited&#39;,</span>
+<span class="x">        &#39;author&#39; =&gt; &#39;author edited&#39;,</span>
+<span class="x">        &#39;publisher&#39; =&gt; &#39;publisher edited&#39;,</span>
+<span class="x">        &#39;language&#39; =&gt; &#39;1&#39;</span>
+<span class="x">    ];</span>
+<span class="x">    $book-&gt;update($data);</span>
+
+<span class="x">    return redirect(&#39;books&#39;);</span>
+</pre></div>
+</div>
+<p>pada code berikut, maka method triggerUpdate akan mereturn dari pengaksesan method updateAction, dengan kata lain method triggerUpdate akan mereturn setiap kegiatan di method.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function triggerUpdate($id) {</span>
+<span class="x">    return $this-&gt;updateAction($id);</span>
+<span class="x">}</span>
+
+<span class="x">public function updateAction($id) {</span>
+<span class="x">    $book = Books::findOrFail($id);</span>
+<span class="x">    $data = [</span>
+<span class="x">        &#39;isbn&#39; =&gt; &#39;123123&#39;,</span>
+<span class="x">        &#39;title&#39; =&gt; &#39;title edited&#39;,</span>
+<span class="x">        &#39;author&#39; =&gt; &#39;author edited&#39;,</span>
+<span class="x">        &#39;publisher&#39; =&gt; &#39;publisher edited&#39;,</span>
+<span class="x">        &#39;language&#39; =&gt; &#39;1&#39;</span>
+<span class="x">    ];</span>
+<span class="x">    $book-&gt;update($data);</span>
+
+<span class="x">    return redirect(&#39;books&#39;);</span>
+</pre></div>
+</div>
+<img alt="_images/return-redirect-view-method-laravel.gif" src="_images/return-redirect-view-method-laravel.gif" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="laravel-emergency.html" class="btn btn-neutral float-right" title="Catatan laravel" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="laravel-new-project-recommended-structure.html" class="btn btn-neutral" title="Rekomendasi struktur project baru laravel" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

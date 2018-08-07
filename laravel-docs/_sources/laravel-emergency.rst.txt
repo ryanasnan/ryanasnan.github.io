@@ -1,0 +1,169 @@
+Catatan laravel
+=====================
+
+request dengan input array tidak akan bisa dideteksi::
+
+        if ($request->hasFile('image-vehicle-list')) {
+            dd($request->all());
+        }
+
+satu satunya cara adalah dengan hal tersebut
+
+
+karena ini gak bakal bisa::
+
+        if ($request->has('image-vehicle-list')) {
+            dd($request->all());
+        }
+
+tentu harus berisikan file (object file) kalau gak ya gak bisa
+
+dan juga saat pengisian saat submitt, kalau gak ada file harus ada alert
+
+aneh sekali laravel belum memiliki fitur khusus untuk check input array ini
+
+
+ataua
+
+pake count
+
+count($request->file('multi-file-upload')
+
+jadi jauh lebih aman
+
+
+
+
+
+Routing note
+=============================================
+
+=============================================
+Pembacaan route dari atas kebawah
+=============================================
+
+source
+
+    Perlu diketahui bahwa routing itu membaca dari atas ke bawah
+    dan dalam beberapa route terdapat adanya opsional parameter
+    route yang terdapat opsional parameter ini sangat membahayakan jika tidak diletakkan paling bawah
+    karena bisa saja route yang tidak memiliki opsional parameter ini malah membaca route yang memiliki opsional parameter
+    contoh
+    Route::get('/front', ['as' => 'front-page', 'uses' => 'FrontpageController@index']);
+    Route::get('/front/{id}', ['as' => 'front-page.show', 'uses' => 'FrontpageController@show']);
+    Route::get('/front/create', ['as' => 'front-page.create', 'uses' => 'FrontpageController@create']);
+
+
+    maka ketika kita mengetikan
+    'front/create' akan membaca bagian 'front/{id}' atau mengakses FrontpageController@show
+    elad akan error
+
+
+
+Laravel Script Code Structure
+=============================================
+
+=================================================
+Alias pada penggunaan class (deklarasi `use`)
+=================================================
+
+source::
+
+    Karena seperti diketahui dalam aplikasi tidak mungkin terdapat 2 class yang ssama
+    dan dalam laravel, untuk menggunakan suatu class dibutuhkan adanya syntax "use"
+
+
+    misal
+
+    use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+    class VerifyCsrfToken extends BaseVerifier
+
+    jika kita samakan tentu akan error
+
+    use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+
+    class VerifyCsrfToken extends VerifyCsrfToken
+
+    hasil
+
+    FatalErrorException in VerifyCsrfToken.php line 8:
+    Cannot declare class App\Http\Middleware\VerifyCsrfToken because the name is already in use
+    in VerifyCsrfToken.php line 8
+
+
+    selain sebagai pewarisan(extends) ini juga dapat sebagai depedency dalam parameter method
+
+    misal
+
+    <?php
+
+    namespace Illuminate\Foundation\Support\Providers;
+
+    use Illuminate\Support\ServiceProvider;
+    use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+
+    class AuthServiceProvider extends ServiceProvider
+    {
+        /**
+         * The policy mappings for the application.
+         *
+         * @var array
+         */
+        protected $policies = [];
+
+        /**
+         * Register the application's policies.
+         *
+         * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+         * @return void
+         */
+        public function registerPolicies(GateContract $gate)
+        {
+            foreach ($this->policies as $key => $value) {
+                $gate->policy($key, $value);
+            }
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function register()
+        {
+            //
+        }
+    }
+
+
+Laravel Path dan URL untuk menggunakan file
+==================================================
+Dalam Laravel terdapat 2 pilihan dalam menggunakan file yaitu ``Path`` dan ``URL``
+
+Keduanya meski sama sama akan memuat file namun berbeda dalam manipulasi file.
+
+Path digunakan untuk mencari file berdasar dari repo (``lokal``).
+
+URL digunakan untuk mencari file berdasar dari host (``repo web``)
+
+Syntax ``url()`` dan ``public_path()`` sama sama mereturn ke pada direktori yang sama yaitu direktori **public**.
+
+Namun penggunaaanya berbeda.
+
+Kalau mau memanipulasi dari path file pakai nya public_path, tapi kalau dari url pakenya url
+
+public_path itu semisal mau buka file dll, kalau cuma memberikan source seperti load css/js, atau load gambar pakenya url.
+
+tapi kalau udah manipulasi file, seperti membuka file dan lain lain (butuh source file tersebut) pakainya adalah public path
+
+
+
+Laravel token mismatch exception
+=========================================
+
+Token di laravel akan tiba tiba langsung menghilang apabila terdapat adanya pengaksesan resource yang cukup besar.
+
+Resource yang cukup besar tersebut seperti menangani upload file yang lebih besar dari 2MB atau adanya pengolahan data dengan javascript (ajax) yang mana data yang digunakan sangat banyak sekali
+
+Dalam ajax semisal adalah menggunakan library select2 untuk mendapatkan data di database, dimana data yang dilakukan sangat besar sekali.
+
+Namun penggunaan ajax dalam penghilangan token ini masih belum pasti, ada kemungkinan ini tidak akan berpengaruh pada laravel versi keatas (5.3 keatas)

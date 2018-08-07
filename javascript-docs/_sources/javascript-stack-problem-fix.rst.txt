@@ -1,0 +1,56 @@
+Kumpulan perbaikan masalah Javascript
+==========================================
+
+===================================================
+Manipulasi element yang diciptakan dari javascript
+===================================================
+
+Element DOM yang diciptakan dari javascript tidak bisa langsung dimanipulasi seperti halnya element yang telah tertulis dari awal.
+
+Membutuhkan adanya beberapa syntax agar element yang diciptakan bisa dimanipulasi.
+
+#. Build by native javascript
+
+#. Build by ajax (JQuery)
+
+	Jika semisal suatu element DOM diciptakan dengan ajax JQuery, maka untuk dapat memanipulasi element tersebut dilakukan pada property ``complete``.
+
+	Berikut contoh konkritnya 
+
+	.. code-block:: php
+
+		function ajaxInsertElement() {
+
+			var url =  ...;
+
+			$.ajax({
+				url:url,
+				type:'GET',
+				success:function(data) {
+					...
+
+					var newElement = "<element id='xxx' class='yyy'>...</element>";
+
+					$("#existed-parent-element").append(newElement);
+					
+					...
+				},
+				complete: function(){
+					console.log($("#existed-parent-element > .yyy").length);
+				}
+			});
+		}
+
+		function triggerAjaxInsertElement() {
+			ajaxInsertElement();
+
+			console.log($("#existed-parent-element > .yyy").length);
+		}
+
+		triggerAjaxInsertElement();
+
+	Manipulasi element baru dapat dilakukan pada property ``complete`` sedangkan di luar scope tersebut tidak akan bisa.
+
+	Seperti misal hasil daripada syntax ``console.log($("#existed-parent-element > .yyy").length)`` akan berbeda pada ajax atau functioni triggerAjaxInsertElement().
+
+	Pada ajax akan menghasilkan jumlah element (lebih dari 0), sedangkan pada method triggerAjaxInsertElement() akan menghasilkan 0 (tidak ada element).

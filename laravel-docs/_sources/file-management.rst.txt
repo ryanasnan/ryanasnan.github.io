@@ -1,0 +1,108 @@
+Manajemen FIle
+==========================
+
+Dalam Laravel untuk dapat menampilkan gambar (markup img)
+maka yang digunakan adalah host/public/{path_image_from_root}
+semisal "http://localhost/bl_04_05/public/images/detail_item_gak_keluar.jpg"
+
+dan bukan menggunakan path seperti "file:///C:/xamppcoll/183/htdocs/bl_04_05/public/images/detail_item_gak_keluar.jpg"
+
+maka dari itu kita akan menggunakan method url dan bukan dengan method path
+
+sekedar preview method path akan menghasilkan path dari root utama file
+dan method url akan menghasilkan url dari local dan public secara default, namun penggunaan method url ini hanya dapat diakses/dipanggil pada view, sedangkan jika diakses menggunakan method controller akan error
+
+berikut adalah cara dalam menampilkan image (dari markup img)::
+
+    <?php
+    var_dump(url());
+    echo "<br><hr>";
+    var_dump(url('/images'));
+    echo "<br><hr>";
+    var_dump(URL::to('/'));
+    echo "<br><hr>";
+    var_dump(URL::to('/images'));
+    echo "<br><hr>";
+    //var_dump(base_path());
+    ?>
+    <h1>menggunakan url</h1>
+    <img src="{{ url() }}/images/detail_item_gak_keluar.jpg">
+    <br>
+    <hr>
+    <img src="{{ url('/images') }}/detail_item_gak_keluar.jpg">
+    <br>
+    <hr>
+    <h1>menggunakan facade URL::to</h1>
+    <img src="{{ URL::to('/') }}/images/detail_item_gak_keluar.jpg">
+    <br>
+    <hr>
+    <img src="{{ URL::to('/images') }}/detail_item_gak_keluar.jpg">
+
+
+Path dan URL
+===========================
+
+Path adalah lokasi path suatu komponen
+misal::
+
+    "file:///C:/xamppcoll/183/htdocs/bl_04_05/public/images/detail_item_gak_keluar.jpg"
+
+url adalah alamt url dalam mengakses suatu komponen
+misal::
+
+    "http://localhost/bl_04_05/public/images/detail_item_gak_keluar.jpg"
+
+path dan url ini digunakan pada tujuan yang berbeda
+semisal untuk melakukan upload maka kita akan menggunakan path dalam menaruh file
+sedangkan untuk mengakses file seperti menampilkan gambar maka kita akan menggunakan url
+
+berikut adalah preview mengenai keduanya::
+
+    ->path
+    var_dump(public_path());
+    echo "<br><hr>";
+    var_dump(app_path());
+    echo "<br><hr>";
+    var_dump(base_path());
+    echo "<br><hr>";
+    var_dump(config_path());
+    echo "<br><hr>";
+    var_dump(database_path());
+    echo "<br><hr>";
+    var_dump(public_path());
+    echo "<br><hr>";
+    var_dump(storage_path());
+    echo "<br><hr>";
+    //akan error
+    //var_dump(URL::to('/'));
+
+    /*HASIL
+    */
+    string(39) "C:\xamppcoll\183\htdocs\bl_04_05\public"
+    string(36) "C:\xamppcoll\183\htdocs\bl_04_05\app"
+    string(32) "C:\xamppcoll\183\htdocs\bl_04_05"
+    string(39) "C:\xamppcoll\183\htdocs\bl_04_05\config"
+    string(41) "C:\xamppcoll\183\htdocs\bl_04_05\database"
+    string(39) "C:\xamppcoll\183\htdocs\bl_04_05\public"
+    string(40) "C:\xamppcoll\183\htdocs\bl_04_05\storage"
+
+    ->url (url dalam laravel hanya dapat diakses pada view, jika diberikan pada method controller akan error)
+    <?php
+    var_dump(url());
+    echo "<br><hr>";
+    var_dump(url('/images'));
+    echo "<br><hr>";
+    var_dump(URL::to('/'));
+    echo "<br><hr>";
+    var_dump(URL::to('/images'));
+    echo "<br><hr>";
+    //akan menghasilkan string(32) "C:\xamppcoll\183\htdocs\bl_04_05"
+    //var_dump(base_path());
+    ?>
+
+    /*HASIL
+    */
+    string(32) "http://localhost/bl_04_05/public"
+    string(39) "http://localhost/bl_04_05/public/images"
+    string(32) "http://localhost/bl_04_05/public"
+    string(39) "http://localhost/bl_04_05/public/images"

@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Catatan laravel &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Timezone Laravel" href="timezone-laravel.html"/>
+        <link rel="prev" title="Laravel Tips" href="laravel-tips.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#routing-note">Routing note</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pembacaan-route-dari-atas-kebawah">Pembacaan route dari atas kebawah</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#laravel-script-code-structure">Laravel Script Code Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#alias-pada-penggunaan-class-deklarasi-use">Alias pada penggunaan class (deklarasi <cite>use</cite>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Catatan laravel</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/laravel-emergency.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="catatan-laravel">
+<h1>Catatan laravel<a class="headerlink" href="#catatan-laravel" title="Permalink to this headline">¶</a></h1>
+<p>request dengan input array tidak akan bisa dideteksi:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>if ($request-&gt;hasFile(&#39;image-vehicle-list&#39;)) {
+    dd($request-&gt;all());
+}
+</pre></div>
+</div>
+<p>satu satunya cara adalah dengan hal tersebut</p>
+<p>karena ini gak bakal bisa:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>if ($request-&gt;has(&#39;image-vehicle-list&#39;)) {
+    dd($request-&gt;all());
+}
+</pre></div>
+</div>
+<p>tentu harus berisikan file (object file) kalau gak ya gak bisa</p>
+<p>dan juga saat pengisian saat submitt, kalau gak ada file harus ada alert</p>
+<p>aneh sekali laravel belum memiliki fitur khusus untuk check input array ini</p>
+<p>ataua</p>
+<p>pake count</p>
+<p>count($request-&gt;file(‘multi-file-upload’)</p>
+<p>jadi jauh lebih aman</p>
+</div>
+<div class="section" id="routing-note">
+<h1>Routing note<a class="headerlink" href="#routing-note" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pembacaan-route-dari-atas-kebawah">
+<h2>Pembacaan route dari atas kebawah<a class="headerlink" href="#pembacaan-route-dari-atas-kebawah" title="Permalink to this headline">¶</a></h2>
+<p>source</p>
+<blockquote>
+<div><p>Perlu diketahui bahwa routing itu membaca dari atas ke bawah
+dan dalam beberapa route terdapat adanya opsional parameter
+route yang terdapat opsional parameter ini sangat membahayakan jika tidak diletakkan paling bawah
+karena bisa saja route yang tidak memiliki opsional parameter ini malah membaca route yang memiliki opsional parameter
+contoh
+Route::get(‘/front’, [‘as’ =&gt; ‘front-page’, ‘uses’ =&gt; ‘FrontpageController&#64;index’]);
+Route::get(‘/front/{id}’, [‘as’ =&gt; ‘front-page.show’, ‘uses’ =&gt; ‘FrontpageController&#64;show’]);
+Route::get(‘/front/create’, [‘as’ =&gt; ‘front-page.create’, ‘uses’ =&gt; ‘FrontpageController&#64;create’]);</p>
+<p>maka ketika kita mengetikan
+‘front/create’ akan membaca bagian ‘front/{id}’ atau mengakses <a class="reference external" href="mailto:FrontpageController&#37;&#52;&#48;show">FrontpageController<span>&#64;</span>show</a>
+elad akan error</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="laravel-script-code-structure">
+<h1>Laravel Script Code Structure<a class="headerlink" href="#laravel-script-code-structure" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="alias-pada-penggunaan-class-deklarasi-use">
+<h2>Alias pada penggunaan class (deklarasi <cite>use</cite>)<a class="headerlink" href="#alias-pada-penggunaan-class-deklarasi-use" title="Permalink to this headline">¶</a></h2>
+<p>source:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Karena seperti diketahui dalam aplikasi tidak mungkin terdapat 2 class yang ssama
+dan dalam laravel, untuk menggunakan suatu class dibutuhkan adanya syntax &quot;use&quot;
+
+
+misal
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+class VerifyCsrfToken extends BaseVerifier
+
+jika kita samakan tentu akan error
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+
+class VerifyCsrfToken extends VerifyCsrfToken
+
+hasil
+
+FatalErrorException in VerifyCsrfToken.php line 8:
+Cannot declare class App\Http\Middleware\VerifyCsrfToken because the name is already in use
+in VerifyCsrfToken.php line 8
+
+
+selain sebagai pewarisan(extends) ini juga dapat sebagai depedency dalam parameter method
+
+misal
+
+&lt;?php
+
+namespace Illuminate\Foundation\Support\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [];
+
+    /**
+     * Register the application&#39;s policies.
+     *
+     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * @return void
+     */
+    public function registerPolicies(GateContract $gate)
+    {
+        foreach ($this-&gt;policies as $key =&gt; $value) {
+            $gate-&gt;policy($key, $value);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function register()
+    {
+        //
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="laravel-path-dan-url-untuk-menggunakan-file">
+<h1>Laravel Path dan URL untuk menggunakan file<a class="headerlink" href="#laravel-path-dan-url-untuk-menggunakan-file" title="Permalink to this headline">¶</a></h1>
+<p>Dalam Laravel terdapat 2 pilihan dalam menggunakan file yaitu <code class="docutils literal"><span class="pre">Path</span></code> dan <code class="docutils literal"><span class="pre">URL</span></code></p>
+<p>Keduanya meski sama sama akan memuat file namun berbeda dalam manipulasi file.</p>
+<p>Path digunakan untuk mencari file berdasar dari repo (<code class="docutils literal"><span class="pre">lokal</span></code>).</p>
+<p>URL digunakan untuk mencari file berdasar dari host (<code class="docutils literal"><span class="pre">repo</span> <span class="pre">web</span></code>)</p>
+<p>Syntax <code class="docutils literal"><span class="pre">url()</span></code> dan <code class="docutils literal"><span class="pre">public_path()</span></code> sama sama mereturn ke pada direktori yang sama yaitu direktori <strong>public</strong>.</p>
+<p>Namun penggunaaanya berbeda.</p>
+<p>Kalau mau memanipulasi dari path file pakai nya public_path, tapi kalau dari url pakenya url</p>
+<p>public_path itu semisal mau buka file dll, kalau cuma memberikan source seperti load css/js, atau load gambar pakenya url.</p>
+<p>tapi kalau udah manipulasi file, seperti membuka file dan lain lain (butuh source file tersebut) pakainya adalah public path</p>
+</div>
+<div class="section" id="laravel-token-mismatch-exception">
+<h1>Laravel token mismatch exception<a class="headerlink" href="#laravel-token-mismatch-exception" title="Permalink to this headline">¶</a></h1>
+<p>Token di laravel akan tiba tiba langsung menghilang apabila terdapat adanya pengaksesan resource yang cukup besar.</p>
+<p>Resource yang cukup besar tersebut seperti menangani upload file yang lebih besar dari 2MB atau adanya pengolahan data dengan javascript (ajax) yang mana data yang digunakan sangat banyak sekali</p>
+<p>Dalam ajax semisal adalah menggunakan library select2 untuk mendapatkan data di database, dimana data yang dilakukan sangat besar sekali.</p>
+<p>Namun penggunaan ajax dalam penghilangan token ini masih belum pasti, ada kemungkinan ini tidak akan berpengaruh pada laravel versi keatas (5.3 keatas)</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="timezone-laravel.html" class="btn btn-neutral float-right" title="Timezone Laravel" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="laravel-tips.html" class="btn btn-neutral" title="Laravel Tips" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

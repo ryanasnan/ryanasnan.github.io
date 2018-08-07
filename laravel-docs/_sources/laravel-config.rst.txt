@@ -1,0 +1,52 @@
+Konfigurasi Laravel
+====================================================
+
+====================================================
+Apache config untuk laravel
+====================================================
+
+laravel notes
+
+buka file di `/etc/apache2/apache2.conf`
+
+Kemudian tambahkan konfigurasi untuk mmeperbolehkan apache mengakses repo laravel 
+
+code::
+
+    <Directory "/var/www/html/laravelex51/public">
+    Allowoverride All
+    </Directory>
+
+Kemudian restart apache
+
+====================================================
+Permission dan Owner
+====================================================
+
+Permission
+---------------------------------------------------
+
+Laravel tidak dapat dijalankan dengan permission 755, tetapi degan 775
+
+.. code-block:: rst
+
+    sudo chmod -R 775 <laravel-dir>
+
+Owner
+---------------------------------------------------
+
+Laravel membutuhkan owner dengan namaserver : www-data dan user user itu sendiri 
+
+.. code-block:: rst
+
+    sudo chown -R www-data:<user> <laravel-dir>
+
+
+error ``compiled.php``
+====================================================
+
+php artisan clear-compiled
+
+ini akan menghapus file bootstrap/cache/compiled.php dan services.json
+
+

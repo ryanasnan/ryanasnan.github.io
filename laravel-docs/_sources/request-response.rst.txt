@@ -1,0 +1,36 @@
+Request dan Response di Laravel
+=================================
+
+=================================
+Token post request
+=================================
+
+Dalam setiap post request (termasuk put, patch, delete dan request lain selain get) dibutuhkan adanya token (value token) dari laravel untuk dapat mengakses suatu route.
+
+Jika tidak terdapat token maka tidak akan dapat mengakses route tersebut.
+
+laravel telah menyediakan method khusus dalam memberikan element berisikan token dan value::
+
+	<form method="POST" action="/profile">
+	    {{ csrf_field() }}
+	    ...
+	</form>
+
+lantas bagaimana jika yang akan di request adalah ajax(javascript) karena tidak mungkin akan terdapat adanya pembuatan form dan segalanya.
+
+dalam hal ini maka dibutuhkan adanya penambahan property (``_token``) yang berisikan value dalam pengiriman ajax tersebut 
+
+.. code-block:: html
+
+	var url-route = "{{URL::to('urlRequest')}}"
+
+	$.ajax({
+		method: "POST",
+		url: url-route,
+		data: {
+			id: dataid, 
+			"_token": token
+		}
+	});
+
+

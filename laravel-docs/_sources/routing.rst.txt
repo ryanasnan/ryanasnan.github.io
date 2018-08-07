@@ -1,0 +1,470 @@
+Routing di Laravel
+=============================
+
+=============================
+HTTP Verb
+=============================
+
+**Http Verb** adalah semacam aksi dari request yang diberikan.
+
+Suatu website sebenarnya tidak hanya berkutat dengan hal-hal sederhana seperti `alamat url`.
+
+Lebih dari itu suatu website sebenarnya memiliki cakupan yang luas dalam menjalankannya, namun hanya karena seringnya menjalankan komponen yang itu itu saja, membuat beberapa user menganggap bahwa komponen website itu sedikit.
+
+Seperti misalkan ``HTTP verb``, yaitu suatu pengaksesan/pemrosesan resource berdasarkan request yang diberikan, request ini tentu diberikan (trigger) oleh user yang selanjutnya diproses oleh server.
+
+Resource sendiri dapat diartikan sebagai data yang akan digunakan.
+
+Atau dapat pula diartikan, resource adalah sesuatu yang diproses/diolah, jadi apapun itu yang berlalu lalang dalam proses website disebut sebagai resource(kita menerima resource, mengolah dan mengirimkannya lagi ke bagian lain, dan bagian lain akan melakukan hal yang sama sampai pada output/hasil).
+
+Contohnya adalah ketika kita melakukan create, read, update, delete, kesemuanya merupakan resource yang saat itu juga sedang diakses oleh website.
+
+Untuk dapat mengakses website itu sendiri juga dibutuhkan adanya manajemen dalam jalur pengaksesan, karena dalam website saat akan mengakses suatu resource semua tergantung dari request yang diberikan.
+
+verb ini lah yang akan menentukan jalur mana yang akan mengakses resource tersebut.
+
+----------------------------------------------------------------------------------------------------
+
+Secara umum ketika kita akan membuka/mengakses sesuatu pada website(dalam kasus ini disebut sebagai mengakses resource) maka kita mengetikkan alamat address tersebut.
+
+Namun kita tidak bisa menggambarkan secara sederhana bahwa suatu website hanya menjalankan proses dari alamat(dalam kasus verb disebut get), malainkan kita juga melakukan / memproses hal lain dari request yang ada.
+
+Misalkan ketika kita akan mengubah data pada database, kita mengambil data itu kemudian memprosesnya sampai data itu bisa berubah di database, tentu semua bahan dari pemrosesan itu disebut sebagai resource.
+
+Nah resource ini sendiri sebenarnya diakses sebelumnya melalui request yang akan menentukan jalur pemrosesannya, dan jalur ini tidak hanya berkutat pada satu jalur namun beberapa jalur.
+
+Jalur inilah yang disebut dengan HTTP verb.
+
+Terdapat 5 jenis verb pada http, yaitu ``get``, ``post``, ``patch``, ``put``, dan ``delete``.
+
+Ketika kita mengetikkan alamat pada address bar maka kita mengakses verb **get** dengan nama yang sama yang ditentukan dari URI(bukan URL).
+
+Kemudian bagaimana dengan verb yang lain, ternyata semuanya bisa saja memiliki URI yang sama, namun dengan pembagian verb ini kita bisa memberikan jalur yang berbeda-beda.
+
+HTTP memberikan perbedaan request untuk mempermudah jika misalkan kita mengakses dengan alamat URI yang sama.
+
+Berikut adalah rincian lengkap daripada HTTP verb :
+
+1. GET : Digunakan untuk meminta resource dari server.
+2. POST : Digunakan untuk menyimpan resource ke server.
+3. PUT : Digunakan untuk melakukan update resource di server.
+4. PATCH : Digunakan untuk melakukan update resource di server.
+5. DELETE : Digunakan untuk menghapus resource di server.
+
+PUT dan PATCH sering digunakan untuk hal yang sama (meng-update).
+
+Perbedaan keduanya, secara teoritis PUT bekerja dengan menimpa (replace) resource dengan resource yang baru.
+
+Sementara PATCH digunakan untuk meng-update sebagian field dari resource.
+
+Namun biasanya verb PUT adalah yang paling sering digunakan .
+
+Dalam laravel kita akan membuat routing beserta dengan verb sehingga resource yang akan diproses difilter melalui request verb nya, berikut adalah penulisannya.
+
+Route::get('URI',action);
+Route::post('URI',action);
+Route::put('URI',action);
+Route::patch('URI',action);
+Route::delete('URI',action);
+
+secara default ketika kita hanya mengetikkan alamat pada address bar maka kita akan menggunakan verb 'get'
+
+Misal kita akan mengakses request get dengan uri ``kontak``
+
+file **app/Http/Routes.php**::
+
+    Route::get('/kontak', function() {
+
+    return 'ini halaman kontak';
+
+    });
+
+.. image:: images/gambar/4.1.verbhttp.jpg
+
+
+Seperti yang diketahui bahwa method ``get`` akan membaca resource, resource yang digunakan adalah daripada isisan website, tersebut berbeda dengan verb lain yang harus mengirimkan resourcenya untuk nantinya diolah.
+
+Kemudian bagaimana dengan verb lain digunakan???
+
+Untuk mudahnya mari kita membahas tentang verb ``post``.
+
+Request ini akan dijalankan begitu adanya request post, caranya adalah kita bisa memasukkan resource dari suatu form yaitu dengan menambahkan atribut method post.
+
+file **app/Http/Routes**
+
+    Route::get('/aksesform', 'ContohController@halamanForm');
+
+    Route::post('/aksesform', 'ContohController@aksesResource');
+
+file **app/Http/Controllers/ContohController**
+
+.. code-block:: php
+
+    <?php namespace App\Http\Controllers;
+     
+    use App\Http\Requests;
+    use App\Http\Controllers\Controller;
+     
+    use Illuminate\Http\Request;
+     
+    class ContohController extends Controller {
+     
+        public function halamanForm() {
+            return view('form');
+        }
+         
+        public function aksesResource() {
+            $str = '';
+            if(isset($_REQUEST['input']))
+            {
+                $str = ', terdapat request yaitu ='.$_REQUEST['input'];
+            }
+            return "mengakses resource dari form $str";
+        }
+    }
+
+file **app/Http/Routes**
+
+.. code-block:: php
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title></title>
+        </head>
+        <body>
+            <form method="POST" action="{{ url('aksesform') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="text" name="input">
+                <input type="submit">
+            </form>
+        </body>
+    </html>
+
+
+.. image:: images/gambar/4.1.1.getpost.jpg
+
+.. image:: images/gambar/4.1.1.getpost2.jpg
+
+Kemudian bagaimana kita dapat mengakses dengan verb selain ``get`` dan ``post``, seperti ``put``, ``patch``, dan ``delete``???
+
+Satu satunya cara adalah dengan menggunakan method ``spoofing``, yaitu menggunakan form dengan menambahkan element yang bernama key ``_method`` dan bervalue verbnya, namun ini masih menggunakan method ``post``.
+
+Untuk mendapatkan hasilnya kita akan menggunakan add on `apps` **Postman** di Chrome.
+
+file **app/Http/Routes.php**
+
+.. code-block:: rst
+
+    Route::get('testget', function() {
+
+    return "menggunakan verb get";
+
+    });
+
+    Route::post('testpost', function() {
+
+    return "menggunakan verb post";
+
+    });
+
+    Route::put('testput', function() {
+
+    return "menggunakan verb put";
+
+    });
+
+    Route::patch('testpatch', function() {
+
+    return "menggunakan verb patch";
+
+    });
+
+    Route::delete('testdelete', function() {
+
+    return "menggunakan verb delete";
+
+    });
+
+
+.. image:: images/gambar/4.1.2.getverb.jpg
+
+.. image:: images/gambar/4.1.3.postverb.jpg
+
+.. image:: images/gambar/4.1.4.putverb.jpg
+
+.. image:: images/gambar/4.1.5.patchverb.jpg
+
+.. image:: images/gambar/4.1.6.deleteverb.jpg
+
+
+.. note::
+
+    Error akan terjadi ketika kita megakses verb dengan bukan requestnya ,semisal mengakses verb post dengan method get.
+
+.. image:: images/gambar/4.1.7.wrongverb.jpg
+
+.. image:: images/gambar/4.1.8.wrongverb.jpg
+
+Mengakses verb lebih dari satu pada satu route
+``````````````````````````````````````````````````````
+
+Pada contoh diatas kita mengakses satu verb dalam satu route, sebenarnya bisa saja dalam beberapa verb diakses dengan satu route, namun cara ini cukup jarang digunakan.
+
+caranya dengan menggunakan ``match`` dan ``any`` route, yang mana ketika terdapat verb tertentu akan tetap dapat diakses.
+
+``````````````````````````````````````````````````````
+Mengakses beberapa verb (match)
+``````````````````````````````````````````````````````
+
+kita bisa mengakses beberapa verb ke dalam satu route dengan menggunakan 'match', misalkan get dan post.
+
+file **app/Http/Routes.php**
+
+.. code-block:: rst
+
+    Route::match(['get', 'post'],'testmatchverb', function() {
+        $html = '<h1>halaman kontak</h1>';
+        $html .= 'Anda mengakses dengan method ' . Request::method();
+        if (isset($_REQUEST['pesan'])) {
+            $html .= '<br>Anda mengirim pesan ' . $_REQUEST['pesan'];
+        }
+        return $html;
+    });
+
+
+.. image:: images/gambar/4.1.9.testmatchverb1.jpg
+
+.. image:: images/gambar/4.1.10.testmatchverb2.jpg
+
+mengakses semua verb (any)
+
+file **app/Http/Routes.php**
+
+.. code-block:: rst
+
+    Route::any('testanyverb', function() {
+        $html = '<h1>halaman kontak</h1>';
+        $html .= 'Anda mengakses dengan method ' . Request::method();
+        return $html;
+    });
+
+.. image:: images/gambar/4.1.11.anyverbget.jpg
+
+.. image:: images/gambar/4.1.12.anyverbpost.jpg
+
+.. image:: images/gambar/4.1.13.anyverbput.jpg
+
+.. image:: images/gambar/4.1.14.anyverbpatch.jpg
+
+.. image:: images/gambar/4.1.15.anyverbdelete.jpg
+
+
+.. note::
+
+    Pada verb ``PUT``, ``PATCH`` dan ``DELETE`` kita dapat juga memberikan adanya key seperti hal nya pada verb post.
+
+    misal::
+
+        Route::put('testput', function() {
+            $html = '<h1>halaman kontak</h1>';
+            $html .= 'Anda mengakses dengan method ' . Request::method();
+            if (isset($_REQUEST['pesan'])) {
+                $html .= '<br>Anda mengirim pesan ' . $_REQUEST['pesan'];
+            }
+            return $html;
+        });
+
+=============================
+Parameter dalam routing
+=============================
+
+Dalam php native biasanya kita dapat mengakses input dari user dengan parameter url, seperti ``/welcome?nama=ryan``.
+
+Dalam laravel hal tersebut dapat pula dilakukan, namun caranya agak berbeda.
+
+Parameter dalam laravel diakses dengan URI dan bukan dengan tanda tanya(?).
+
+Untuk mengakses parameter tersebut kita harus manambahkan uri dengan ditutup dengan tanda kurung kurawa,seperti ``{key}`` , kemudian parameter tersebut juga dipassong(dibua parameter) ke dalam closure(anonymous function) ataupun dengan method yang ada pada controller(jika menggunakan controller terntunya).
+
+file **app/Http/Routes.php**
+
+.. code-block:: php
+
+    Route::get('parameterurl/{param}', function ($param) {
+    return "parameter dalam URL ini adalah = ".$param;
+    });
+
+
+    Route::get('multiparameterurl/{param1}/{param2}', function($param1, $param2){
+    return "parameter pertama adalah = ".$param1." dan parameter kedua adalah = ".$param2;
+    });
+
+
+.. image:: images/gambar/4.2.1.parameterurl.jpg
+
+.. image:: images/gambar/4.2.2.parameterurl2.jpg
+
+.. note::
+
+    parameter dalam route nantinya akan diakses dengan passing daripada parameter closure, namun perlu diketahui bahwa setiap parameter closure akan di-assign dengan urutan pada parameter route, atau penempatan passing parameter closure berdasarkan letak URI
+
+misalkan route multiparameter diatas kita ubah menjadi::
+
+    Route::get('multiparameterurl/{param1}/{param2}', function($param2,$param1){
+        return "parameter pertama adalah = ".$param1." dan parameter kedua adalah = ".$param2;
+    });
+
+.. image:: images/gambar/4.2.3.parameterurl3.jpg
+
+Selain itu meskipun antara parameter URI dengan nama variabelnya berbeda ini juga masih dapat diakses , misalkan::
+
+    Route::get('multiparameterurl/{parm1}/{pram2}', function($aram2,$para1){
+        return "parameter pertama adalah = ".$para1." dan parameter kedua adalah = ".$aram2;
+    });
+
+.. image:: images/gambar/4.2.3.parameterurl3.jpg
+
+parameter ini biasanya akan diakses pada method controller(dipassing ke dalam parameter method)::
+
+    Route::get('parameterpadaurl/{param21}/{param12}', 'TestparamController@aksesparamurl');
+
+dalam controller TestparamController::
+
+    public function aksesparamurl($param1, $param2) {
+        return "parameter pertama adalah = ".$param1." dan parameter kedua adalah = ".$param2;
+    }
+
+.. image:: images/gambar/4.2.4.parameterurlpadacontroller.jpg
+
+Regex parameter
+``````````````````````````
+
+Kita bisa membatasi input yang akan masuk ke dalam parameter url dengan memberikan method ``where`` setelah mengakses method 'namaverb'(misal ``get``).
+
+Misalkan input yang diberikan harus huruf(besar mauoun kecil) dan bukan angka.
+
+.. code-block:: rst
+
+    Route::get('regexparameter/{nama}', function($nama) {
+        return "nama = ".$nama;
+    })->where('nama', '[A-Za-z]+');
+
+.. image:: images/gambar/4.3.1.regexparameter1.jpg
+
+.. image:: images/gambar/4.3.2.regexparameter2.jpg
+
+
+Global pattern
+````````````````````````
+
+Global pattern merupakan regex parameter yang digunakan secara global.
+
+Caranya dengan menggunakan syntax ``Route::pattern('parameterurl','regexfilter');`` dan syntax ini dituliskan pada baris paling awal(baris 2 setelah tag <?php)
+
+Global pattern ini akan digunakan pada setiap route.
+
+Contoh file **app/Http/Routes.php**
+
+.. code-block:: php
+
+    <?php
+    Route::pattern('nama', '[A-Za-z]+');
+
+    Route::get('regexparameter/{nama}', function($nama) {
+    return "nama = ".$nama;
+    });
+
+.. image:: images/gambar/4.3.1.regexparameter1.jpg
+
+.. image:: images/gambar/4.3.2.regexparameter2.jpg
+
+
+Optional Parameter
+````````````````````````
+
+``Opsional parameter`` adalah parameter yang diberikan default value, sehingga apabila kita tidak memberikan parameternya di url maka kita akan menggunakan default valuennya.
+
+Sebagai tambahan jika dalam route kite memberikannya adanya parameter namun dalam URL tidak kita berikan maka hasilnya akan error.
+
+Kita akan memberikan default value pada parameter closure.
+
+file **app/Http/routes.php**
+
+    Route::get('nodefaultvalueparameter/{name}', function($name) {
+    return "nama = ".$name;
+    });
+
+    Route::get('withdefaultvalueparameter/{name?}', function($name = 'ryan') {
+    return "nama = ".$name;
+    });
+
+.. image:: images/gambar/4.4.1.nodefultvalue.jpg
+
+Named Route
+````````````````````
+
+Setiap route dapat diberikan dengan nama.
+
+Tujuannya selain mudah untuk menggunakan route adalah ketika terjadi perubahan dalam nama url(url route)nya maka masih bisa digunakan.
+
+Untuk dapat memberikan nama pada route caranya adalah menganti parameter kedua dari method 'namaverb' (misal 'get').
+
+Kita dapat mengecek nama route dengan ``php artisan route:list`` di command prompt.
+
+Untuk menggunakan route tersebut, semisal untuk pindah halaman , dapat menggunakan method 'route(namaroute)',misal::
+
+    echo 'Kunjungi <a href="'.route('home.welcome').'">Halaman Welcome</a>';
+
+Contoh::
+
+    Route::get('routedengannama', ['as' => 'root', function() {
+        return "route dengan nama";
+    }]);
+
+.. image:: images/gambar/4.5.namedroute.jpg
+
+Route Groups
+``````````````````
+
+Dalam laravel kita dapat mengelompokkan route dengan ``route group``.
+
+Dalam pengelompokkan ini kita juga dapat menambahkan beberapa hal seperti:
+
+1.Prefix
+
+2.Middleware
+
+3.Namespace
+
+4.Sub domain
+
+Dalam bafgian ini hanya akan dijelaskan pada bagian prefix, untuk yang lainnya akan dijelaskan pada materi lain.
+
+Untuk sub domain tidak akan dijelaskan dikarenakan membutuhkan konfigurasi internal hosts, dan tidak setiap komputer/laptop dapat menjalankannya.
+
+Kita mulai dari prefix, dengan prefix kita akan menambahkan prefix/awalam berupa URI sebelum mengakses route di dalamnya.
+
+file **app/Http/routes.php**
+
+.. code-block:: php
+
+    Route::group(['prefix'=>'dashboard'], function() {
+        Route::get('settings', function() {
+            return 'halaman dashboard > settings';
+        });
+
+        Route::get('profile', function() {
+            return 'halaman dashboard > profile';
+        });
+
+        Route::get('inbox', function() {
+            return 'halaman dashboard > inbox';
+        });
+    });
+
+.. image:: images/gambar/4.6.prefixroute1.jpg
+
+.. image:: images/gambar/4.6.2.prefixroute2.jpg
+
+.. image:: images/gambar/4.6.3.prefixroute3.jpg

@@ -1,0 +1,92 @@
+Artisan Console (CLI laravel)
+===============================
+
+Artisan adalah salah satu ``command-line interface`` yang diikutkan ke dalam paket laravel.
+
+Di dalamnya terdapat beberapa command default yang dapat digunakan untuk `pengembangan` aplikasi secara lebih mudah.
+
+seperti misalkan **tinker**, **migrate**, **serve**, dan lain-lain.
+
+Command di laravel (console) juga dapat ditambahkan secara manual.
+
+Command untuk ``generate`` console di laravel::
+
+	php artisan make:console [name-class-of-console]
+
+Setelahnya akan terdapat file baru di ``app/Console/Command/``
+
+Terdapat 3 bagian utama dalam class ini, yaitu **signature**, **description**, dan **handle**.
+
+property **signature** adalah nama command yang akan diberikan untuk mengeksekusi console.
+
+misal::
+
+	protected $signature = 'move:data';
+
+property **description** adalah untuk mendeskripsikan command laravel (opsional)
+
+method **handle** adalah method yang akan dieksekusi saat command dijalankan.
+
+Command dalam laravel juga dapat menggunakan parameter pada saat eksekusi command.
+
+Parameter ini dituliskan di property ``signature``, kemudian akan dipassing ke dalam method handle sebagai **argument**
+
+misal::
+
+	protected $signature = 'move:data {param1} {param2}';
+
+	...
+
+	public function handle() {
+		$param1 = $this->argument('param1');
+		$param2 = $this->argument('param2');
+	}
+
+Selanjutnya agar command tersebut dijalankan maka harus di pass ke dalam property **command** pada file ``app\Console\Kernel.php`` dengan nama class dari command tersebut.
+
+misal::
+
+	Commands\[name-of-class]::class,
+
+
+Contoh penggunaan command laravel dalam export import database mysql
+==========================================================================
+
+file ``app\Command\Console\ExportImportDb.php``
+
+.. literalinclude:: source-code/ExportImportDb.php
+	:language: php
+	:emphasize-lines: 12,15-18
+	:linenos:
+
+file ``.env``
+
+.. literalinclude:: source-code/.env
+	:linenos:
+
+
+.. hint::
+
+	DB_CONNECTION => koneksi database
+
+	DB_HOST => host 
+
+	DB_USERNAME => database username
+
+	DB_PASSWORD => database password
+
+	DB_STORE_PATH => direktori untuk penyimpanan sementara file sql
+
+
+tambahkan command di file ``app\Console\Kernel.php``
+
+code::
+
+    protected $commands = [
+    	...
+        Commands\ExportImportDb::class,
+    ];
+
+Penggunaan console::
+
+	php artisan copy-db [nama-database-yang-akan-dicopy] [nama-database-tujuan]

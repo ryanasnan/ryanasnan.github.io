@@ -1,0 +1,260 @@
+JQuery Selector
+=================
+
+Jquery telah menyediakan cara untuk memilih suatu element DOM berdasarkan dari selector-nya.
+
+Jika dikelompokkan maka akan terdapat 4 tipe selector yang digunakan yaitu common selector, select by position of element, select by element attribute, input selector.
+
+Tabel dari masing masing selector dan reference nya.
+
+**Common Selector**
+
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| name_selector                                  | selector                              | example          | explain                                                                                                                |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`all-element`                             | *                                     | $("*")           | Menyeleksi semua element pada html                                                                                     |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`select-by-identifier`                    | #id                                   | $("#identifier") | Menyeleksi element yang memiliki id="identifier"                                                                       |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`select-by-class`                         | .class                                | $(".class")      | Menyeleksi element yang memiliki class="class"                                                                         |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`select-by-element`                       | name-of-element                       | $("p")           | Menyeleksi element <p>                                                                                                 |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`multi-element-selection`                 | selector1, selector2, ... , selectorn | $("h1,div,p")    | Menyeleksi element <h1>, <div> dan <p>                                                                                 |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`direct-element-selection`                | selector-parent > selector-child      | $("div > p")     | Menyeleksi element <p> yang mana memiliki parent dalam satu level berupa element <div>                                 |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`parent-descendant`                       | selector1 selector 2                  | $("div p")       | Menyeleksi element <p> yang mana memiliki parent dalam beberapa level berupa element <div>                             |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`next-element-selection`                  | selector1 + selector-next             | $("div + p")     | Menyeleksi element <p> yang berada setelah elament <div>                                                               |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`element-sibling`                         | selector1 ~ selector-sibling          | $("div ~ p")     | Menyeleksi element <p> yang berada pada level yang sama dengan element <div> dan berada setelah element <div> tersebut |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+| :ref:`multiple-attribute-selector-one-element` | selector1selector 2                   | $("div.class")   | Menyeleksi element <div> yang memiliki class=class                                                                     |
++------------------------------------------------+---------------------------------------+------------------+------------------------------------------------------------------------------------------------------------------------+
+
+**Select By Position of Element**
+
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| name_selector                    | selector             | example                    | explain                                                                                                                                                                                                                                             |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`position-element`          | :first               | $("p:first")               | Menyeleksi element <p> pertama (awal)                                                                                                                                                                                                               |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`position-element`          | :last                | $("p:last")                | Menyeleksi element <p> terakhir                                                                                                                                                                                                                     |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`position-element`          | :even                | $("tr:even")               | Menyeleksi element <tr> yang berindex genap (0,2,4), namun jika dilihat seperti ganjil (dimulai dari element awal atau pertama) ini dikarenakan index element selalu dimulai dari 0                                                                 |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`position-element`          | :odd                 | $("tr:odd")                | Menyeleksi element <tr> yang berindex ganjil (1,3,5), namun jika dilihat seperti genap (dimulai dari element kedua) ini dikarenakan index element selalu dimulai dari index 0                                                                       |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :first-child         | $("p:first-child")         | Menyeleksi element <p> yang berada di index awal (0) pada tiap terdapat adanya element parent, namun jika pada awal element child adalah selain <p>, maka ketika setelahnya terdapat element <p> tetap tidak akan terseleksi                        |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :first-of-type       | $("p:first-of-type")       | Menyeleksi element <p> yang berada di index awal (0) pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang memiliki element <p>                                                                                        |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :last-child          | $("p:last-child")          | Menyeleksi element <p> yang berada di index terakhir pada tiap terdapat adanya element parent, namun jika pada akhir element child adalah selain <p>, maka ketika sebelumnya terdapat element <p> tetap tidak akan terseleksi                       |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :last-of-type        | $("p:last-of-type")        | Menyeleksi element <p> yang berada di index terakhir pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang memiliki element <p>                                                                                        |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :nth-child(n)        | $("p:nth-child(2)")        | Menyeleksi element <p> yang berada di index 2 pada tiap terdapat adanya element parent, namun jika pada index 2 element child adalah selain <p>, maka ketika setelahnya terdapat element <p> tetap tidak akan terseleksi                            |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :nth-last-child(n)   | $("p:nth-last-child(2)")   | Menyeleksi element <p> yang berada di index 2 dihitung dari bawah pada tiap terdapat adanya element parent, namun jika pada index tersebut element child adalah selain <p>, maka ketika sebelumnya terdapat element <p> tetap tidak akan terseleksi |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :nth-of-type(n)      | $("p:nth-of-type(2)")      | Menyeleksi element <p> yang berada di index 2 pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang sama dan berada di index 2 yang memiliki element <p>                                                               |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :nth-last-of-type(n) | $("p:nth-last-of-type(2)") | Menyeleksi element <p> yang berada di index 2 dihitung dari bawah pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang sama dan berada di index 2 dihitung dari bawah yang memiliki element <p>                       |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :only-child          | $("p:only-child")          | Menyeleksi element <p> yang sendirian pada suatu parent. namun jika terdapat element lain sebelumnya maka tidak akan terseleksi                                                                                                                     |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`specific-position-element` | :only-of-type        | $("p:only-of-type")        | Menyeleksi element <p> yang sendirian pada suatu parent element. Ini juga berlaku jika semisal terdapat element lain pada parent tersebut                                                                                                           |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`single-index-selection`    | :eq(index)           | $("p:eq(3)")               | Menyeleksi element <p> pada index 3. Namun ini tidak berpengaruh ketika ada element <p> lain yang berada di suatu child dan berada pada index 3                                                                                                     |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`multi-index-selection`     | :gt(no)              | $("ul li:gt(3)")           | Menyeleksi element <li> (pada parent ul) yang dimulai dari index 3 dan akan berlaku pada element selanjutnya yang sama (element <li>)                                                                                                               |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| :ref:`multi-index-selection`     | :lt(no)              | $("ul li:lt(3)")           | Menyeleksi element <li> (pada parent ul) yang dimulai dari index 3 dihitung dari bawah dan akan berlaku pada element diatasnya yang sama (element <li>)                                                                                             |
++----------------------------------+----------------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+**Select by Element Attribute**
+
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| name_selector                    | selector        | example             | explain                                                                                                  |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`select-by-attribute`       | [attribute]     | $("[href]")         | Menyeleksi element yang memiliki attribute "href". Ini juga bisa dikombinasikan dengan "attribute=value" |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`element-has-selection`     | :has(selector)  | $("div:has(p)")     | Menyeleksi element <div> yang memiliki element <p>                                                       |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`element-contain-selection` | :contains(text) | $("p:contains(is)") | Menyeleksi element <p> yang memiliki text berupa "is"                                                    |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`visibility-element`        | :empty          | $(":empty")         | Menyeleksi element yang kosong, misal adalah column table yang tidak ada isinya                          |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`element-parent-selection`  | :parent         | $("td:parent")      | Menyeleksi element <td> yang tidak kosong, ini merupakan kebalikan dari selector :empty                  |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`visibility-element`        | :hidden         | $("p:hidden")       | Menyeleksi element <p> yang tersembunyi, atau yang memiliki atribute "style:display:none"                |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`visibility-element`        | :visible        | $("p:visible")      | Menyeleksi element <p> yang terlihat atau tidak tersembunyi                                              |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+| :ref:`not-selection`             | :not(selector)  | $("p:not(.intro)")  | menyeleksi element <p> yang tidak memliki class "intro"                                                  |
++----------------------------------+-----------------+---------------------+----------------------------------------------------------------------------------------------------------+
+
+**Input Selector**
+
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| name_selector        | selector  | example        | explain                                                     |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :input    | $(":input")    | Menyeleksi semua element input                              |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :text     | $(":text")     | Menyeleksi element input dengan attribute type="text"       |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :password | $(":password") | Menyeleksi element input dengan attribute type="password"   |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :radio    | $(":radio")    | Menyeleksi element input dengan attribute type="radio"      |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :checkbox | $(":checkbox") | Menyeleksi element input dengan attribute type="checkbox"   |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :submit   | $(":submit")   | Menyeleksi element input dengan attribute type="submit"     |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :reset    | $(":reset")    | Menyeleksi element input dengan attribute type="reset"      |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :button   | $(":button")   | Menyeleksi element input dengan attribute type="button"     |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :image    | $(":image")    | Menyeleksi element input dengan attribute type="image"      |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-type`    | :file     | $(":file")     | Menyeleksi element input dengan attribute type="file"       |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-variety` | :enabled  | $(":enabled")  | Menyeleksi element input yang enable (tidak sedang disable) |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-variety` | :disabled | $(":disabled") | Menyeleksi element input dyang disabled                     |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-variety` | :selected | $(":selected") | Menyeleksi element input yang dipilih                       |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+| :ref:`input-variety` | :checked  | $(":checked")  | Menyeleksi element input yang dicek                         |
++----------------------+-----------+----------------+-------------------------------------------------------------+
+
+======================
+Common Selector
+======================
+
+.. _all-element:
+
+All Element
+----------------------------
+
+.. _select-by-identifier:
+
+Select by Identifier
+----------------------------
+
+.. _select-by-class:
+
+Select by Class
+----------------------------
+
+.. _select-by-element:
+
+Select by Element
+----------------------------
+
+.. _multi-element-selection:
+
+Multi Element Selection
+----------------------------
+
+.. _direct-element-selection:
+
+Direct Element Selection
+----------------------------
+
+.. _parent-descendant:
+
+Parent Descendant
+----------------------------
+
+.. _next-element-selection:
+
+Next Element Selection
+----------------------------
+
+.. _element-sibling:
+
+Element Sibling
+----------------------------
+
+.. _multiple-attribute-selector-one-element:
+
+Multiple attribute selector in one Element
+-------------------------------------------
+
+============================================
+Select By Position of Element
+============================================
+
+
+.. _position-element:
+
+Position Element
+----------------------------
+
+.. _specific-position-element:
+
+Specific Position Element
+----------------------------
+
+.. _single-index-selection:
+
+Single Index Selection
+----------------------------
+
+.. _multi-index-selection:
+
+Multi Index Selection
+----------------------------
+
+
+============================================
+Select by Element Attribute
+============================================
+
+.. _select-by-attribute:
+
+Select by Attribute
+----------------------------
+
+.. _element-has-selection:
+
+Has Selection
+----------------------------
+
+.. _element-contain-selection:
+
+Contain Selection
+----------------------------
+
+.. _visibility-element:
+
+Visibility Selection
+----------------------------
+
+.. _element-parent-selection:
+
+Parent Selection
+----------------------------
+
+.. _not-selection:
+
+Not Selection
+----------------------------
+
+
+
+======================
+Input Selector
+======================
+
+.. _input-type:
+
+Input Type
+----------------------------
+
+.. _input-variety:
+
+Input variety Element
+----------------------------

@@ -1,0 +1,211 @@
+Laravel Repository pattern
+==============================
+
+Repository pattern secara mudahnya adalah suatu pattern yang memiliki tugas dalam menangani semua yang berkaitan dengan resource.
+
+Repository pattern biasa digunakan dalam manipulasi data dengan **model**.
+
+Sebelumnya dalam hirarki MVC (Model View Controller) di dalam framework, setiap akses suatu data seperti mengambil dan menambah atau mengedit akan dilakukan di controller, seperti misalkan sebagai berikut::
+
+    public function store(Request $request)
+    {
+        $providers = new Provider();
+        $data = $request->all();
+
+        $providers = $providers->create( $data );
+
+        return redirect()->route('dashboard.providers.index')->with(['message'=>'Data provider berhasil dibuat.','type'=>'success']);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $providers = Provider::findOrFail($id);
+
+        $data = $request->all();
+
+        $providers = $providers->update( $data );
+        return redirect()->route('dashboard.providers.index')->with(['message'=>'Data provider berhasil diupdate.','type'=>'success']);
+    }
+
+    public function destroy($id)
+    {
+        $providers = Provider::findOrFail($id);
+        $providers->delete();
+
+        return redirect()->route('dashboard.providers.index')->with(['message'=>'Data provider berhasil dihapus.','type'=>'success']);
+    }
+
+Diatas merupakan contoh dalam manipulasi data (insert, update dan delete) pada data provider.
+
+Namun manipulasi data tersebut dilakukan di dalam controller.
+
+Masalah akan terjadi bila terdapat adanya kompleksitas dalam data tersebut.
+
+Seperti misalkan jika terdapat adanya relasi dengan tabel/model lain, atau mungkin adanya kebutuhan resource lain seperti file, dll.
+
+Satu hal yang pasti adalah satu bagian resource **SANGAT DIMUNGKINKAN** untuk memiliki adanya relasi/hubungan dengan resource lain.
+
+Apakah mungkin akan melakukan adanya pengaksesan semua resource yang berelasi di satu controller (dalam hal ini setiap method controller).
+
+Tentu akan sangat merepotkan untuk pengembangan kedepannya.
+
+Seperti misal adalah pada kasus diatas akan terdapat adanya relasi misal dalam setiap data provider itu memiliki data driver dan jika provider dihapus maka otomatis data driver (yang dimiliki oleh provider) akan terhapus juga.
+
+Jika semisal tidak ada repository pattern maka yang code yang diperlukan adalah::
+
+    public function destroy($id)
+    {
+        $providers = Provider::findOrFail($id);
+        if($providers->drivers->count() > 0) {
+            foreach($providers->drivers->all() as $driver) {
+                $driver->delete();
+            }
+        }
+        $providers->delete();
+
+        return redirect()->route('dashboard.providers.index')->with(['message'=>'Data provider berhasil dihapus.','type'=>'success']);
+    }
+
+Diatas adalah contoh dalam penghapusan mitra, dimana dalam method destroy(delete) akan dicek apakah memiliki adanya data driver, jika ada maka data driver akan dihapus.
+
+Namun apakah tiap manipulasi resource yang mana memiliki adanya relasi dengan resource lain akan dilakukan pengecekan dahulu seperti diatas, tentu akan sangat sulit.
+
+Bagaimana jika dalam kasus diatas, provider tidak hanya memiliki relasi dengan data driver, namun bisa juga dengan data lain seperti vehicle. 
+
+Mungkinkah penghapusan resource yang memiliki resoure lain (``parent``) harus mengecek setiap resource child yang dimilikinya ???
+
+Oleh Karena itu dibutuhkan adanya manajemen dimana ada pattern khusus yang akan memproses manipulasi data, baik yang berelasi ataupun tidak.
+
+Artinya **tugas utama** dari ``controller`` adalah memanggil **manipulasi resource** tersebut.
+
+Keuntungan lainnya adalah kita dapat memanggil manipulasi resource tersebut **dimana saja**, tidak hanya di controller.
+
+Jika semisal dipasang di controller maka ketika mengakses resource harus dari controller, dan hanya dapat dilakukan melalui controller tersebut, padahal fungsi utama controller adalah untuk digunakan sebagai jalur pengaksesan antara route dengan sesuatu yang dikontrol.
+
+Selain itu jika semisal terdapat adanya file maka artinya dibutuhkan adanya pengecekan file juga.
+
+Pembuatan Repository pattern di ``Laravel``
+==================================================
+
+
+
+
+Authorize di dalam Repository pattern
+=================================================
+
+Mengapa authorize dilakukan di dalam repository pattern ??
+
+    Dikarenakan fitur dari pembatasan hak akses sejatinya berasal dari proses **manipulasi data**, maka yang seharusnya terjadi adalah meletakkan authorize berada pada saat pengaksesan data tersebut, atau secara mudahnya authorize diletakkan pada repository pattern.
+
+    Hal ini dikarenakan mengacu pada kemampuan dalam manipulasi data dan bukan dari pengaksesan controller yang dapat dilakukan.
+
+    Sehingga authorize tidak perlu dilakukan di controller.
+
+Selain hal itu, authorize yang berada di repository pattern akan memudahkan dalam mengontrol bagian mana saja yang dapat diakses atau tidak.
+
+
+Saran dalam authorize
+``````````````````````````````````````````````
+
+Seperti diketahui bahwa authorize dengan menggunakan policy (ability yang dikelompokkan) maka akan menggunakan lebih dari satu ability, namun dari kesemua ability tersebut **pasti** akan menggunakan adanya pengecekan dalam hal user role.
+
+Oleh karena itu maka saat mengakses authorize akan lebih mudah jika secara default terdapat pengecekan di bagian user role secara otomatis.
+
+Hal ini akan jauh lebih mempermudah daripada meletakkan pengecekan user role **satu persatu** di setiap ability.
+
+
+Saran selanjutnya adalah membuat adanya authorize dalam pengecekan pemilik resource (resource owner) yang dibuat secara global.
+
+Hal ini dimaksudkan apabila terdapat resource yang hanya dapat diakses oleh pemilik resource.
+
+Tujuannya adalah mempermudah sehingga hanya pemiliki resource owner yang dapat mengaksesnya
+
+
+Kombinasi antara pengecekan user role dan pengecekan pemilik resource tentu akan jauh lebih memudahkan dalam memberikan siapa saja yang dapat mengakses resource tersebut.
+
+Namun jika sudah terdapat adanya pengecekan user role dan pemilik resource lantas apa yang sebaiknya dilakukan di tiap ability ??? 
+
+.. attention::
+
+    Dalam memberikan adanya id dari resource (dalam kasus cek resource owner) maka pastikan yang dipassing adalah **object**.
+
+    Seperti misalkan::
+
+        $this->authorize('update',new FrontPage);
+
+        $front_page = FrontPage::where('slug',$slug);
+
+    meskipun itu edit, tapi jika menggunakan ``where`` maka akan error, karena tidak dibuat sebagai ojbect (``object eloquent``)
+
+    misal::
+
+        $front_page = FrontPage::where('slug',$slug);
+
+        $this->authorize('update',$front_page->first());
+
+
+.. note::
+
+    Dalam laravel terdapat 2 cara dalam mengakses method yang bersifat global, yaitu:
+
+    1. repository pattern
+    2. jobs
+
+
+
+untuk masalah bagian resource yang berelasi atau berhubungan ada 3 cara
+
+satu hal yang pasti manipulasi resource akan didefinisikan dari model
+
+1. dipanggil dari repository pattern
+tiap akses resource maka akan diletakkan di repository pattern, lalu mengakses lewat model, jika ada resource yang berelasi maka akan dieksekusi dari **satu** repository pattern utama(yang sedang dipakai) tersebut
+tentu dengan memanggil model
+
+2. setiap repository pattern yang berhubungan akan dibuatkan dahulu repository pattern yang bersangkutan
+tantu hasilnya adalah memanggil method model tersebut
+misal adalah repo pattern category, ketika menghapus ternyata kan ada penghapusan vehicle category
+
+maka dari itu saat menggunakan repo pattern category ini akan dibuatkan(construct) repo vehicle category dulu, baru nanti penghapusan akan dilaksanakan dengan penghapusan lewat repository pattern tersebut
+
+3.menggunakan model observer
+hasilnya tenty memanggil tiap model saat akan melakukan proses creating, saving, updating, deleting
+
+
+satu hal yang pasti adalah repository pattern seharusnya tidak mengangni proses manipulasi data secara langsung, repository pattern hanya akan memanggil metod dari model
+misalkan adalah menghapus resource 
+tentu di repository pattern kita akan memanggil 
+resourceModel->delete()
+
+yang artinya method delete itu berasal dari model kan
+
+artinya tiap manipulasi akan dilakukan di model
+
+seperti misal menghapus file maka kita akan membuatkan script penghapusan file di model
+
+resourceModel->hapusFile($resourceFile)
+
+yang artinya method **hapusFile** akan berada di model  
+
+artinya penghapusan tidak dilakukan di repository pattern 
+
+well percaya atau tidak tetapi sepertinya diperlukan adanya kombinasi antara repository pattern dengan model observer
+
+yaitu repository pattern hanya akan memanggil method model
+
+lalu ketika manipulasi akan dilakukan maka modelObserver akan memprosesnya::
+
+
+    public function deleteFile($filepath)
+    {
+        ...
+    }
+
+    public funciton boot() {
+        
+        static::delete() {
+            // jika ada file maka memanggil method deleteFile
+        }
+    }
+
+
+jadi bukan dengan memanggil deleteFile di repository Pattern

@@ -1,0 +1,37 @@
+Rekomendasi struktur project baru laravel
+============================================= 
+
+Untuk lebih memudahkan dalam pembuatan project baru setelah instalasi framework ``Laravel``.
+
+#. Install package composer
+	#. Konfigurasi package
+#. Konfigurasi file **.env**
+#. Database dan Model
+	#. Pembuatan Migrasi
+		#. Untuk lebih memudahkan adanya tabel yang berelasi, maka sebaiknya buat susunan tabel dimulai dari tabel parent ke tabel child
+		#. Buat nullableTimestamp() untuk column created_at dan updated_at dan nullable() pada column yang sekiranya akan kosong
+		#. pemberian property seperti unique, index, dll pada column yang memubutuhkan
+#. Routing dan Controller
+	#. Route
+		#. buat route biasa tanpa adanya group, untuk memudahkan adanya templating ke laravel, nantinya ketika menginjak di bagian login dan register, pisahkan controller dengan group yang memiliki kesamaan dalam hal prefix atau middleware seperti bagian dashboard harus memiliki adanya middleware auth
+	#. Controller dipisah berdasar dari, seperti bagian dashboard, auth, homepage, dll.
+		#. Pemberian property default, seperti untuk menu dan submenu, paginasi, dll.
+
+#. **[Opsional]** Templating web layout
+	#. asset file
+
+#. Login and Register
+	#. Pisahkan controller dengan ``grouping route``
+#. Resource CRUD
+	#. Show Data
+		#. Buat conditional statement ketika data belum ada (menampilkan **Empty Data**)
+#. **[Opsional]** Test CRUD dengan depedency data
+#. Seeder
+#. Ability, Policy dan Authorize
+#. Repository Pattern
+
+Bagian lain
+
+#. Pemberian default value 
+	Simmpan data default value di file pada folder ``Config``
+

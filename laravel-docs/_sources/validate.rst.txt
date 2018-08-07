@@ -1,0 +1,162 @@
+Laravel Validate
+=============================
+
+Dalam penggunaan validate di laravel, **sangat disarankan** untuk menggunakan adanya data yang berasal dari request asli dan bukan dengan penggunaan variabel yang berisikan request, apalagi dengan adanya manipulasi di dalam variabel tersebut.
+
+Contoh mudahnya adalah validate bagian image, jika kita menggunakan sumber asli dari ``image object`` yang dihasilkan oleh laravel maka ini akan mudah untuk divalidasi, seperti misalkan pada validasi ``image`` yaitu validasi jika semisal file yang diupload bukan file dengan tipe data image (jpg, jped, bmp, gif).
+
+Jika semisal kita menggunakan variabel dalam menampung object image tersebut, atau bahkan memanipulasi baru kemudian menggunakan validate, maka besar kemungkinan akan terjadinya error dalam proses validate tersebut.
+
+studi kasus validate image
+
+Semisal memiliki validasi image pada request ``imgpath`` seperti berikut di model::
+
+    public function validate(array $data)
+    {
+        $validate = [
+            'name' => 'required|unique:vcategories,name,'.$id_vcategory.'|max:255',
+            'imgpath' => 'required|image|max:2040',
+        ];
+
+        return \Validator::make($data, $validate,$messages);
+    }
+
+
+kemudian saat validasi kita akan mempassing adanya request asli seperti berikut ::
+
+    $vcategories = VehicleCategory::findOrFail($id);
+    $this->authorize('create',$vcategories);
+    $data = $request->all();
+
+    //hook for checkbox
+    if (!isset($data['status'])) {
+        $data['status'] = 0;
+    }
+
+    $validator = $vcategories->validate($data);
+
+    if ($validator->fails()) {
+        return redirect('dashboard/vcategories/'.$id.'/edit')
+                ->withErrors($validator)
+                ->with(['message'=>'Opps! Data yang anda masukkan tidak lengkap','type'=>'danger'])
+                ->withInput();
+    }
+
+    //save imgpath
+    if ($request->hasFile('imgpath')) {
+
+        if($vcategories->imgpath != NULL) {
+            $vcategories_pp_path = $vcategories->imgpath;
+            $vcategories_pp_path_file = public_path($vcategories_pp_path);
+            if (File::exists($vcategories_pp_path_file))
+            {
+                File::delete($vcategories_pp_path_file);
+            }
+        }
+
+        $header_file = date("YmdHis");
+        $imageName = $header_file . '.' . $request->file('imgpath')->getClientOriginalName();
+        $data['imgpath'] = $fileDir.$imageName;
+    } else {
+        // image not provided
+        $data['imgpath'] = $vcategories->imgpath; // old_version
+    }
+
+Pada contoh validasi diatas tidak akan menimbulkan error karena data yang validasi adalah data asli dari request.
+
+Namun jika kita memanipulasi adanya request tersebut dan membuat validasi atas data manipulasi maka kemungkinan besar akan error seperti misalkan ::
+
+    $vcategories = VehicleCategory::findOrFail($id);
+    $this->authorize('create',$vcategories);
+    $data = $request->all();
+
+    //hook for checkbox
+    if (!isset($data['status'])) {
+        $data['status'] = 0;
+    }
+
+    // save to hdd
+    if ($request->hasFile('imgpath')) {
+
+        if($vcategories->imgpath != NULL) {
+            $vcategories_pp_path = $vcategories->imgpath;
+            $vcategories_pp_path_file = public_path($vcategories_pp_path);
+            if (File::exists($vcategories_pp_path_file))
+            {
+                File::delete($vcategories_pp_path_file);
+            }
+        }
+
+        $header_file = date("YmdHis");
+        $imageName = $header_file . '.' . $request->file('imgpath')->getClientOriginalName();
+        $data['imgpath'] = $fileDir.$imageName;
+    } else {
+        // image not provided
+        $data['imgpath'] = $vcategories->imgpath; // old_version
+    }
+
+    $validator = $vcategories->validate($data);
+
+    if ($validator->fails()) {
+        return redirect('dashboard/vcategories/'.$id.'/edit')
+                ->withErrors($validator)
+                ->with(['message'=>'Opps! Data yang anda masukkan tidak lengkap','type'=>'danger'])
+                ->withInput();
+    }
+
+
+Contoh diatas akan terjadi error pada validasi imgpath, mengapa bisa terjadi ???
+
+Karena terdapat manipulasi pada request ``imgpath`` itu sendiri, yaitu pada script pengecekan adanya file di imgpath dimana setelahnya akan ditentukan value apa yang akan diberikan (``$data['imgpath']``)
+
+Dengan begitu maka telah terjasi menipulasi pada request imgpath, sehingga validasi di laravel akan mengalami error.
+
+.. danger::
+
+    Namun bukan karena masalah manipulasi saja yang dapat menyebabkan validasi error.
+
+    Jika semisal kita telah melakukan adanya perubahan value dari request itu sendiri maka meski telah mem-passing dengan data request yang asli pun akan tetap menyebabkan error seperti misalkan ::
+
+        $vcategories = VehicleCategory::findOrFail($id);
+        $this->authorize('create',$vcategories);
+        $data = $request->all();
+
+        //hook for checkbox
+        if (!isset($data['status'])) {
+            $data['status'] = 0;
+        }
+
+        // save to hdd
+        if ($request->hasFile('imgpath')) {
+
+            if($vcategories->imgpath != NULL) {
+                $vcategories_pp_path = $vcategories->imgpath;
+                $vcategories_pp_path_file = public_path($vcategories_pp_path);
+                if (File::exists($vcategories_pp_path_file))
+                {
+                    File::delete($vcategories_pp_path_file);
+                }
+            }
+
+            $header_file = date("YmdHis");
+            $imageName = $header_file . '.' . $request->file('imgpath')->getClientOriginalName();
+            $data['imgpath'] = $fileDir.$imageName;
+        } else {
+            // image not provided
+            $data['imgpath'] = $vcategories->imgpath; // old_version
+        }
+
+        $validator = $vcategories->validate($request->all());
+
+        if ($validator->fails()) {
+            return redirect('dashboard/vcategories/'.$id.'/edit')
+                    ->withErrors($validator)
+                    ->with(['message'=>'Opps! Data yang anda masukkan tidak lengkap','type'=>'danger'])
+                    ->withInput();
+        }
+
+    Mengapa dapat terjadi error ??
+
+    Padahal sudah mempassing dengan value request yang asli ( ``$validator = $vcategories->validate($request->all());`` )
+
+    Hal ini masih belum diketahui secara pasti, hanya saja sebagai saran yang baik bahwa peletakkan validasi adalah sebelum adanya manipulasi dari request tersebut

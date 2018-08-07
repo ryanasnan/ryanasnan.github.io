@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Laravel Repository pattern &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Registrasi Akun Laravel dan Aktivasi Akun" href="laravel-simple-register-activation.html"/>
+        <link rel="prev" title="Mobile Apps" href="mobile-apps.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#saran-dalam-authorize">Saran dalam authorize</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Laravel Repository pattern</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/repository-pattern.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="laravel-repository-pattern">
+<h1>Laravel Repository pattern<a class="headerlink" href="#laravel-repository-pattern" title="Permalink to this headline">¶</a></h1>
+<p>Repository pattern secara mudahnya adalah suatu pattern yang memiliki tugas dalam menangani semua yang berkaitan dengan resource.</p>
+<p>Repository pattern biasa digunakan dalam manipulasi data dengan <strong>model</strong>.</p>
+<p>Sebelumnya dalam hirarki MVC (Model View Controller) di dalam framework, setiap akses suatu data seperti mengambil dan menambah atau mengedit akan dilakukan di controller, seperti misalkan sebagai berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function store(Request $request)
+{
+    $providers = new Provider();
+    $data = $request-&gt;all();
+
+    $providers = $providers-&gt;create( $data );
+
+    return redirect()-&gt;route(&#39;dashboard.providers.index&#39;)-&gt;with([&#39;message&#39;=&gt;&#39;Data provider berhasil dibuat.&#39;,&#39;type&#39;=&gt;&#39;success&#39;]);
+}
+
+public function update(Request $request, $id)
+{
+    $providers = Provider::findOrFail($id);
+
+    $data = $request-&gt;all();
+
+    $providers = $providers-&gt;update( $data );
+    return redirect()-&gt;route(&#39;dashboard.providers.index&#39;)-&gt;with([&#39;message&#39;=&gt;&#39;Data provider berhasil diupdate.&#39;,&#39;type&#39;=&gt;&#39;success&#39;]);
+}
+
+public function destroy($id)
+{
+    $providers = Provider::findOrFail($id);
+    $providers-&gt;delete();
+
+    return redirect()-&gt;route(&#39;dashboard.providers.index&#39;)-&gt;with([&#39;message&#39;=&gt;&#39;Data provider berhasil dihapus.&#39;,&#39;type&#39;=&gt;&#39;success&#39;]);
+}
+</pre></div>
+</div>
+<p>Diatas merupakan contoh dalam manipulasi data (insert, update dan delete) pada data provider.</p>
+<p>Namun manipulasi data tersebut dilakukan di dalam controller.</p>
+<p>Masalah akan terjadi bila terdapat adanya kompleksitas dalam data tersebut.</p>
+<p>Seperti misalkan jika terdapat adanya relasi dengan tabel/model lain, atau mungkin adanya kebutuhan resource lain seperti file, dll.</p>
+<p>Satu hal yang pasti adalah satu bagian resource <strong>SANGAT DIMUNGKINKAN</strong> untuk memiliki adanya relasi/hubungan dengan resource lain.</p>
+<p>Apakah mungkin akan melakukan adanya pengaksesan semua resource yang berelasi di satu controller (dalam hal ini setiap method controller).</p>
+<p>Tentu akan sangat merepotkan untuk pengembangan kedepannya.</p>
+<p>Seperti misal adalah pada kasus diatas akan terdapat adanya relasi misal dalam setiap data provider itu memiliki data driver dan jika provider dihapus maka otomatis data driver (yang dimiliki oleh provider) akan terhapus juga.</p>
+<p>Jika semisal tidak ada repository pattern maka yang code yang diperlukan adalah:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function destroy($id)
+{
+    $providers = Provider::findOrFail($id);
+    if($providers-&gt;drivers-&gt;count() &gt; 0) {
+        foreach($providers-&gt;drivers-&gt;all() as $driver) {
+            $driver-&gt;delete();
+        }
+    }
+    $providers-&gt;delete();
+
+    return redirect()-&gt;route(&#39;dashboard.providers.index&#39;)-&gt;with([&#39;message&#39;=&gt;&#39;Data provider berhasil dihapus.&#39;,&#39;type&#39;=&gt;&#39;success&#39;]);
+}
+</pre></div>
+</div>
+<p>Diatas adalah contoh dalam penghapusan mitra, dimana dalam method destroy(delete) akan dicek apakah memiliki adanya data driver, jika ada maka data driver akan dihapus.</p>
+<p>Namun apakah tiap manipulasi resource yang mana memiliki adanya relasi dengan resource lain akan dilakukan pengecekan dahulu seperti diatas, tentu akan sangat sulit.</p>
+<p>Bagaimana jika dalam kasus diatas, provider tidak hanya memiliki relasi dengan data driver, namun bisa juga dengan data lain seperti vehicle.</p>
+<p>Mungkinkah penghapusan resource yang memiliki resoure lain (<code class="docutils literal"><span class="pre">parent</span></code>) harus mengecek setiap resource child yang dimilikinya ???</p>
+<p>Oleh Karena itu dibutuhkan adanya manajemen dimana ada pattern khusus yang akan memproses manipulasi data, baik yang berelasi ataupun tidak.</p>
+<p>Artinya <strong>tugas utama</strong> dari <code class="docutils literal"><span class="pre">controller</span></code> adalah memanggil <strong>manipulasi resource</strong> tersebut.</p>
+<p>Keuntungan lainnya adalah kita dapat memanggil manipulasi resource tersebut <strong>dimana saja</strong>, tidak hanya di controller.</p>
+<p>Jika semisal dipasang di controller maka ketika mengakses resource harus dari controller, dan hanya dapat dilakukan melalui controller tersebut, padahal fungsi utama controller adalah untuk digunakan sebagai jalur pengaksesan antara route dengan sesuatu yang dikontrol.</p>
+<p>Selain itu jika semisal terdapat adanya file maka artinya dibutuhkan adanya pengecekan file juga.</p>
+</div>
+<div class="section" id="pembuatan-repository-pattern-di-laravel">
+<h1>Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code><a class="headerlink" href="#pembuatan-repository-pattern-di-laravel" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="authorize-di-dalam-repository-pattern">
+<h1>Authorize di dalam Repository pattern<a class="headerlink" href="#authorize-di-dalam-repository-pattern" title="Permalink to this headline">¶</a></h1>
+<p>Mengapa authorize dilakukan di dalam repository pattern ??</p>
+<blockquote>
+<div><p>Dikarenakan fitur dari pembatasan hak akses sejatinya berasal dari proses <strong>manipulasi data</strong>, maka yang seharusnya terjadi adalah meletakkan authorize berada pada saat pengaksesan data tersebut, atau secara mudahnya authorize diletakkan pada repository pattern.</p>
+<p>Hal ini dikarenakan mengacu pada kemampuan dalam manipulasi data dan bukan dari pengaksesan controller yang dapat dilakukan.</p>
+<p>Sehingga authorize tidak perlu dilakukan di controller.</p>
+</div></blockquote>
+<p>Selain hal itu, authorize yang berada di repository pattern akan memudahkan dalam mengontrol bagian mana saja yang dapat diakses atau tidak.</p>
+<div class="section" id="saran-dalam-authorize">
+<h2>Saran dalam authorize<a class="headerlink" href="#saran-dalam-authorize" title="Permalink to this headline">¶</a></h2>
+<p>Seperti diketahui bahwa authorize dengan menggunakan policy (ability yang dikelompokkan) maka akan menggunakan lebih dari satu ability, namun dari kesemua ability tersebut <strong>pasti</strong> akan menggunakan adanya pengecekan dalam hal user role.</p>
+<p>Oleh karena itu maka saat mengakses authorize akan lebih mudah jika secara default terdapat pengecekan di bagian user role secara otomatis.</p>
+<p>Hal ini akan jauh lebih mempermudah daripada meletakkan pengecekan user role <strong>satu persatu</strong> di setiap ability.</p>
+<p>Saran selanjutnya adalah membuat adanya authorize dalam pengecekan pemilik resource (resource owner) yang dibuat secara global.</p>
+<p>Hal ini dimaksudkan apabila terdapat resource yang hanya dapat diakses oleh pemilik resource.</p>
+<p>Tujuannya adalah mempermudah sehingga hanya pemiliki resource owner yang dapat mengaksesnya</p>
+<p>Kombinasi antara pengecekan user role dan pengecekan pemilik resource tentu akan jauh lebih memudahkan dalam memberikan siapa saja yang dapat mengakses resource tersebut.</p>
+<p>Namun jika sudah terdapat adanya pengecekan user role dan pemilik resource lantas apa yang sebaiknya dilakukan di tiap ability ???</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>Dalam memberikan adanya id dari resource (dalam kasus cek resource owner) maka pastikan yang dipassing adalah <strong>object</strong>.</p>
+<p>Seperti misalkan:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$this-&gt;authorize(&#39;update&#39;,new FrontPage);
+
+$front_page = FrontPage::where(&#39;slug&#39;,$slug);
+</pre></div>
+</div>
+<p>meskipun itu edit, tapi jika menggunakan <code class="docutils literal"><span class="pre">where</span></code> maka akan error, karena tidak dibuat sebagai ojbect (<code class="docutils literal"><span class="pre">object</span> <span class="pre">eloquent</span></code>)</p>
+<p>misal:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span>$front_page = FrontPage::where(&#39;slug&#39;,$slug);
+
+$this-&gt;authorize(&#39;update&#39;,$front_page-&gt;first());
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Dalam laravel terdapat 2 cara dalam mengakses method yang bersifat global, yaitu:</p>
+<ol class="last arabic simple">
+<li>repository pattern</li>
+<li>jobs</li>
+</ol>
+</div>
+<p>untuk masalah bagian resource yang berelasi atau berhubungan ada 3 cara</p>
+<p>satu hal yang pasti manipulasi resource akan didefinisikan dari model</p>
+<p>1. dipanggil dari repository pattern
+tiap akses resource maka akan diletakkan di repository pattern, lalu mengakses lewat model, jika ada resource yang berelasi maka akan dieksekusi dari <strong>satu</strong> repository pattern utama(yang sedang dipakai) tersebut
+tentu dengan memanggil model</p>
+<p>2. setiap repository pattern yang berhubungan akan dibuatkan dahulu repository pattern yang bersangkutan
+tantu hasilnya adalah memanggil method model tersebut
+misal adalah repo pattern category, ketika menghapus ternyata kan ada penghapusan vehicle category</p>
+<p>maka dari itu saat menggunakan repo pattern category ini akan dibuatkan(construct) repo vehicle category dulu, baru nanti penghapusan akan dilaksanakan dengan penghapusan lewat repository pattern tersebut</p>
+<p>3.menggunakan model observer
+hasilnya tenty memanggil tiap model saat akan melakukan proses creating, saving, updating, deleting</p>
+<p>satu hal yang pasti adalah repository pattern seharusnya tidak mengangni proses manipulasi data secara langsung, repository pattern hanya akan memanggil metod dari model
+misalkan adalah menghapus resource
+tentu di repository pattern kita akan memanggil
+resourceModel-&gt;delete()</p>
+<p>yang artinya method delete itu berasal dari model kan</p>
+<p>artinya tiap manipulasi akan dilakukan di model</p>
+<p>seperti misal menghapus file maka kita akan membuatkan script penghapusan file di model</p>
+<p>resourceModel-&gt;hapusFile($resourceFile)</p>
+<p>yang artinya method <strong>hapusFile</strong> akan berada di model</p>
+<p>artinya penghapusan tidak dilakukan di repository pattern</p>
+<p>well percaya atau tidak tetapi sepertinya diperlukan adanya kombinasi antara repository pattern dengan model observer</p>
+<p>yaitu repository pattern hanya akan memanggil method model</p>
+<p>lalu ketika manipulasi akan dilakukan maka modelObserver akan memprosesnya:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function deleteFile($filepath)
+{
+    ...
+}
+
+public funciton boot() {
+
+    static::delete() {
+        // jika ada file maka memanggil method deleteFile
+    }
+}
+</pre></div>
+</div>
+<p>jadi bukan dengan memanggil deleteFile di repository Pattern</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="laravel-simple-register-activation.html" class="btn btn-neutral float-right" title="Registrasi Akun Laravel dan Aktivasi Akun" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mobile-apps.html" class="btn btn-neutral" title="Mobile Apps" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+Memasukkan bahasa pemrograman lain ke dalam javascript
+=========================================================
+
+=========================================================
+Memasukkan script php
+=========================================================
+
+
+seperti yang dikethaui bahwa ketika kita memeberikan adanya script(javascript)
+sangat dimungkinkan untuk memberikan adanya syntax php di dalamnya
+
+misalkan::
+    
+    var contoh_var = <?php $contoh_var; ?>
+
+lantas bagaimana jika nantinya ketika kita membutuhkan adanya syntax php namun sumber dari variabelnya berasal dari javascript
+
+sulit kan ???
+btw kita lupakan ajax dulu, ini hanya pengandaian secara dasar antara javascript(ori/nonajax) dengan php
+
+misalkan kita memiliki adanya aplikasi penambahan nilai
+
+akan cukup merepotkan apabila setiap menginput nilai membutuhkan adanya submit form
+maka dari ini kita akan menggunakan javascript dalam menambah nilai, namun hanya sebatas menambah kategori nilai yang frekuentif
+
+semisal nilai tugas harian 1 nilai tugas harian 2 begitu seterusnya sampai kita berhenti mengklik tombol +
+
+nah mmuncul pertanyaan, bagaimana bisa kita  memasukkan data nilai tersebut
+ketika kita tahu bahwa data tersebut ada yang berasal dari javascript
+
+secara umum javascript hanya dapat memanipulasi DOM(element-elemen html seperti input, dll)
+
+nah padahal dari dom itu juga masih belum bisa dicovert ke php
+karena javascript mungkin hanya dapat menambahkan element atau hanya attribut pada DOM
+
+ternyata logikanya adalah sangat simple
+
+yaitu ketika kita submit form, php akan mengakses SETIAP ELEMENT PADA FORM
+misalkan input, select dan lain-lain
+php akan membuatnya menjadi array dengan key utama POST
+
+misal::
+
+    $_POST = [
+    'element' => 'value'
+    ]
+
+nah dari situ sebenarnya adalah logika daripada convert javascript ke dalam php
+
+ternyata membutuhkan html yaitu form
+
+dari sini maka banyak perkembangan dalam mengconvert javascript to php
+
+misalkan dari ajax
+
+ini juga sama logikanya , yaitu akan mengirim request ke server(php)
+tentu melalui logika yang sam dengan form
+
+kemudian ada yang lebih baru yaitu jquery
+
+sebenarnya jquery ini dikhususkan dalam mempermudah javascript
+namun kemudian muncul jquery ajax yang menangani masalah dalam convert javascript to php
+
+
+sebenanrnya cocoknya bukan javascript to php
+
+tapi javascript to server(server belum tentu selalu php)
+
+misalkan dalam aplikasi upload file, biasanya terdapat preview, bukankah biasanya preview tersebut berasal dari file di temp (di server)
+
+
+
+
+
+
+code/script php dapat ditaruh di dalam javascirpt, asalkan ketika masuk ke dalam suatu pendefinisian (assign, passing parameter) diapit oleh tanda petik
+
+.. code-block:: rst
+
+    $("#ImagePreview").attr('src','<?php echo url(); ?>'+data.srcImage);
+
+jika tidak menggunakan tanda petik maka tidak akan bisa seperti misalkan
+
+.. code-block:: rst
+
+    $("#ImagePreview").attr('src',<?php echo url(); ?>+data.srcImage);
+
+
+============================================================
+Convert array php ke array javascript
+============================================================
+
+PHP memiliki function ``json_encode`` untuk merubah array php menjadi array json

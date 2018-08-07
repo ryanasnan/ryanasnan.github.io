@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Javascript DOM &mdash; javascript-mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="javascript-mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Catatan Javascript" href="javascript-note.html"/>
+        <link rel="prev" title="1   Javascript Function" href="javascript-function.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> javascript-mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="javascript-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-variable.html">Javascript Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-object.html">1&nbsp;&nbsp;&nbsp;Javascript Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-function.html">1&nbsp;&nbsp;&nbsp;Javascript Function</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Javascript DOM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nodes">Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-tree">Node Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-method">Node Method</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#html-dom-property">HTML DOM Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#html-dom-method">HTML DOM Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#property-innerhtml">Property innerHTML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#childnode-nodelist-nodename-nodevalue-dan-nodetype">ChildNode, NodeList, NodeName, NodeValue dan NodeType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#node-access">Node Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#method-getelementbyid">method getElementById()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#method-getelementsbytagsname">Method getElementsByTagsName()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#melalui-hubungan-pohon-node">Melalui hubungan pohon node</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#memasukkan-element-dengan-javascript">Memasukkan element dengan Javascript</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html">Catatan Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html#apa-itu-span">apa itu span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html">JQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html#jquery-object-architecture">Jquery Object architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-selector.html">JQuery Selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-note.html">Catatan jQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-library-and-plugin.html">Javascript Library dan Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-library-and-plugin.html">jQuery Library and Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-input-another-language.html">Memasukkan bahasa pemrograman lain ke dalam javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="array-php-to-array-javascript.html">Array PHP ke Array Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-class-each-process.html">jQuery proses value tiap class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-integration-in-ie.html">1&nbsp;&nbsp;&nbsp;Integrasi Javascript di Browser Internet Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-stack-problem-fix.html">Kumpulan perbaikan masalah Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="temporary-list-record.html">Daftar Catatan Sementara</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">javascript-mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Javascript DOM</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/javascript-dom.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="javascript-dom">
+<h1>Javascript DOM<a class="headerlink" href="#javascript-dom" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p><strong>DOM</strong> = Document Object Model</p>
+<p>DOM merupakan standar yang dibuat oleh W3C(World Wide Web Consortium) untuk mengakses HTML dan XML.</p>
+<p><strong>W3C DOM</strong> adalah suatu platform dan interface bahasa netral yang memperbolehkan program dan scripts untuk mengakses secara dinamis dan meng-update isi(content), struktur dan style dari document.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Dengan adanya DOM, maka kemudian muncullah bahasa baru dalam mengaksesnya seperti Javascript, CSS, dll yang dapat memanipulasi elemen daripada Document Object Model seperti HTML dan XML.</p>
+</div>
+<p>DOM dibagi menjadi 3 bagian berbeda/level berbeda :</p>
+<ul class="simple">
+<li>Core DOM, model standar untuk setiap struktur document.</li>
+<li>XML DOM, model standar untuk document XML.</li>
+<li>HTML DOM, model standar untuk document HTML.</li>
+</ul>
+<p>DOM mendefinisikan object dan property dari semua document element dan method(interface) untuk mengaksesnya.</p>
+<p>XML DOM mendefinisikan object dan property semua XML element dan method(interface) untuk mengaksesnya</p>
+<p>HTML DOM mendefinisikan object dan property dari semua HTML element dan method(interface) untuk mengaksesnya.</p>
+<p>Dalam kata lain, HTML DOM adalah standar untuk dapat mendapatkan(get), mengganti, menambah atau menghapus elemen HTML</p>
+<p>HTML DOM dapat disimpulkan sebagai :</p>
+<ul class="simple">
+<li>Standar object model untuk HTML</li>
+<li>Standar pemrograman interface untuk HTML</li>
+<li>platform independent dan bahasa independent</li>
+<li>standar oleh W3C</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Interface merupakan suatu bentuk kumpulan kode yang dapat digunakan dengan konsep seperti pemanggilan function ataupun object hanya saja di dalamnya tidak terdapat adanya pendefinisian/pendeklarasian syntax yang berarti (variabel, function, class, value, dll).</p>
+</div>
+</div>
+<div class="section" id="nodes">
+<h2>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h2>
+<p>Dalam DOM, maka semua yang ada pada HTML document adalah <strong>node</strong>.</p>
+<p>Dalam HTML, maka DOM daripadanya dapat ditelaah seperti:</p>
+<ul class="simple">
+<li>keseluruhan document adalah node document</li>
+<li>Setiap element HTML adalah node element</li>
+<li>Text dalam HTML element adalah node text</li>
+<li>comments adalah node comment</li>
+</ul>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>DOM Tutorial<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>DOM Lesson one<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello world!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Penjelasan</p>
+<p>Dalam Contoh diatas maka node daripada DOM dapat dijelaskaan seperti</p>
+<p><strong>Root node</strong> dari document diatas adalah &lt;html&gt;, dan semua node-node yang ada di dalam document berisikan di dalam node &lt;html&gt;</p>
+<p>node &lt;html&gt; memiliki 2 “child node” yaitu : &lt;head&gt; dan &lt;body&gt;</p>
+<p>node &lt;head&gt; “hold” (menahan/berisikan) node &lt;title&gt;.</p>
+<p>node &lt;body&gt; “hold” node &lt;h1&gt; dan node &lt;p&gt;.</p>
+<p><strong>Node text</strong></p>
+<p>Text di suatu element akan disimpan ke dalam node text.</p>
+<p>misal :</p>
+<p><code class="docutils literal"><span class="pre">&lt;title&gt;DOM</span> <span class="pre">tutorial&lt;/title&gt;</span></code></p>
+<p>maka node &lt;title&gt; “hold” sebuah node text dengan value “DOM tutorial”.</p>
+<p>value daripada node text dapat diakses dengan property “innerHTML”(dapat dilakukan dengan bantuan bahasa javascript).</p>
+<p>Error yang biasa terjadi dalam proses DOM adalah karena diharapkan adanya element node yang berisi text.</p>
+</div>
+<div class="section" id="node-tree">
+<h2>Node Tree<a class="headerlink" href="#node-tree" title="Permalink to this headline">¶</a></h2>
+<p>Dalam HTML DOM, sebuah document HTML disusun dengan <strong>node tree</strong> (struktur pohon node).</p>
+<p>Semua node dalam <strong>node tree</strong> memiliki hubungan satu sama lain.</p>
+<p>Semua node dapat diakses melalui pohonnya(root/sumber node).</p>
+<p>isi(content) di dalamnya dapat diubah atau dihapus dan element baru dapat ditambahkan.</p>
+<p><strong>node tree</strong> dibawah memperlihatkan aturan daripada node, dan koneksi diantaranya.</p>
+<p><code class="docutils literal"><span class="pre">tree</span></code> (pohon) dimulai dari <strong>root node</strong> dan bercabang sampai pada node text(level node paling rendah).</p>
+<img alt="_images/htmltree.gif" src="_images/htmltree.gif" />
+<p><code class="docutils literal"><span class="pre">Node</span> <span class="pre">Parent</span></code>, <code class="docutils literal"><span class="pre">Child</span></code>, dan <code class="docutils literal"><span class="pre">Siblings</span></code> (node orang Tua, anak, saudara).</p>
+<p>Node dalam node tree memiliki hubungan kirarki satu sama lain.</p>
+<p>Pendefinisian <code class="docutils literal"><span class="pre">parent</span></code>, <code class="docutils literal"><span class="pre">child</span></code>, dan <code class="docutils literal"><span class="pre">sibling</span></code> adalah untuk mendeskripsikan hubungannya.</p>
+<p>Node Parent memiliki node child, sedangkan node child yang setara(sama levelnya) disebut node sibling.</p>
+<p>Dalam <code class="docutils literal"><span class="pre">node</span> <span class="pre">tree</span></code>, node paling atas disebut node <code class="docutils literal"><span class="pre">root</span></code>.</p>
+<p>Setiap node pasti memiliki satu node parent, kecuali node root(tidak memiliki node parent).</p>
+<p>Suatu node dapat memiliki satu atau lebih node child.</p>
+<p>node <code class="docutils literal"><span class="pre">leaf</span></code> adalah node yang tidak memiliki node child.</p>
+<p>node sibling adalah node yang memiliki node parent yang sama.</p>
+</div>
+<div class="section" id="node-method">
+<h2>Node Method<a class="headerlink" href="#node-method" title="Permalink to this headline">¶</a></h2>
+<p>Dalam DOM, HTML document berisi daripada satu set object node.</p>
+<p>Node dapat diakses dengan bahasa <code class="docutils literal"><span class="pre">JavaScript</span></code> atau bahasa program lainnya.</p>
+<p>Namun dalam tutorial ini, penulis akan menggunakan javascript.</p>
+<p>Pemrograman interface dari DOM didefinisikan dari standar property dan method.</p>
+<div class="section" id="html-dom-property">
+<h3>HTML DOM Property<a class="headerlink" href="#html-dom-property" title="Permalink to this headline">¶</a></h3>
+<p><strong>Property</strong> adalah sesuatu yang dapat menge-get atau menge-set value(seperti nama atau value suatu node).</p>
+<p>HTML DOM Properties</p>
+<p>x.innerHTML - value text(text node) dari “x”.</p>
+<p>x.nodeName - nama dari node “x”.</p>
+<p>x.nodeValue - value dari node “x”.</p>
+<p>x.parentNode - node parent dari node “x”.</p>
+<p>x.childNodes - node child dari node “x”.</p>
+<p>x.attributes - atribut dari node “x”</p>
+<p>keterangan :</p>
+<p>x =&gt; node object(element HTML)</p>
+<p>misal : <code class="docutils literal"><span class="pre">document.getElementById(&quot;nama_id&quot;)</span></code></p>
+</div>
+<div class="section" id="html-dom-method">
+<h3>HTML DOM Method<a class="headerlink" href="#html-dom-method" title="Permalink to this headline">¶</a></h3>
+<p>Method biasa untuk melakukan sesuatu (seperti menghapus atau memasukkan node).</p>
+<p>Contoh Method DOM :</p>
+<p>x.getElementById(id) - get (mendapatkan) element dengan id tertentu.</p>
+<p>x.getElementsByTagName(name) - get semua element dengan nama tertentu.</p>
+<p>x.appendChild(node) - memasukkan sebuah node child ke dalam “x”.</p>
+<p>x.removeChild(node) - menghapus child node dari “x”</p>
+<p>keterangan :</p>
+<p>dalam contoh 1 dan 2,x adalah object node daripada window, yaitu <code class="docutils literal"><span class="pre">document</span></code></p>
+<p>dalam contoh 3 dan 4,x adalah node object dsripada element HTML</p>
+</div>
+<div class="section" id="property-innerhtml">
+<h3>Property innerHTML<a class="headerlink" href="#property-innerhtml" title="Permalink to this headline">¶</a></h3>
+<p>Cara termudah dalam mengubah isi(content) dari suatu element adalah dengan menggunakan property <code class="docutils literal"><span class="pre">innerHTML</span></code>.</p>
+<p><strong>innerHTML</strong> bukanlah bagian dari spesifikasi W3C DOM, namun ini didukung oleh semua mayoritas browser.</p>
+<p>Property <code class="docutils literal"><span class="pre">innerHTML</span></code> dapat me-return atau mengubah isi(content) dari element HTML, bahkan tag &lt;html&gt; dan &lt;body&gt;.</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;intro&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="c1">//mendapatkan element dari id &quot;intro&quot; =&gt; document.getElementById(&quot;intro&quot;)</span>
+            <span class="c1">//mendapatkan value daripada element tersebut =&gt; innerHTML</span>
+            <span class="c1">//menyimpan ke dalam variabel &quot;txt&quot;</span>
+            <span class="nx">txt</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;intro&quot;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="p">;</span>
+            <span class="c1">//memanipulasi document =&gt; document</span>
+            <span class="c1">//yaitu dengan method &quot;write&quot; atau menulis</span>
+            <span class="c1">//dengan isi(content) paragraf baru yang ditambahkan dengan value daripada variabel &quot;txt&quot;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;The text from the intro paragraph: &quot;</span> <span class="o">+</span> <span class="nx">txt</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/DOM_Method.jpg" src="_images/DOM_Method.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sebagai catatan bahwa hampir semua element dalam HTML memiliki text node(value node berupa text)</p>
+</div>
+</div>
+<div class="section" id="childnode-nodelist-nodename-nodevalue-dan-nodetype">
+<h3>ChildNode, NodeList, NodeName, NodeValue dan NodeType<a class="headerlink" href="#childnode-nodelist-nodename-nodevalue-dan-nodetype" title="Permalink to this headline">¶</a></h3>
+<p><strong>Property ChildNode</strong> berfungsi dalam mereturn kumpulan node child pada suatu node.</p>
+<p><strong>NodeList</strong> merupakan suatu daftar Node (urutan Node).</p>
+<p>Setiap item NodeList dapat diakses melalui index (array) yang dimulai dari 0.</p>
+<p>NodeList dapat dibentuk dari adanya ChildNode.</p>
+<p>Dalam NodeList memiliki property <strong>length</strong> unruk mengetahui berapa banyak jumlah daripada daftar Node dan method “item()” dalam mengakses suatu daftar Node.</p>
+<p><strong>NodeName</strong> me-return nama daripada suatu node.</p>
+<p>Nama dari node tergantung daripada node tersebut, apabila berasal dari element, maka nama node adalah element nya (misal : element &lt;p&gt;&lt;/p&gt; akan mereturn “P”) jika berasal dari atribut maka akan me-return atribut nya, dan jika berasal dari text(node text) maka akan me-return text.</p>
+<p>Setiap syntax markup, meski tidak memiliki value text node, akan tetap dianggap memiliki node text.</p>
+<p><strong>NodeValue</strong> adalah syntax untuk me-return atau mengeset suatu value dari suatu node.</p>
+<p><strong>NodeType</strong> mereturn tipe suatu node sebagai <code class="docutils literal"><span class="pre">number</span></code>.</p>
+<p>Jika 1 maka tipe node adalah element, jika 2 maka tipe node adalah atribut dan jika tipe 3 maka tipe node adalah text node.</p>
+<p>Contoh</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;demo&quot;</span><span class="p">&gt;</span>Klik button untuk mengetahui node child daripada body<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;myFunction()&quot;</span><span class="p">&gt;</span>Klik<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+            <span class="kd">function</span> <span class="nx">myFunction</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">nama_tipe_node</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+                <span class="kd">var</span> <span class="nx">c</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">c</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">nama_tipe_node</span><span class="o">=</span><span class="nx">nama_tipe_node</span> <span class="o">+</span> <span class="s2">&quot;node bertipe =&gt; &quot;</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">nodeType</span> <span class="o">+</span> <span class="s2">&quot;, node bernama =&gt; &quot;</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">nodeName</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
+                <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">);</span>
+                <span class="nx">x</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">nama_tipe_node</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Catatan:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> Element yang tidak memiliki value node text akan dianggap memiliki node text
+        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- element dengan node text yang kosong --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;form_1&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;te&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;sel&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- childNodes hanya berisikan anaknya saja (artinya sesama sibling anak ditampilkan, namun tidak sampai ke struktur terendah atau anak dari anak) --&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/DOM_Method_2_part1.jpg" src="_images/DOM_Method_2_part1.jpg" />
+<img alt="_images/DOM_Method_2_part2.jpg" src="_images/DOM_Method_2_part2.jpg" />
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Mendapatkan &quot;Hello World&quot;<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;intro&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="nx">txt_1</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;intro&quot;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="p">;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Case 1 (menggunakan innerHTML) : Isi text node dari paragraf dengan id intro adalah: &quot;</span> <span class="o">+</span> <span class="nx">txt_1</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+            <span class="nx">txt_2</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;intro&quot;</span><span class="p">).</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">nodeValue</span><span class="p">;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Case 2 (menggunakan property childNode untuk mendapatkan node anak dari element id, dan menggunakan property item untuk mendapatkan node anak secara spesifik/urut): Isi text node dari paragraf dengan id intro adalah: &quot;</span> <span class="o">+</span> <span class="nx">txt_2</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+            <span class="nx">txt_3</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;intro&quot;</span><span class="p">).</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeValue</span><span class="p">;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Case 3 (menggunakan value childNode index 0): Isi text node dari paragraf dengan id intro adalah: &quot;</span> <span class="o">+</span> <span class="nx">txt_3</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>&lt;!– case 2 dan case 3 merupakan cara yang identik, yaitu sama-sama me-return daripada text node –&gt;</p>
+<img alt="_images/DOM_Method_2.jpg" src="_images/DOM_Method_2.jpg" />
+</div>
+</div>
+<div class="section" id="node-access">
+<h2>Node Access<a class="headerlink" href="#node-access" title="Permalink to this headline">¶</a></h2>
+<p>Dengan adanya Document Object Model(DOM) maka setiap node dalam document HTML dapat diakses(dimanipulasi).</p>
+<p>Suatu object element document dimanipulasi dengan memberikan suatu action(property atau method), dan sebelum melakukan action maka yang perlu dilakukan sebelumnya adalah dengan mendapatkan(get/return) node daripada object document,</p>
+<p>Terdapat 3 cara dalam mengakses(mendapatkan) node, yaitu :</p>
+<ol class="arabic simple">
+<li>Method “getElementById()”</li>
+<li>Method “getElementsByTagName()”</li>
+<li>Menggunakan hubungan pohon node</li>
+</ol>
+<div class="section" id="method-getelementbyid">
+<h3>method getElementById()<a class="headerlink" href="#method-getelementbyid" title="Permalink to this headline">¶</a></h3>
+<p>method “getElementById()” mereturn element yang memiliki spesifikasi dari ID.</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;intro&quot;</span><span class="p">&gt;</span>Hai Kawan<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>mengakses element yang didapatkan(return/get) dengan method <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>getElementById()<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="c1">//mereturn(get) element yang ber-id &quot;intro&quot;</span>
+            <span class="c1">//di-assign ke dalam variabel &quot;x&quot;</span>
+            <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;intro&quot;</span><span class="p">);</span>
+            <span class="c1">//menuliskan ke dalam document(element &quot;&lt;p&gt;&lt;/p&gt;&quot; baru)</span>
+            <span class="c1">//di dlaamnya terdapat me-return value node text daripada variabel &quot;x&quot;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Value Text Node daripada element dengan id \&quot;intro\&quot; yaitu : &quot;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- COMMENT --&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/DOM_NodeAccess.jpg" src="_images/DOM_NodeAccess.jpg" />
+</div>
+<div class="section" id="method-getelementsbytagsname">
+<h3>Method getElementsByTagsName()<a class="headerlink" href="#method-getelementsbytagsname" title="Permalink to this headline">¶</a></h3>
+<p>Method “getElementsByTagName()” me-return element yang di-spesifikasikan dari name.</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hai Kawan<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>DOM itu menakjubkan<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>mengakses element yang didapatkan(return/get) dengan method <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>getElementsByTagName()<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Value node text dari paragraf paling awal: &quot;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">innerHTML</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Ingat memakai akhiran &quot;s&quot; pada &quot;Element&quot; yaitu : &quot;getELementsByTagName&quot; --&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/DOM_NodeAccess_2.jpg" src="_images/DOM_NodeAccess_2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Satu satunya hal yang harus diperhatikan dalam setiap pengaksesan element HTML, baik dari node atau dari lainnya adalah dari index number node itu sendiri.</p>
+<p class="last">Karena setiap element document memiliki index number yang selalu urut.</p>
+</div>
+</div>
+<div class="section" id="melalui-hubungan-pohon-node">
+<h3>Melalui hubungan pohon node<a class="headerlink" href="#melalui-hubungan-pohon-node" title="Permalink to this headline">¶</a></h3>
+<p>Penggunaan method <code class="docutils literal"><span class="pre">getElementById()</span></code> tentu jauh lebih baik dari method <code class="docutils literal"><span class="pre">getElementsByTagName()</span></code> karena method <code class="docutils literal"><span class="pre">getElementById()</span></code> jauh lebih spesifik dalam mencari suatu element, sehingga hasil pencarian element dipastikan adalah satu element tersebut.</p>
+<p>Berbeda dengan method <code class="docutils literal"><span class="pre">getElementsByTagName()</span></code> yang masih membutuhkan adanya index number untuk mendapatkan(get/return) suatu element.</p>
+<p>Namun bukan berarti penggunaan method <code class="docutils literal"><span class="pre">getElementsByTagName()</span></code> menjadi sama sekali tidak dipakai nantinya dalam pemrograman, karena pengaksesan suatu element tentu tidak selalu hanya satu element saja, semuanya tergantung bagaimana kebutuhan program yang akan dipakai.</p>
+<p>Di sisi lain, tidak pula semua element selalu dalam satu baris yang sama, atau memiliki posisi yang sama (sebagai node child, atau dengan element yang lain semuanya adalah sibling).</p>
+<p>Karena semua juga tergantung pada kebutuhan program yang akan dipakai, sehingga sangat memungkinkan terdapat adanya node parent dan node child.</p>
+<p>Kemudian bagaimana jika element tersebut tidak memiliki adanya atribut id???</p>
+<p>Jawabnya adalah bisa, dengan menggunakan navigasi hubungan node.</p>
+<p>Yaitu mendapatkan node(return/get node) dengan cara menuliskan bagian per bagian, menurut urutan level node, atau parent dan child nya.</p>
+<p>misal : document.&lt;elementParent&gt;.&lt;elementChild&gt;.action</p>
+<p>Penggunaan atribut id tentu akan membutuhkan banyak sekali identifier pada setiap element, hal ini sebenarnya cukup merepotkan juga dalam pemrograman.</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hai Kawan<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>DOM itu menakjubkan<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>DOM itu Hebat<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>mengakses element yang didapatkan(return/get) dengan method <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>getElementsByTagName()<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> yang mana menggunakan <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;fo&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;fo&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="c1">//all element &lt;p&gt;&lt;/p&gt;</span>
+            <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;jumlah node dengan element &#39;p&#39; = &gt;&quot;</span><span class="o">+</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">);</span>
+            <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">innerHTML</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">);</span>
+            <span class="p">};</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&lt;hr&gt;&quot;</span><span class="p">);</span>
+            <span class="c1">//element &lt;p&gt;&lt;/p&gt; di dalam element &lt;div&gt;&lt;/div&gt;</span>
+            <span class="c1">//element &lt;p&gt;&lt;/p&gt; pertama</span>
+            <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">).</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+            <span class="c1">//element &lt;p&gt;&lt;/p&gt; kedua</span>
+            <span class="nx">y</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">);</span>
+            <span class="nx">z</span><span class="o">=</span><span class="nx">y</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Value node text dari paragraf pertama: &quot;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">innerHTML</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Value node text dari paragraf kedua: &quot;</span> <span class="o">+</span> <span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">innerHTML</span><span class="p">);</span>
+            <span class="c1">//mengakses element input dari element form</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;fo&quot;</span><span class="p">).</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span><span class="o">=</span><span class="s2">&quot;hai&quot;</span><span class="p">;</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!--</span>
+
+<span class="c">dalam contoh ini maka cara dalam mendapatkan suatu element dengan cara method &quot;getElementsByTagName()&quot; di dalam suatu element adalah dengan cara menuliskan bagian element sebelumnya, atau mudahnya node element parent</span>
+
+<span class="c">misal :</span>
+
+<span class="c">document.&lt;elementParent&gt;.&lt;elementUtama&gt;.action</span>
+
+<span class="c">--&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/DOM_NodeAccess_3.jpg" src="_images/DOM_NodeAccess_3.jpg" />
+</div>
+</div>
+<div class="section" id="memasukkan-element-dengan-javascript">
+<h2>Memasukkan element dengan Javascript<a class="headerlink" href="#memasukkan-element-dengan-javascript" title="Permalink to this headline">¶</a></h2>
+<p>Untuk dapat memasukkan element dengan javascript maka ini tidak bisa dengan menggunakan syntax <code class="docutils literal"><span class="pre">append</span></code>, seperti misal <code class="docutils literal"><span class="pre">$(obj).append(&quot;&lt;element&gt;&lt;/element&gt;&quot;);</span></code>.</p>
+<p>Karena fungsi tersebut hanya akan menghasilkan string dan bukan element, kalaupun bisa menjadi suatu element, maka meski terdapat adanya id atau class, element tersebut tidak akan dapat di select/pilih dengan id atau class yang disertakan.</p>
+<p>Untuk dapat memasukkan element, maka yang diperlukan adalah membuat element dengan syntax <code class="docutils literal"><span class="pre">createElement</span></code> kemudian memberikan attribute seperti <code class="docutils literal"><span class="pre">id</span></code>, <code class="docutils literal"><span class="pre">class</span></code>, atau attribute lain yang biasa ada di element tersebut, seperti <code class="docutils literal"><span class="pre">value</span></code>, <code class="docutils literal"><span class="pre">input</span></code>, dll.</p>
+<p>misalkan adalah pembuatan element seperti berikut</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">this</span><span class="p">;</span>
+
+<span class="n">var</span> <span class="n">inputAddress</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
+<span class="n">inputAddress</span><span class="o">.</span><span class="n">class</span> <span class="o">=</span> <span class="s1">&#39;input-text&#39;</span><span class="p">;</span>
+<span class="n">inputAddress</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s1">&#39;text&#39;</span><span class="p">;</span>
+<span class="n">inputAddress</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span><span class="p">;</span>
+<span class="n">inputAddress</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;st. pittsburgh&#39;</span><span class="p">;</span>
+
+<span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputAddress</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Dengan menggunakan syntax tersebut maka element baru akan tercipta dan dapat menggunakan class ataupun idnya.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="javascript-note.html" class="btn btn-neutral float-right" title="Catatan Javascript" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="javascript-function.html" class="btn btn-neutral" title="1   Javascript Function" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

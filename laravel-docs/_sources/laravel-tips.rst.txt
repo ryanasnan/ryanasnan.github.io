@@ -1,0 +1,119 @@
+Laravel Tips
+=======================
+
+==============================================
+Parent Menu and Sub Menu active
+==============================================
+
+Dalam beberapa template, terdapat adanya beberapa yang dibutuhkan untuk mengetahui bahwa terdapat bagian yang aktif, seperti misalkan menu atau sub menu yang sedang aktif.
+
+Dari hal tersebut maka dibutuhkan adanya pengiriman data yang mana selanjutnya akan memberikan tambahan property seperti class misalkan.
+
+cara termudah adalah dengan memberikan adanya variabel dari controller yang akan dikirim ke view.
+
+.. code-block:: php
+
+	return \View::make('views.views-index',['page'=>'page-active','data'=>$data]);
+
+sedangkan di view akan diproses apakah dia mendapatkan adanya data yang akan memberikan tambahan property pada suatu element(menu/sub menu)
+
+.. code-block:: html
+
+	<li {{ (strcmp($page,'page-active')==0)? 'class=active':''}}>
+		<a href="{{URL::to('route')}}">
+			<i class="fa fa-table"></i> <span>Menu Name</span>
+		</a>
+	</li>
+
+Ini juga dapat diberikan dengan sub menu.
+
+.. code-block:: php
+
+	return \View::make('views.views-index',['page'=>'page-active','parentpage' => 'report-zone','data'=>$data]);
+
+.. code-block:: html
+
+	<li class="treeview {{ isset($parentpage) ? ((strcmp($parentpage,'report-zone')==0) ? 'active':'') : '' }}">
+		<a href="#">
+			<i class="fa fa-pie-chart"></i>
+				<span>Parent Menu Name</span>
+			<i class="fa fa-angle-left pull-right"></i>
+		</a>
+		<ul class="treeview-menu">
+			<li {{ (strcmp($page,'page-active')==0)? 'class=active':''}}>
+				<a href="{{URL::to('route')}}">
+					<i class="fa fa-area-chart"></i> <span>Child Menu level 1 Name</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+.. warning::
+
+	Namun pada sub menu jauh lebih dianjurkan menggunakan array, sehingga tidak akan menjadi masalah jika memiliki tingkat yang banyak.
+
+================================================================================================
+``return this`` kepada method yang mereturn `redirect page` atau `load view`
+================================================================================================
+
+.. warning::
+
+	Syntax ini mungkin hanya ada di laravel dan tidak berhubungan dengan hukum pada function/method secara umumnya.
+
+Dalam suatu controller di laravel, suatu method dapat pula mengakses method lain dengan menggunakan `pseudo` ``this``.
+
+Namun yang perlu diperhatikan disini adalah bahwa ketika mengakses method tersebut maka harus ditentukan bahwa kita hanya mengakses suatu data saja (pada method tersebut) atau juga mereturn method tersebut ke dalam method yang sekarang digunakan.
+
+Karena pada method yang mereturn `redirect()` atau `meload view`, maka untuk benar benar dapat melakukan hal tersebut method yang menjadi trigger harus mereturn nya dan bukan dengan hanya mengakses method tersebut.
+
+jika tidak maka pengaksesan `redirect` maupun `view` tidak akan dijalankan.
+
+jika semisal trigger dalam mengakses method lain tidak direturn, maka ketika method tujuan memiliki return redirect tidak akan dijalankan.
+
+misal berikut terdapat method triggerUpdate yang mana menjalankan method lain yaitu updateAction, namun tidak direturn maka yang terjadi adalah kita akan melwatinya saja dan tidak akan mengakses redirect().
+
+.. code-block:: php
+
+
+    public function triggerUpdate($id) {
+        $this->updateAction($id);
+    }
+
+    public function updateAction($id) {
+        $book = Books::findOrFail($id);
+        $data = [
+            'isbn' => '123123',
+            'title' => 'title edited',
+            'author' => 'author edited',
+            'publisher' => 'publisher edited',
+            'language' => '1'
+        ];
+        $book->update($data);
+
+        return redirect('books');
+
+pada code berikut, maka method triggerUpdate akan mereturn dari pengaksesan method updateAction, dengan kata lain method triggerUpdate akan mereturn setiap kegiatan di method.
+
+.. code-block:: php
+
+
+    public function triggerUpdate($id) {
+        return $this->updateAction($id);
+    }
+
+    public function updateAction($id) {
+        $book = Books::findOrFail($id);
+        $data = [
+            'isbn' => '123123',
+            'title' => 'title edited',
+            'author' => 'author edited',
+            'publisher' => 'publisher edited',
+            'language' => '1'
+        ];
+        $book->update($data);
+
+        return redirect('books');
+
+
+
+.. image:: images/return-redirect-view-method-laravel.gif

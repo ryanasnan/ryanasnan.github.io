@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Artisan Console (CLI laravel) &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Content Baru" href="content-baru.html"/>
+        <link rel="prev" title="Masalah Laravel dan pemecahannya" href="laravel-problem-and-solving.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Artisan Console (CLI laravel)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/artisan-console.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="artisan-console-cli-laravel">
+<h1>Artisan Console (CLI laravel)<a class="headerlink" href="#artisan-console-cli-laravel" title="Permalink to this headline">¶</a></h1>
+<p>Artisan adalah salah satu <code class="docutils literal"><span class="pre">command-line</span> <span class="pre">interface</span></code> yang diikutkan ke dalam paket laravel.</p>
+<p>Di dalamnya terdapat beberapa command default yang dapat digunakan untuk <cite>pengembangan</cite> aplikasi secara lebih mudah.</p>
+<p>seperti misalkan <strong>tinker</strong>, <strong>migrate</strong>, <strong>serve</strong>, dan lain-lain.</p>
+<p>Command di laravel (console) juga dapat ditambahkan secara manual.</p>
+<p>Command untuk <code class="docutils literal"><span class="pre">generate</span></code> console di laravel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="p">:</span><span class="n">console</span> <span class="p">[</span><span class="n">name</span><span class="o">-</span><span class="n">class</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">console</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Setelahnya akan terdapat file baru di <code class="docutils literal"><span class="pre">app/Console/Command/</span></code></p>
+<p>Terdapat 3 bagian utama dalam class ini, yaitu <strong>signature</strong>, <strong>description</strong>, dan <strong>handle</strong>.</p>
+<p>property <strong>signature</strong> adalah nama command yang akan diberikan untuk mengeksekusi console.</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>protected $signature = &#39;move:data&#39;;
+</pre></div>
+</div>
+<p>property <strong>description</strong> adalah untuk mendeskripsikan command laravel (opsional)</p>
+<p>method <strong>handle</strong> adalah method yang akan dieksekusi saat command dijalankan.</p>
+<p>Command dalam laravel juga dapat menggunakan parameter pada saat eksekusi command.</p>
+<p>Parameter ini dituliskan di property <code class="docutils literal"><span class="pre">signature</span></code>, kemudian akan dipassing ke dalam method handle sebagai <strong>argument</strong></p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>protected $signature = &#39;move:data {param1} {param2}&#39;;
+
+...
+
+public function handle() {
+        $param1 = $this-&gt;argument(&#39;param1&#39;);
+        $param2 = $this-&gt;argument(&#39;param2&#39;);
+}
+</pre></div>
+</div>
+<p>Selanjutnya agar command tersebut dijalankan maka harus di pass ke dalam property <strong>command</strong> pada file <code class="docutils literal"><span class="pre">app\Console\Kernel.php</span></code> dengan nama class dari command tersebut.</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Commands</span>\<span class="p">[</span><span class="n">name</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">class</span><span class="p">]::</span><span class="n">class</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">
+<h1>Contoh penggunaan command laravel dalam export import database mysql<a class="headerlink" href="#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql" title="Permalink to this headline">¶</a></h1>
+<p>file <code class="docutils literal"><span class="pre">app\Command\Console\ExportImportDb.php</span></code></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Console\Commands</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Console\Command</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ExportImportDb</span> <span class="k">extends</span> <span class="nx">Command</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * The name and signature of the console command.</span>
+<span class="sd">     *</span>
+<span class="hll"><span class="sd">     * @var string</span>
+</span><span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$signature</span> <span class="o">=</span> <span class="s1">&#39;copy-db {dbexp} {dbimp}&#39;</span><span class="p">;</span>
+<span class="hll">
+</span><span class="hll">    <span class="sd">/**</span>
+</span><span class="hll"><span class="sd">     * The console command description.</span>
+</span><span class="hll"><span class="sd">     *</span>
+</span><span class="sd">     * @var string</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;Command description&#39;</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Create a new command instance.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Execute the console command.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return mixed</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//generate unique id for sql name</span>
+        <span class="nv">$randId</span> <span class="o">=</span> <span class="nb">uniqid</span><span class="p">();</span>
+        
+        <span class="c1">//get configuration in env</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;DB_USERNAME&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+        <span class="nv">$pass</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+
+        <span class="nv">$dbStorePath</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;DB_STORE_PATH&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+
+        <span class="nv">$fileSqlPath</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">$dbStorePath</span><span class="s2">/</span><span class="si">$randId</span><span class="s2">.sql&quot;</span><span class="p">;</span>
+
+        <span class="nv">$dbExport</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">argument</span><span class="p">(</span><span class="s1">&#39;dbexp&#39;</span><span class="p">);</span>
+        <span class="nv">$dbImport</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">argument</span><span class="p">(</span><span class="s1">&#39;dbimp&#39;</span><span class="p">);</span>
+
+        <span class="c1">//export database to file</span>
+        <span class="nb">exec</span><span class="p">(</span><span class="s2">&quot;mysqldump -u </span><span class="si">$user</span><span class="s2"> -p</span><span class="si">$pass</span><span class="s2"> </span><span class="si">$dbExport</span><span class="s2"> &gt; </span><span class="si">$fileSqlPath</span><span class="s2">&quot;</span><span class="p">);</span>
+
+        <span class="c1">//import database from file</span>
+        <span class="nb">exec</span><span class="p">(</span><span class="s2">&quot;mysql -u </span><span class="si">$user</span><span class="s2"> -p</span><span class="si">$pass</span><span class="s2"> </span><span class="si">$dbImport</span><span class="s2"> &lt; </span><span class="si">$fileSqlPath</span><span class="s2">&quot;</span><span class="p">);</span>
+
+        <span class="c1">//delete file sql</span>
+        <span class="nb">unlink</span><span class="p">(</span><span class="nv">$fileSqlPath</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>file <code class="docutils literal"><span class="pre">.env</span></code></p>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">APP_ENV</span><span class="o">=</span><span class="n">local</span>
+<span class="n">APP_DEBUG</span><span class="o">=</span><span class="n">true</span>
+<span class="n">APP_KEY</span><span class="o">=</span><span class="mi">9</span><span class="n">HWyGamkwkUEYYg7RzBFFAN8XjoCpGX1</span>
+
+<span class="n">CACHE_DRIVER</span><span class="o">=</span><span class="n">file</span>
+<span class="n">SESSION_DRIVER</span><span class="o">=</span><span class="n">file</span>
+<span class="n">QUEUE_DRIVER</span><span class="o">=</span><span class="n">sync</span>
+
+<span class="n">REDIS_HOST</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
+<span class="n">REDIS_PASSWORD</span><span class="o">=</span><span class="n">null</span>
+<span class="n">REDIS_PORT</span><span class="o">=</span><span class="mi">6379</span>
+
+<span class="n">MAIL_DRIVER</span><span class="o">=</span><span class="n">smtp</span>
+<span class="n">MAIL_HOST</span><span class="o">=</span><span class="n">mailtrap</span><span class="o">.</span><span class="n">io</span>
+<span class="n">MAIL_PORT</span><span class="o">=</span><span class="mi">2525</span>
+<span class="n">MAIL_USERNAME</span><span class="o">=</span><span class="n">null</span>
+<span class="n">MAIL_PASSWORD</span><span class="o">=</span><span class="n">null</span>
+<span class="n">MAIL_ENCRYPTION</span><span class="o">=</span><span class="n">null</span>
+
+<span class="n">DB_CONNECTION</span><span class="o">=</span><span class="n">mysql</span>
+<span class="n">DB_HOST</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
+<span class="n">DB_DATABASE</span><span class="o">=</span>
+<span class="n">DB_USERNAME</span><span class="o">=</span><span class="n">root</span>
+<span class="n">DB_PASSWORD</span><span class="o">=</span><span class="n">root</span>
+<span class="n">DB_STORE_PATH</span><span class="o">=</span><span class="n">public</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>DB_CONNECTION =&gt; koneksi database</p>
+<p>DB_HOST =&gt; host</p>
+<p>DB_USERNAME =&gt; database username</p>
+<p>DB_PASSWORD =&gt; database password</p>
+<p class="last">DB_STORE_PATH =&gt; direktori untuk penyimpanan sementara file sql</p>
+</div>
+<p>tambahkan command di file <code class="docutils literal"><span class="pre">app\Console\Kernel.php</span></code></p>
+<p>code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>protected $commands = [
+    ...
+    Commands\ExportImportDb::class,
+];
+</pre></div>
+</div>
+<p>Penggunaan console:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="n">artisan</span> <span class="n">copy</span><span class="o">-</span><span class="n">db</span> <span class="p">[</span><span class="n">nama</span><span class="o">-</span><span class="n">database</span><span class="o">-</span><span class="n">yang</span><span class="o">-</span><span class="n">akan</span><span class="o">-</span><span class="n">dicopy</span><span class="p">]</span> <span class="p">[</span><span class="n">nama</span><span class="o">-</span><span class="n">database</span><span class="o">-</span><span class="n">tujuan</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="content-baru.html" class="btn btn-neutral float-right" title="Content Baru" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="laravel-problem-and-solving.html" class="btn btn-neutral" title="Masalah Laravel dan pemecahannya" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+Catatan Javascript
+================================================================================================================
+
+================================================================================================================
+script javascript diletakkan di bawah element (baru bisa memanipulasi setelah adanya objek elemen)
+================================================================================================================
+
+dan juga jangan membuat suatu deklarasi trigger(semisal onclick)  sebelum kita membuatkan element tersebut
+ini akan gagal, mengapa karena element baru akan tercipta di syntax bawahnya
+
+misal::
+
+	$("#hapusImage"+number).click(function(){
+		alert();
+
+	$(".input-group").append("<div><label class='fileContainer'><span id='hoi"+number+"' class='icon wb-plus btn btn-success btn-add image-input'></span><input class ='form-control inputfile' id='hai"+number+"' name='filename[]' type='file'></span></label><p id='hapusImage"+number+"'>Hapus Image</p></div> ");
+
+
+ini kaan berhasil, karena element suadah tercipta baru memiliki adanya aksi onclick
+
+misal::
+
+	$(".input-group").append("<div><label class='fileContainer'><span id='hoi"+number+"' class='icon wb-plus btn btn-success btn-add image-input'></span><input class ='form-control inputfile' id='hai"+number+"' name='filename[]' type='file'></span></label><p id='hapusImage"+number+"'>Hapus Image</p></div> ");
+
+	$("#hapusImage"+number).click(function(){
+		alert();
+
+
+
+================================================================================================================
+penambahan trigger tidak dapat dilakukan dengan foreach, melainkan dengan function javascript
+================================================================================================================
+
+misal::
+
+	for (var i = 1; i <= xx; i++) {
+		tambah_aja(i);
+		//alert(i);
+		$("#hoi"+i).hide();
+		$("#hapusImage"+i).click(function(){
+			alert(i);
+		});
+
+	}
+
+maka akan gagal
+
+
+kecuali jika dipasang di::
+
+	function tambah_aja(number) {
+		$("#hapusImage"+number).click(function(){
+			alert(number);
+		});
+
+
+maka akan berhasil
+
+
+entah bagaimana ini keluhatan berhasil, aneh kan
+kalau yang diatas cuma menghasilkan variabel i terakhir
+
+
+
+apa itu span
+================================
+
+
+coba lihat contoh berikut
+<span class="text-primary js-currency-format-text">Rp.{{$biayaSewa->biaya_sewa}},00</span>
+out put Rp.20830431,00
+
+dan
+
+<span class="text-primary">Rp.<span class="js-currency-format-text">{{$biayaSewa->biaya_sewa}}</span>,00</span>
+out put : Rp.20.830.431,00
+
+
+artinya span adalah element di dalam element (sub-element, dan biasanya di div), yang mana ini akan mengakses suatu text di dalamnya diluar dari parent element tersebut
+
+
+seprti dapat dilihat jika diatas itu span dengan class text primary terdapat value RP dan ,00 artinya pengaksesan angka value(text) harus dibuat span lagi
+
+
+
+
+
+
+===============================================================
+Javascript Dump note from `My own javascript tutorial`
+===============================================================
+
+
+.. _append-appendchild-in-js:
+
+===============================================================
+Fungsi Javascript ``append`` dan ``appendChild``
+===============================================================
+
+Dalam javascript untuk memasukan suatu element ke dalam element lain harus memperhatikan bagian 
+
+appendChild => memasukkan element child ke dalam element parent
+
+append => memasukkan seluruh element (parent-child) ke dalam element
+
+contoh penggunaan yang mudah adalah ketika memasukkan element ke dalam form element
+
+.. code-block:: coffee-script
+
+	var obj = this;
+	var form = document.createElement("form");
+
+	var inputName = document.createElement('input');
+		inputName.type = 'text';
+		inputName.name = 'name';
+
+	form.appendChild(inputName);
+
+	$(obj).append(form);

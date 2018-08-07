@@ -1,0 +1,161 @@
+Daftar Catatan Sementara
+=========================
+
+===========================================================================
+Deklarasi variable **dengan** ``var`` dan **tanpa** ``var``
+===========================================================================
+
+#. file pertama
+
+    contoh gak bisa jalankan ajax karena adanya var
+    
+    .. code-block:: coffee-script
+
+	    $("#check-avaibility-data").click(function(event) {
+	        event.preventDefault();
+
+	        $(this).html("change");
+
+	        var inventoryId;
+	        var userId;
+	        var startTime;
+	        var endTime;
+	        var date;
+
+	        inventoryId = $("#inventory-id-input-post").val($("#inventory-id-input").val());
+	        userId = $("#user-id-input-post").val($("#user-id-input").val());
+	        startTime = $("#start-time-input-post").val($("#start-time-input").val());
+	        endTime = $("#end-time-input-post").val($("#end-time-input").val());
+	        if($("#repeat-date").is(':checked')) {
+	            date = $("#date-input-post").val($("#repeat-date-input").val());
+	        }
+	        else if ($("#specific-date").is(':checked')) {
+	            date = $("#date-input-post").val($("#specific-date-input").val());
+	        }
+	        // $("#").val();
+
+
+	        //console.log($(this).closest("#input-check-available").find(":input"));
+	        $(this).closest("#input-check-available").find(":input").prop('disabled', true);
+	        //$(this).prop('disabled', true);
+
+
+	        checkAvailability();
+
+	        $("#show-avaibility-data").show();
+
+
+	    });
+
+
+	    function checkAvailability() {
+	        url = "<?php echo route('check-avaibility-booking'); ?>";
+	        token = "{{ csrf_token() }}";
+
+	        $.ajax({
+	            url:url, // if you say $(this) here it will refer to the ajax call not $('.provinsireceiver')
+	            data: {"_token": token, "date": date.val(), "inventory_id": inventoryId.val(), "user_id": userId.val(), "start_time": startTime.val(),"end_time": endTime.val()},
+	            type:'POST',
+	            success:function(data) {
+	                console.log(data);
+	            },
+	        });
+	    }
+
+
+	contoh bisa jalankan ajax karena gak ada deklarasi var
+
+	.. code-block:: coffee-script
+
+        $("#check-avaibility-data").click(function(event) {
+            event.preventDefault();
+
+            $(this).html("change");
+
+
+            inventoryId = $("#inventory-id-input-post").val($("#inventory-id-input").val());
+            userId = $("#user-id-input-post").val($("#user-id-input").val());
+            startTime = $("#start-time-input-post").val($("#start-time-input").val());
+            endTime = $("#end-time-input-post").val($("#end-time-input").val());
+            if($("#repeat-date").is(':checked')) {
+                date = $("#date-input-post").val($("#repeat-date-input").val());
+            }
+            else if ($("#specific-date").is(':checked')) {
+                date = $("#date-input-post").val($("#specific-date-input").val());
+            }
+            // $("#").val();
+
+
+            //console.log($(this).closest("#input-check-available").find(":input"));
+            $(this).closest("#input-check-available").find(":input").prop('disabled', true);
+            //$(this).prop('disabled', true);
+
+
+            checkAvailability();
+
+            $("#show-avaibility-data").show();
+
+
+        });
+
+
+        function checkAvailability() {
+            url = "<?php echo route('check-avaibility-booking'); ?>";
+            token = "{{ csrf_token() }}";
+
+            $.ajax({
+                url:url, // if you say $(this) here it will refer to the ajax call not $('.provinsireceiver')
+                data: {"_token": token, "date": date.val(), "inventory_id": inventoryId.val(), "user_id": userId.val(), "start_time": startTime.val(),"end_time": endTime.val()},
+                type:'POST',
+                success:function(data) {
+                    console.log(data);
+                },
+            });
+        }
+
+#. file kedua
+
+	so pada intingya gunain var maka ii dapat dipanggil di seetiap funtion area
+
+	.. code-block:: coffee-script
+
+		var token = "{{ csrf_token() }}";
+
+		//Warning Message
+		$('.sa-delete-resource').click(function () {
+
+		    var obj = this;
+
+		    swal({
+		        title: 'Are you sure?',
+		        text: "You will not be able to recover this selected file!",
+		        type: 'warning',
+		        showCancelButton: true,
+		        confirmButtonColor: '#d57171',
+		        cancelButtonColor: '#b7b7b7',
+		        confirmButtonText: 'Delete'
+		    }).then(function () {
+		        var url = url = $(obj).attr('data-url');
+		        console.log(token);
+
+	gak gunain pasti variable akan failed, 
+
+	.. code-block:: coffee-script
+
+		token = "{{ csrf_token() }}";
+
+		//Warning Message
+		$('.sa-delete-resource').click(function () {
+			var obj = this;
+
+			swal({
+				title: 'Are you sure?',
+				text: "You will not be able to recover this selected file!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d57171',
+				cancelButtonColor: '#b7b7b7',
+				confirmButtonText: 'Delete'
+			}).then(function () {
+				var url = url = $(obj).attr('data-url');
+				console.log(token);

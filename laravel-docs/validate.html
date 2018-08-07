@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Laravel Validate &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Middleware" href="middleware.html"/>
+        <link rel="prev" title="Request dan Response di Laravel" href="request-response.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Laravel Validate</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/validate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="laravel-validate">
+<h1>Laravel Validate<a class="headerlink" href="#laravel-validate" title="Permalink to this headline">¶</a></h1>
+<p>Dalam penggunaan validate di laravel, <strong>sangat disarankan</strong> untuk menggunakan adanya data yang berasal dari request asli dan bukan dengan penggunaan variabel yang berisikan request, apalagi dengan adanya manipulasi di dalam variabel tersebut.</p>
+<p>Contoh mudahnya adalah validate bagian image, jika kita menggunakan sumber asli dari <code class="docutils literal"><span class="pre">image</span> <span class="pre">object</span></code> yang dihasilkan oleh laravel maka ini akan mudah untuk divalidasi, seperti misalkan pada validasi <code class="docutils literal"><span class="pre">image</span></code> yaitu validasi jika semisal file yang diupload bukan file dengan tipe data image (jpg, jped, bmp, gif).</p>
+<p>Jika semisal kita menggunakan variabel dalam menampung object image tersebut, atau bahkan memanipulasi baru kemudian menggunakan validate, maka besar kemungkinan akan terjadinya error dalam proses validate tersebut.</p>
+<p>studi kasus validate image</p>
+<p>Semisal memiliki validasi image pada request <code class="docutils literal"><span class="pre">imgpath</span></code> seperti berikut di model:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function validate(array $data)
+{
+    $validate = [
+        &#39;name&#39; =&gt; &#39;required|unique:vcategories,name,&#39;.$id_vcategory.&#39;|max:255&#39;,
+        &#39;imgpath&#39; =&gt; &#39;required|image|max:2040&#39;,
+    ];
+
+    return \Validator::make($data, $validate,$messages);
+}
+</pre></div>
+</div>
+<p>kemudian saat validasi kita akan mempassing adanya request asli seperti berikut</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$vcategories = VehicleCategory::findOrFail($id);
+$this-&gt;authorize(&#39;create&#39;,$vcategories);
+$data = $request-&gt;all();
+
+//hook for checkbox
+if (!isset($data[&#39;status&#39;])) {
+    $data[&#39;status&#39;] = 0;
+}
+
+$validator = $vcategories-&gt;validate($data);
+
+if ($validator-&gt;fails()) {
+    return redirect(&#39;dashboard/vcategories/&#39;.$id.&#39;/edit&#39;)
+            -&gt;withErrors($validator)
+            -&gt;with([&#39;message&#39;=&gt;&#39;Opps! Data yang anda masukkan tidak lengkap&#39;,&#39;type&#39;=&gt;&#39;danger&#39;])
+            -&gt;withInput();
+}
+
+//save imgpath
+if ($request-&gt;hasFile(&#39;imgpath&#39;)) {
+
+    if($vcategories-&gt;imgpath != NULL) {
+        $vcategories_pp_path = $vcategories-&gt;imgpath;
+        $vcategories_pp_path_file = public_path($vcategories_pp_path);
+        if (File::exists($vcategories_pp_path_file))
+        {
+            File::delete($vcategories_pp_path_file);
+        }
+    }
+
+    $header_file = date(&quot;YmdHis&quot;);
+    $imageName = $header_file . &#39;.&#39; . $request-&gt;file(&#39;imgpath&#39;)-&gt;getClientOriginalName();
+    $data[&#39;imgpath&#39;] = $fileDir.$imageName;
+} else {
+    // image not provided
+    $data[&#39;imgpath&#39;] = $vcategories-&gt;imgpath; // old_version
+}
+</pre></div>
+</div>
+<p>Pada contoh validasi diatas tidak akan menimbulkan error karena data yang validasi adalah data asli dari request.</p>
+<p>Namun jika kita memanipulasi adanya request tersebut dan membuat validasi atas data manipulasi maka kemungkinan besar akan error seperti misalkan</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$vcategories = VehicleCategory::findOrFail($id);
+$this-&gt;authorize(&#39;create&#39;,$vcategories);
+$data = $request-&gt;all();
+
+//hook for checkbox
+if (!isset($data[&#39;status&#39;])) {
+    $data[&#39;status&#39;] = 0;
+}
+
+// save to hdd
+if ($request-&gt;hasFile(&#39;imgpath&#39;)) {
+
+    if($vcategories-&gt;imgpath != NULL) {
+        $vcategories_pp_path = $vcategories-&gt;imgpath;
+        $vcategories_pp_path_file = public_path($vcategories_pp_path);
+        if (File::exists($vcategories_pp_path_file))
+        {
+            File::delete($vcategories_pp_path_file);
+        }
+    }
+
+    $header_file = date(&quot;YmdHis&quot;);
+    $imageName = $header_file . &#39;.&#39; . $request-&gt;file(&#39;imgpath&#39;)-&gt;getClientOriginalName();
+    $data[&#39;imgpath&#39;] = $fileDir.$imageName;
+} else {
+    // image not provided
+    $data[&#39;imgpath&#39;] = $vcategories-&gt;imgpath; // old_version
+}
+
+$validator = $vcategories-&gt;validate($data);
+
+if ($validator-&gt;fails()) {
+    return redirect(&#39;dashboard/vcategories/&#39;.$id.&#39;/edit&#39;)
+            -&gt;withErrors($validator)
+            -&gt;with([&#39;message&#39;=&gt;&#39;Opps! Data yang anda masukkan tidak lengkap&#39;,&#39;type&#39;=&gt;&#39;danger&#39;])
+            -&gt;withInput();
+}
+</pre></div>
+</div>
+<p>Contoh diatas akan terjadi error pada validasi imgpath, mengapa bisa terjadi ???</p>
+<p>Karena terdapat manipulasi pada request <code class="docutils literal"><span class="pre">imgpath</span></code> itu sendiri, yaitu pada script pengecekan adanya file di imgpath dimana setelahnya akan ditentukan value apa yang akan diberikan (<code class="docutils literal"><span class="pre">$data['imgpath']</span></code>)</p>
+<p>Dengan begitu maka telah terjasi menipulasi pada request imgpath, sehingga validasi di laravel akan mengalami error.</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p>Namun bukan karena masalah manipulasi saja yang dapat menyebabkan validasi error.</p>
+<p>Jika semisal kita telah melakukan adanya perubahan value dari request itu sendiri maka meski telah mem-passing dengan data request yang asli pun akan tetap menyebabkan error seperti misalkan</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$vcategories = VehicleCategory::findOrFail($id);
+$this-&gt;authorize(&#39;create&#39;,$vcategories);
+$data = $request-&gt;all();
+
+//hook for checkbox
+if (!isset($data[&#39;status&#39;])) {
+    $data[&#39;status&#39;] = 0;
+}
+
+// save to hdd
+if ($request-&gt;hasFile(&#39;imgpath&#39;)) {
+
+    if($vcategories-&gt;imgpath != NULL) {
+        $vcategories_pp_path = $vcategories-&gt;imgpath;
+        $vcategories_pp_path_file = public_path($vcategories_pp_path);
+        if (File::exists($vcategories_pp_path_file))
+        {
+            File::delete($vcategories_pp_path_file);
+        }
+    }
+
+    $header_file = date(&quot;YmdHis&quot;);
+    $imageName = $header_file . &#39;.&#39; . $request-&gt;file(&#39;imgpath&#39;)-&gt;getClientOriginalName();
+    $data[&#39;imgpath&#39;] = $fileDir.$imageName;
+} else {
+    // image not provided
+    $data[&#39;imgpath&#39;] = $vcategories-&gt;imgpath; // old_version
+}
+
+$validator = $vcategories-&gt;validate($request-&gt;all());
+
+if ($validator-&gt;fails()) {
+    return redirect(&#39;dashboard/vcategories/&#39;.$id.&#39;/edit&#39;)
+            -&gt;withErrors($validator)
+            -&gt;with([&#39;message&#39;=&gt;&#39;Opps! Data yang anda masukkan tidak lengkap&#39;,&#39;type&#39;=&gt;&#39;danger&#39;])
+            -&gt;withInput();
+}
+</pre></div>
+</div>
+<p>Mengapa dapat terjadi error ??</p>
+<p>Padahal sudah mempassing dengan value request yang asli ( <code class="docutils literal"><span class="pre">$validator</span> <span class="pre">=</span> <span class="pre">$vcategories-&gt;validate($request-&gt;all());</span></code> )</p>
+<p class="last">Hal ini masih belum diketahui secara pasti, hanya saja sebagai saran yang baik bahwa peletakkan validasi adalah sebelum adanya manipulasi dari request tersebut</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="middleware.html" class="btn btn-neutral float-right" title="Middleware" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="request-response.html" class="btn btn-neutral" title="Request dan Response di Laravel" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,1278 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Database &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="1   Model Eloquent" href="model-eloquent.html"/>
+        <link rel="prev" title="Routing di Laravel" href="routing.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#migration">Migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#merubah-struktur-tabel">Merubah struktur tabel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-crud-laravel">Basic CRUD Laravel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ddl-statement">DDL statement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#seeder"><cite>Seeder</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-random">Data Random</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#faker">Faker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#error-di-seeder">Error di seeder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#query-builder">Query BUilder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#select">Select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chunk">Chunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crud-query-builder">CRUD query builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#where-query-builder">Where Query Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#where-query-builder-advance">Where query builder advance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#join">JOIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-lanjutan">WHERE lanjutan</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregate">Aggregate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#raw-query">Raw Query</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><cite>Migration</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constraint-relation-pembuatan-relasi-dari-constraint"><cite>Constraint Relation</cite> (Pembuatan relasi dari constraint)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#menambahkan-migrasi-baru-ke-bagian-tengah-tidak-ke-bagian-terakhir">Menambahkan migrasi baru ke bagian tengah (tidak ke bagian terakhir)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#db-raw">DB RAW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#first-find-create-new-pada-laravel"><cite>First</cite> , <cite>Find</cite> , <cite>Create</cite> , <cite>New</cite> pada laravel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction">Transaction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction-otomatis">Transaction Otomatis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaksi-manual">Transaksi manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Database</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database">
+<h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="migration">
+<h1>Migration<a class="headerlink" href="#migration" title="Permalink to this headline">¶</a></h1>
+<p>Laravel memiliki fitur <code class="docutils literal"><span class="pre">migration</span></code> yaitu script yang bertugas untuk menangani pengolahan di database.</p>
+<p>File migration disimpan di dalam direktori <code class="docutils literal"><span class="pre">database/migration</span></code>, dan secara default setelah menginstal laravel biasanya terdapat 2 file migration yaitu file migration yang menangani tabel <code class="docutils literal"><span class="pre">users</span></code> dan file migration password_resets yang menangani tabel <code class="docutils literal"><span class="pre">password_resets</span></code>.</p>
+<p>Selain itu jika kita mengeksekusi/menjalankan migration maka laravel akan membuatkan sebuah tabel baru yaitu <code class="docutils literal"><span class="pre">migrations</span></code> yang berisi record dalam menjalankan migrasi.</p>
+<p>Jika menggunakan migration maka akan terdapat beberapa keuntungan diantaranya :</p>
+<ol class="arabic simple">
+<li>Perubahan struktur database dapat tercatat di source control (SVN, GIT, dll).</li>
+<li>Kita tidak perlu berkirim file SQL untuk tiap anggota member setiap kali melakukan perubahan struktur database. Member yang lain cukup mengambil source code terbaru dan menjalankan migration.</li>
+</ol>
+<p>3.Ketika mengembangkan aplikasi, kita dapat melakukan undo dan redo struktur database dengan mudah.</p>
+<ol class="arabic simple" start="4">
+<li>Jika digabungkan dengan seeding, kita dapat mereset isi database dengan mudah.</li>
+</ol>
+<p>Untuk membuat sebuah migration kita dapat menggunakan perintah <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">make:migration</span> <span class="pre">create_table_name</span></code> dan file migration baru akan muncul pada <code class="docutils literal"><span class="pre">database/migrations</span></code>.</p>
+<p>Sebagai tambahan, nama migration(class) akan berubah dengan tanpa underscore dan menjadi camelcase, seperti misalkan kita menjalankan perintah <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">make:migration</span> <span class="pre">buat_tabel_barangs</span></code> maka hasilnya adalah <code class="docutils literal"><span class="pre">BuatTabelBarangs</span></code>.</p>
+<p>File migration akan berisi 2 method yaitu <code class="docutils literal"><span class="pre">up</span></code> dan <code class="docutils literal"><span class="pre">down</span></code>, method <code class="docutils literal"><span class="pre">up</span></code> dijalankan untuk membuat sedangkan method <code class="docutils literal"><span class="pre">down</span></code> untuk mnghapus/menghancurkan struktur tabel.</p>
+<p>Dalam menangani pada masalah database pada migration ini kita akan menggunakan class <code class="docutils literal"><span class="pre">Schema</span></code>.</p>
+<p>Misalkan ketika akan membuat tabel baru kita bisa gunakan syntax <code class="docutils literal"><span class="pre">Schema::create(``namatabel</span></code>,closure_struktur_tabel)``.</p>
+<p>dalam closure struktur tabel kita akan mempasing parameter berupa variabel yang memiliki hint/dependency berupa class <code class="docutils literal"><span class="pre">Blueprint</span></code>, dan nantinya variabel ini akan kita gunakan untuk menyusun field table.</p>
+<p>Untuk membuat adanya class yang sudah siap dalam membuat tabel pada method <code class="docutils literal"><span class="pre">up</span></code>, serta menghapus tabel pada method <code class="docutils literal"><span class="pre">down</span></code> , kita dapat memberikan tambahan opsi <code class="docutils literal"><span class="pre">--create=namatabel</span></code>.</p>
+<img alt="_images/5.1.1.databasemigration1.jpg" src="_images/5.1.1.databasemigration1.jpg" />
+<img alt="_images/5.1.2.databasemigration2.jpg" src="_images/5.1.2.databasemigration2.jpg" />
+<img alt="_images/5.1.3.databasemigration3.jpg" src="_images/5.1.3.databasemigration3.jpg" />
+<p>Dalam instansiasi class <code class="docutils literal"><span class="pre">blueprint</span></code>, terdapat banyak sekali method yang dapat kita gunakan.</p>
+<p>Misalkan , method <code class="docutils literal"><span class="pre">increments</span></code> diatas akan membuat field/column bertipe integer dengan attribut <code class="docutils literal"><span class="pre">auto_increment</span></code>, method <code class="docutils literal"><span class="pre">string</span></code> akan membuat field dengan tipe data <code class="docutils literal"><span class="pre">varchar</span></code>, method <code class="docutils literal"><span class="pre">integer</span></code> yang akan membuat fieldnya bertipe data <code class="docutils literal"><span class="pre">number</span></code>, method <code class="docutils literal"><span class="pre">date</span></code> yang akan membuat fieldnya bertipe data <code class="docutils literal"><span class="pre">date</span></code>, dan masih banyak yang lainnya.</p>
+<p>Terdapat satu hal yang cukup unik dalam migration laravel, yaitu method <code class="docutils literal"><span class="pre">timestamps</span></code>, method ini akan membuat 2 field yaitu <code class="docutils literal"><span class="pre">created_at</span></code> dan <code class="docutils literal"><span class="pre">updated_at</span></code>.</p>
+<p>Pembahasan lebih jauh mengapa harus terdapat field <code class="docutils literal"><span class="pre">created_at</span></code> dan <code class="docutils literal"><span class="pre">updated_at</span></code>, harusnya adanya akhiran/suffix plural(s/es) pada nama tabel, serta adanya standardrisasi struktur database dalam laravel (seperti harus adanya field <code class="docutils literal"><span class="pre">id</span></code>) akan dibahas lebih jauh pada materi <code class="docutils literal"><span class="pre">eloquent</span></code>.</p>
+<p>untuk mengeksekusi/menjalankan migration pada laravel dapat menggunakan syntax <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate</span></code>, syntax ini akan menjalankan semua file migration pada method <code class="docutils literal"><span class="pre">up</span></code>.</p>
+<p>Sedangkan untuk menghapus tabel atau menghancrukan struktur tabel dapat menggunakan <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate:rollback</span></code>.</p>
+<p>Syntax <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate:rollback</span></code> akan menjalankan method <code class="docutils literal"><span class="pre">down</span></code> pada file terakhir dalam list tabel <code class="docutils literal"><span class="pre">migration</span></code> (pada field <code class="docutils literal"><span class="pre">batch</span></code>), sedangakan untuk menjalankan method <code class="docutils literal"><span class="pre">down</span></code> pada semua file migration dapat menggunakan syntax <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate:reset</span></code>.</p>
+<p>Terdapat pula syntax <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate:refresh</span></code> yang akan melakukan reset(menjalankan method down pada semua file migration) dan selanjutnya melakukan migrate(menjalankan method up).</p>
+<p>Gambar :</p>
+<img alt="_images/5.2.3.migrate3.jpg" src="_images/5.2.3.migrate3.jpg" />
+<img alt="_images/5.2.2.migrate2.jpg" src="_images/5.2.2.migrate2.jpg" />
+<img alt="_images/5.2.1.migrate.jpg" src="_images/5.2.1.migrate.jpg" />
+<p>migration juga dapat digunakan untuk menangani lebih dari satu tabel</p>
+<img alt="_images/5.2.4.migrate4.jpg" src="_images/5.2.4.migrate4.jpg" />
+<img alt="_images/5.2.5.migrate5.jpg" src="_images/5.2.5.migrate5.jpg" />
+<img alt="_images/5.2.6.migrate6.jpg" src="_images/5.2.6.migrate6.jpg" />
+<div class="section" id="merubah-struktur-tabel">
+<h2>Merubah struktur tabel<a class="headerlink" href="#merubah-struktur-tabel" title="Permalink to this headline">¶</a></h2>
+<p>Kita juga dapat merubah struktur tabel (tentu setelah kita membuat tabel itu dahulu).</p>
+<p>Kita dapat merubah atriburt field , bahkan bisa membuat adanya relasi antar tabel, tentunya dengan method yang telah disediakan oleh laravel.</p>
+<p>Untuk merubah struktur tabel kita akan menggunakan method <code class="docutils literal"><span class="pre">table</span></code> pada class <code class="docutils literal"><span class="pre">Schema</span></code> (Schema::table(<code class="docutils literal"><span class="pre">namatabel</span></code>,``instansiasi_blueprint``)).</p>
+<p>Dapat pula membuat migrasi dengan adanya method table dengan menambahkan <code class="docutils literal"><span class="pre">--table=namatabel</span></code> (misal php artisan make:migration –table=barangs).</p>
+<p>Sebagai tambahan saat tulisan ini ditulis, masih belum ada cara dalam membuat field memiliki atribut <code class="docutils literal"><span class="pre">unsigned</span></code> pada method laravel, atribut <code class="docutils literal"><span class="pre">unsigned</span></code> ini diperlukan agar field dapat dijadikan reference(memiliki relasi) pada id tabel tertentu.</p>
+<p>Namun terdapat library luar dengan nama <code class="docutils literal"><span class="pre">doctrine/dbal</span></code> yang dapat merubah field menjadi <code class="docutils literal"><span class="pre">unsigned</span></code> dan sebaliknya.</p>
+<p>Untuk mengubah suatu field menjadi unsigned dengan library ini, diperlukan 2 method yaitu method <code class="docutils literal"><span class="pre">unsigned</span></code> dan method <code class="docutils literal"><span class="pre">change</span></code> sedangkan untuk menghilangkan atribut <code class="docutils literal"><span class="pre">unsigned</span></code> , dapat menggunakan method <code class="docutils literal"><span class="pre">change</span></code> saja</p>
+<p>Sebelumnya dapat kita install melalui composer (<code class="docutils literal"><span class="pre">composer</span> <span class="pre">require</span> <span class="pre">doctrine/dbal</span></code>).</p>
+<p>Setelah field tersebut memiliki atribut <code class="docutils literal"><span class="pre">unsigned</span></code>, selanjutnya kita dapat mereferensikan ke field lain.</p>
+<p>Untuk mereferensikan ke field lain kita membutuhkan 4 method yaitu ;</p>
+<p>method <code class="docutils literal"><span class="pre">foreign</span></code> , berisikan field yang akan memiliki foreign key(relasi dengan tabel lain, biasnya akan direferensikan dengan field <code class="docutils literal"><span class="pre">id</span></code> pada tabel lainnya)</p>
+<p>method <code class="docutils literal"><span class="pre">references</span></code> , berisikan nama field yang akan dijadikan relasi (biasanya <code class="docutils literal"><span class="pre">id</span></code>)</p>
+<p>method <code class="docutils literal"><span class="pre">on</span></code>, berisikan nama tabel yang dijadikan relasi</p>
+<p>method <code class="docutils literal"><span class="pre">onUpdate</span></code> dan <code class="docutils literal"><span class="pre">onDelete</span></code> ,pilihan ketika data yang berelasi terjadi perubahan baik diupdate maupun dihapus.</p>
+<p>Dan pada method down ketika terdapat adanya relasi, maka pertama-tama harus dihapus referensinya, kemudian dihapus indexnya, dan terakhir menghilangkan atribut <code class="docutils literal"><span class="pre">UNSIGNED</span></code></p>
+<img alt="_images/5.2.7.migrate7.jpg" src="_images/5.2.7.migrate7.jpg" />
+<img alt="_images/5.2.8.migrate8.jpg" src="_images/5.2.8.migrate8.jpg" />
+<img alt="_images/5.2.9.migrate9.jpg" src="_images/5.2.9.migrate9.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Apa itu cascade dan restrict</p>
+<p>misalkan kita memiliki 2 buah tabel yaitu, tabel barang dan pelanggan</p>
+<p>dan tentu akan terjadi adanya transaksi pembelian, maka dibuatlah tabel <code class="docutils literal"><span class="pre">pambelian</span></code>.</p>
+<p>dari ketiga tabel ini bagaimana jika terjadi perubahan data ???</p>
+<p>misalkan berikut adalah struktur tabelnya</p>
+<p>tabel <code class="docutils literal"><span class="pre">barang</span></code></p>
+<p>id_barang</p>
+<p>nama_barang</p>
+<p>jenis_barang</p>
+<p>tabel <code class="docutils literal"><span class="pre">pelanggan</span></code></p>
+<p>id_pelanggan</p>
+<p>nama_pelanggan</p>
+<p>telepon</p>
+<p>dan dari keduanya terdapat adanya relasi, karena dan jenis relasinya adalah many to many, biasanya relasi ini akan membutuhkan sebuah tabel baru, misalkan dalam kasus ini dibutuhkan tabel <code class="docutils literal"><span class="pre">pembelian</span></code></p>
+<p>tabel <code class="docutils literal"><span class="pre">pembelian</span></code></p>
+<p>id_pembelian</p>
+<p>id_barang</p>
+<p>id_pelanggan</p>
+<p class="last">tanggal</p>
+</div>
+<p>misalkan kita telah memiliki data data dari tabel barang dan pelanggan</p>
+<p>tabel barang</p>
+<img alt="_images/5.3.3.tabelbarang.jpg" src="_images/5.3.3.tabelbarang.jpg" />
+<p>tabel pelanggan</p>
+<img alt="_images/5.3.4.tabelpelanggan.jpg" src="_images/5.3.4.tabelpelanggan.jpg" />
+<p>kemudian terjadilah transaksi, maka akan mengisi di tabel <code class="docutils literal"><span class="pre">pembelian</span></code></p>
+<p>tabel pembelian</p>
+<img alt="_images/5.3.5.tabelpembelian.jpg" src="_images/5.3.5.tabelpembelian.jpg" />
+<p>Perlu diketahui bahwa kita harus membuat index terlebih dahulu agar dapat membuat reference, namun dalam laravel, ketika kita telah membuat primary key (default adalah id dengan method increments) dan juga mereferensikan dengan field lain maka secara otomatis akan dibuatkan index.</p>
+<p>Dan ketika mereference nama constraint nya akan sama dengan nama index-nya(nama index nya sendiri juga sudah otomatis dibuat)</p>
+<img alt="_images/5.3.1.tambahindex.jpg" src="_images/5.3.1.tambahindex.jpg" />
+<p>ketika kita menambahkan reference maka yang bisa dijadikan reference adalah field yang memiliki index(btw secara default ketika kita menentukan primary key pada suatu field, maka field tersebut juga akan memiliki index).</p>
+<img alt="_images/5.3.2.tambahreference.jpg" src="_images/5.3.2.tambahreference.jpg" />
+<p>Ada beberapa hal yang harus diperhatikan disini, ketika kita akan mereferensikan field pada 2 tabel atau lebih, field yang berelasi(baik yang memiliki foreign atau dijadikan reference) harus sama-sama memiliki atribut <code class="docutils literal"><span class="pre">UNSIGNED</span></code>, ketika cuma satu saja yang memiliki atribut ‘UNSIGNED’ maka referensi akan gagal.</p>
+<p>Namun dalam laravel, tidak perlu merubah field yang dijadikan reference(biasanya id) untuk memiliki atribut, karena secara otomatis ketika menjalankan 4 method(foreign, references, on dan onUpdate onDelete) maka field yang dijadikan reference akan berubah secara otomatis memiliki atribut ‘UNSIGNED’.</p>
+<p>Dan field yang memiliki atribut ‘UNSIGNED’ harus memiliki tipe data ‘integer’.</p>
+<p>Namun jika field yang dijadikan reference dan field yang memiliki foreign sama-sama tidak memiliki atribut ‘  UNSIGNED’ maka relasi dapat dibuat.</p>
+<p>kemudian bagaiaman dengan restrict dan cascade</p>
+<p>Dengan adanya restrict (onDelete dan onUpdate pada relasi)</p>
+<p>–parent table</p>
+<p>maka tidak akan dapat melakukan delete pada data tabel barang dan pelanggan.</p>
+<p>Dan update tidak akan bisa pada field yang dijadikan reference(dalam kasus ini adalah id_barang pada tabel barang dan id_pelanggan pada tabel pelanggan)</p>
+<p>–child table(dalam kasus ini adalah tabel ‘pembelian’)</p>
+<p>dapat melakukan update dan delete dengan aman</p>
+<p>Dengan adanya cascade</p>
+<p>–parent table</p>
+<p>maka ketika melakukan delete pada data tabel barang dan pelanggan, maka data yang berkaitan (memiliki relasi, dalam kasus ini adalah pada tabel ‘pembelian’) akan hilang, misal kita menghapus data kulkas(id nya 1) pada tabel barang maka data pada pembelian yang memiliki id ‘1’ juga akan hilang</p>
+<p>dan ketika melakukan update maka child (dalam kasus ini adalah tabel ‘pembelian’) juga akan mengikuti perubahan(dalam kasus ini yang dapat diubah adalah id), semisal id daripada magic jar kita ubah menjadi 20 maka pada tabel child (tabel pembelian) yang terdapat data dengan id_barang 2 akan berubah menjadi 20</p>
+<p>child table(dalam kasus ini adalah tabel ‘pembelian’)</p>
+<p>dapat melakukan update dan delete dengan aman</p>
+<div class="section" id="basic-crud-laravel">
+<h3>Basic CRUD Laravel<a class="headerlink" href="#basic-crud-laravel" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Manipulasi database pada framework Laravel
+Secara umum, dalam Laravel terdapat 3 cara dalam melakukan manipulasi database, yaitu ‘Basic CRUD query’, ‘Query Builder’ dan ‘Model Eloquent’.</p>
+<p>Kebanyakan yang digunakan adalah ‘Model eloquent’ karena lebih memiliki banyak fungsi yang memudahkan.</p>
+<p class="last">Namun dalam materi ini akan dibahas mengenai Basic Crud Query</p>
+</div>
+<p><code class="docutils literal"><span class="pre">Basic</span> <span class="pre">Crud</span> <span class="pre">Query</span></code> adalah query dasar penggunaan CRUD(dan memang digunakan hanya pada CRUD saja).</p>
+<p>Penggunaanya adalah dengan menjalankan class ‘DB’ kemudian mengakses method yang sesuai dengan manipulasi yang dilakukan, misal jika akan melakukan seleksi data maka menggunakan method ‘select’.</p>
+<p>Dan parameternya berisi query sql secara manual.</p>
+<p>Namun yang perlu diperhatikan adalah, dalam memanipulasi dengan field maka dibutuhkan adanya <code class="docutils literal"><span class="pre">placeholder</span> <span class="pre">bindings</span></code> dan <code class="docutils literal"><span class="pre">named</span> <span class="pre">bindings</span></code>.</p>
+<p>Placeholder bindings menggunakan tanda tanya <code class="docutils literal"><span class="pre">?</span></code> sedangkan named bindings menggunakan tanda double colon <code class="docutils literal"><span class="pre">:</span></code> dalam mengakses fieldnya.</p>
+<p>Placeholder bindings akan mengakses field berdasarkan pada urutan(cmiiw), sedangkan pada <code class="docutils literal"><span class="pre">named</span> <span class="pre">bindings</span></code> akan diakses menurut nama fieldnya yang diawali dengan prefix tanda double colon <code class="docutils literal"><span class="pre">:</span></code>.</p>
+<p>Placeholder bindings jarang digunakan, dan mungkin hanya akan digunakan pada insert.</p>
+<img alt="_images/5.4.1.basiccrudquery.jpg" src="_images/5.4.1.basiccrudquery.jpg" />
+<p>seleksi dengan filter where</p>
+<img alt="_images/5.4.4.basiccrudquery4.jpg" src="_images/5.4.4.basiccrudquery4.jpg" />
+<p>insert dengan placeholder bindings</p>
+<img alt="_images/5.4.2.basiccrudquery2.jpg" src="_images/5.4.2.basiccrudquery2.jpg" />
+<p>insert dengan named bindings</p>
+<img alt="_images/5.4.3.basiccrudquery3.jpg" src="_images/5.4.3.basiccrudquery3.jpg" />
+<p>query update data</p>
+<img alt="_images/5.4.5.basiccrudquery5.jpg" src="_images/5.4.5.basiccrudquery5.jpg" />
+<p>query delete</p>
+<img alt="_images/5.4.6.basiccrudquery6.jpg" src="_images/5.4.6.basiccrudquery6.jpg" />
+</div>
+</div>
+<div class="section" id="ddl-statement">
+<h2>DDL statement<a class="headerlink" href="#ddl-statement" title="Permalink to this headline">¶</a></h2>
+<p>Sedangkan untuk mengakses DDL seperti create, alter, drop dan lain-lain, menggunakan syntax “DB::statement(‘command’)”.</p>
+<p>Dan untuk melihat hasilnya dapat menggunakan syntax “Schema::getColumnListing()”</p>
+<img alt="_images/5.4.6.basiccrudquery6.jpg" src="_images/5.4.6.basiccrudquery6.jpg" />
+<img alt="_images/5.4.7.basiccrudquery7.jpg" src="_images/5.4.7.basiccrudquery7.jpg" />
+<div class="section" id="seeder">
+<h3><cite>Seeder</cite><a class="headerlink" href="#seeder" title="Permalink to this headline">¶</a></h3>
+<p>Laravel menyediakan fitur <code class="docutils literal"><span class="pre">seeding</span></code> yaitu pemberian data secara bebas menggunakan syntax php.</p>
+<p>Dengan seeding kita dapat menambahkan data apa saja secara acak, sehingga tidak perlu membuatnya di dalam database.</p>
+<p>file seeding disimpan pada direktori <code class="docutils literal"><span class="pre">database/seeds</span></code>.</p>
+<p>file seeding hanya berisikan satu method yaitu <strong>run()</strong>.</p>
+<p>Untuk membuat file/class seeder dapat menggunakan command <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">make:seeder</span> <span class="pre">namaclassseeder</span></code> , misal <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">make:seeder</span> <span class="pre">BuatSeederPelanggan</span></code></p>
+<p>selanjutnya kita dapat membuka file <code class="docutils literal"><span class="pre">BuatSeederPelanggan</span></code> pada direktori <code class="docutils literal"><span class="pre">database/seeds</span></code>, dan mengedit yang menjadi isiannya.</p>
+<p>untuk menjalankan seeder tersebut gunakan perintah : <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">db:seed</span> <span class="pre">--class</span> <span class="pre">namaclassseeder</span></code></p>
+<p>file <strong>database/seeds/BuatSeederBarangs</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function run() {</span>
+<span class="x">  DB::insert(&#39;insert into barangs (nama, tanggal_masuk) values (:nama, :tanggal_masuk)&#39;, [</span>
+<span class="x">    &#39;nama&#39; =&gt; &quot;TV LED&quot;,</span>
+<span class="x">    &#39;tanggal_masuk&#39; =&gt; &#39;2016-06-07&#39;</span>
+<span class="x">  ]);</span>
+
+<span class="x">  DB::insert(&#39;insert into barangs (nama, tanggal_masuk) values (:nama, :tanggal_masuk)&#39;, [</span>
+<span class="x">    &#39;nama&#39; =&gt; &quot;TV LCD&quot;,</span>
+<span class="x">    &#39;tanggal_masuk&#39; =&gt; &#39;2016-06-08&#39;</span>
+<span class="x">  ]);</span>
+
+<span class="x">  $this-&gt;command-&gt;info(&#39;Berhasil menambah 2 barang!&#39;);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/5.5.1.seeding1.jpg" src="_images/5.5.1.seeding1.jpg" />
+<p>Tentunya akan sangat merepotkan apbila harus memanggil satu class satu persatu untuk menjalankan seeder, maka dari itu kita akan menggunakan file <code class="docutils literal"><span class="pre">DatabaseSeeder</span></code> .</p>
+<p>File ini akan menjalankan semua seeder yang ditulis pada method <code class="docutils literal"><span class="pre">run()</span></code> di bawah <code class="docutils literal"><span class="pre">Model::unguard()</span></code>.</p>
+<p>Kita dapat menambahkan seedder tersebut dengan mem-passing ya ke parameter <code class="docutils literal"><span class="pre">$this-&gt;class(``namaseederclass</span></code>)`` , namun dalam versi terbaru laravel kita juga dapat mempasiingnya dengan class, misal <code class="docutils literal"><span class="pre">$this-&gt;call(BuatSeederBarangs::class)</span></code>.</p>
+<p>Kemudian kita dapat mengeksekusi seeder-seeder tersebut dengan command <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">db:seed</span></code> .</p>
+<p>Sebagai tambahan <code class="docutils literal"><span class="pre">DatabaseSeeder</span></code> ini akan menjalankan method <code class="docutils literal"><span class="pre">Model::unguard</span></code>, untuk mengizinkan <code class="docutils literal"><span class="pre">mass_assignment</span></code>, tujuannya adalah data dapat dimanipulasi(insert, update, delete) dengan lebih dari satu data, tapi dalam kasus contoh dibawah kita belum menggunakannya.</p>
+<p>Bahasan mengenai <code class="docutils literal"><span class="pre">mass_assignment</span></code> akan dibahas pada materi berikutnya.</p>
+<img alt="_images/5.5.2.seeding2.jpg" src="_images/5.5.2.seeding2.jpg" />
+<img alt="_images/5.5.3.seeding3.jpg" src="_images/5.5.3.seeding3.jpg" />
+</div>
+</div>
+<div class="section" id="data-random">
+<h2>Data Random<a class="headerlink" href="#data-random" title="Permalink to this headline">¶</a></h2>
+<p>Dengan menggunakan syntax php pada seeder, kita dapat membuat data sendiri yang nantinya akan dapat digunakan secara acak.</p>
+<p>Semisal dengan memanfaatkan function <code class="docutils literal"><span class="pre">range</span></code>, <code class="docutils literal"><span class="pre">rand</span></code>, perulangan for, foreach, dan sebagainya.</p>
+<p>function <code class="docutils literal"><span class="pre">range</span></code> akan menentukan adanya jumlah dari angka awal(pada parameter pertama) dan angka terakhir(parameter kedua).</p>
+<p>function <code class="docutils literal"><span class="pre">rand</span></code> akan menentukan angka secara acak dari angka awal(pada parameter pertama) dan angka terakhir(parameter kedua).</p>
+<p>file <strong>database/seeds/DatabaseSeeder</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function run() {</span>
+<span class="x">  $nama = [&#39;kipas angin&#39;, &#39;sepatu&#39;, &#39;sandal&#39;];</span>
+<span class="x">  $tanggal_masuk = [&#39;2016-06-06&#39;,&#39;2016-06-07&#39;];</span>
+
+<span class="x">  foreach (range(1,10) as $value) {</span>
+<span class="x">    DB::insert(&#39;insert into barangs (nama, tanggal_masuk) values (:nama, :tanggal_masuk)&#39;, [</span>
+<span class="x">      &#39;nama&#39; =&gt; $nama[rand(0,2)],</span>
+<span class="x">      &#39;tanggal_masuk&#39; =&gt; $nama[rand(0,1)]</span>
+<span class="x">    ]);</span>
+<span class="x">  }</span>
+
+<span class="x">  $this-&gt;command-&gt;info(&#39;Berhasil menambah barang!&#39;);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/5.5.5.seeding5.jpg" src="_images/5.5.5.seeding5.jpg" />
+<img alt="_images/5.5.4.seeding4.jpg" src="_images/5.5.4.seeding4.jpg" />
+</div>
+<div class="section" id="faker">
+<h2>Faker<a class="headerlink" href="#faker" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Faker</span></code> adalah library(class luar) yang dapat membuat data acak dengan lebih baik.</p>
+<p>Jika kita menggunakan cara diatas (data random), maka kita perlu menentukan dahulu apa kiranya data yang akan diberikan, namun dengan faker maka kita tidak perlu mendefinisikan lagi isian datanya.</p>
+<p>Faker dapat mengisikan data seperti <cite>nama</cite>, <cite>alamat</cite>, <cite>telepon</cite> dan lain-lain secara acak.</p>
+<p>dalam versi laravel terakhir, biasanya class faker sudah diertakan dalam require-dev, sehingga tidak perlu menginstallnnya.</p>
+<p>Untuk menggunakan kita harus menyertakan class faker (use FakerFactory as Faker), kemudian kita membuat object faker (disimpan ke dalam variabel), lalu kita bisa memberikan data acak dengan mengakses property dari object, misal <code class="docutils literal"><span class="pre">$faker</span> <span class="pre">=</span> <span class="pre">Faker::create();</span></code></p>
+<p><code class="docutils literal"><span class="pre">$faker-&gt;nama</span></code>, maka kita akan memasukkan nama, <code class="docutils literal"><span class="pre">$faker-&gt;phoneNumber</span></code>, maka kita akan memasukkan nomor telepon</p>
+<p>file <strong>database/seeds/BuatSeederBarangs</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function run()</span>
+<span class="x">{</span>
+<span class="x">  $faker = Faker::create();</span>
+<span class="x">  foreach ( range(1,10) as $index ) {</span>
+<span class="x">  DB::insert(&#39;insert into barangs (nama, tanggal_masuk) values (:nama, :tanggal_masuk)&#39;, [</span>
+<span class="x">  &#39;nama&#39; =&gt; $faker-&gt;name,</span>
+<span class="x">  &#39;tanggal_masuk&#39; =&gt; $faker-&gt;date</span>
+<span class="x">  ]);</span>
+<span class="x">  }</span>
+<span class="x">  $this-&gt;command-&gt;info(&#39;Berhasil menambah barang!&#39;);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/5.5.7.faker2.jpg" src="_images/5.5.7.faker2.jpg" />
+<img alt="_images/5.5.6.faker1.jpg" src="_images/5.5.6.faker1.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>class seeder not found</strong></p>
+<p class="last">Jika kita tidak dapat mengeksekusi file seeder dengan keterangan <code class="docutils literal"><span class="pre">[ReflectionException]</span> <span class="pre">Class</span> <span class="pre">XXX</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">exist</span></code>. maka solusinya adalah dengan meng-generate ulang composer dengan command <code class="docutils literal"><span class="pre">composer</span> <span class="pre">dump-autoload</span></code></p>
+</div>
+<div class="section" id="error-di-seeder">
+<h3>Error di seeder<a class="headerlink" href="#error-di-seeder" title="Permalink to this headline">¶</a></h3>
+<p>1. error di model atau lainnya
+Terkadang saat melakukan seeder terdapat error yang tidak berhubungan dengan seeder tersebut misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>ryan@ryan-Satellite-C55t-C:/var/www/html/fptrukinv2$ php artisan db:seed --class=ProvidersTableSeeder
+
+  [Symfony\Component\Debug\Exception\FatalThrowableError]
+  Parse error: syntax error, unexpected &#39;}&#39;, expecting &#39;;&#39;
+</pre></div>
+</div>
+<p>error diatas artinya ada error di <code class="docutils literal"><span class="pre">model</span></code> provider dan bukan di seeder.</p>
+<ol class="arabic simple" start="2">
+<li>Tidak dapat melakukan adanya operation sum (+) di bagian contenacation (.) atau penghubung string</li>
+</ol>
+<p>misal suatu seeder:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?php
+
+use Illuminate\Database\Seeder;
+use App\User;
+use App\Admin;
+use App\Provider;
+use Faker\Factory as Faker;
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //akan ada admin dan mitra
+
+        //pertama cek di admin ada berapa jumlah nya ,kita buat data berdasar jumlah
+        //lalu di bagian provider
+
+        $userableType = [&#39;App\\Admin&#39;,&#39;App\\Provider&#39;];
+
+        $faker = Faker::create();
+        $user = new User;
+
+        //admin
+        $adminName = [&#39;admin&#39;,&#39;admindua&#39;,&#39;admintiga&#39;];
+        $adminMail = [&#39;admin@mail.com&#39;,&#39;admindua@mail.com&#39;,&#39;admintiga@mail.com&#39;];
+        $incrementNumber = [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;];
+        $adminActivated = [&#39;1&#39;,&#39;0&#39;,&#39;0&#39;];
+        $countAdmin = Admin::count();
+        for ($i=0; $i &lt; $countAdmin; $i++) {
+            $user = $user-&gt;create([
+                &#39;name&#39; =&gt; $adminName[$i],
+                &#39;email&#39; =&gt; $adminMail[$i],
+                &#39;password&#39; =&gt; bcrypt(&#39;123123&#39;),
+                &#39;userable_id&#39; =&gt; $i+1,
+                &#39;userable_type&#39; =&gt; &#39;App\\Admin&#39;,
+                &#39;pp_path&#39; =&gt; &#39;/images/users/admin-&#39;.$incrementNumber[$i].&#39;.png&#39;,
+                &#39;is_activated&#39; =&gt; $adminActivated[$i]
+            ]);
+        }
+
+        //provider/mitra
+        $countProvider = Provider::count();
+        for ($i=0; $i &lt; $countProvider; $i++) {
+            $name = $faker-&gt;firstNameMale;
+            $user = $user-&gt;create([
+                &#39;name&#39; =&gt; $name,
+                &#39;email&#39; =&gt; $name.&#39;@mail.com&#39;,
+                &#39;password&#39; =&gt; bcrypt(&#39;123123&#39;),
+                &#39;userable_id&#39; =&gt; $i+1,
+                &#39;userable_type&#39; =&gt; &#39;App\\Provider&#39;,
+                &#39;pp_path&#39; =&gt; &quot;/images/users/mitra-&quot;.$i+1.&quot;.jpg&quot;,
+                &#39;is_activated&#39; =&gt; &#39;1&#39;
+            ]);
+        }
+    }
+}
+</pre></div>
+</div>
+<p>fokus pada <code class="docutils literal"><span class="pre">'pp_path'</span> <span class="pre">=&gt;</span> <span class="pre">&quot;/images/users/mitra-&quot;.$i+1.&quot;.jpg&quot;,</span></code></p>
+<p>Karena ternyata syntax <code class="docutils literal"><span class="pre">$i+1</span></code> tidak dapat dijalankan</p>
+<p>kecuali jika dihapus bagian penambahan <code class="docutils literal"><span class="pre">+1</span></code> menjadi seperti:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&#39;pp_path&#39; =&gt; &quot;/images/users/mitra-&quot;.$i.&quot;.jpg&quot;,
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Error karena di relasi belum ada</li>
+</ol>
+<p>Untuk pembuatan seeder yang mana terdapat data yang memiliki relasi dengan tabel lain sangat dianjurkan untuk menggunakan dahulu bagian relasi tersebut.</p>
+<p>Maksudnya tentu bukan memberikan adanya data tapi dengan mengakses relasinya, itu sudah cukup.</p>
+<p>Misalkan:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$listProvider = Provider::lists(&#39;id&#39;)-&gt;all();
+$countProvider = count($listProvider);
+
+for ($i=1; $i &lt;= 5; $i++) {
+    $provider = Provider::find(rand(0,$countProvider));
+    $providerId = $provider-&gt;id;
+    $kabupaten = $provider-&gt;kabupaten;
+}
+</pre></div>
+</div>
+<p>Artinya tidak perlu ada penambahan data dulu, tetapi cukup mengakses relasinya apa akan ada error atau tidak. jika ya kemungkinan ada kesalahan yang sebaiknya diperbaiki terlebih dahulu.</p>
+<p>Biasanya error yang muncul dikarenakan tidak ada relasi adalah message <code class="docutils literal"><span class="pre">Trying</span> <span class="pre">to</span> <span class="pre">get</span> <span class="pre">property</span> <span class="pre">of</span> <span class="pre">non-object</span></code></p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>ryan@ryan-Satellite-C55t-C:/var/www/html/fptrukinv2$ php artisan db:seed --class=VehiclesTableSeeder
+ryan@ryan-Satellite-C55t-C:/var/www/html/fptrukinv2$ php artisan db:seed --class=VehiclesTableSeeder
+ryan@ryan-Satellite-C55t-C:/var/www/html/fptrukinv2$ php artisan db:seed --class=VehiclesTableSeeder
+
+
+  [ErrorException]
+  Trying to get property of non-object
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Error karena kita memodifikasi banyak file migrate(terutama penghapusan file migrate lama dan penambahan file migrate baru)</li>
+</ol>
+<p>Semisal kita sebelumnya telah memiliki repo dan sudah terdapat file migrasi, hanya saja ternyata, kita memodifikasi migrasi tersebut, seperti menghapus file migrasi dan menambahkan file migrasi yang baru.</p>
+<p>Maka ketika menjalankan perintah <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">migrate</span></code> akan terjadi error seperti berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>ryan@ryan-Satellite-C55t-C:/var/www/html/trukinid$ php artisan migrate:refresh
+
+
+  [Symfony\Component\Debug\Exception\FatalThrowableError]
+  Class &#39;CreateNotificationsTable&#39; not found
+</pre></div>
+</div>
+<p>Solusinya adalah dengan menjalankan perintah <code class="docutils literal"><span class="pre">composer</span> <span class="pre">dump-autoload</span></code>, seperti:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>ryan@ryan-Satellite-C55t-C:/var/www/html/trukinid$ composer dump-autoload
+Generating autoload files
+ryan@ryan-Satellite-C55t-C:/var/www/html/trukinid$ php artisan migrate:refresh
+Rolled back: 2017_02_24_010636_createNotificationsTable
+Rolled back: 2017_02_24_001837_createHargaSewaTable
+Rolled back: 2017_02_24_001823_createVehiclesTable
+Rolled back: 2017_02_24_001802_createVcategoriesTable
+Rolled back: 2017_02_24_001745_createComplaintsTable
+Rolled back: 2017_02_24_001720_createComplaintCategoriesTable
+Rolled back: 2017_02_24_001656_createFilesTable
+Rolled back: 2017_02_24_001643_createDriversTable
+Rolled back: 2017_02_24_001620_createProvidersTable
+Rolled back: 2017_02_24_001603_createAdminsTable
+Rolled back: 2014_10_12_100000_create_password_resets_table
+Rolled back: 2014_10_12_000000_create_users_table
+Migrated: 2014_10_12_000000_create_users_table
+Migrated: 2014_10_12_100000_create_password_resets_table
+Migrated: 2017_02_24_001603_createAdminsTable
+Migrated: 2017_02_24_001620_createProvidersTable
+Migrated: 2017_02_24_001643_createDriversTable
+Migrated: 2017_02_24_001656_createFilesTable
+Migrated: 2017_02_24_001720_createComplaintCategoriesTable
+Migrated: 2017_02_24_001745_createComplaintsTable
+Migrated: 2017_02_24_001802_createVcategoriesTable
+Migrated: 2017_02_24_001823_createVehiclesTable
+Migrated: 2017_02_24_001837_createHargaSewaTable
+Migrated: 2017_02_24_010636_createNotificationsTable
+ryan@ryan-Satellite-C55t-C:/var/www/html/trukinid$
+</pre></div>
+</div>
+<p>artiya ketika ada pengubahan semua file seperti seeder,model dan migration dari suatu repo maka harus menjalankan perintah <code class="docutils literal"><span class="pre">composer</span> <span class="pre">dump-autoload</span></code></p>
+</div>
+<div class="section" id="query-builder">
+<h3>Query BUilder<a class="headerlink" href="#query-builder" title="Permalink to this headline">¶</a></h3>
+<p>Selain dengan <code class="docutils literal"><span class="pre">Basic</span> <span class="pre">CRUD</span> <span class="pre">query</span></code>, kita juga dapat menggunakan <code class="docutils literal"><span class="pre">query</span> <span class="pre">builder</span></code> dalam laraver.</p>
+<p>Dengan menggunakan query builder maka kita akan menggunakan object Illuminate/Database/Query/Builder.</p>
+<p>Dalam query builder, kita akan menggunakan facade <strong>DB::table(‘namatabel’)</strong>, setelahnya kita dapat menggunakan method-method yang ada, semisal untuk menggunakan select all data dapat menggunakan method <strong>get()</strong>.</p>
+<p>Berikut query builder select dalam laravel :</p>
+</div>
+</div>
+<div class="section" id="select">
+<h2>Select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
+<p>Perintah select digunakan dalam menyeleksi data, dalam query builder select ini kita dapat mendapatkan data yang tidak hanya pada semua kolom/field, namun dapat mendapatkan data pada kolom terterntu</p>
+<p>method :</p>
+<ol class="arabic simple">
+<li>get() =&gt; mendapatkan semua data pada semua kolom/field pada tabel tertentu</li>
+<li>select(‘namakolom1’,…,’anothercolumn’) =&gt; mendapatkan semua data pada kolom tertentu</li>
+<li>first() =&gt; mendapatkan baris pertama</li>
+<li>find(id) =&gt; mendapatkan data pada id tertentu(ingat pada kolom/field ‘id’)</li>
+<li>lists(‘namakolom’) =&gt; mendapatkan semua data pada kolom tertentu</li>
+<li>pluck =&gt; pluck(‘namakolom’) =&gt; mendapatkan satu baris/record data pada kolom tertentu</li>
+</ol>
+<p>Gambar :</p>
+<p>mengambil semua data pada tabel, method ‘get()’</p>
+<img alt="_images/6.1.1.querybuilder.jpg" src="_images/6.1.1.querybuilder.jpg" />
+<p>mengambil baris pertama, method ‘first()’</p>
+<img alt="_images/6.1.2.querybuilder2.jpg" src="_images/6.1.2.querybuilder2.jpg" />
+<p>mengambil baris dengan id tertentu (hanya berlaku pada field id), method ‘find(nomor_id)’</p>
+<img alt="_images/6.1.3.querybuilder3.jpg" src="_images/6.1.3.querybuilder3.jpg" />
+<p>menampilkan data pada field/kolom tertettnu , method lists(‘nama_field’)</p>
+<img alt="_images/6.1.4.querybuilder4.jpg" src="_images/6.1.4.querybuilder4.jpg" />
+<p>perintah diatas hanya akan menghasilkan array 1 dimensi(array dengan value saja),</p>
+<p>untuk membuat adanya key, dapat menggunakan method lists(‘name’,’id’)</p>
+<p>fitur ini mungkin akan berguna pada dropdown list</p>
+<img alt="_images/6.1.5.querybuilder5.jpg" src="_images/6.1.5.querybuilder5.jpg" />
+<p>untuk menampilkan data pada field tertentu pada baris/record tertentu, method , lists(‘nama_field’)[index_key]</p>
+<img alt="_images/6.1.6.querybuilder6.jpg" src="_images/6.1.6.querybuilder6.jpg" />
+<p>sedangkan untuk menampilkan pada field tertentu pada baris/record pertama, method ‘pluck(‘nama_field’)’</p>
+<img alt="_images/6.1.7.querybuilder7.jpg" src="_images/6.1.7.querybuilder7.jpg" />
+<p>menampilkan data dengan field/kolom tertentu, method ‘select(‘nama_field1’,’nama_fieldn’)-&gt;get()’</p>
+<img alt="_images/6.1.8.querybuilder8.jpg" src="_images/6.1.8.querybuilder8.jpg" />
+</div>
+<div class="section" id="chunk">
+<h2>Chunk<a class="headerlink" href="#chunk" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Chunk</span></code> adalah cara dalam membaca baris/record data di database dengan tidak membutuhkan memoty yang besar.</p>
+<p>Bahasan ini skip dulu ya.</p>
+</div>
+<div class="section" id="crud-query-builder">
+<h2>CRUD query builder<a class="headerlink" href="#crud-query-builder" title="Permalink to this headline">¶</a></h2>
+<p>Dalam contoh diatas kita telah membahas tentang seleksi(read), kali ini kita akan membahas bagaimana query builder dalam melakukan insert, update dan delete.</p>
+<p>berikut gambaran singkatnya :</p>
+<p>Insert</p>
+<p>DB::table(‘products’)-&gt;insert(array_dengan_key_field_dan_value);</p>
+<p>Update</p>
+<p>dalam update kita membutuhkan adanya data yang diseleksi (dengan where atau dengan method select seperti find())
+DB::table(‘products’)-&gt;where(‘id’,’value’)-&gt;update(array_dengan_key_field_dan_value);</p>
+<p>Delete
+DB::table(‘products’)-&gt;delete(‘id’);</p>
+<p>Gambar :</p>
+<p>menambah data</p>
+<img alt="_images/6.2.1.insert.jpg" src="_images/6.2.1.insert.jpg" />
+<p>menambah data dengan mendapatkan id(hanya akan berfungsi jika primary key adalah id)</p>
+<img alt="_images/6.2.2.insert2.jpg" src="_images/6.2.2.insert2.jpg" />
+<p>untuk menambahkan data secara sekaligus dapat menambahkan array ,</p>
+<p>namun yang perlu diperhaikan disini adalah kita membuat array datanya masih di dalam satu parameter</p>
+<p>atau array data ini berada pada satu array</p>
+<p>[[data1],[data2],…,[datan]]</p>
+<img alt="_images/6.2.3.insert3.jpg" src="_images/6.2.3.insert3.jpg" />
+<p>update data, dapat meggunakan field tertentu</p>
+<img alt="_images/6.2.4.update.jpg" src="_images/6.2.4.update.jpg" />
+<p>ada beberapa hal yang harus diperhatikan dalam meng update data jangan menyeleksi datanya dengan method selain where</p>
+<p>karena tidak akan berhasil</p>
+<p>seperti misalkan menggunakan method ‘find’</p>
+<img alt="_images/6.2.7.2.update5.jpg" src="_images/6.2.7.2.update5.jpg" />
+<p>dalam query builder update terdapat method ‘increment()’ dan ‘decrement()’ yang akan menambahkan/mengurangi satu</p>
+<img alt="_images/6.2.5.update2.jpg" src="_images/6.2.5.update2.jpg" />
+<p>integer dalam increment dan ddecrement dapat pula dikonfigurasi, yaitu dengan menambahkan parameter kedua berupa integer yang dikehendaki</p>
+<img alt="_images/6.2.6.update3.jpg" src="_images/6.2.6.update3.jpg" />
+<p>menambahkan pada field/kolom tertentu</p>
+<img alt="_images/6.2.7.update4.jpg" src="_images/6.2.7.update4.jpg" />
+<p>menghapus pada id tertentu</p>
+<img alt="_images/6.2.8.delete.jpg" src="_images/6.2.8.delete.jpg" />
+<p>menghapus dengan data pada field tertentu</p>
+<img alt="_images/6.2.9.delete2.jpg" src="_images/6.2.9.delete2.jpg" />
+<p>menghapus dengan filter tertentu</p>
+<img alt="_images/6.2.10.delete3.jpg" src="_images/6.2.10.delete3.jpg" />
+<p>menghapus semua data pada tabel</p>
+<img alt="_images/6.2.11.delete4.jpg" src="_images/6.2.11.delete4.jpg" />
+</div>
+<div class="section" id="where-query-builder">
+<h2>Where Query Builder<a class="headerlink" href="#where-query-builder" title="Permalink to this headline">¶</a></h2>
+<p>Dalam where query builder secara standard(biasanya) kita akan menggunakan method <code class="docutils literal"><span class="pre">where</span></code>.</p>
+<p>Dalam menggunakan where query builder, ada beberapa hal yang perlu diperhatikan, yaitu kita harus menjalankan method ‘get()’ setelah kita menggunakan method <code class="docutils literal"><span class="pre">where</span></code>.</p>
+<p>method <code class="docutils literal"><span class="pre">get()</span></code> digunakan sebagai fetch atau pengurai/mendapatkan data yang sesuai dengan kriterian</p>
+<p>Dalam menggunakan query builder tidak hanya dengan equal(=) namun dapat juga menggunakan tanda bigger than (&gt;) smaaler than (&lt;).</p>
+<p>tanpa adanya method ge() maka akan menghasilkan object daripada builder</p>
+<img alt="_images/6.3.1.wherebuilder.jpg" src="_images/6.3.1.wherebuilder.jpg" />
+<p>dapat pula menggunakan tanda selain equal</p>
+<img alt="_images/6.3.2.wherebuilder2.jpg" src="_images/6.3.2.wherebuilder2.jpg" />
+<p>menggunakan query like</p>
+<img alt="_images/6.3.3.wherebuilder3.jpg" src="_images/6.3.3.wherebuilder3.jpg" />
+</div>
+<div class="section" id="where-query-builder-advance">
+<h2>Where query builder advance<a class="headerlink" href="#where-query-builder-advance" title="Permalink to this headline">¶</a></h2>
+<p>Terdapat banyak kustomisasi pada where dalam SQL, dalam laravel juga tersedia kustomisasi where tersebut seperti :</p>
+<ol class="arabic simple">
+<li>whereBetween : menyeleksi dari range tertentu, misal</li>
+<li>whereNotBetween : menyeleksi di luar range tertentu</li>
+<li>whereIn : menyeleksi pada field tertentu dengan data filter yang lebih dari satu(misalnya menyeleksi data dari field id dengan data id 2 dan 4)</li>
+<li>whereNotIn : kebalikan dari whereIn</li>
+<li>whereNull :menyeleksi data dari field tertentu yang bernilai ‘NULL’</li>
+<li>whereNotNull : menyeleksi data dari field tertentu yang tidak bernilai ‘NULL’</li>
+<li>And where : ini lebih seperti kita memberikan filter lainnya , yaitu dengan menambahkan method ‘where’</li>
+<li>orWhere : ini digunakan jika dalam method where tidak ada</li>
+<li>DynamicWhere : query yang bisa menggunakan method secara custom, method ini adalaha namafield serta dapat ditambahkan</li>
+<li>orderBy : query untuk mengurutkan data</li>
+<li>groupBy : mneyeleksi dengan mengelompokkan data dengan field tertentu</li>
+<li>having : ini hmpir mirip dengan method where</li>
+<li>Offset dan Limit ; untuk mengambil data penyeleksian dari jumlah dan nomornya</li>
+</ol>
+<p>hanya beberapa yang akan dicoba, selebihnya akan dilanjutkan pada masa yang akan datang</p>
+<img alt="_images/6.4.1.wherein.jpg" src="_images/6.4.1.wherein.jpg" />
+<p>where lebih dari satu</p>
+<img alt="_images/6.4.2.whereandwhere.jpg" src="_images/6.4.2.whereandwhere.jpg" />
+<p>or where</p>
+<img alt="_images/6.4.3.whereorwhere.jpg" src="_images/6.4.3.whereorwhere.jpg" />
+<div class="section" id="join">
+<h3>JOIN<a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Join</span></code> adalah menggabungkan lebih dari 1 tabel.</p>
+<p>Tujuan utamanya adalah mengakses data yang berasal dari 2 atau lebih tabel.</p>
+<p>Join biasa dilakukan pada 2 tabel atau lebih yang memiliki field yang sama yang mana nantinya akan dijadikan acuan dalam pengaksesan data(seperti penyeleksian data).</p>
+<p>Dalam SQL terdapat beberapa tipe daripada Join yaitu :</p>
+<p><code class="docutils literal"><span class="pre">Inner</span> <span class="pre">Join</span></code> : menyeleksi semua data pada 2 tabel yang memiliki relasi, misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DB</span><span class="p">::</span><span class="n">table</span><span class="p">(</span><span class="s1">&#39;customers&#39;</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;membership_types&#39;</span><span class="p">,</span> <span class="s1">&#39;customers.membership_type_id&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;membership_types.id&#39;</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="n">get</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>maka akan menghasilkan data dari tabel customers yang memiliki relasi dengan tabel <code class="docutils literal"><span class="pre">membership_types</span></code></p>
+<p><code class="docutils literal"><span class="pre">Left</span> <span class="pre">join</span></code> : menyeleksi semua data pada 2 tabel yang memiliki relasi dan data pada tabel utama yang tidak memiliki relasi dengan tabel lain:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DB</span><span class="p">::</span><span class="n">table</span><span class="p">(</span><span class="s1">&#39;customers&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">leftJoin</span><span class="p">(</span><span class="s1">&#39;membership_types&#39;</span><span class="p">,</span><span class="s1">&#39;customers.membership_type_id&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;membership_types.id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>maka akan menampilkan semua data pada tabel <code class="docutils literal"><span class="pre">customers</span></code> yang memiliki relasi dengan tabel <code class="docutils literal"><span class="pre">membership_types</span></code> dan juga data pada <code class="docutils literal"><span class="pre">customers</span></code> yang tidak memiliki relasi dengan data di tabel <code class="docutils literal"><span class="pre">membership_types</span></code></p>
+<p><code class="docutils literal"><span class="pre">Right</span> <span class="pre">join</span></code> : kebalikan dari left join:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DB</span><span class="p">::</span><span class="n">table</span><span class="p">(</span><span class="s1">&#39;customers&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">rightJoin</span><span class="p">(</span><span class="s1">&#39;membership_types&#39;</span><span class="p">,</span><span class="s1">&#39;customers.membership_type_id&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;membership_types.id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>maka akan menampilkan semua data pada tabel <code class="docutils literal"><span class="pre">customers</span></code> yang memiliki relasi dengan tabel <code class="docutils literal"><span class="pre">membership_types</span></code> dan juga data pada <code class="docutils literal"><span class="pre">membership_type</span></code>’ yang tidak memiliki relasi dengan data di tabel <code class="docutils literal"><span class="pre">customers</span></code></p>
+</div>
+<div class="section" id="where-lanjutan">
+<h3>WHERE lanjutan<a class="headerlink" href="#where-lanjutan" title="Permalink to this headline">¶</a></h3>
+<p>Terkadang dalam membuat kriteria dalam menyeleksi data (filter) terdapat adanya pengelompokan.</p>
+<p>Misalkan ketika kita akan memeberikan query sql : <code class="docutils literal"><span class="pre">select</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">products</span> <span class="pre">where</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">&quot;Civic&quot;</span> <span class="pre">or</span> <span class="pre">(description</span> <span class="pre">=</span> <span class="pre">&quot;Tipe</span> <span class="pre">manual&quot;</span> <span class="pre">and</span> <span class="pre">price</span> <span class="pre">&lt;</span> <span class="pre">200000000);</span></code></p>
+<p>maka product yang dicari adalah data yang pada column name <code class="docutils literal"><span class="pre">Civic</span></code> atau yang memiliki description = <code class="docutils literal"><span class="pre">Tipe</span> <span class="pre">manual</span> <span class="pre">dan</span> <span class="pre">harga</span> <span class="pre">&lt;</span> <span class="pre">200000000</span></code></p>
+<p>Dalam query builder di dalam laravel terdapat method untuk melakukan ini, yaitu dengan menggunakan anonymous function(closure) yang mana kita akan memberikan parameter $query, nantinya $query ini sebagai pengganti daripada facade <code class="docutils literal"><span class="pre">DB::table('namtabel')</span></code>.</p>
+<p>Namun dalam function anonymous ini tidaj perlu mereturn daripada query yang diberikan.</p>
+<p>Misalkan kita memiliki data pada tabel barangs.</p>
+<p>Dan kita ingin menyeleksi data dengan kriteria, data dengan id pada 4 dan 7 atau data dengan jumlah &gt; 3 dan jumlah &lt; 15</p>
+<img alt="_images/6.1.9.querybuilder9.jpg" src="_images/6.1.9.querybuilder9.jpg" />
+<p><code class="docutils literal"><span class="pre">DB::table('barangs')-&gt;whereIn('id',[4,6])-&gt;orWhere(function($query){$query-&gt;where('jumlah','&gt;',3)-&gt;where('jumlah','&lt;',15);})-&gt;get();</span></code></p>
+<img alt="_images/6.1.10.querybuilder10.jpg" src="_images/6.1.10.querybuilder10.jpg" />
+</div>
+</div>
+<div class="section" id="aggregate">
+<h2>Aggregate<a class="headerlink" href="#aggregate" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Aggregate</span></code> adalah untuk menyeleksi baris/record berdasarkan value/isi data tersebut, biasanya ini brhubungan pada data yang memiliki value dengan tipe data integer.</p>
+<p>Beberapa method aggregate diantaranya adalah :</p>
+<ol class="arabic simple">
+<li>count() =&gt; method ini untuk menghitung jumlah baris/record pada suatu tabel</li>
+<li>max() =&gt; untuk mencari data terbesar pada field tertentu</li>
+<li>min() =&gt; untuk mencari data terkecil pada field tertentu</li>
+<li>avg() =&gt; untuk mencari nilai rata rata pada field tertentu</li>
+<li>sum() =&gt; untuk mencari total nilai pada field tertentu</li>
+</ol>
+<p>dalam melakukan penyeleksian dengan where kita juga dapat membuat parameter kedua dari method where dengan method aggregate</p>
+<img alt="_images/6.1.11.aggrgate.jpg" src="_images/6.1.11.aggrgate.jpg" />
+<p>kombinasi dengan method where</p>
+<img alt="_images/6.1.12.aggrgate2.jpg" src="_images/6.1.12.aggrgate2.jpg" />
+</div>
+<div class="section" id="raw-query">
+<h2>Raw Query<a class="headerlink" href="#raw-query" title="Permalink to this headline">¶</a></h2>
+<p>Untuk menggunakan raw query kita dapat menggunakan <code class="docutils literal"><span class="pre">DB::raw()</span></code>.</p>
+<p>Penggunaan raw query ini misal akan memanipulasi value pada baris/record.</p>
+<p>Misal dalam query SQL kita memiliki query : <code class="docutils literal"><span class="pre">select</span> <span class="pre">sum(price*stock)</span> <span class="pre">from</span> <span class="pre">products;</span></code></p>
+<p>maka dengan query buillder kita dapat menggunakan : <code class="docutils literal"><span class="pre">DB::table('products')-&gt;sum(DB::raw('price*stock'));</span></code></p>
+<p>jika semisal langsung menggunakan syntax : DB::table(‘products’)-&gt;sum(‘price*stock’); akan langsung error karena method sum tidak menerima parameter selain nama field/kolom</p>
+<div class="section" id="id1">
+<h3><cite>Migration</cite><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="constraint-relation-pembuatan-relasi-dari-constraint">
+<h3><cite>Constraint Relation</cite> (Pembuatan relasi dari constraint)<a class="headerlink" href="#constraint-relation-pembuatan-relasi-dari-constraint" title="Permalink to this headline">¶</a></h3>
+<p>Laravel memberikan adanya fitur rollback/reset/refresh sehingga tabel yang dibuat dapat dihapus kembali, namun ada beberapa hal yang perlu diperhatikan.</p>
+<p>Sejatinya ketika suatu tabel telah memiliki adanya relasi constraint(cascade/restrict) maka dipastikan tabel <cite>parent</cite> tidak akan dapat dihapus(truncate), kecuali jika relasi constraint tersebut dihilangkan dahulu (dari child).</p>
+<p>Namun laravel telah dapat menyediakan fitur ini secara otomatis (hapus constraint baru hapus tabel).</p>
+<p>Hanya saja jika mengalami adanya error (khususnya karena kesalahan dari struktur yang menggunakan foreign key) maka penanganannya akan jauh lebih menyulitkan karena <cite>error log</cite> yang tidak mudah untuk dibaca.</p>
+<p>Berikut beberapa studi kasus mengenai error migrate mengenai relasi.</p>
+<ol class="arabic simple">
+<li>Tidak dapat melakukan refresh</li>
+</ol>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>php artisan migrate:refresh
+
+  [Illuminate\Database\QueryException]
+  SQLSTATE[23000]: Integrity constraint violation: 1217 Cannot delete or update a parent row: a foreign key constraint fails (SQL: drop table `vcategories`)
+
+  [PDOException]
+  SQLSTATE[23000]: Integrity constraint violation: 1217 Cannot delete or update a parent row: a foreign key constraint fails
+</pre></div>
+</div>
+<p>error diatas mengindikasikan bahwa tabel vcategories tidak dapat dihapus karena memiliki adanya tabel yang memuat idnya sebagai foreign key (dengan adanya constraint).</p>
+<p>Artinya kita tidak akan dapat melakukan refresh melalui terminal tetapi hanya bisa melalui mysql (phpmyadmin), dengan delete tabel beserta constraintnya.</p>
+<p>Namun sebetulnya error diatas itu biasa disebabkan adanya kesalahan dari migrate sebelumnya (php artisan migrate =&gt; berujung error)</p>
+<p>dalam kasus diatas memang sebelumnya terdapat error seperti berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>php artisan migrate
+Migration table created successfully.
+
+  [Illuminate\Database\QueryException]
+  SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint (SQL: alter table `vehicles` add constraint vehicles_driver_id_foreign foreign key (`driver_id`) references `drivers` (`id`) on delete cascade on update cascade)
+
+  [PDOException]
+  SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+</pre></div>
+</div>
+<p>yang artinya ketika migrate belum ada adanya attributes <code class="docutils literal"><span class="pre">unsigned</span></code> pada foreign key.</p>
+<p>Error diatas kemungkinan tidak akan terjadi di mysql (phpmyadmin), namun di laravel terminal akan terjadi error, maka dari itu sebelumnya cek apakah sudah terdapat adanya attribute <code class="docutils literal"><span class="pre">unsigned</span></code> pada foreign key yang akan diberikan suatu constraint</p>
+</div>
+<div class="section" id="menambahkan-migrasi-baru-ke-bagian-tengah-tidak-ke-bagian-terakhir">
+<h3>Menambahkan migrasi baru ke bagian tengah (tidak ke bagian terakhir)<a class="headerlink" href="#menambahkan-migrasi-baru-ke-bagian-tengah-tidak-ke-bagian-terakhir" title="Permalink to this headline">¶</a></h3>
+<p>1.buat migrasi
+2.rename dengan tanggal dan waktu yang sekiranya setelah dari migrasi tertentu yang diinginkan
+3.composer dump-autoload</p>
+</div>
+<div class="section" id="db-raw">
+<h3>DB RAW<a class="headerlink" href="#db-raw" title="Permalink to this headline">¶</a></h3>
+<p>penggunaan “DB::raw(query)” dalam laravel adalah penggunaan raw query dalam laravel
+raw query adalah query SQL dalam memanipulasi datanya, seperti misalkan adalah menghitung nilai minimal
+DB::raw(‘min(bids.harga_penawaran+bids.cash_penawaran) as data’)
+“DB::raw” akan sangat berguna karena dalam laravel tidak kesemua query sql dimasukkan dalam query builder
+namun perlu diketahui bahwa “DB::raw” akan menghasilkan adanya is_null pada query sql
+SELECT * FROM … is null</p>
+<p>untuk menghilangkannya, maka harus menggunakan adanya pembungkus whereRaw pada “DB::raw()”,
+ini ditemukan pada forum <cite>https://github.com/laravel/framework/issues/1591</cite></p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$apps = $apps-&gt;whereRaw(DB::raw(&#39;CASE WHEN senders.fleksibilitas = &quot;segera&quot; THEN senders.waktu_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; WHEN senders.fleksibilitas = &quot;fleksible&quot; THEN senders.batas_akhir_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; END&#39;));
+</pre></div>
+</div>
+<p>sedikit catatan mengenai “DB::raw()”,
+syntax “DB::raw()” ini akan dibungkus pada bagian yang mana akan ditampilkan/digunakan</p>
+<p>penulis belum tahu bagaimana menggunakannya yang jelas ini biasa digunakan pada where dan beberapa</p>
+<p>secara harfiah “DB::raw” akan mengeksekusi adanya perintah yang berkaitan denga query sql</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>DB::insert( DB::raw(&#39;insert into products (name, description, price) values (&quot;CR-V&quot;, CONCAT(&quot;I-VTEC Manual. Diinput tanggal &quot;, NOW()), 395000000)&#39;) );
+</pre></div>
+</div>
+<p>artinya adalah dapat menjalankan method “now()”, jika langsung di dalam DB::insert(query) maka akan gagal</p>
+<p>selain itu ini juga digunakan pada beberapa query sql namun di dalamnya</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>DB::table(&#39;products&#39;)-&gt;sum(DB::raw(&#39;price*stock&#39;));
+</pre></div>
+</div>
+<p>hasilnya adalah <code class="docutils literal"><span class="pre">select</span> <span class="pre">sum(price*stock)</span> <span class="pre">from</span> <span class="pre">products;</span></code></p>
+<p>artinya adalah menjumlahkan field “price” dan “stock” pada semua baris(satu beris menghasilkan “price”*”stock” lalu ditambah baris berikutnya) dan menjadi satu field saja</p>
+<p>kemudian bagaimana dengan peletakkannya
+jadi gini jika di dalam where(seperti where(DB::raw(query))) maka ini akan diletakkan di where
+dan kalau di select (seperti select(DB::raw(query))) maka ini akan diletakkan di select</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>whereRaw(DB::raw(&#39;CASE WHEN senders.fleksibilitas = &quot;segera&quot; THEN senders.waktu_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; WHEN senders.fleksibilitas = &quot;fleksible&quot; THEN senders.batas_akhir_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; END&#39;));
+select CASE WHEN senders.fleksibilitas = &quot;segera&quot; THEN senders.waktu_pengambilan &gt;= &#39;2016-09-24&#39; WHEN senders.fleksibilitas = &quot;fleksible&quot; THEN senders.batas_akhir_pengambilan &gt;= &#39;2016-09-24&#39; END from
+
+select(DB::raw(&#39;CASE WHEN senders.fleksibilitas = &quot;segera&quot; THEN senders.waktu_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; WHEN senders.fleksibilitas = &quot;fleksible&quot; THEN senders.batas_akhir_pengambilan &gt;= &#39;.&quot;&#39;&quot;.$today.&quot;&#39;&quot;.&#39; END&#39;));
+select ...  where `tenders`.`status` = ? and CASE WHEN senders.fleksibilitas = &quot;segera&quot; THEN senders.waktu_pengambilan &gt;= &#39;2016-09-24&#39; WHEN senders.fleksibilitas = &quot;fleksible&quot; THEN senders.batas_akhir_pengambilan &gt;= &#39;2016-09-24&#39; END
+</pre></div>
+</div>
+</div>
+<div class="section" id="first-find-create-new-pada-laravel">
+<h3><cite>First</cite> , <cite>Find</cite> , <cite>Create</cite> , <cite>New</cite> pada laravel<a class="headerlink" href="#first-find-create-new-pada-laravel" title="Permalink to this headline">¶</a></h3>
+<p>dalam laravel terdapat syntax pencarian data
+ketika pencarian data tidak ditemukan maka akan dibuatkan data secara otomatis</p>
+<p>terdapat 2 cara pencarian dengan 2 metode yang sama, yaitu</p>
+<ol class="arabic simple">
+<li>find =&gt; mencari via id(primary key)</li>
+<li>first =&gt; mencari via field lain</li>
+</ol>
+<p>2 metode
+1.create =&gt; langsung membua</p>
+<p>studi kasus pada tabel users kita tela memiliki data dengan isian “name” = “tyu” dan “email” = “<a class="reference external" href="mailto:partono&#37;&#52;&#48;mail&#46;com">partono<span>&#64;</span>mail<span>&#46;</span>com</a>” tapi tidak memiliki data name = “ari” dan “email” = “<a class="reference external" href="mailto:ari&#37;&#52;&#48;mail&#46;com">ari<span>&#64;</span>mail<span>&#46;</span>com</a>”
+ingat lah bahwa penggunaan method save akan menyimpan data, tetapi jika data sudah ada ya gak akan dibuat</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt;&gt;&gt; $app = App\User::firstOrNew([&#39;name&#39; =&gt; &#39;tyu&#39;, &#39;email&#39; =&gt; &#39;partono@mail.com&#39;]);
+=&gt; App\User {#1010
+     id: 14,
+     name: &quot;tyu&quot;,
+     email: &quot;partono@mail.com&quot;,
+     user_role: &quot;&quot;,
+     userable_id: 1,
+     userable_type: &quot;App\Driver&quot;,
+     created_at: &quot;2016-09-08 13:35:22&quot;,
+     updated_at: &quot;2016-09-13 08:54:57&quot;,
+     pp_path: &quot;/images/drivers/20160908133522.543072_449159221799841_595971544_n.jpg&quot;,
+   }
+&gt;&gt;&gt; $app-&gt;save();
+=&gt; true
+//ini tidak akan dibuat
+&gt;&gt;&gt; $app = App\User::firstOrNew([&#39;name&#39; =&gt; &#39;ari&#39;, &#39;email&#39; =&gt; &#39;ari@mail.com&#39;]);
+=&gt; App\User {#1009
+     name: &quot;ari&quot;,
+     email: &quot;ari@mail.com&quot;,
+   }
+&gt;&gt;&gt; $app-&gt;save();
+=&gt; true
+&gt;&gt;&gt;
+//ini akan dibuat datanya
+</pre></div>
+</div>
+</div>
+<div class="section" id="transaction">
+<h3>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h3>
+<p>Transaksi database adalah teknik dalam melakukan DML(Insert , Update dan Delete) dengan lebih aman.</p>
+<p>Data akan aman dikarenakan setiap terjadi kegagalan maka SQL tidak akan mengeksekusi query.</p>
+<p>Transaksi database akan sangat berguna apabila akan melakukan proses DML dari lebih pada 1 tabel atau query yang lebih dari satu.</p>
+<p>Dalam melakukan transaksi terdapat 3 hal yang perlu diketahui :</p>
+<ol class="arabic simple">
+<li>Memulai transaksi (memberikan query apa saja yang akan dijalankan)</li>
+<li>Rolling back transaction (Membatalkan proses query. Kesemua query yang ada tidak akan dijalankan serta akan menghentikan proses dan memberitahu bahwa proses telah selesai di database)</li>
+<li>Commit transaksi (Mengkonfirmasi semua query yang ada dan akan menjalankannya)</li>
+</ol>
+<p>misalkan kita memiliki contoh sebagai berikut :</p>
+<p>kita memiliki tabel order, order_product dan tabel barangs.</p>
+<p>Dalam melakukan adanya fungsi order terdapat beberapa tahapan proses di database yang akan dilakukan yaitu sebagai berikut:</p>
+<ol class="arabic simple">
+<li>Membuat record di table orders</li>
+<li>Menambah record baru di order_products</li>
+<li>Membayar order (mengisi field paid_at di table orders)</li>
+<li>Mengurangi stock product</li>
+</ol>
+<p>Ketika terdapat adanya error sebelum semua tahapan itu selesai tentu akan membuat kesalahan dalam penulisan data.</p>
+<p>Maka dari itu dibutuhkan adanya transaction yang dapat menyimpan query, dan ketika semua tidak ada error maka query tersebut akan dijalankan(commit).</p>
+<p>Dan ketika terjadi error maka tidak akan dijalankan.</p>
+<p>2 jenis transaction dalam laravel :</p>
+<ol class="arabic simple">
+<li>Transaction Otomatis</li>
+</ol>
+<p>Dalam transaksi otomatis kita hanya memberikan query apa saja yang diberikan, nantinya jika sukses maka akan dijalankan dan jika terdapat error akan dihentikan secara otomatis.</p>
+<ol class="arabic simple" start="2">
+<li>Transaction Manual</li>
+</ol>
+<p>Dalam transaksi manual ini kita akan menggunakan adanya commit dan rollback secara manual. maksudnya akan memberikan bagian mana yang akan dicommit jika berhasil dan bagian mana yang akan diroll back ketika gagal.</p>
+<p>Perlu diketahui rollback akan dijalankan ketika terdapat kegagalan, yang mana nantinya proses database akan dihentikan.</p>
+</div>
+</div>
+<div class="section" id="transaction-otomatis">
+<h2>Transaction Otomatis<a class="headerlink" href="#transaction-otomatis" title="Permalink to this headline">¶</a></h2>
+<p>Ini merupakan cara yang cukup mudah dalam menggunakan nya karena tidak perlu menyertakan adanya commit dan rollback jika nantinya akan sukses atau terjadi kegagalan.</p>
+<p>Untuk melakukan transaksi otomatis ini kita akan menggunakan facade DB::transaction() dengan paramter adalah anonymous function yang statementnya berisikan query yang akan dijalankan.</p>
+<p>Dalam penggunaan transaksi otomatis ini jika sukses akan dicommit (semua query akan dijalankan) dan jika terdapat kegagalan maka akan dilakukan rolling back(membatalkan semua query), dan kesemuanya itu dilakukan secara otomatis.</p>
+<p>Contoh:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;/order-barang-transaksi-otomatis&#39;, function() {
+  //misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi
+  $pelanggan_id = 1;
+  //kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order
+  $barang = DB::table(&#39;barangs&#39;)-&gt;insertGetId([&#39;nama&#39; =&gt; &#39;Laptop Toshiba&#39;,&#39;jumlah&#39; =&gt; 2,&#39;tanggal_masuk&#39; =&gt; &#39;2016-05-06&#39;]);
+  // memulai transaksi
+  DB::transaction(function() use ($pelanggan_id, $barang)
+  {
+    // Membuat record di table `orders`
+    $order_id = DB::table(&#39;orders&#39;)-&gt;insertGetId([&#39;pelanggan_id&#39;=&gt;$pelanggan_id]);
+    // Menambah record baru di `order_products`
+    DB::table(&#39;orders_products&#39;)-&gt;insert([&#39;order_id&#39;=&gt;$order_id, &#39;barang_id&#39;=&gt;$barang]);
+    // Membayar order (mengisi field `paid_at` di table `orders`)
+    DB::table(&#39;orders&#39;)-&gt;where(&#39;id&#39;,$order_id)-&gt;update([&#39;paid_at&#39;=&gt;new DateTime]);
+    // Mengurangi jumlah product
+    DB::table(&#39;barangs&#39;)-&gt;where(&#39;id&#39;,$barang)-&gt;decrement(&#39;jumlah&#39;);
+    echo &quot;Berhasil menjual &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;nama . &#39;. &lt;br&gt;&#39;;
+    echo &quot;Stock terkini : &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;jumlah;
+  });
+});
+</pre></div>
+</div>
+<img alt="_images/6.1.13.transaksiotomatis.jpg" src="_images/6.1.13.transaksiotomatis.jpg" />
+<img alt="_images/6.1.14.transaksiotomatis2.jpg" src="_images/6.1.14.transaksiotomatis2.jpg" />
+<p>ketika sukses(tidak terdapat error) maka semua akan dijalankan</p>
+<p>Contoh ketika terjadi error(lihat pada bagian throw new exception):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;/order-barang-transaksi-otomatis&#39;, function() {
+  //misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi
+  $pelanggan_id = 1;
+  //kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order
+  $barang = DB::table(&#39;barangs&#39;)-&gt;insertGetId([&#39;nama&#39; =&gt; &#39;Laptop Toshiba&#39;,&#39;jumlah&#39; =&gt; 2,&#39;tanggal_masuk&#39; =&gt; &#39;2016-05-06&#39;]);
+  // memulai transaksi
+  DB::transaction(function() use ($pelanggan_id, $barang)
+  {
+    // Membuat record di table `orders`
+    $order_id = DB::table(&#39;orders&#39;)-&gt;insertGetId([&#39;pelanggan_id&#39;=&gt;$pelanggan_id]);
+    // Menambah record baru di `order_products`
+    DB::table(&#39;orders_products&#39;)-&gt;insert([&#39;order_id&#39;=&gt;$order_id, &#39;barang_id&#39;=&gt;$barang]);
+    // Membayar order (mengisi field `paid_at` di table `orders`)
+    DB::table(&#39;orders&#39;)-&gt;where(&#39;id&#39;,$order_id)-&gt;update([&#39;paid_at&#39;=&gt;new DateTime]);
+    throw new Exception(&quot;Oooppssss.. ada error!&quot;);
+    // Mengurangi jumlah product
+    DB::table(&#39;barangs&#39;)-&gt;where(&#39;id&#39;,$barang)-&gt;decrement(&#39;jumlah&#39;);
+    echo &quot;Berhasil menjual &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;nama . &#39;. &lt;br&gt;&#39;;
+    echo &quot;Stock terkini : &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;jumlah;
+  });
+});
+</pre></div>
+</div>
+<img alt="_images/6.1.15.transaksiotomatis3.jpg" src="_images/6.1.15.transaksiotomatis3.jpg" />
+<p>ketika terjadi error maka data tidak akan berubah (data juga akan tidak ditambah)</p>
+<img alt="_images/6.1.16.transaksiotomatis4.jpg" src="_images/6.1.16.transaksiotomatis4.jpg" />
+</div>
+<div class="section" id="transaksi-manual">
+<h2>Transaksi manual<a class="headerlink" href="#transaksi-manual" title="Permalink to this headline">¶</a></h2>
+<p>Transaksi manual adalah mendefinisikan secara manual kesetiap query query yang akan dicommit (jika sukses) dan beberapa query lain yang akan dirollback jika gagal.</p>
+<p>Transaksi manual adalah transaksi database secara advance sehingga setiap query dapat dipisah pisah yang nantinya terdapat manipulasi lain sebelum tahapan query selanjutnya.</p>
+<p>Artinya kita dapat memberikan commit lebih dari satu dalam transaksi, ini lebih mirip dengan checkpoint.</p>
+<p>Fungsinya secara singkat adalah kita dapat melakukan data manipulasi pada data yang telah muncul(result) dari yang telah di commit meskipun transaksi database belum selesai.</p>
+<p>Kenapa harus ada rollback jika dipastikan akan menggunakan commit ???</p>
+<p>Ya ini semacam pengaturan secara advance dalam SQL, karena mungkin saja ada aplikasi yang membutuhkan implementasi rollback ini.</p>
+<p>Misalkan terdapat aplikasi tertentu yang membutuhkan penggunaan dari commit dan rollback secara bertahap.</p>
+<p>Misalkan dalam aplikasi tersebut memiliki beberapa tahapan manipulasi database yang akan dijalankan.</p>
+<p>Dan dalam beberapa tahapan harus melakukan commit dulu yang nantinya akan dimanipulasi lebih jauh(ada syntax manipulasi lagi) kemudian akan dilanjutkan, dan pada tahapan selanjutnya melibatkan adanya rollback ketika terjadi error, artinya ini akan membatalakan semua query.</p>
+<p>Penulis tidak bisa memberikan contoh yang cukup jelas karena memang belum terdapat adanya implementasi dalam menggunakan transaksi manual ini, namun penulis akan menjelaskan pengertian secara fundamentalnya.</p>
+<p>Transaksi manual biasa digunakan pada aplikasi yang membutuhkan adanya step/tahapan manipulasi yang sangat kompleks dan melibatkan banyak tabel dan sekaligus syntaxnya.</p>
+<p>Terdapat 3 bagian dalam melakukan transaksi manual ini di laravel :</p>
+<ol class="arabic simple">
+<li>DB::beginTransaction() - memulai transaksi</li>
+<li>DB::rollback() - membatalkan transaksi</li>
+<li>DB::commit() - mengkonfirmasi transaksi</li>
+</ol>
+<p>misalkan kita akan menggunakan prosedur berikut</p>
+<img alt="_images/6.1.17.transaksimanual.jpg" src="_images/6.1.17.transaksimanual.jpg" />
+<p>ketika terjadi error pada proses ketiga maka akan dilakukan commit yang mana akan dibuat order dan orders_barangs.</p>
+<p>Namun sepertinya cara ini jarang digunakan/diimplementasikan, menurut penulis.</p>
+<p>well untuk melakukan cara diatas, satu satunya cara adalah dengan membuat kode blok try catch throw yang mana dipisah berdasarkan tahapan 3 dan ketika gagal maka DB::commit seharusnya berada pada catch exception, jika tidak aakan gagal</p>
+<p>Contoh ketika tidak terjadi error:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;/order-barang-transaksi-manual&#39;, function()
+{
+  //misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi
+  $pelanggan_id = 1;
+  //kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order
+  $barang = DB::table(&#39;barangs&#39;)-&gt;insertGetId([&#39;nama&#39; =&gt; &#39;Laptop Asus&#39;,&#39;jumlah&#39; =&gt; 3,&#39;tanggal_masuk&#39; =&gt; &#39;2016-05-06&#39;]);
+  // memulai transaksi
+  DB::beginTransaction();
+  try {
+    // Membuat record di table `orders`
+    $order_id = DB::table(&#39;orders&#39;)-&gt;insertGetId([&#39;pelanggan_id&#39;=&gt;$pelanggan_id]);
+    // Menambah record baru di `order_products`
+    DB::table(&#39;orders_products&#39;)-&gt;insert([&#39;order_id&#39;=&gt;$order_id, &#39;barang_id&#39;=&gt;$barang]);
+  } catch (Exception $e) {
+  DB::commit();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  try {
+    // Membayar order (mengisi field `paid_at` di table `orders`)
+    DB::table(&#39;orders&#39;)-&gt;where(&#39;id&#39;,$order_id)-&gt;update([&#39;paid_at&#39;=&gt;new DateTime]);
+    // Mengurangi stock product
+    DB::table(&#39;barangs&#39;)-&gt;where(&#39;id&#39;,$barang)-&gt;decrement(&#39;jumlah&#39;);
+  } catch (Exception $e) {
+    DB::rollback();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  DB::commit();
+  // meyimpan transaksi
+  echo &quot;Berhasil menjual &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;nama . &#39;. &lt;br&gt;&#39;;
+  echo &quot;Stock terkini : &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;jumlah;
+});
+</pre></div>
+</div>
+<img alt="_images/6.1.20.transaksimanual4.jpg" src="_images/6.1.20.transaksimanual4.jpg" />
+<img alt="_images/6.1.21.transaksimanual5.jpg" src="_images/6.1.21.transaksimanual5.jpg" />
+<p>jumlah barang akan berkurang</p>
+<p>Contoh ketika ada error di setelah tahap 3:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;/order-barang-transaksi-manual&#39;, function() {
+  //misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi
+  $pelanggan_id = 1;
+  //kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order
+  $barang = DB::table(&#39;barangs&#39;)-&gt;insertGetId([&#39;nama&#39; =&gt; &#39;Laptop Asus&#39;,&#39;jumlah&#39; =&gt; 3,&#39;tanggal_masuk&#39; =&gt; &#39;2016-05-06&#39;]);
+  // memulai transaksi
+  DB::beginTransaction();
+  try {
+    // Membuat record di table `orders`
+    $order_id = DB::table(&#39;orders&#39;)-&gt;insertGetId([&#39;pelanggan_id&#39;=&gt;$pelanggan_id]);
+    // Menambah record baru di `order_products`
+    DB::table(&#39;orders_products&#39;)-&gt;insert([&#39;order_id&#39;=&gt;$order_id, &#39;barang_id&#39;=&gt;$barang]);
+    throw new Exception(&quot;Oooppssss.. ada error!&quot;);
+  } catch (Exception $e) {
+    DB::commit();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  try {
+    // Membayar order (mengisi field `paid_at` di table `orders`)
+    DB::table(&#39;orders&#39;)-&gt;where(&#39;id&#39;,$order_id)-&gt;update([&#39;paid_at&#39;=&gt;new DateTime]);
+    // Mengurangi stock product
+    DB::table(&#39;barangs&#39;)-&gt;where(&#39;id&#39;,$barang)-&gt;decrement(&#39;jumlah&#39;);
+  } catch (Exception $e) {
+    DB::rollback();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  DB::commit();
+  // meyimpan transaksi
+  echo &quot;Berhasil menjual &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;nama . &#39;. &lt;br&gt;&#39;;
+  echo &quot;Stock terkini : &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;jumlah;
+});
+</pre></div>
+</div>
+<img alt="_images/6.1.19.transaksimanual3.jpg" src="_images/6.1.19.transaksimanual3.jpg" />
+<img alt="_images/6.1.18.transaksimanual2.jpg" src="_images/6.1.18.transaksimanual2.jpg" />
+<p>terlihat bahwa query akan dicommit ketika terjadi error</p>
+<p>Contoh jika error terjadi pada tahap kelima maka akan dilakukan rollback yang mana akan membatalkan query yang ada:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;/order-barang-transaksi-manual&#39;, function() {
+  //misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi
+  $pelanggan_id = 1;
+  //kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order
+  $barang = DB::table(&#39;barangs&#39;)-&gt;insertGetId([&#39;nama&#39; =&gt; &#39;Laptop Asus&#39;,&#39;jumlah&#39; =&gt; 3,&#39;tanggal_masuk&#39; =&gt; &#39;2016-05-06&#39;]);
+  // memulai transaksi
+  DB::beginTransaction();
+  try {
+    // Membuat record di table `orders`
+    $order_id = DB::table(&#39;orders&#39;)-&gt;insertGetId([&#39;pelanggan_id&#39;=&gt;$pelanggan_id]);
+    // Menambah record baru di `order_products`
+    DB::table(&#39;orders_products&#39;)-&gt;insert([&#39;order_id&#39;=&gt;$order_id, &#39;barang_id&#39;=&gt;$barang]);
+  } catch (Exception $e) {
+    DB::commit();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  try {
+    // Membayar order (mengisi field `paid_at` di table `orders`)
+    DB::table(&#39;orders&#39;)-&gt;where(&#39;id&#39;,$order_id)-&gt;update([&#39;paid_at&#39;=&gt;new DateTime]);
+    throw new Exception(&quot;Oooppssss.. ada error!&quot;);
+    // Mengurangi stock product
+    DB::table(&#39;barangs&#39;)-&gt;where(&#39;id&#39;,$barang)-&gt;decrement(&#39;jumlah&#39;);
+  } catch (Exception $e) {
+    DB::rollback();
+    return &quot;Error: &quot; . $e-&gt;getMessage();
+  }
+  DB::commit();
+  // meyimpan transaksi
+  echo &quot;Berhasil menjual &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;nama . &#39;. &lt;br&gt;&#39;;
+  echo &quot;Stock terkini : &quot; . DB::table(&#39;barangs&#39;)-&gt;find($order_id)-&gt;jumlah;
+});
+</pre></div>
+</div>
+<img alt="_images/6.1.23.transaksimanual7.jpg" src="_images/6.1.23.transaksimanual7.jpg" />
+<img alt="_images/6.1.22.transaksimanual6.jpg" src="_images/6.1.22.transaksimanual6.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Jangan pernah melakukan alur yang dikehendaki sesuai bagan/diagram seperti berikut</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/order-barang-transaksi-manual&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">//misalkan sebelum melakukan adanya transaksi pada order, terdapat data sebelumnya yang akan dipakai dalam transaksi</span>
+  <span class="nv">$pelanggan_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">//kita akan menambah barang dulu, namun ceritanya ini bukan bagian dari aplikasi order, artinya ini dilakukan sebelum adanya aplikasi order</span>
+  <span class="nv">$barang</span> <span class="o">=</span> <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;barangs&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insertGetId</span><span class="p">([</span><span class="s1">&#39;nama&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Laptop Asus&#39;</span><span class="p">,</span><span class="s1">&#39;jumlah&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span><span class="s1">&#39;tanggal_masuk&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2016-05-06&#39;</span><span class="p">]);</span>
+  <span class="c1">// memulai transaksi</span>
+  <span class="nx">DB</span><span class="o">::</span><span class="na">beginTransaction</span><span class="p">();</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Membuat record di table `orders`</span>
+    <span class="nv">$order_id</span> <span class="o">=</span> <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insertGetId</span><span class="p">([</span><span class="s1">&#39;pelanggan_id&#39;</span><span class="o">=&gt;</span><span class="nv">$pelanggan_id</span><span class="p">]);</span>
+    <span class="c1">// Menambah record baru di `order_products`</span>
+    <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;orders_products&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span><span class="s1">&#39;order_id&#39;</span><span class="o">=&gt;</span><span class="nv">$order_id</span><span class="p">,</span> <span class="s1">&#39;barang_id&#39;</span><span class="o">=&gt;</span><span class="nv">$barang</span><span class="p">]);</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&quot;Oooppssss.. ada error!&quot;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">DB</span><span class="o">::</span><span class="na">commit</span><span class="p">();</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Membayar order (mengisi field `paid_at` di table `orders`)</span>
+    <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="nv">$order_id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span><span class="s1">&#39;paid_at&#39;</span><span class="o">=&gt;</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">]);</span>
+    <span class="c1">// Mengurangi stock product</span>
+    <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;barangs&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="nv">$barang</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">decrement</span><span class="p">(</span><span class="s1">&#39;jumlah&#39;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">DB</span><span class="o">::</span><span class="na">rollback</span><span class="p">();</span>
+    <span class="k">return</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">DB</span><span class="o">::</span><span class="na">commit</span><span class="p">();</span>
+  <span class="c1">// meyimpan transaksi</span>
+  <span class="k">echo</span> <span class="s2">&quot;Berhasil menjual &quot;</span> <span class="o">.</span> <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;barangs&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$order_id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">nama</span> <span class="o">.</span> <span class="s1">&#39;. &lt;br&gt;&#39;</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">&quot;Stock terkini : &quot;</span> <span class="o">.</span> <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;barangs&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$order_id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">jumlah</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p class="last">karena hasilnya tidak akan sesuai dengan bagan diagram</p>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>Ini adalah bahasan yang cukup sulit dimengerti oleh penulis</p>
+<p>saking sulitnya ini masih belum terpecahkan.</p>
+<p>apa sih kesulitannya</p>
+<p>seperti dalam contoh diatas, anehnya ketika DB::commit ada di dalam exception query pada tabel orders dan orders_products dieksekusi, namun keselanjutnya (blok try dibawahnya) tidak dieksekusi, apakah memang DB::commit itu hanya akan dijalankan sekali saja.</p>
+<p>apakah DB::commit() itu hanya dilakukan sekali saja , dan ketika dieksekusi maka akan menghentikan adanya proses transaksi</p>
+<p>karena jika semisal kita memiliki adanya 2 DB::commit pada hasil setelah try ternyata akan berhasil</p>
+<p>well jika memang ketentuan dalam penggunaan syntax seperti itu (tidak sesuai dengan logika) maka penulis hanya harap maklum saja atas semua ketidak cocokan baik jika syntax itu memang dari SQL atau dari laravel.</p>
+<p>Apapun itu , syntax tersebut sudah menjadi ketentuan yang tidak mungkin dapat diubah.</p>
+<p>Sebenarnya menurut penulis sebaiknya dilakukan saja dalam satu blok yang mana jika gagal akan di rollback</p>
+<p>kenapa juga harus dipecah pecah ke dalam blok blok tertentu</p>
+<p>Sebenarnya mengapa juga harus dilakukan adanya commit pada salah satu blok tahapan, mengapa tidak dalam satu aplikasi tersebut.</p>
+<p class="last">fungsionalitas sendiri juga masih dipertanyakan</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Transaksi ini hanya berlaku pada DML(insert, update dan delete) dan tidak berlaku pada DDL(create, drop, dll yang berhubungan dengan database dan tabel serta strukturnya).</p>
+<p class="last">Jika terdapat adanya DDL maka jika terdapat error tidak akan melakukan rollback(alias akan melakukan commit).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="model-eloquent.html" class="btn btn-neutral float-right" title="1   Model Eloquent" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="routing.html" class="btn btn-neutral" title="Routing di Laravel" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,1377 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Relationship &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Collection Eloquent" href="collection-eloquent.html"/>
+        <link rel="prev" title="1   Model Eloquent" href="model-eloquent.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Relationship</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#relationship-basic">Relationship Basic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#relasi-one-to-one">Relasi One to One</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relasi-one-to-many">Relasi One to Many</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#one-to-many-relation">one to many relation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#relation-one-to-one">Relation One to One</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-properties">Dynamic Properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sync">sync</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#polymorph">Polymorph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-method">With method</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Relationship</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/relationship-eloquent.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="relationship">
+<h1>Relationship<a class="headerlink" href="#relationship" title="Permalink to this headline">¶</a></h1>
+<p>Dalam suatu pemrograman akan terdapat adanya tabel-tabel dalam menangani datanya.</p>
+<p>Dan diantara tabel tabel tersebut sangat mungkin terjadi adanya relasi, hal ini dikarenakan karena fungsi suatu entitas pada tiap tiap tabel.</p>
+<p>Dalam suatu relasi antar tabel maka akan terdapat 2 unsur dari segi kepemilikan.</p>
+<p>Yaitu <strong>tabel yang memiliki tabel lain</strong> dan <strong>tabel yang dimiliki tabel lain</strong>.</p>
+<p>Istilah lain yang lebih mudah adalah tabel <code class="docutils literal"><span class="pre">Parent</span></code> dan tabel <code class="docutils literal"><span class="pre">Child</span></code>, dimana tabel parent artinya tabel yang idnya akan direferesikan ke tabel lain.</p>
+<p>Secara mudahnya adalah satu data suatu tabel dapat memiliki tabel lain, dan satu data suatu tabel dapat dimiliki tabel lain.</p>
+<p>Dengan adanya hal tersebut maka tabel yang dimiliki tabel lain, dipastikan akan memiliki adanya field khusus yang mana memuat field id(identifier) pada tabel yang memiliki</p>
+<p>misalkan adalah tabel <code class="docutils literal"><span class="pre">artist</span></code> dan <code class="docutils literal"><span class="pre">album</span></code>.</p>
+<p>artist dapat memiliki album, dan album dapat dimiliki artist, artinya tabel artist memiliki tabel album, dan tabel album dimiliki oleh tabel artist.</p>
+<p>karena tabel album dimiliki tabel artist, maka tabel album akan memiliki adanya field identifier dari tabel artist yang mana semisal ‘artist_id’, field ini berguna sebagai penghubung(relasi) dengan tabel artist.</p>
+<img alt="_images/9.1.1.relationeloquent.jpg" src="_images/9.1.1.relationeloquent.jpg" />
+<p>Ketika 2 tabel saling berelasi maka terdapat beberapa hal yang perlu diperhatikan disini seperti :</p>
+<p>misalkan bagaimana data di suatu tabel yang memiliki data pada tabel lain akan dilakukan update atau edit.</p>
+<p>atau bagaimana jika suatu data di tabel yang dimiliki data pada tabel lain yang akan dilakukan update dan edit.</p>
+<p>tentu ini terdapat adanya suatu pemrosesan yang khusus.</p>
+<p>misalkan kita memiliki data tabel berikut</p>
+<img alt="_images/9.1.2.relationeloquent2.jpg" src="_images/9.1.2.relationeloquent2.jpg" />
+<img alt="_images/9.1.3.relationeloquent3.jpg" src="_images/9.1.3.relationeloquent3.jpg" />
+<p>bagaimana jika kita menghapus pada tabel artist apa yang akan terjadi, atau bagaimana jika kita mengedit id dari artist apa akan berefek pada tabel album.</p>
+<p>Well sebenarnya ini sudah dibahas pada materi database n schema builder tentang opsi onUpdate dan onDelete.</p>
+<div class="section" id="relationship-basic">
+<h2>Relationship Basic<a class="headerlink" href="#relationship-basic" title="Permalink to this headline">¶</a></h2>
+<p>Dalam RDBMS terdapat 3 relasi utama yang ada yaitu :</p>
+<ol class="arabic simple">
+<li>One to One</li>
+<li>One to Many</li>
+<li>Many to Many</li>
+</ol>
+<p>Istilah mudah untuk memahami <code class="docutils literal"><span class="pre">relasi</span></code> adalah kita diizinkan untuk memiliki data di tabel lain.</p>
+<p>misalkan dalam relasi one to one , artinya pada satu data pada tabel pertama hanya diizinkan memiliki relasi satu data pada tabel kedua, dan satu data pada tabel kedua diizinkan memiliki satu data pada tabel pertama.</p>
+<p>one to many , artinya pada satu data pada tabel pertama diizinkan memiliki relasi lebih dari satu data pada tabel kedua, dan satu data pada tabel kedua diizinkan memiliki satu data pada tabel pertama.</p>
+<p>ada pula relasi many to many yang mana satu data pada suatu tabel diizinkan memiliki relasi lebih dari satu datapada tabel lain, dan data pada tabel lain tersebut diizinkan memiliki lebih dari satu data pada tabel pertama.</p>
+<p>Untuk mengetahui bagaimana jelasnya suatu relasi dapat terjadi dapat dilihat pada beberapa studi kasus berikut ini :</p>
+<div class="section" id="relasi-one-to-one">
+<h3>Relasi One to One<a class="headerlink" href="#relasi-one-to-one" title="Permalink to this headline">¶</a></h3>
+<p>relasi ini adalah relasi yang mana dalam satu data suatu tabel hanya memiliki data pada tabel lain, dan satu data pada tabel lain hanya memiliki satu data pada tabel tersebut.</p>
+<p>Misalkan adalah tabel users dan tabel preferences yang mana satu data user hanya memiliki satu data preference dan satu data preference hanya memiliki satu data di tabel users</p>
+<img alt="_images/9.2.1.relation_one_to_one_hasone.jpg" src="_images/9.2.1.relation_one_to_one_hasone.jpg" />
+<img alt="_images/9.2.1.relation_one_to_one_belongsone.jpg" src="_images/9.2.1.relation_one_to_one_belongsone.jpg" />
+</div>
+<div class="section" id="relasi-one-to-many">
+<h3>Relasi One to Many<a class="headerlink" href="#relasi-one-to-many" title="Permalink to this headline">¶</a></h3>
+<p>relasi ini adalah relasi yang mana dalam satu data suatu tabel dapat memiliki banyak data pada tabel lain, dan satu data pada tabel lain hanya memiliki satu data pada tabel tersebut.</p>
+<p>misalkan adalah tabel artists dan tabel album ,satu data pada tabel artist dapat memiliki banyak data di tabel albums, sedangkan satu data albums hanya dapat memiliki satu data pada tabel artist</p>
+<p>Relasi Many to Many</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>sekedar catatan bahwa studi kasus diatas belum menjelaskan tabel mana yang memiliki posisi <code class="docutils literal"><span class="pre">tabel</span> <span class="pre">yang</span> <span class="pre">memiliki</span> <span class="pre">tabel</span> <span class="pre">lain</span></code> dan <code class="docutils literal"><span class="pre">tabel</span> <span class="pre">yang</span> <span class="pre">dimiliki</span> <span class="pre">tabel</span> <span class="pre">lain</span></code>, hanya sekedar mempermudah dalam pengetahuan relasi saja.</p>
+<p>Sebenarnya ini akan dibahas pada materi selanjutnya, namun ini sebagai preview saja, untuk mendefinisikan nya maka kita harus membuat method dengan nama method adalah nama model(ingat bukan tabel sehingga berlaku singular) yang mana statement di dalamnya adalah method tentang kepemilikan.</p>
+<p>berikut method kepemilikan tersebut :</p>
+<p>belongsTo(‘model_yang_memiliki’) =&gt; adalah method yang dimiliki oleh model lain (model lain ditulis pada parameter) , dengan tipe one</p>
+<p>hasOne(‘model_yang_dimiliki’) =&gt;adalah method yang memiliki model lain (model lain ditulis pada parameter) , dengan tipe one</p>
+<p>hasMany(‘model_yang_memiliki’) =&gt; adalah method yang memiliki model lain (mode lain ditulis pada parameter), dengan tipe many</p>
+<p>belongsToMany(‘model_yang_memiliki’) =&gt; adalah method yang dimiliki oleh model lain (model lain ditulis pada parameter) , dengan tipe many</p>
+<p>relasi one to one maka akan menggunakan</p>
+<p>model(tabel) yan memiliki tabel lain terdapt method hasOne() yang mana parameternya adalah model lain</p>
+<p>model(tabel) yang dimiliki tabel lain terdapat method belongsTo() yang mana parameternya adalah model lain</p>
+<p>relasi one to many maka akan menggunakan</p>
+<p>model(tabel) yan memiliki tabel lain terdapt method hasMany() yang mana parameternya adalah model lain</p>
+<p>model(tabel) yang dimiliki tabel lain terdapat method belongsTo() yang mana parameternya adalah model lain</p>
+<p>relasi many to many maka akan menggunakan</p>
+<p>model(tabel) yan memiliki tabel lain terdapt method belongsToMany() yang mana parameternya adalah model lain</p>
+<p>model(tabel) yang dimiliki tabel lain terdapat method belongsToMany() yang mana parameternya adalah model lain</p>
+<p>untuk dapat memudahkan kita dapat mengartiskan “has” sebagai model/tabel yang memiliki dan “belongs” sebagai model/tabel yang dimiliki.</p>
+<p>kemudian untuk one atau many</p>
+<p>kemudian untuk relasi many to many mengapa kedua method menggunakan “belongsToMany()”, ini dikarenakan kedua model/tabel tersebut tidak memiliki adanya field yang mereferensikan dengan tabel yang berelasi, maksudnya pada relasi many to many ini maka diperlukan adanya tabel baru yang mana menjadi tabel relasi yang akan digunakan.</p>
+<p class="last">Semisal saja tabel “articles” dan tabel “categories”, dan relasi yang terjadi adalah many to many (satu data di tabel articles dapat memiliki relasi dengan lebih dari satu data di tabel categories, dan satu data di tabel categories dapat memiliki relasi dengan lebih dari satu data di tabel articles)</p>
+</div>
+</div>
+<div class="section" id="one-to-many-relation">
+<h3>one to many relation<a class="headerlink" href="#one-to-many-relation" title="Permalink to this headline">¶</a></h3>
+<p>model artist:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function albums() {
+    return $this-&gt;hasMany(&#39;App\Album&#39;);
+}
+</pre></div>
+</div>
+<p>artinya tabel/model artists memiliki “many” ke tabel/model “albums”</p>
+<p>model albums:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function artist() {
+    return $this-&gt;belongsTo(&#39;App\Artist&#39;)
+}
+</pre></div>
+</div>
+<p>artinya tabel/model albums memiliki “one” to</p>
+<p>oke sepertinya masih ada konsep antara <code class="docutils literal"><span class="pre">has</span></code> dan <code class="docutils literal"><span class="pre">belongs</span></code> disini</p>
+<p>jika one to one, kan masih ada tabel yang memiliki/utama dan tabel yang dimiliki (yang ada field misal country_id)</p>
+<p>kalau di one to many kan berarti ada juga tabel yang memiliki dan tabel yang dimiliki</p>
+<p>tapi kalau many to many berarti semuanya sama sama memiliki (belongsTo)</p>
+<p>kecuali pada</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mengapa setiap relasi antar tabel harus didefinisikan</p>
+<p>Ini berhubungan pada saat kita melakukan manipulasi tabel dengan <strong>cara yang lebih mudah</strong>.</p>
+<p>Ketika terdapat adanya relasi, maka secara fundamental kita harus mengaplikasikan penggunaan foreign key(meski bisa saja tidak, namun ini adalah aturan di dalam database sendiri)</p>
+<p>Nah ketika terdapat foreign key tersebut maka akan terdapat aturan di dalam database mengenai update dan delete data yang memiliki relasi,</p>
+<p>jika semisal opsi dalam <code class="docutils literal"><span class="pre">onUpdate</span></code> dan <code class="docutils literal"><span class="pre">onDelete</span></code> adalah <strong>restrict</strong> maka kita tidak akan dapat menghapus data pada tabel yang memiliki tabel lain menggunakan syntax biasa(query builder atau eloquent) dalam laravel tidak akan bisa, bahkan ketika kita menggunakana syntax SQL(secara murni) sendiri juga tidak akan bisa, karena kondisi opsi dalam onUpdate dan onDelete adalah restrict</p>
+<p>kecuali jika opsi adalah <strong>cascade</strong> maka tanpa adanya penghancuran relasi(detach) akan tetap dapat dijaalankan di laravel</p>
+<p>nah permasalahannya adalah untuk apa pula kita susah susah mendefinisikan restrict dan cascade pada database,</p>
+<p>sebenarnya kita bisa saja mendefinisikan setiap opsi onDelete dan onUpdate dengan opsi cascade, sehingga ketika menghapus data tidak akan terjadi error (karena data pada tabel lain yang memiliki data tersebut juga akan dihapus)</p>
+<p>tapi ini akan jadi permasalahan, yaitu struktur tabel menjadi tidak custom/advance, bagaimana jika kita memberikan adanya larangan dalam menghapus data yang memiliki data pada tabel lain, atau mudahnya kita mengatur restrict pada opsi onDelete.</p>
+<p>akan jadi repot kalau harus membuat struktur opsi onDelete dan onUpdate yang berbeda beda pada migration</p>
+<p>nah cara yang palig baik agar dapat memberikan larangan(restrict) dan dapat menghapus secara bebas(cascade)</p>
+<p>maka sebaiknya kita tidak perlu memberikan opsi onDelete dan onUpdate</p>
+<p>nantinya secara default opsinya akan menjadi <code class="docutils literal"><span class="pre">restrict</span></code></p>
+<p>namun tak perlu khawatir karena ketika mau menghapus data kita dapat melepas relasi tersebut, dengan method detach</p>
+<p>sehinggan nantinya opsi akan berubah menjadi <code class="docutils literal"><span class="pre">cascade</span></code>, sehingga ketika data pada tabel utama (tabel yang memiliki tabel lain) dihapus maka tabel lain(tabel yang dimiliki tabel lain/tabel utama) akan ikut terhapus pula</p>
+<p>selainn itu penggunaan definisi relasi nantinya akan memermudah dalam melakukan join tabel</p>
+<p>sehingga tidak perlu melakukannya dengan query builder yang sangat panjang</p>
+<p class="last">untuk lebih jelasnya tentang catatan ini dapat dilihat pada materi selanjutnya.</p>
+</div>
+</div>
+</div>
+<div class="section" id="relation-one-to-one">
+<h2>Relation One to One<a class="headerlink" href="#relation-one-to-one" title="Permalink to this headline">¶</a></h2>
+<p>Relasi <code class="docutils literal"><span class="pre">one</span> <span class="pre">to</span> <span class="pre">one</span></code> adalah ketika dalam satu data di suatu tabel memiliki relasi satu data pada tabel lain.</p>
+<p>Artinya data pada suatu tabel hanya diizinkan memiliki satu data pada tabel lain.</p>
+<p>Pada relasi one-to-one ini biasanya terbuat dari 2 tabel yang sebenarnya masih dapat dijadikan dalam satu kesatuan.</p>
+<p>Misalkan saja kita memiliki tabel <code class="docutils literal"><span class="pre">users</span></code>, di dalamnya memiliki field : <code class="docutils literal"><span class="pre">username</span></code>, <code class="docutils literal"><span class="pre">password</span></code>.</p>
+<p>Nah bisa saja kita menambahkan data lain yang akan ditambahkan ke tabel users seperti <code class="docutils literal"><span class="pre">negara</span></code>, <code class="docutils literal"><span class="pre">mata_uang</span></code></p>
+<p>Seperti yang diketahui setiap user memiliki negara dan mata uang masing-masing, tentu ini bisa saja dijadikan ke dalam satu tabel.</p>
+<p>Namun ini akan memberikan tanggung jawab yang lebih kepada tabel users, nantinya ketika kita membutuhkan data negara dan mata uang user maka akan menggunakan tabel users, ini.</p>
+<p>Akan jauh lebh baik bila field <code class="docutils literal"><span class="pre">negara</span></code> dan <code class="docutils literal"><span class="pre">mata_uang</span></code> dibuatkan tabel tersendiri.</p>
+<p>Misalkan kita membuatkan tabel <code class="docutils literal"><span class="pre">Preferences</span></code> dengan field <code class="docutils literal"><span class="pre">country</span></code>, <code class="docutils literal"><span class="pre">currency</span></code> , <code class="docutils literal"><span class="pre">user_id</span></code>.</p>
+<p>selanjutnya kita juga akan memberikan adanya relasi foreign key.</p>
+<p>Dan pada model kita akan mendeklarasikan relasi dengan menggunakan method.</p>
+<p>kita sebenarnya dapat menamai apa saja method tersebut namun sangat disarankan dalam memberikan nama sesuai dengan model yang akan direlasikan untuk mempermudah.</p>
+<p>migrasi tabel <strong>users</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Schema\Blueprint</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Migrations\Migration</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CreateUsersTable</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Run the migrations.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">rememberToken</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * Reverse the migrations.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">drop</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>migrasi tabel <code class="docutils literal"><span class="pre">preferences</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Schema\Blueprint</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Migrations\Migration</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">BuatTabelPreferences</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Run the migrations.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;preferences&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;currency&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">integer</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unsigned</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
+
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">foreign</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">references</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * Reverse the migrations.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">drop</span><span class="p">(</span><span class="s1">&#39;preferences&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>model <code class="docutils literal"><span class="pre">User</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Auth\Authenticatable</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Auth\Passwords\CanResetPassword</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Foundation\Auth\Access\Authorizable</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Contracts\Auth\Authenticatable</span> <span class="k">as</span> <span class="nx">AuthenticatableContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Contracts\Auth\Access\Authorizable</span> <span class="k">as</span> <span class="nx">AuthorizableContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Contracts\Auth\CanResetPassword</span> <span class="k">as</span> <span class="nx">CanResetPasswordContract</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="k">extends</span> <span class="nx">Model</span> <span class="k">implements</span> <span class="nx">AuthenticatableContract</span><span class="p">,</span>
+<span class="nx">AuthorizableContract</span><span class="p">,</span>
+<span class="nx">CanResetPasswordContract</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Authenticatable</span><span class="p">,</span> <span class="nx">Authorizable</span><span class="p">,</span> <span class="nx">CanResetPassword</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * The database table used by the model.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @var string</span>
+<span class="sd">    */</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * The attributes that are mass assignable.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @var array</span>
+<span class="sd">    */</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">];</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * The attributes excluded from the model&#39;s JSON form.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @var array</span>
+<span class="sd">    */</span>
+    <span class="k">protected</span> <span class="nv">$hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;remember_token&#39;</span><span class="p">];</span>
+
+    <span class="c1">//kita akan mendefinisikan method yang akan mereturn bahwa dalam model ini(tabel users) memiliki model &#39;Preference&#39; (tabel preferences)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">preference</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hasOne</span><span class="p">(</span><span class="s1">&#39;App\Preference&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>model <code class="docutils literal"><span class="pre">Preference</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Preference</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;currency&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">];</span>
+
+    <span class="c1">//kita akan mendefinisikan method yang akan mereturn bahwa dalam model ini(tabel preferences) dimiliki model &#39;User&#39;(tabel users)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">user</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">belongsTo</span><span class="p">(</span><span class="s1">&#39;App\User&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/10.1.1.onetoone.jpg" src="_images/10.1.1.onetoone.jpg" />
+<img alt="_images/10.1.2.onetoone2.jpg" src="_images/10.1.2.onetoone2.jpg" />
+<img alt="_images/10.1.3.onetoone3.jpg" src="_images/10.1.3.onetoone3.jpg" />
+<div class="section" id="dynamic-properties">
+<h3>Dynamic Properties<a class="headerlink" href="#dynamic-properties" title="Permalink to this headline">¶</a></h3>
+<p>Dalam eloquent setiap terdapat method yang berisikan statement relasi dengan tabel lain maka secara otomatis method tersebut akan ditambahkan ke dalam attribute model.</p>
+<p>Misal pada contoh diatas kita mendefinisikan method <code class="docutils literal"><span class="pre">preference()</span></code> pada model <code class="docutils literal"><span class="pre">User</span></code> dan <code class="docutils literal"><span class="pre">user()</span></code> pada model <code class="docutils literal"><span class="pre">Preference</span></code> , maka method tersebut akan otomatis dijadikan attribute di dalam eloquent.</p>
+<img alt="_images/10.1.4.onetoone4.jpg" src="_images/10.1.4.onetoone4.jpg" />
+<p>Dengan adanya dynamic property maka kita dapat memanipulasi dengan lebih custom/advance.</p>
+<p>misal kita dapat megupdate data pada model secara langsung tanpa menggunakan model tersebut(melalui model lain yang memiliki relasi).</p>
+<img alt="_images/10.1.5.onetoone5.jpg" src="_images/10.1.5.onetoone5.jpg" />
+<p>atau bisa saja kita menambahkan 2 data yang saling berelasi sekaligus</p>
+<img alt="_images/10.1.6.onetoone6.jpg" src="_images/10.1.6.onetoone6.jpg" />
+<p>well sebenarnya penggunaan method ini akan jauh lebih berasa pada bagian one to many, dimana kita dapat menyimpan satu data yang memiliki relasi pada data tabel lain lebih dari 1 sekaligus.</p>
+<p>penggunaannya adalah dengan method <code class="docutils literal"><span class="pre">saveMany()</span></code></p>
+<p>Tidak dapat menghapus data pada tabel yang memiliki tabel lain
+Ketika kita memiliki adanya foreign key pada tabel yang dimiliki tabel lain, maka kita tidak akan dapat menghapus data pada tabel yang memiliki tabel lain.</p>
+<p>Ini dikarenakan ketika membuat adanya relasi maka kita membuat opsi restrict pada onDelete dan onUpdate</p>
+<p>maka dari itu kita harus membuatnya menjadi cascade sehingga saat menghapus data pada tabel yang memiliki tabel lain tidak akan terjadi error.</p>
+<p>Dalam laravel kita dapat menggunakan method <code class="docutils literal"><span class="pre">detach()</span></code>, sebenarnya dalam laravel fungsi ini disebut sebagai pelepasan foreign, namun ternyata hasilnya data yang dimiliki tabel lain juga ikut terhapus, sehingga sebenarnya ini lebih mirip mengubah opsi restrict menjadi cascade.</p>
+<p>well bahasan ini masih menunggu bagian lainnya.</p>
+<img alt="_images/10.1.7.onetoone7.jpg" src="_images/10.1.7.onetoone7.jpg" />
+<hr class="docutils" />
+<p>secara default laravel telah mendefinisikan property setiap model dengan nama field yang telah disediakan, agar menjadi mudah diakses dalam relasi dan lain lain
+namun bagaimana jika berususan dengan tabel yang mana columnya berbeda dari yang laravel sediakan</p>
+<p>misal tabel dari luar gitu</p>
+<p>maka dari itu pendefinisian ini sangat lah penting</p>
+<p>perlu diketahui bahwa ada beberapa hal yang harus diperhatikan</p>
+<p>has =&gt; memiliki
+artinya ini adalah tabel yang memiliki, tentu letaknya pada model yang memiliki model lain
+belongs =&gt; dimiliki
+artinya ini adalah tabel yang dimiliki, tentu letaknya pada model yang dimiliki model lain</p>
+<p>one
+artinya pada model ini hanya memiliki/dimiliki oleh satu data dari model lain
+many
+artiany pada model ini dapat memiliki/dimiliki lebih dari satu data dari model lain</p>
+<p>misalkan kita punya tabel artists, dan tabel albums</p>
+<p>tabel artist memiliki tabel album sehinggan strukturnya adalah</p>
+<p>struktur tabel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Name          Type</span>
+<span class="mi">1</span> <span class="nb">id</span>            <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mi">2</span> <span class="n">name</span>          <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="mi">3</span> <span class="n">created_at</span>    <span class="n">timestamp</span>
+<span class="mi">4</span> <span class="n">updated_at</span>    <span class="n">timestamp</span>
+</pre></div>
+</div>
+<p>tabel albums dimiliki oleh tabel artist, artinya akan ada field yang menjadi relasi dengan tabel albums, sehingga strukturnya adalah</p>
+<p>struktur tabel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Name          Type</span>
+<span class="mi">1</span> <span class="nb">id</span>            <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mi">2</span> <span class="n">name</span>          <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="mi">3</span> <span class="n">tahun</span>         <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="mi">4</span> <span class="n">id_artist</span>     <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="mi">5</span> <span class="n">created_at</span>    <span class="n">timestamp</span>
+<span class="mi">6</span> <span class="n">updated_at</span>    <span class="n">timestamp</span>
+</pre></div>
+</div>
+<p>selanjutnya dalam mengolah suatu resource kita membutuhkan adanya 2 data dari tabel tersebut, yang berelasi tentunya, maka dalam pendefinisian model harus memiliki adanya method dalam mengakses model lain</p>
+<p>method belongsTo</p>
+<p><code class="docutils literal"><span class="pre">function</span> <span class="pre">__construct(Builder</span> <span class="pre">$query,</span> <span class="pre">Model</span> <span class="pre">$parent,</span> <span class="pre">$foreignKey,</span> <span class="pre">$otherKey,</span> <span class="pre">$relation)</span></code></p>
+<p>method hasMany (sebenarnya hasOne juga sama sih)</p>
+<p><code class="docutils literal"><span class="pre">function</span> <span class="pre">__construct(Builder</span> <span class="pre">$query,</span> <span class="pre">Model</span> <span class="pre">$parent,</span> <span class="pre">$foreignKey,</span> <span class="pre">$localKey)</span></code></p>
+<p>dalam pecarian penulis localKey adalah key dari tabel/model field lokal, dalam hal ini secara default adalah field “id”</p>
+<p>model artist:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function albums() {
+    return $this-&gt;hasMany(&#39;App\Album&#39;, &#39;id_artist&#39;);
+}
+//model artist memiliki tabel album ini didefinisikan pada method albums(ingat karena bisa memiliki lebih dari satu data pada model album, maka gunakan jamak/plural, menjadi &#39;albums&#39;)
+//foreign keynya adalah &#39;id_artist&#39;
+</pre></div>
+</div>
+<p>model albums:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function artist() {
+    return $this-&gt;belongsTo(&#39;App\Artist&#39;,&#39;id_artist&#39;);
+}
+//model albums dimiliki tabel artists ini didefinisikan pada method artist(ingat karena bisa hanay dapat dimmiliki satu data pada model artist, maka gunakan tunggal/singular, menjadi &#39;artist&#39;)
+//foreign keynya adalah &#39;id_artist&#39;
+</pre></div>
+</div>
+<p>wait mengapa parameter kedua adalah sama pada keduanya</p>
+<p>ingat bahwa parameter kedua itu adalah foreign key, jadi bukan primary key
+dan itu sudah dibuktikan dengan beberapa method seperti with</p>
+<p>lantas bagaimana dengan many to many</p>
+<p>dalam relasi many to many pasti akan ada tabel perantara yang mengkoneksikan antar 2 tabel (catatan, penulis masih belum sammpai pada bagian relasi 3 tabel dalam satu tabel)</p>
+<p>hal yang pertama perlu digarisbawahi disini adalah kita akan mencoba membuat foreign key (di tabel perantara) yang tidak mengikuti standarisasi dari laravel, selain itu tabel perantara tersebut juga tidak mengikuti aturan nama dari laravel</p>
+<p>berikut adalah strukturnya:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="n">articles</span><span class="p">;</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="n">Field</span>      <span class="o">|</span> <span class="n">Type</span>             <span class="o">|</span> <span class="n">Null</span> <span class="o">|</span> <span class="n">Key</span> <span class="o">|</span> <span class="n">Default</span>             <span class="o">|</span> <span class="n">Extra</span>          <span class="o">|</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="nb">id</span>         <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span> <span class="n">PRI</span> <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span> <span class="n">auto_increment</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">title</span>      <span class="o">|</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>     <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">tahun</span>      <span class="o">|</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>     <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">created_at</span> <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated_at</span> <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="n">categories</span><span class="p">;</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="n">Field</span>      <span class="o">|</span> <span class="n">Type</span>             <span class="o">|</span> <span class="n">Null</span> <span class="o">|</span> <span class="n">Key</span> <span class="o">|</span> <span class="n">Default</span>             <span class="o">|</span> <span class="n">Extra</span>          <span class="o">|</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="nb">id</span>         <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span> <span class="n">PRI</span> <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span> <span class="n">auto_increment</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">category</span>   <span class="o">|</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>     <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">created_at</span> <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated_at</span> <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">+------------+------------------+------+-----+---------------------+----------------+</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="n">kategori_artikel</span><span class="p">;</span>
+<span class="o">+-------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="n">Field</span>       <span class="o">|</span> <span class="n">Type</span>             <span class="o">|</span> <span class="n">Null</span> <span class="o">|</span> <span class="n">Key</span> <span class="o">|</span> <span class="n">Default</span>             <span class="o">|</span> <span class="n">Extra</span>          <span class="o">|</span>
+<span class="o">+-------------+------------------+------+-----+---------------------+----------------+</span>
+<span class="o">|</span> <span class="nb">id</span>          <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span> <span class="n">PRI</span> <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span> <span class="n">auto_increment</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">id_artikel</span>  <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>          <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">id_kategori</span> <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>          <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>                <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">created_at</span>  <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated_at</span>  <span class="o">|</span> <span class="n">timestamp</span>        <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="mi">0000</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>                <span class="o">|</span>
+<span class="o">+-------------+------------------+------+-----+---------------------+----------------+</span>
+</pre></div>
+</div>
+<p>artinya tabel yang bukan perantara (tabel ‘article’ dan ‘category’) akan menjadi tabel yang dimiliki namun bersifat many
+berikut adalah method dalam belongsToMany
+function __construct(Builder $query, Model $parent, $table, $foreignKey, $otherKey, $relationName = null)
+keterangan parameter :
+Builder $query =&gt; ini adalah builder, jadi gak perlu diisi
+Model $parent, =&gt; ini adalah model yang akan dijadikan parent, dalam hal ini adalah model sebelahnya (well penulis masih gak ngerti jika semisal ada 3 tabel yang berelasi many to many)
+$table,        =&gt; ini adalah tabel perantara
+$foreignKey,   =&gt; ini adalah foreign key
+$otherKey,     =&gt; ini adalah key, atau mudahnya field dari model parent(tabel sebelahnya)
+$relationName = null =&gt; ini adalah nama relasinya, secara default laravel akan membuatkan nama relasi secara otomatis (jika menggunakan method foreign dan references pada migration)</p>
+<p>oke sekarang  kita akan mencobanya</p>
+<p>model article:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function categories() {
+    return $this-&gt;belongsToMany(&#39;App\Category&#39;,&#39;kategori_artikel&#39;,&#39;id_artikel&#39;,&#39;id_kategori&#39;);
+}
+</pre></div>
+</div>
+<p>model category:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function articles() {
+    return $this-&gt;belongsToMany(&#39;App\Article&#39;,&#39;kategori_artikel&#39;,&#39;id_kategori&#39;,&#39;id_artikel&#39;);
+}
+</pre></div>
+</div>
+<p>seperti yang diketahui bahwa tabel yang jadi perantara adalah tabel ‘kategori_artikel’
+foreign key adalah field pada tabel perantara pada model tersebut
+sedangkan
+other key disini adalah key lain dari tabel perantara (field foreign key dari model lain)</p>
+<p>kemudian bagaimana menyimpan di tabel perantara ini
+kita dapat menggunakan method save dan saveMany
+namun sanget disarankan dengan menggunakan attach sedangkan dalam menghapus data perantara dengan detach</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt;&gt;&gt; $app = App\Article::find(1)
+=&gt; App\Article {#689
+     id: 1,
+     title: &quot;artikel pertama&quot;,
+     tahun: &quot;2009&quot;,
+     created_at: &quot;2016-12-12 08:58:22&quot;,
+     updated_at: &quot;2016-12-12 08:58:22&quot;,
+   }
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;attach(2)
+=&gt; null
+&gt;&gt;&gt; $app = App\Category::find(1)
+=&gt; App\Category {#690
+     id: 1,
+     category: &quot;hiburan&quot;,
+     created_at: &quot;2016-12-12 09:08:17&quot;,
+     updated_at: &quot;2016-12-12 09:08:17&quot;,
+   }
+
+maka hasil di tabel perantara adalah
+id  id_artikel  id_kategori
+1   1           2
+
+atau sebailiknya
+&gt;&gt;&gt; $app = App\Category::find(1)
+=&gt; App\Category {#689
+    id: 1,
+    category: &quot;hiburan&quot;,
+    created_at: &quot;2016-12-12 09:08:17&quot;,
+    updated_at: &quot;2016-12-12 09:08:17&quot;,
+  }
+&gt;&gt;&gt; $app = $app-&gt;articles()-&gt;attach(1)
+=&gt; null
+maka hasil di tabel perantara adalah
+id  id_artikel  id_kategori
+1   1           1
+
+sedangkan detach adalah cara dalam menghapus namun dari bagian lain
+misal datanya
+id  id_artikel  id_kategori
+1   1           2
+
+&gt;&gt;&gt; $app = App\Article::find(1)
+=&gt; App\Article {#689
+     id: 1,
+     title: &quot;artikel pertama&quot;,
+     tahun: &quot;2009&quot;,
+     created_at: &quot;2016-12-12 08:58:22&quot;,
+     updated_at: &quot;2016-12-12 08:58:22&quot;,
+   }
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;detach(2)
+=&gt; null
+</pre></div>
+</div>
+<p>artinya adalah menghapus data di tabel ‘kategori_artikel’ yang mana id_artikel adalah 1 dan id_kategori adalah 2</p>
+<p>so semisal kita punya data
+id  id_artikel  id_kategori
+1   1           1
+2   1           2
+3   2           1
+4   2           2
+5   2           3</p>
+<p>nah kita mau menghapus data yang mana id_artikel adalah 2
+maka yang akan dilakukan adalah:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = App\Article::find(2)
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;detach()
+maka otomatis akan menghapus semuanya
+</pre></div>
+</div>
+<p>namun sebenarnya ada method yang jauh lebih direkomendasikan yaitu sync</p>
+<div class="section" id="sync">
+<h4>sync<a class="headerlink" href="#sync" title="Permalink to this headline">¶</a></h4>
+<p>berbeda dengan attach/detach sync adalah pembaharuan
+mudahnya begini, ketiak attach akan nambah ,ketika detach akan ngurangin dari id</p>
+<p>nah sync itu kayak detach semua yang ada lalu attach</p>
+<p>kalau belum ada datanya berarti kayak diattach</p>
+<p>misalnya begini kita memiliki data
+id  id_artikel  id_kategori
+1   1           2</p>
+<p>nah kita mau memperbaharui nih, yaitu id_artikel 1 dan id_kategori 1
+tapi ternyata dalam memperbaharui itu kita harus menghapus dulu yang lama (detach)
+karena terlalu ribet kita dapt menggunakan sync:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt;&gt;&gt; $app = App\Article::find(1)
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;sync([1])
+</pre></div>
+</div>
+<p>otomatis datanya menjadi
+id  id_artikel  id_kategori
+2   1           1</p>
+<p>sync ini jika belum maka fungsinya akan sama kayak attach, jadi gak perlu takutlah</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>catatan penting
+laravel tidak akan mencegah ketika terdapat adanya duplikasi di tabel perantara
+&gt;&gt;&gt; $app = AppArticle::find(2)
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;attach(4)
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;attach(4)</p>
+<p>artinya di tabel perantara “article_categoty”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span> <span class="n">article_id</span>  <span class="o">|</span> <span class="n">category_id</span> <span class="o">|</span> <span class="n">created_at</span> <span class="o">|</span> <span class="n">updated_at</span> <span class="o">|</span>
+<span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">4</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">4</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+</pre></div>
+</div>
+<p class="last">ternyata sama kan ?</p>
+</div>
+<p>lalau bagaiamana semisal kita akan menambahkan hal tersebut</p>
+<p>studi kasus
+misal terdapat 5 category yang telah dibuat yaitu : 1,2,3,4,5</p>
+<p>kemudian kita membuat artikel kedua (katakanlah article dengan id 2) dengan memberikan category_id adalah 4</p>
+<p>jadi hasilnya:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span> <span class="n">article_id</span>  <span class="o">|</span> <span class="n">category_id</span> <span class="o">|</span> <span class="n">created_at</span> <span class="o">|</span> <span class="n">updated_at</span> <span class="o">|</span>
+<span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">4</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+</pre></div>
+</div>
+<p>nah suatu saat kita ingin mengedit kategori pada artikel kedua tersebut, misalkan ingin kita tambahkan category_id 5, nah masalahnya gak ada filter dalam memmilih kategori 2
+ternyata kita bisa attach kategori category_id 4 dan category_id 5:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span> <span class="n">article_id</span>  <span class="o">|</span> <span class="n">category_id</span> <span class="o">|</span> <span class="n">created_at</span> <span class="o">|</span> <span class="n">updated_at</span> <span class="o">|</span>
+<span class="o">+-------------+-------------+------------+------------+</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">4</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">4</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+<span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>           <span class="mi">5</span> <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span> <span class="o">...</span>        <span class="o">|</span>
+</pre></div>
+</div>
+<p>jelas salah nantinnya kan
+lalu apa solusinya</p>
+<p>ada 2 cara
+1.cek dahulu apa yang udah ada sebelumnya , lalu masukkan ke dalam sync
+2.menggunakan parameter 2 dalam sync</p>
+<p>agak ribet dengan cara 1 sebaiknya kita gunakan sync aja
+dengan cara yaitu dengan menambahkan adanya parameter 2 pada sync yaitu false</p>
+<p>dengan ini jika sudah ada tidak akan menambah
+dan jika belum ada akan menambah
+ini jauh lebih baik</p>
+<p>//misal kita tambah dengan id_kategori 1,2:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt;&gt;&gt; $app = App\Article::find(1)
+=&gt; App\Article {#675
+     id: 1,
+     title: &quot;artikel pertama&quot;,
+     tahun: &quot;2009&quot;,
+     created_at: &quot;2016-12-12 08:58:22&quot;,
+     updated_at: &quot;2016-12-12 08:58:22&quot;,
+   }
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;sync([1,2], false)
+=&gt; [
+     &quot;attached&quot; =&gt; [
+       1,
+       2,
+     ],
+     &quot;detached&quot; =&gt; [],
+     &quot;updated&quot; =&gt; [],
+   ]
+//lalu kita refix id_kategori dengan menambahkan 1,2,3
+&gt;&gt;&gt; $app = App\Article::find(1)
+=&gt; App\Article {#692
+     id: 1,
+     title: &quot;artikel pertama&quot;,
+     tahun: &quot;2009&quot;,
+     created_at: &quot;2016-12-12 08:58:22&quot;,
+     updated_at: &quot;2016-12-12 08:58:22&quot;,
+   }
+&gt;&gt;&gt; $app = $app-&gt;categories()-&gt;sync([1,2,3], false)
+=&gt; [
+     &quot;attached&quot; =&gt; [
+       3,
+     ],
+     &quot;detached&quot; =&gt; [],
+     &quot;updated&quot; =&gt; [],
+   ]
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>so artinya hanya akan me attach 3, dan tidak akan menghapus 1,2</p>
+</div>
+</div>
+</div>
+<div class="section" id="polymorph">
+<h2>Polymorph<a class="headerlink" href="#polymorph" title="Permalink to this headline">¶</a></h2>
+<p>sebelumnya just remember bahwa morphOne dan morphMany itu sama saja, yang beda cuma penamaan function saja, kalau many biasanya nama methodnya plural dan sebaliknya</p>
+<p>terdapat 2 jenis polymorph disini
+1.one to one/many polymorphic relations
+yaitu jenis relasi yang mana kita membutuhukan resource yang sebenarnya sejenis tapi dibutuhkan oleh beberapa model</p>
+<p>misalkan kita akan membuat adanya data produk dan staff
+dalam data tersebt ternyata dibutuhkan adanya foto
+apakah mungkin kita menyertakan field ‘foto_path’ pada kesetiap model
+sednagkan sebenarnya kita bisa membuat polymorph dengan membuat tabel photos dan terintegrasi dengan model produk dan staff</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">staff</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">name</span> <span class="o">-</span> <span class="n">string</span>
+
+<span class="n">products</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">price</span> <span class="o">-</span> <span class="n">integer</span>
+
+<span class="n">photos</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">path</span> <span class="o">-</span> <span class="n">string</span>
+    <span class="n">imageable_id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">imageable_type</span> <span class="o">-</span> <span class="n">string</span>
+</pre></div>
+</div>
+<p>code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>class Photo extends Model
+{
+    /**
+     * Get all of the owning imageable models.
+     */
+    public function imageable()
+    {
+        return $this-&gt;morphTo();
+    }
+}
+
+class Staff extends Model
+{
+    /**
+     * Get all of the staff member&#39;s photos.
+     */
+    public function photos()
+    {
+        return $this-&gt;morphMany(&#39;App\Photo&#39;, &#39;imageable&#39;);
+    }
+}
+
+class Product extends Model
+{
+    /**
+     * Get all of the product&#39;s photos.
+     */
+    public function photos()
+    {
+        return $this-&gt;morphMany(&#39;App\Photo&#39;, &#39;imageable&#39;);
+    }
+}
+</pre></div>
+</div>
+<p>jika antara morphOne dan morphMany sama mengapa menggunakan morphMany pada kasus diatas
+sebelumnya pahami bagian hasMany dan hasOne
+misal artist dapat memiliki banyak album kan
+artist peterpan dapat memiliki album ‘bintang di surga’, ‘alexandria’
+sama dengan diatas, staff bisa memiliki lebih dari satu  photo begitupula  dengan produk</p>
+<p>2.Many To Many Polymorphic Relations
+mengapa ada jenis ini
+simple setiap data di tabel morph belum tentu hanya direlasikan ke bagian satu model, sehingga satu data morph dapat diletakkan pada lebih dari satu model</p>
+<p>misalkan adalah data posts dan video
+ternyata bisa memiliki tag, nah mungkin gak satu tag hanya untuk satu model saja
+misal
+tag ‘merdeka’ kan bisa saja masuk ke dalam bagian posts atau video</p>
+<p>jadi satu tag bisa direlasikan ke 2 bagian model
+berbeda dengan one to one/many polymorphic relations</p>
+<p>pada contoh diatas, sudah pasti satu photo hanya untuk satu model:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">posts</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">name</span> <span class="o">-</span> <span class="n">string</span>
+
+<span class="n">videos</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">name</span> <span class="o">-</span> <span class="n">string</span>
+
+<span class="n">tags</span>
+    <span class="nb">id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">name</span> <span class="o">-</span> <span class="n">string</span>
+
+<span class="n">taggables</span>
+    <span class="n">tag_id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">taggable_id</span> <span class="o">-</span> <span class="n">integer</span>
+    <span class="n">taggable_type</span> <span class="o">-</span> <span class="n">string</span>
+</pre></div>
+</div>
+<p>code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>class Post extends Model
+{
+    /**
+     * Get all of the tags for the post.
+     */
+    public function tags()
+    {
+        return $this-&gt;morphToMany(&#39;App\Tag&#39;, &#39;taggable&#39;);
+    }
+}
+
+class Video extends Model
+{
+    /**
+     * Get all of the tags for the post.
+     */
+    public function tags()
+    {
+        return $this-&gt;morphToMany(&#39;App\Tag&#39;, &#39;taggable&#39;);
+    }
+}
+</pre></div>
+</div>
+<p>sedangkan di model tag:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>class Tag extends Model
+{
+    /**
+     * Get all of the posts that are assigned this tag.
+     */
+    public function posts()
+    {
+        return $this-&gt;morphedByMany(&#39;App\Post&#39;, &#39;taggable&#39;);
+    }
+
+    /**
+     * Get all of the videos that are assigned this tag.
+     */
+    public function videos()
+    {
+        return $this-&gt;morphedByMany(&#39;App\Video&#39;, &#39;taggable&#39;);
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="with-method">
+<h2>With method<a class="headerlink" href="#with-method" title="Permalink to this headline">¶</a></h2>
+<p>method with pada eloquent adalah mnampilkan data tabel utama dan relasinya
+misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = User::with(&#39;preference&#39;)-&gt;get();
+</pre></div>
+</div>
+<p>perlu diketahui sebelumnya bahwa dalam menggunakan method with ini, sebelumnya telah membuat adanya relasi pada model</p>
+<p>model ‘User’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function preference() {
+    return $this-&gt;hasOne(&#39;App\Preference&#39;,&#39;id_user&#39;);
+}
+</pre></div>
+</div>
+<p>model ‘Preference’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function user() {
+    return $this-&gt;belongsTo(&#39;App\User&#39;);
+}
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = User::all();
+Collection {#152 ▼
+  #items: array:2 [▼
+    0 =&gt; User {#153 ▼
+      #table: &quot;users&quot;
+      #fillable: array:3 [▶]
+      #hidden: array:2 [▶]
+      #connection: null
+      #primaryKey: &quot;id&quot;
+      #perPage: 15
+      +incrementing: true
+      +timestamps: true
+      #attributes: array:7 [▼
+        &quot;id&quot; =&gt; 1
+        &quot;name&quot; =&gt; &quot;user_one&quot;
+        &quot;email&quot; =&gt; &quot;email_one&quot;
+        &quot;password&quot; =&gt; &quot;&quot;
+        &quot;remember_token&quot; =&gt; null
+        &quot;created_at&quot; =&gt; &quot;2016-12-11 09:30:40&quot;
+        &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:31:54&quot;
+      ]
+      #original: array:7 [▼
+        &quot;id&quot; =&gt; 1
+        &quot;name&quot; =&gt; &quot;user_one&quot;
+        &quot;email&quot; =&gt; &quot;email_one&quot;
+        &quot;password&quot; =&gt; &quot;&quot;
+        &quot;remember_token&quot; =&gt; null
+        &quot;created_at&quot; =&gt; &quot;2016-12-11 09:30:40&quot;
+        &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:31:54&quot;
+      ]
+      #relations: []
+      #visible: []
+      #appends: []
+      #guarded: array:1 [▶]
+      #dates: []
+      #dateFormat: null
+      #casts: []
+      #touches: []
+      #observables: []
+      #with: []
+      #morphClass: null
+      +exists: true
+      +wasRecentlyCreated: false
+    }
+    1 =&gt; User {#154 ▶}
+  ]
+}
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = User::with(&#39;preference&#39;)-&gt;get();
+
+
+Collection {#159 ▼
+  #items: array:2 [▼
+    0 =&gt; User {#154 ▼
+      #table: &quot;users&quot;
+      #fillable: array:3 [▶]
+      #hidden: array:2 [▶]
+      #connection: null
+      #primaryKey: &quot;id&quot;
+      #perPage: 15
+      +incrementing: true
+      +timestamps: true
+      #attributes: array:7 [▼
+        &quot;id&quot; =&gt; 1
+        &quot;name&quot; =&gt; &quot;user_one&quot;
+        &quot;email&quot; =&gt; &quot;email_one&quot;
+        &quot;password&quot; =&gt; &quot;&quot;
+        &quot;remember_token&quot; =&gt; null
+        &quot;created_at&quot; =&gt; &quot;2016-12-11 09:30:40&quot;
+        &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:31:54&quot;
+      ]
+      #original: array:7 [▼
+        &quot;id&quot; =&gt; 1
+        &quot;name&quot; =&gt; &quot;user_one&quot;
+        &quot;email&quot; =&gt; &quot;email_one&quot;
+        &quot;password&quot; =&gt; &quot;&quot;
+        &quot;remember_token&quot; =&gt; null
+        &quot;created_at&quot; =&gt; &quot;2016-12-11 09:30:40&quot;
+        &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:31:54&quot;
+      ]
+      #relations: array:1 [▼
+        &quot;preference&quot; =&gt; Preference {#160 ▼
+          #fillable: array:3 [▶]
+          #connection: null
+          #table: null
+          #primaryKey: &quot;id&quot;
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:6 [▼
+            &quot;id&quot; =&gt; 1
+            &quot;country&quot; =&gt; &quot;INA&quot;
+            &quot;currency&quot; =&gt; &quot;IDR&quot;
+            &quot;id_user&quot; =&gt; 1
+            &quot;created_at&quot; =&gt; &quot;2016-12-11 09:34:16&quot;
+            &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:40:01&quot;
+          ]
+          #original: array:6 [▼
+            &quot;id&quot; =&gt; 1
+            &quot;country&quot; =&gt; &quot;INA&quot;
+            &quot;currency&quot; =&gt; &quot;IDR&quot;
+            &quot;id_user&quot; =&gt; 1
+            &quot;created_at&quot; =&gt; &quot;2016-12-11 09:34:16&quot;
+            &quot;updated_at&quot; =&gt; &quot;2016-12-11 09:40:01&quot;
+          ]
+          #relations: []
+          #hidden: []
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+      ]
+      #visible: []
+      #appends: []
+      #guarded: array:1 [▶]
+      #dates: []
+      #dateFormat: null
+      #casts: []
+      #touches: []
+      #observables: []
+      #with: []
+      #morphClass: null
+      +exists: true
+      +wasRecentlyCreated: false
+    }
+    1 =&gt; User {#155 ▶}
+  ]
+}
+</pre></div>
+</div>
+<p>jika ingin menambahkan adanya where clause maka:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = Artist::with([&#39;albums&#39; =&gt; function ($q) { $q-&gt;where(&#39;tahun&#39;,&#39;=&#39;,&#39;2008&#39;); }])-&gt;get();
+dd($app);
+
+Collection {#160 ▼
+  #items: array:2 [▼
+    0 =&gt; Artist {#154 ▼
+      #fillable: array:1 [▶]
+      #connection: null
+      #table: null
+      #primaryKey: &quot;id&quot;
+      #perPage: 15
+      +incrementing: true
+      +timestamps: true
+      #attributes: array:4 [▶]
+      #original: array:4 [▶]
+      #relations: array:1 [▼
+        &quot;albums&quot; =&gt; Collection {#153 ▼
+          #items: []
+        }
+      ]
+      #hidden: []
+      #visible: []
+      #appends: []
+      #guarded: array:1 [▶]
+      #dates: []
+      #dateFormat: null
+      #casts: []
+      #touches: []
+      #observables: []
+      #with: []
+      #morphClass: null
+      +exists: true
+      +wasRecentlyCreated: false
+    }
+    1 =&gt; Artist {#155 ▼
+      #fillable: array:1 [▶]
+      #connection: null
+      #table: null
+      #primaryKey: &quot;id&quot;
+      #perPage: 15
+      +incrementing: true
+      +timestamps: true
+      #attributes: array:4 [▶]
+      #original: array:4 [▶]
+      #relations: array:1 [▼
+        &quot;albums&quot; =&gt; Collection {#158 ▼
+          #items: array:1 [▼
+            0 =&gt; Album {#161 ▼
+              #fillable: array:3 [▶]
+              #connection: null
+              #table: null
+              #primaryKey: &quot;id&quot;
+              #perPage: 15
+              +incrementing: true
+              +timestamps: true
+              #attributes: array:6 [▼
+                &quot;id&quot; =&gt; 1
+                &quot;name&quot; =&gt; &quot;bintang di surga&quot;
+                &quot;tahun&quot; =&gt; &quot;2008&quot;
+                &quot;id_artist&quot; =&gt; 2
+                &quot;created_at&quot; =&gt; &quot;2016-12-12 03:28:54&quot;
+                &quot;updated_at&quot; =&gt; &quot;2016-12-12 03:29:56&quot;
+              ]
+              #original: array:6 [▶]
+              #relations: []
+              #hidden: []
+              #visible: []
+              #appends: []
+              #guarded: array:1 [▶]
+              #dates: []
+              #dateFormat: null
+              #casts: []
+              #touches: []
+              #observables: []
+              #with: []
+              #morphClass: null
+              +exists: true
+              +wasRecentlyCreated: false
+            }
+          ]
+        }
+      ]
+      #hidden: []
+      #visible: []
+      #appends: []
+      #guarded: array:1 [▶]
+      #dates: []
+      #dateFormat: null
+      #casts: []
+      #touches: []
+      #observables: []
+      #with: []
+      #morphClass: null
+      +exists: true
+      +wasRecentlyCreated: false
+    }
+  ]
+}
+</pre></div>
+</div>
+<p>jika ingin mengakses data di tabel relasi:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = Artist::with(&#39;albums&#39;)-&gt;get();
+dd($app[1]-&gt;albums[0]-&gt;tahun);
+</pre></div>
+</div>
+<p>perlu diketahui bahwa dalam menggunakan with dengan maka data utama (tabel artist) akan selalu tampil, namun jika data utama tidak memiliki adanya relasi maka data di relasinya juga akan kosong</p>
+<p>jangan lupa bahwa parameter pertama didalam method with adalah nama method yang menjadi penghubungnya</p>
+<p>lantas bagaimana dengan relasi dengan lebih dari 2 tabel
+misal tabel artists, albums dan songs</p>
+<p>artists memiliki albums
+albums memiliki songs</p>
+<p>artists (parent)
+albums (parent-child)
+songs (child)</p>
+<p>maka dari itu dibutuhkan adaya nested eager loaing
+yaitu dengan menambahkan adanya dot syntax</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$app = App\Artist::with(&#39;albums.songs&#39;);
+
+Collection {#256 ▼
+  #items: array:1 [▼
+    0 =&gt; Content {#242 ▼
+      #fillable: array:2 [▶]
+      #connection: null
+      #table: null
+      #primaryKey: &quot;id&quot;
+      #perPage: 15
+      +incrementing: true
+      +timestamps: true
+      #attributes: array:5 [▶]
+      #original: array:5 [▶]
+      #relations: array:1 [▼
+        &quot;sectiontitle&quot; =&gt; Collection {#247 ▼
+          #items: array:2 [▼
+            0 =&gt; Section_title {#249 ▼
+              #fillable: array:3 [▶]
+              #connection: null
+              #table: null
+              #primaryKey: &quot;id&quot;
+              #perPage: 15
+              +incrementing: true
+              +timestamps: true
+              #attributes: array:6 [▶]
+              #original: array:6 [▶]
+              #relations: array:1 [▼
+                &quot;sectioncontents&quot; =&gt; Collection {#254 ▼
+                  #items: array:2 [▼
+                    0 =&gt; Section_content {#257 ▼
+                      #fillable: array:3 [▶]
+                      #connection: null
+                      #table: null
+                      #primaryKey: &quot;id&quot;
+                      #perPage: 15
+                      +incrementing: true
+                      +timestamps: true
+                      #attributes: array:6 [▶]
+                      #original: array:6 [▶]
+                      #relations: []
+                      #hidden: []
+                      #visible: []
+                      #appends: []
+                      #guarded: array:1 [▶]
+                      #dates: []
+                      #dateFormat: null
+                      #casts: []
+                      #touches: []
+                      #observables: []
+                      #with: []
+                      #morphClass: null
+                      +exists: true
+                      +wasRecentlyCreated: false
+                    }
+                    1 =&gt; Section_content {#258 ▶}
+                  ]
+                }
+              ]
+              #hidden: []
+              #visible: []
+              #appends: []
+              #guarded: array:1 [▶]
+              #dates: []
+              #dateFormat: null
+              #casts: []
+              #touches: []
+              #observables: []
+              #with: []
+              #morphClass: null
+              +exists: true
+              +wasRecentlyCreated: false
+            }
+            1 =&gt; Section_title {#250 ▶}
+          ]
+        }
+      ]
+      #hidden: []
+      #visible: []
+      #appends: []
+      #guarded: array:1 [▶]
+      #dates: []
+      #dateFormat: null
+      #casts: []
+      #touches: []
+      #observables: []
+      #with: []
+      #morphClass: null
+      +exists: true
+      +wasRecentlyCreated: false
+    }
+  ]
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="collection-eloquent.html" class="btn btn-neutral float-right" title="Collection Eloquent" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="model-eloquent.html" class="btn btn-neutral" title="1   Model Eloquent" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

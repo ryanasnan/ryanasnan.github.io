@@ -1,0 +1,65 @@
+Integrasi Javascript di Browser Internet Explorer
+=======================================================
+
+.. section-numbering::
+
+=======================
+JQuery in IE
+=======================
+
+Plugin Sweet Alert tidak muncul di Internet Explorer 
+``````````````````````````````````````````````````````````
+
+Untuk dapat menggunakan plugin sweet alert di di internet explorer :
+
+#. tambahkan package bluebird
+#. tambahkan package promise es6
+
+
+
+Perbedaan Append di Javascript
+``````````````````````````````````
+
+Di dalam javascript terdapat 2 jenis append yaitu ``appendChild`` dan ``append``
+
+method append lebih memiliki banyak fungsi serta juga sudah mewakili method appendChild.
+
+Kegunaan kedua method tersebut adalah sama yaitu memasukkan suatu element baru pada suatu element.
+
+Perbedaannya ada pada bagian dimana element akan dimasukkan.
+
+Perbedaan ini juga hanya terlihat pada IE (Internet Explorer) sedang pada browser lain tidak memiliki pengaruh yang kompleks.
+
+Sedangkan di Chrome atau Firefox method append ataupun appendChild akan selalu dapat digunakan dengan kondisi apapun, berbeda dengan IE.
+
+Satu hal perbedaan dari keduanya adalah pada append hanya akan berlaku pada object element yang telah ada (dibuat sebelumnya) sedangkan appendChild berlaku pada object yang dibuat baru dengan javascript.
+
+yang bagian element, ubah menjadi appendChild(append di dalamnya)
+
+sedangkan bagian object element gunakan append (bukan appendChild) 
+
+berikut adalah contoh penggunaan dari kedua method tersebut
+
+.. code-block:: php
+
+	$('.name-class').click(function () {
+	    var obj = this;
+
+	    var form = document.createElement("form");
+
+	    form.setAttribute("method", "POST");
+
+	    var inputToken = document.createElement('input');
+	    inputToken.type = 'hidden';
+	    inputToken.name = 'name-input';
+
+	    form.appendChild(inputToken);
+
+	    $(obj).append(form);
+	});
+
+.. warning::
+
+	syntax diatas akan dapat berjalan di browser chrome, firefox bahkan Internet Explorer(Edge).
+
+	Namun jika pada bagian syntax ``$(obj).append(form);`` kita ubah menjadi ``$(obj).appendChild(form);`` maka ini akan mengalami adanya error di Internet Explorer.

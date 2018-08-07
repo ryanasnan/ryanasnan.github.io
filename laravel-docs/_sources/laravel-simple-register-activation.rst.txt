@@ -1,0 +1,300 @@
+Registrasi Akun Laravel dan Aktivasi Akun
+===============================================
+
+Berikut adalah code dalam membuat registrasi akun (user) dengan framework **Laravel 5.2**
+
+Sumber yang didapat dari https://blog.damirmiladinov.com/laravel/laravel-5.2-email-verification-with-activation-code.html#.WNug10clHqM
+
+=========================
+Step/Langkah dari awal
+=========================
+
+1. Buat file, folder dan script auth laravel secara default dengan syntax::
+
+    php artisan make:auth
+
+2. Buat migrasi untuk tabel ``user_activation``::
+
+    php artisan make:migration create_user_activations_table --create=user_activations
+
+Ubah code method up dengan::
+
+    Schema::create('user_activations', function (Blueprint $table) {
+        $table->integer('user_id')->unsigned();
+        $table->string('token')->index();
+        $table->timestamp('created_at');
+    });
+
+Tambahkan kolom ``activated`` pada tabel ``users``::
+
+    $table->boolean('activated')->default(false);
+
+mulai migrasi::
+
+    php artisan migrate
+
+3. Tambahkan repository khusus dalam activation token ActivationRepository
+
+**app/ActivationRepository.php**
+
+.. literalinclude:: source-code/register-activation/ActivationRepository.php
+    :language: php
+    :linenos:
+
+4. Tambahkan route untuk aktivasi akun::
+
+    Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
+
+Sangat dianjurkan untuk meletakkan di bawah code ``Route::auth()``
+
+5. Buat file ActivationService untuk service mengirimkan mail
+
+**app/ActivationService.php**
+
+.. literalinclude:: source-code/register-activation/ActivationService.php
+    :language: php
+    :linenos:
+
+6. Modifikasi file AuthController
+
+tambahkan class::
+
+    use Illuminate\Http\Request;
+    use App\ActivationService;
+
+dan tambahkan property::
+
+    protected $activationService;
+
+dan method sebagai berikut:
+
+.. code-block:: php
+
+    public function __construct(ActivationService $activationService)
+    {
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $user = $this->create($request->all());
+
+        $this->activationService->sendActivationMail($user);
+
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+    }
+
+    ...
+
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->activated) {
+            $this->activationService->sendActivationMail($user);
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+        }
+        return redirect()->intended($this->redirectPath());
+    }
+
+    ...
+
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
+    }
+
+.. attention::
+
+    Hasil akhir code dapat dilihat pada file ``AuthController.php``
+
+7. Buat message untuk status jika akun belum diaktifkan pada view ``login.blade.php``::
+
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
+
+===============================================
+List file yang diubah dan ditambahkan
+===============================================
+
+Diubah:
+
+* .env
+* app/Http/Controllers/Auth/AuthController.php
+* app/Http/routes.php
+* config/mail.php
+* database/migrations/2014_10_12_000000_create_users_table.php
+* resources/views/welcome.blade.php
+
+Ditambahkan:
+
+* app/ActivationRepository.php
+* app/ActivationService.php
+* app/Http/Controllers/HomeController.php
+* database/migrations/2017_03_29_120146_create_user_activations_table.php
+* resources/views/auth/
+
+    * resources/views/auth/emails/
+
+        * resources/views/auth/emails/password.blade.php
+
+    * resources/views/auth/passwords/
+
+        * resources/views/auth/emails/email.blade.php
+        * resources/views/auth/emails/reset.blade.php 
+
+    * resources/views/auth/login.blade.php
+    * resources/views/auth/register.blade.php
+
+* resources/views/home.blade.php
+* resources/views/layouts/app.blade.php
+
+Preview file yang diubah dan ditambahkan
+
+
+**.env**
+
+.. literalinclude:: source-code/register-activation/.env
+    :language: php
+    :linenos:
+
+
+
+**app/Http/Controllers/Auth/AuthController.php**
+
+.. literalinclude:: source-code/register-activation/AuthController.php
+    :language: php
+    :linenos:
+
+
+
+**app/Http/routes.php**
+
+.. literalinclude:: source-code/register-activation/routes.php
+    :language: php
+    :linenos:
+
+
+
+**config/mail.php**
+
+.. literalinclude:: source-code/register-activation/mail.php
+    :language: php
+    :linenos:
+
+
+
+**database/migrations/2014_10_12_000000_create_users_table.php**
+
+.. literalinclude:: source-code/register-activation/2014_10_12_000000_create_users_table.php
+    :language: php
+    :linenos:
+
+
+
+**resources/views/welcome.blade.php**
+
+.. literalinclude:: source-code/register-activation/welcome.blade.php
+    :language: php
+    :linenos:
+
+
+
+**app/ActivationRepository.php**
+
+.. literalinclude:: source-code/register-activation/ActivationRepository.php
+    :language: php
+    :linenos:
+
+
+
+**app/ActivationService.php**
+
+.. literalinclude:: source-code/register-activation/ActivationService.php
+    :language: php
+    :linenos:
+
+
+
+**app/Http/Controllers/HomeController.php**
+
+.. literalinclude:: source-code/register-activation/HomeController.php
+    :language: php
+    :linenos:
+
+
+
+**database/migrations/2017_03_29_120146_create_user_activations_table.php**
+
+.. literalinclude:: source-code/register-activation/2017_03_29_120146_create_user_activations_table.php
+    :language: php
+    :linenos:
+
+
+
+**resources/views/auth/**
+
+.. literalinclude:: source-code/register-activation/password.blade.php
+    :language: php
+    :linenos:
+
+
+**resources/views/auth/**
+
+.. literalinclude:: source-code/register-activation/email.blade.php
+    :language: php
+    :linenos:
+
+**resources/views/auth/**
+
+.. literalinclude:: source-code/register-activation/reset.blade.php 
+    :language: php
+    :linenos:
+
+**resources/views/auth/**
+
+.. literalinclude:: source-code/register-activation/login.blade.php
+    :language: php
+    :linenos:
+
+**resources/views/auth/**
+
+.. literalinclude:: source-code/register-activation/register.blade.php
+    :language: php
+    :linenos:
+
+
+**resources/views/home.blade.php**
+
+.. literalinclude:: source-code/register-activation/home.blade.php
+    :language: php
+    :linenos:
+
+
+
+**resources/views/layouts/app.blade.php**
+
+.. literalinclude:: source-code/register-activation/app.blade.php
+    :language: php
+    :linenos:

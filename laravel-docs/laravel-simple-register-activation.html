@@ -1,0 +1,2641 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Registrasi Akun Laravel dan Aktivasi Akun &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Rekomendasi struktur project baru laravel" href="laravel-new-project-recommended-structure.html"/>
+        <link rel="prev" title="Laravel Repository pattern" href="repository-pattern.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Registrasi Akun Laravel dan Aktivasi Akun</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-langkah-dari-awal">Step/Langkah dari awal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-file-yang-diubah-dan-ditambahkan">List file yang diubah dan ditambahkan</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Registrasi Akun Laravel dan Aktivasi Akun</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/laravel-simple-register-activation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="registrasi-akun-laravel-dan-aktivasi-akun">
+<h1>Registrasi Akun Laravel dan Aktivasi Akun<a class="headerlink" href="#registrasi-akun-laravel-dan-aktivasi-akun" title="Permalink to this headline">¶</a></h1>
+<p>Berikut adalah code dalam membuat registrasi akun (user) dengan framework <strong>Laravel 5.2</strong></p>
+<p>Sumber yang didapat dari <a class="reference external" href="https://blog.damirmiladinov.com/laravel/laravel-5.2-email-verification-with-activation-code.html#.WNug10clHqM">https://blog.damirmiladinov.com/laravel/laravel-5.2-email-verification-with-activation-code.html#.WNug10clHqM</a></p>
+<div class="section" id="step-langkah-dari-awal">
+<h2>Step/Langkah dari awal<a class="headerlink" href="#step-langkah-dari-awal" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Buat file, folder dan script auth laravel secara default dengan syntax:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="p">:</span><span class="n">auth</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Buat migrasi untuk tabel <code class="docutils literal"><span class="pre">user_activation</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="p">:</span><span class="n">migration</span> <span class="n">create_user_activations_table</span> <span class="o">--</span><span class="n">create</span><span class="o">=</span><span class="n">user_activations</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Ubah code method up dengan:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Schema::create(&#39;user_activations&#39;, function (Blueprint $table) {
+    $table-&gt;integer(&#39;user_id&#39;)-&gt;unsigned();
+    $table-&gt;string(&#39;token&#39;)-&gt;index();
+    $table-&gt;timestamp(&#39;created_at&#39;);
+});
+</pre></div>
+</div>
+<p>Tambahkan kolom <code class="docutils literal"><span class="pre">activated</span></code> pada tabel <code class="docutils literal"><span class="pre">users</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$table-&gt;boolean(&#39;activated&#39;)-&gt;default(false);
+</pre></div>
+</div>
+<p>mulai migrasi:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="n">artisan</span> <span class="n">migrate</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Tambahkan repository khusus dalam activation token ActivationRepository</li>
+</ol>
+<p><strong>app/ActivationRepository.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+
+<span class="k">use</span> <span class="nx">Carbon\Carbon</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Connection</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ActivationRepository</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$db</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;user_activations&#39;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$db</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getToken</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">hash_hmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="nx">config</span><span class="p">(</span><span class="s1">&#39;app.key&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">createActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$activation</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">regenerateToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">regenerateToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getToken</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+            <span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">,</span>
+            <span class="s1">&#39;created_at&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Carbon</span><span class="p">()</span>
+        <span class="p">]);</span>
+        <span class="k">return</span> <span class="nv">$token</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">createToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getToken</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
+            <span class="s1">&#39;user_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
+            <span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">,</span>
+            <span class="s1">&#39;created_at&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Carbon</span><span class="p">()</span>
+        <span class="p">]);</span>
+        <span class="k">return</span> <span class="nv">$token</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getActivationByToken</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteActivation</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<ol class="arabic" start="4">
+<li><p class="first">Tambahkan route untuk aktivasi akun:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user/activation/</span><span class="si">{token}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Auth\AuthController@activateUser&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;user.activate&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Sangat dianjurkan untuk meletakkan di bawah code <code class="docutils literal"><span class="pre">Route::auth()</span></code></p>
+<ol class="arabic simple" start="5">
+<li>Buat file ActivationService untuk service mengirimkan mail</li>
+</ol>
+<p><strong>app/ActivationService.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+
+<span class="k">use</span> <span class="nx">Illuminate\Mail\Mailer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Mail\Message</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ActivationService</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$mailer</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$activationRepo</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$resendAfter</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Mailer</span> <span class="nv">$mailer</span><span class="p">,</span> <span class="nx">ActivationRepository</span> <span class="nv">$activationRepo</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span> <span class="o">=</span> <span class="nv">$mailer</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span> <span class="o">=</span> <span class="nv">$activationRepo</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sendActivationMail</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">activated</span> <span class="o">||</span> <span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shouldSend</span><span class="p">(</span><span class="nv">$user</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">createActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">        syntax %s merupakan bagian dari function &#39;sprintf&#39;</span>
+<span class="cm">        sprintf dalam php manual diartikan sebagai</span>
+<span class="cm">        Returns a string produced according to the formatting string format.</span>
+
+<span class="cm">        Yang berarti akan mengambil value dari format string yang ada</span>
+
+<span class="cm">        syntax sprintf:</span>
+<span class="cm">        string sprintf ( string $format [, mixed $args [, mixed $... ]] )</span>
+
+<span class="cm">        artinya parameter pertama akan diisi format dari string.</span>
+
+<span class="cm">        jika %s maka string dalam bentuk string(jajaran karakter)</span>
+<span class="cm">        jika %d maka string dalam bentuk number</span>
+
+<span class="cm">        Dalam kasus ini maka akan mengambil value dari $link, yaitu string dari route yang berfungsi mengaktifkan akun</span>
+
+<span class="cm">        contoh hasil dari $link adalah</span>
+<span class="cm">        http://localhost/laravelex52/public/user/activation/1361691c1e1d5e346556e34a8b70460c843546ae74c2dafa9abb58b5eb53b94f</span>
+<span class="cm">        */</span>
+
+        <span class="nv">$link</span> <span class="o">=</span> <span class="nx">route</span><span class="p">(</span><span class="s1">&#39;user.activate&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">);</span>
+        <span class="nv">$message</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;Activate account %s&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span><span class="o">-&gt;</span><span class="na">raw</span><span class="p">(</span><span class="nv">$message</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Message</span> <span class="nv">$m</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$m</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">(</span><span class="s1">&#39;Activation mail&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+
+
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">activateUser</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">getActivationByToken</span><span class="p">(</span><span class="nv">$token</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$activation</span> <span class="o">===</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nx">User</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="nv">$activation</span><span class="o">-&gt;</span><span class="na">user_id</span><span class="p">);</span>
+
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">activated</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">deleteActivation</span><span class="p">(</span><span class="nv">$token</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">shouldSend</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$activation</span> <span class="o">===</span> <span class="k">null</span> <span class="o">||</span> <span class="nb">strtotime</span><span class="p">(</span><span class="nv">$activation</span><span class="o">-&gt;</span><span class="na">created_at</span><span class="p">)</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resendAfter</span> <span class="o">&lt;</span> <span class="nb">time</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<ol class="arabic simple" start="6">
+<li>Modifikasi file AuthController</li>
+</ol>
+<p>tambahkan class:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">use</span> <span class="n">Illuminate</span>\<span class="n">Http</span>\<span class="n">Request</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">App</span>\<span class="n">ActivationService</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>dan tambahkan property:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>protected $activationService;
+</pre></div>
+</div>
+<p>dan method sebagai berikut:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function __construct(ActivationService $activationService)</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;middleware($this-&gt;guestMiddleware(), [&#39;except&#39; =&gt; &#39;logout&#39;]);</span>
+<span class="x">    $this-&gt;activationService = $activationService;</span>
+<span class="x">}</span>
+
+<span class="x">public function register(Request $request)</span>
+<span class="x">{</span>
+<span class="x">    $validator = $this-&gt;validator($request-&gt;all());</span>
+
+<span class="x">    if ($validator-&gt;fails()) {</span>
+<span class="x">        $this-&gt;throwValidationException(</span>
+<span class="x">            $request, $validator</span>
+<span class="x">        );</span>
+<span class="x">    }</span>
+
+<span class="x">    $user = $this-&gt;create($request-&gt;all());</span>
+
+<span class="x">    $this-&gt;activationService-&gt;sendActivationMail($user);</span>
+
+<span class="x">    return redirect(&#39;/login&#39;)-&gt;with(&#39;status&#39;, &#39;We sent you an activation code. Check your email.&#39;);</span>
+<span class="x">}</span>
+
+<span class="x">...</span>
+
+<span class="x">public function authenticated(Request $request, $user)</span>
+<span class="x">{</span>
+<span class="x">    if (!$user-&gt;activated) {</span>
+<span class="x">        $this-&gt;activationService-&gt;sendActivationMail($user);</span>
+<span class="x">        auth()-&gt;logout();</span>
+<span class="x">        return back()-&gt;with(&#39;warning&#39;, &#39;You need to confirm your account. We have sent you an activation code, please check your email.&#39;);</span>
+<span class="x">    }</span>
+<span class="x">    return redirect()-&gt;intended($this-&gt;redirectPath());</span>
+<span class="x">}</span>
+
+<span class="x">...</span>
+
+<span class="x">public function activateUser($token)</span>
+<span class="x">{</span>
+<span class="x">    if ($user = $this-&gt;activationService-&gt;activateUser($token)) {</span>
+<span class="x">        auth()-&gt;login($user);</span>
+<span class="x">        return redirect($this-&gt;redirectPath());</span>
+<span class="x">    }</span>
+<span class="x">    abort(404);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Hasil akhir code dapat dilihat pada file <code class="docutils literal"><span class="pre">AuthController.php</span></code></p>
+</div>
+<ol class="arabic" start="7">
+<li><p class="first">Buat message untuk status jika akun belum diaktifkan pada view <code class="docutils literal"><span class="pre">login.blade.php</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@if</span> <span class="p">(</span><span class="n">session</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">))</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;alert alert-success&quot;</span><span class="o">&gt;</span>
+        <span class="p">{{</span> <span class="n">session</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span> <span class="p">}}</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="nd">@endif</span>
+<span class="nd">@if</span> <span class="p">(</span><span class="n">session</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">))</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;alert alert-warning&quot;</span><span class="o">&gt;</span>
+        <span class="p">{{</span> <span class="n">session</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">)</span> <span class="p">}}</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="nd">@endif</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="list-file-yang-diubah-dan-ditambahkan">
+<h2>List file yang diubah dan ditambahkan<a class="headerlink" href="#list-file-yang-diubah-dan-ditambahkan" title="Permalink to this headline">¶</a></h2>
+<p>Diubah:</p>
+<ul class="simple">
+<li>.env</li>
+<li>app/Http/Controllers/Auth/AuthController.php</li>
+<li>app/Http/routes.php</li>
+<li>config/mail.php</li>
+<li>database/migrations/2014_10_12_000000_create_users_table.php</li>
+<li>resources/views/welcome.blade.php</li>
+</ul>
+<p>Ditambahkan:</p>
+<ul>
+<li><p class="first">app/ActivationRepository.php</p>
+</li>
+<li><p class="first">app/ActivationService.php</p>
+</li>
+<li><p class="first">app/Http/Controllers/HomeController.php</p>
+</li>
+<li><p class="first">database/migrations/2017_03_29_120146_create_user_activations_table.php</p>
+</li>
+<li><p class="first">resources/views/auth/</p>
+<blockquote>
+<div><ul>
+<li><p class="first">resources/views/auth/emails/</p>
+<blockquote>
+<div><ul class="simple">
+<li>resources/views/auth/emails/password.blade.php</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">resources/views/auth/passwords/</p>
+<blockquote>
+<div><ul class="simple">
+<li>resources/views/auth/emails/email.blade.php</li>
+<li>resources/views/auth/emails/reset.blade.php</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">resources/views/auth/login.blade.php</p>
+</li>
+<li><p class="first">resources/views/auth/register.blade.php</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">resources/views/home.blade.php</p>
+</li>
+<li><p class="first">resources/views/layouts/app.blade.php</p>
+</li>
+</ul>
+<p>Preview file yang diubah dan ditambahkan</p>
+<p><strong>.env</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">APP_ENV=local</span>
+<span class="x">APP_DEBUG=true</span>
+<span class="x">APP_KEY=base64:aFJ7pcS0KrS0b/ViYTcZWCuwi6ZQ3njZZ1VWJ13i2vM=</span>
+<span class="x">APP_URL=http://localhost</span>
+
+<span class="x">DB_CONNECTION=mysql</span>
+<span class="x">DB_HOST=127.0.0.1</span>
+<span class="x">DB_PORT=3306</span>
+<span class="x">DB_DATABASE=laravelex52-registerlogin</span>
+<span class="x">DB_USERNAME=root</span>
+<span class="x">DB_PASSWORD=root</span>
+
+<span class="x">CACHE_DRIVER=file</span>
+<span class="x">SESSION_DRIVER=file</span>
+<span class="x">QUEUE_DRIVER=sync</span>
+
+<span class="x">REDIS_HOST=127.0.0.1</span>
+<span class="x">REDIS_PASSWORD=null</span>
+<span class="x">REDIS_PORT=6379</span>
+
+<span class="x">MAIL_DRIVER=smtp</span>
+<span class="x">MAIL_HOST=smtp.sendgrid.net</span>
+<span class="x">MAIL_PORT=587</span>
+<span class="x">MAIL_USERNAME=asnanryan</span>
+<span class="x">MAIL_PASSWORD=r3v0lus1</span>
+<span class="x">MAIL_ENCRYPTION=tls</span>
+
+<span class="x">ADDRESS_SENDER_MAIL=ryan@mail.com</span>
+<span class="x">NAME_SENDER_MAIL=ryan_owner</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>app/Http/Controllers/Auth/AuthController.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Http\Controllers\Auth</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\User</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Validator</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Http\Controllers\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Foundation\Auth\ThrottlesLogins</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\ActivationService</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">AuthController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$activationService</span><span class="p">;</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | Registration &amp; Login Controller</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | This controller handles the registration of new users, as well as the</span>
+<span class="cm">    | authentication of existing users. By default, this controller uses</span>
+<span class="cm">    | a simple trait to add these behaviors. Why don&#39;t you explore it?</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="k">use</span> <span class="nx">AuthenticatesAndRegistersUsers</span><span class="p">,</span> <span class="nx">ThrottlesLogins</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Where to redirect users after login / registration.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @var string</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$redirectTo</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">ActivationService</span> <span class="nv">$activationService</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">middleware</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">guestMiddleware</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;logout&#39;</span><span class="p">]);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationService</span> <span class="o">=</span> <span class="nv">$activationService</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$validator</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">());</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$validator</span><span class="o">-&gt;</span><span class="na">fails</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">throwValidationException</span><span class="p">(</span>
+                <span class="nv">$request</span><span class="p">,</span> <span class="nv">$validator</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">());</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationService</span><span class="o">-&gt;</span><span class="na">sendActivationMail</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;We sent you an activation code. Check your email.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Get a validator for an incoming registration request.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  array  $data</span>
+<span class="sd">     * @return \Illuminate\Contracts\Validation\Validator</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">validator</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Validator</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max:255&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|email|max:255|unique:users&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min:6|confirmed&#39;</span><span class="p">,</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Create a new user instance after a valid registration.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  array  $data</span>
+<span class="sd">     * @return User</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">User</span><span class="o">::</span><span class="na">create</span><span class="p">([</span>
+            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="nx">bcrypt</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]),</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">authenticated</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">activated</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationService</span><span class="o">-&gt;</span><span class="na">sendActivationMail</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+            <span class="nx">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">logout</span><span class="p">();</span>
+            <span class="k">return</span> <span class="nx">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="s1">&#39;You need to confirm your account. We have sent you an activation code, please check your email.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">intended</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectPath</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">activateUser</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationService</span><span class="o">-&gt;</span><span class="na">activateUser</span><span class="p">(</span><span class="nv">$token</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">login</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectPath</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="nx">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>app/Http/routes.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="cm">/*</span>
+<span class="cm">|--------------------------------------------------------------------------</span>
+<span class="cm">| Application Routes</span>
+<span class="cm">|--------------------------------------------------------------------------</span>
+<span class="cm">|</span>
+<span class="cm">| Here is where you can register all of the routes for an application.</span>
+<span class="cm">| It&#39;s a breeze. Simply tell Laravel the URIs it should respond to</span>
+<span class="cm">| and give it the controller to call when that URI is requested.</span>
+<span class="cm">|</span>
+<span class="cm">*/</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">auth</span><span class="p">();</span>
+<span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user/activation/{token}&#39;</span><span class="p">,</span> <span class="s1">&#39;Auth\AuthController@activateUser&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">(</span><span class="s1">&#39;user.activate&#39;</span><span class="p">);</span>
+<span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span> <span class="s1">&#39;HomeController@index&#39;</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>config/mail.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">return</span> <span class="p">[</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | Mail Driver</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | Laravel supports both SMTP and PHP&#39;s &quot;mail&quot; function as drivers for the</span>
+<span class="cm">    | sending of e-mail. You may specify which one you&#39;re using throughout</span>
+<span class="cm">    | your application here. By default, Laravel is setup for SMTP mail.</span>
+<span class="cm">    |</span>
+<span class="cm">    | Supported: &quot;smtp&quot;, &quot;mail&quot;, &quot;sendmail&quot;, &quot;mailgun&quot;, &quot;mandrill&quot;,</span>
+<span class="cm">    |            &quot;ses&quot;, &quot;sparkpost&quot;, &quot;log&quot;</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_DRIVER&#39;</span><span class="p">,</span> <span class="s1">&#39;smtp&#39;</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | SMTP Host Address</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | Here you may provide the host address of the SMTP server used by your</span>
+<span class="cm">    | applications. A default option is provided that is compatible with</span>
+<span class="cm">    | the Mailgun mail service which will provide reliable deliveries.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_HOST&#39;</span><span class="p">,</span> <span class="s1">&#39;smtp.mailgun.org&#39;</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | SMTP Host Port</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | This is the SMTP port used by your application to deliver e-mails to</span>
+<span class="cm">    | users of the application. Like the host we have set this value to</span>
+<span class="cm">    | stay compatible with the Mailgun e-mail application by default.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_PORT&#39;</span><span class="p">,</span> <span class="mi">587</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | Global &quot;From&quot; Address</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | You may wish for all e-mails sent by your application to be sent from</span>
+<span class="cm">    | the same address. Here, you may specify a name and address that is</span>
+<span class="cm">    | used globally for all e-mails that are sent by your application.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;from&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;ADDRESS_SENDER_MAIL&#39;</span><span class="p">,</span> <span class="k">NULL</span><span class="p">),</span> <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;NAME_SENDER_MAIL&#39;</span><span class="p">,</span> <span class="k">NULL</span><span class="p">)],</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | E-Mail Encryption Protocol</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | Here you may specify the encryption protocol that should be used when</span>
+<span class="cm">    | the application send e-mail messages. A sensible default using the</span>
+<span class="cm">    | transport layer security protocol should provide great security.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;encryption&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_ENCRYPTION&#39;</span><span class="p">,</span> <span class="s1">&#39;tls&#39;</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | SMTP Server Username</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | If your SMTP server requires a username for authentication, you should</span>
+<span class="cm">    | set it here. This will get used to authenticate with your server on</span>
+<span class="cm">    | connection. You may also set the &quot;password&quot; value below this one.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_USERNAME&#39;</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | SMTP Server Password</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | Here you may set the password required by your SMTP server to send out</span>
+<span class="cm">    | messages from your application. This will be given to the server on</span>
+<span class="cm">    | connection so that the application will be able to send messages.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;MAIL_PASSWORD&#39;</span><span class="p">),</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    | Sendmail System Path</span>
+<span class="cm">    |--------------------------------------------------------------------------</span>
+<span class="cm">    |</span>
+<span class="cm">    | When using the &quot;sendmail&quot; driver to send e-mails, we will need to know</span>
+<span class="cm">    | the path to where Sendmail lives on this server. A default path has</span>
+<span class="cm">    | been provided here, which will work well on most of your systems.</span>
+<span class="cm">    |</span>
+<span class="cm">    */</span>
+
+    <span class="s1">&#39;sendmail&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/usr/sbin/sendmail -bs&#39;</span><span class="p">,</span>
+
+<span class="p">];</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>database/migrations/2014_10_12_000000_create_users_table.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Schema\Blueprint</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Migrations\Migration</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CreateUsersTable</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Run the migrations.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">boolean</span><span class="p">(</span><span class="s1">&#39;activated&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">default</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">rememberToken</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Reverse the migrations.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">drop</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/welcome.blade.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-10 col-md-offset-1&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Welcome&lt;/div&gt;</span>
+
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    Your Application&#39;s Landing Page.</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>app/ActivationRepository.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+
+<span class="k">use</span> <span class="nx">Carbon\Carbon</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Connection</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ActivationRepository</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$db</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;user_activations&#39;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$db</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getToken</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">hash_hmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="nx">config</span><span class="p">(</span><span class="s1">&#39;app.key&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">createActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$activation</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">regenerateToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">regenerateToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getToken</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+            <span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">,</span>
+            <span class="s1">&#39;created_at&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Carbon</span><span class="p">()</span>
+        <span class="p">]);</span>
+        <span class="k">return</span> <span class="nv">$token</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">createToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getToken</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
+            <span class="s1">&#39;user_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
+            <span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">,</span>
+            <span class="s1">&#39;created_at&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Carbon</span><span class="p">()</span>
+        <span class="p">]);</span>
+        <span class="k">return</span> <span class="nv">$token</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getActivationByToken</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteActivation</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>app/ActivationService.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+
+<span class="k">use</span> <span class="nx">Illuminate\Mail\Mailer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Mail\Message</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ActivationService</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$mailer</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$activationRepo</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$resendAfter</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Mailer</span> <span class="nv">$mailer</span><span class="p">,</span> <span class="nx">ActivationRepository</span> <span class="nv">$activationRepo</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span> <span class="o">=</span> <span class="nv">$mailer</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span> <span class="o">=</span> <span class="nv">$activationRepo</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sendActivationMail</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">activated</span> <span class="o">||</span> <span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shouldSend</span><span class="p">(</span><span class="nv">$user</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">createActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">        syntax %s merupakan bagian dari function &#39;sprintf&#39;</span>
+<span class="cm">        sprintf dalam php manual diartikan sebagai</span>
+<span class="cm">        Returns a string produced according to the formatting string format.</span>
+
+<span class="cm">        Yang berarti akan mengambil value dari format string yang ada</span>
+
+<span class="cm">        syntax sprintf:</span>
+<span class="cm">        string sprintf ( string $format [, mixed $args [, mixed $... ]] )</span>
+
+<span class="cm">        artinya parameter pertama akan diisi format dari string.</span>
+
+<span class="cm">        jika %s maka string dalam bentuk string(jajaran karakter)</span>
+<span class="cm">        jika %d maka string dalam bentuk number</span>
+
+<span class="cm">        Dalam kasus ini maka akan mengambil value dari $link, yaitu string dari route yang berfungsi mengaktifkan akun</span>
+
+<span class="cm">        contoh hasil dari $link adalah</span>
+<span class="cm">        http://localhost/laravelex52/public/user/activation/1361691c1e1d5e346556e34a8b70460c843546ae74c2dafa9abb58b5eb53b94f</span>
+<span class="cm">        */</span>
+
+        <span class="nv">$link</span> <span class="o">=</span> <span class="nx">route</span><span class="p">(</span><span class="s1">&#39;user.activate&#39;</span><span class="p">,</span> <span class="nv">$token</span><span class="p">);</span>
+        <span class="nv">$message</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;Activate account %s&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span><span class="o">-&gt;</span><span class="na">raw</span><span class="p">(</span><span class="nv">$message</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Message</span> <span class="nv">$m</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$m</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">(</span><span class="s1">&#39;Activation mail&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+
+
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">activateUser</span><span class="p">(</span><span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">getActivationByToken</span><span class="p">(</span><span class="nv">$token</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$activation</span> <span class="o">===</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nx">User</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="nv">$activation</span><span class="o">-&gt;</span><span class="na">user_id</span><span class="p">);</span>
+
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">activated</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">deleteActivation</span><span class="p">(</span><span class="nv">$token</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">shouldSend</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$activation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">activationRepo</span><span class="o">-&gt;</span><span class="na">getActivation</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$activation</span> <span class="o">===</span> <span class="k">null</span> <span class="o">||</span> <span class="nb">strtotime</span><span class="p">(</span><span class="nv">$activation</span><span class="o">-&gt;</span><span class="na">created_at</span><span class="p">)</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resendAfter</span> <span class="o">&lt;</span> <span class="nb">time</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>app/Http/Controllers/HomeController.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Http\Requests</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HomeController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Create a new controller instance.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">middleware</span><span class="p">(</span><span class="s1">&#39;auth&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Show the application dashboard.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return \Illuminate\Http\Response</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>database/migrations/2017_03_29_120146_create_user_activations_table.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Schema\Blueprint</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Database\Migrations\Migration</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CreateUserActivationsTable</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Run the migrations.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;user_activations&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">integer</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unsigned</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">index</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">&#39;created_at&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Reverse the migrations.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Schema</span><span class="o">::</span><span class="na">drop</span><span class="p">(</span><span class="s1">&#39;user_activations&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/auth/</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">Click here to reset your password: &lt;a href=&quot;{{ $link = url(&#39;password/reset&#39;, $token).&#39;?email=&#39;.urlencode($user-&gt;getEmailForPasswordReset()) }}&quot;&gt; {{ $link }} &lt;/a&gt;</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/auth/</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">&lt;!-- Main Content --&gt;</span>
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-8 col-md-offset-2&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Reset Password&lt;/div&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    @if (session(&#39;status&#39;))</span>
+<span class="x">                        &lt;div class=&quot;alert alert-success&quot;&gt;</span>
+<span class="x">                            {{ session(&#39;status&#39;) }}</span>
+<span class="x">                        &lt;/div&gt;</span>
+<span class="x">                    @endif</span>
+
+<span class="x">                    &lt;form class=&quot;form-horizontal&quot; role=&quot;form&quot; method=&quot;POST&quot; action=&quot;{{ url(&#39;/password/email&#39;) }}&quot;&gt;</span>
+<span class="x">                        {{ csrf_field() }}</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;email&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;email&quot; class=&quot;col-md-4 control-label&quot;&gt;E-Mail Address&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;email&quot; type=&quot;email&quot; class=&quot;form-control&quot; name=&quot;email&quot; value=&quot;{{ old(&#39;email&#39;) }}&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;email&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;email&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6 col-md-offset-4&quot;&gt;</span>
+<span class="x">                                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;</span>
+<span class="x">                                    &lt;i class=&quot;fa fa-btn fa-envelope&quot;&gt;&lt;/i&gt; Send Password Reset Link</span>
+<span class="x">                                &lt;/button&gt;</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+<span class="x">                    &lt;/form&gt;</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/auth/</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-8 col-md-offset-2&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Reset Password&lt;/div&gt;</span>
+
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    &lt;form class=&quot;form-horizontal&quot; role=&quot;form&quot; method=&quot;POST&quot; action=&quot;{{ url(&#39;/password/reset&#39;) }}&quot;&gt;</span>
+<span class="x">                        {{ csrf_field() }}</span>
+
+<span class="x">                        &lt;input type=&quot;hidden&quot; name=&quot;token&quot; value=&quot;{{ $token }}&quot;&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;email&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;email&quot; class=&quot;col-md-4 control-label&quot;&gt;E-Mail Address&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;email&quot; type=&quot;email&quot; class=&quot;form-control&quot; name=&quot;email&quot; value=&quot;{{ $email or old(&#39;email&#39;) }}&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;email&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;email&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;password&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;password&quot; class=&quot;col-md-4 control-label&quot;&gt;Password&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;password&quot; type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;password&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;password&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;password&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;password_confirmation&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;password-confirm&quot; class=&quot;col-md-4 control-label&quot;&gt;Confirm Password&lt;/label&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;password-confirm&quot; type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;password_confirmation&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;password_confirmation&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;password_confirmation&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6 col-md-offset-4&quot;&gt;</span>
+<span class="x">                                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;</span>
+<span class="x">                                    &lt;i class=&quot;fa fa-btn fa-refresh&quot;&gt;&lt;/i&gt; Reset Password</span>
+<span class="x">                                &lt;/button&gt;</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+<span class="x">                    &lt;/form&gt;</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/auth/</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">@if (session(&#39;status&#39;))</span>
+<span class="x">    &lt;div class=&quot;alert alert-success&quot;&gt;</span>
+<span class="x">        {{ session(&#39;status&#39;) }}</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">@endif</span>
+<span class="x">@if (session(&#39;warning&#39;))</span>
+<span class="x">    &lt;div class=&quot;alert alert-warning&quot;&gt;</span>
+<span class="x">        {{ session(&#39;warning&#39;) }}</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">@endif</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-8 col-md-offset-2&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Login&lt;/div&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    &lt;form class=&quot;form-horizontal&quot; role=&quot;form&quot; method=&quot;POST&quot; action=&quot;{{ url(&#39;/login&#39;) }}&quot;&gt;</span>
+<span class="x">                        {{ csrf_field() }}</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;email&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;email&quot; class=&quot;col-md-4 control-label&quot;&gt;E-Mail Address&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;email&quot; type=&quot;email&quot; class=&quot;form-control&quot; name=&quot;email&quot; value=&quot;{{ old(&#39;email&#39;) }}&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;email&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;email&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;password&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;password&quot; class=&quot;col-md-4 control-label&quot;&gt;Password&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;password&quot; type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;password&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;password&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;password&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6 col-md-offset-4&quot;&gt;</span>
+<span class="x">                                &lt;div class=&quot;checkbox&quot;&gt;</span>
+<span class="x">                                    &lt;label&gt;</span>
+<span class="x">                                        &lt;input type=&quot;checkbox&quot; name=&quot;remember&quot;&gt; Remember Me</span>
+<span class="x">                                    &lt;/label&gt;</span>
+<span class="x">                                &lt;/div&gt;</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6 col-md-offset-4&quot;&gt;</span>
+<span class="x">                                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;</span>
+<span class="x">                                    &lt;i class=&quot;fa fa-btn fa-sign-in&quot;&gt;&lt;/i&gt; Login</span>
+<span class="x">                                &lt;/button&gt;</span>
+
+<span class="x">                                &lt;a class=&quot;btn btn-link&quot; href=&quot;{{ url(&#39;/password/reset&#39;) }}&quot;&gt;Forgot Your Password?&lt;/a&gt;</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+<span class="x">                    &lt;/form&gt;</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/auth/</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-8 col-md-offset-2&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Register&lt;/div&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    &lt;form class=&quot;form-horizontal&quot; role=&quot;form&quot; method=&quot;POST&quot; action=&quot;{{ url(&#39;/register&#39;) }}&quot;&gt;</span>
+<span class="x">                        {{ csrf_field() }}</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;name&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;name&quot; class=&quot;col-md-4 control-label&quot;&gt;Name&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;name&quot; type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; value=&quot;{{ old(&#39;name&#39;) }}&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;name&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;name&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;email&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;email&quot; class=&quot;col-md-4 control-label&quot;&gt;E-Mail Address&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;email&quot; type=&quot;email&quot; class=&quot;form-control&quot; name=&quot;email&quot; value=&quot;{{ old(&#39;email&#39;) }}&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;email&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;email&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;password&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;password&quot; class=&quot;col-md-4 control-label&quot;&gt;Password&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;password&quot; type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;password&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;password&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;password&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group{{ $errors-&gt;has(&#39;password_confirmation&#39;) ? &#39; has-error&#39; : &#39;&#39; }}&quot;&gt;</span>
+<span class="x">                            &lt;label for=&quot;password-confirm&quot; class=&quot;col-md-4 control-label&quot;&gt;Confirm Password&lt;/label&gt;</span>
+
+<span class="x">                            &lt;div class=&quot;col-md-6&quot;&gt;</span>
+<span class="x">                                &lt;input id=&quot;password-confirm&quot; type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;password_confirmation&quot;&gt;</span>
+
+<span class="x">                                @if ($errors-&gt;has(&#39;password_confirmation&#39;))</span>
+<span class="x">                                    &lt;span class=&quot;help-block&quot;&gt;</span>
+<span class="x">                                        &lt;strong&gt;{{ $errors-&gt;first(&#39;password_confirmation&#39;) }}&lt;/strong&gt;</span>
+<span class="x">                                    &lt;/span&gt;</span>
+<span class="x">                                @endif</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+
+<span class="x">                        &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="x">                            &lt;div class=&quot;col-md-6 col-md-offset-4&quot;&gt;</span>
+<span class="x">                                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;</span>
+<span class="x">                                    &lt;i class=&quot;fa fa-btn fa-user&quot;&gt;&lt;/i&gt; Register</span>
+<span class="x">                                &lt;/button&gt;</span>
+<span class="x">                            &lt;/div&gt;</span>
+<span class="x">                        &lt;/div&gt;</span>
+<span class="x">                    &lt;/form&gt;</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/home.blade.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">@extends(&#39;layouts.app&#39;)</span>
+
+<span class="x">@section(&#39;content&#39;)</span>
+<span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-md-10 col-md-offset-1&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;panel panel-default&quot;&gt;</span>
+<span class="x">                &lt;div class=&quot;panel-heading&quot;&gt;Dashboard&lt;/div&gt;</span>
+
+<span class="x">                &lt;div class=&quot;panel-body&quot;&gt;</span>
+<span class="x">                    You are logged in!</span>
+<span class="x">                &lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">@endsection</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>resources/views/layouts/app.blade.php</strong></p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html lang=&quot;en&quot;&gt;</span>
+<span class="x">&lt;head&gt;</span>
+<span class="x">    &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="x">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span>
+<span class="x">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</span>
+
+<span class="x">    &lt;title&gt;Laravel&lt;/title&gt;</span>
+
+<span class="x">    &lt;!-- Fonts --&gt;</span>
+<span class="x">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css&quot; integrity=&quot;sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+&quot; crossorigin=&quot;anonymous&quot;&gt;</span>
+<span class="x">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css?family=Lato:100,300,400,700&quot;&gt;</span>
+
+<span class="x">    &lt;!-- Styles --&gt;</span>
+<span class="x">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css&quot; integrity=&quot;sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7&quot; crossorigin=&quot;anonymous&quot;&gt;</span>
+<span class="x">    {{-- &lt;link href=&quot;{{ elixir(&#39;css/app.css&#39;) }}&quot; rel=&quot;stylesheet&quot;&gt; --}}</span>
+
+<span class="x">    &lt;style&gt;</span>
+<span class="x">        body {</span>
+<span class="x">            font-family: &#39;Lato&#39;;</span>
+<span class="x">        }</span>
+
+<span class="x">        .fa-btn {</span>
+<span class="x">            margin-right: 6px;</span>
+<span class="x">        }</span>
+<span class="x">    &lt;/style&gt;</span>
+<span class="x">&lt;/head&gt;</span>
+<span class="x">&lt;body id=&quot;app-layout&quot;&gt;</span>
+<span class="x">    &lt;nav class=&quot;navbar navbar-default navbar-static-top&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;navbar-header&quot;&gt;</span>
+
+<span class="x">                &lt;!-- Collapsed Hamburger --&gt;</span>
+<span class="x">                &lt;button type=&quot;button&quot; class=&quot;navbar-toggle collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#app-navbar-collapse&quot;&gt;</span>
+<span class="x">                    &lt;span class=&quot;sr-only&quot;&gt;Toggle Navigation&lt;/span&gt;</span>
+<span class="x">                    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;</span>
+<span class="x">                    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;</span>
+<span class="x">                    &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;</span>
+<span class="x">                &lt;/button&gt;</span>
+
+<span class="x">                &lt;!-- Branding Image --&gt;</span>
+<span class="x">                &lt;a class=&quot;navbar-brand&quot; href=&quot;{{ url(&#39;/&#39;) }}&quot;&gt;</span>
+<span class="x">                    Laravel</span>
+<span class="x">                &lt;/a&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+
+<span class="x">            &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;app-navbar-collapse&quot;&gt;</span>
+<span class="x">                &lt;!-- Left Side Of Navbar --&gt;</span>
+<span class="x">                &lt;ul class=&quot;nav navbar-nav&quot;&gt;</span>
+<span class="x">                    &lt;li&gt;&lt;a href=&quot;{{ url(&#39;/home&#39;) }}&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                &lt;/ul&gt;</span>
+
+<span class="x">                &lt;!-- Right Side Of Navbar --&gt;</span>
+<span class="x">                &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt;</span>
+<span class="x">                    &lt;!-- Authentication Links --&gt;</span>
+<span class="x">                    @if (Auth::guest())</span>
+<span class="x">                        &lt;li&gt;&lt;a href=&quot;{{ url(&#39;/login&#39;) }}&quot;&gt;Login&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                        &lt;li&gt;&lt;a href=&quot;{{ url(&#39;/register&#39;) }}&quot;&gt;Register&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                    @else</span>
+<span class="x">                        &lt;li class=&quot;dropdown&quot;&gt;</span>
+<span class="x">                            &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot;&gt;</span>
+<span class="x">                                {{ Auth::user()-&gt;name }} &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;</span>
+<span class="x">                            &lt;/a&gt;</span>
+
+<span class="x">                            &lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;&gt;</span>
+<span class="x">                                &lt;li&gt;&lt;a href=&quot;{{ url(&#39;/logout&#39;) }}&quot;&gt;&lt;i class=&quot;fa fa-btn fa-sign-out&quot;&gt;&lt;/i&gt;Logout&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                            &lt;/ul&gt;</span>
+<span class="x">                        &lt;/li&gt;</span>
+<span class="x">                    @endif</span>
+<span class="x">                &lt;/ul&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/nav&gt;</span>
+
+<span class="x">    @yield(&#39;content&#39;)</span>
+
+<span class="x">    &lt;!-- JavaScripts --&gt;</span>
+<span class="x">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js&quot; integrity=&quot;sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</span>
+<span class="x">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js&quot; integrity=&quot;sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</span>
+<span class="x">    {{-- &lt;script src=&quot;{{ elixir(&#39;js/app.js&#39;) }}&quot;&gt;&lt;/script&gt; --}}</span>
+<span class="x">&lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="laravel-new-project-recommended-structure.html" class="btn btn-neutral float-right" title="Rekomendasi struktur project baru laravel" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="repository-pattern.html" class="btn btn-neutral" title="Laravel Repository pattern" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

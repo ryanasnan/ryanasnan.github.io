@@ -1,0 +1,40 @@
+.. javascript-mdd documentation master file, created by
+   sphinx-quickstart on Tue Feb  7 00:21:54 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to javascript-mdd's documentation!
+==========================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   javascript-intro
+   javascript-variable
+   javascript-object
+   javascript-function
+   javascript-dom
+   javascript-note
+   javascript-jquery
+   jquery-selector
+   jquery-note
+   javascript-library-and-plugin
+   jquery-library-and-plugin
+   javascript-input-another-language
+   array-php-to-array-javascript
+   jquery-class-each-process
+   javascript-integration-in-ie
+   javascript-stack-problem-fix
+   temporary-list-record
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

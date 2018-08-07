@@ -1,0 +1,52 @@
+Javascript Variable
+=========================
+
+Nama variabel di dalam javascript dapat dituliskan secara langsung tanpa adanya penambahan awalan(prefix) atau akhiran(suffix).
+
+misal:
+
+``name``, ``age``, ``x``, dan lainnya.
+
+Aturan nama variabel dalam javascript :
+
+* Nama variabel di dalam javascript bersifat ``case-sensitive``, antara variabel ``y`` dan ``Y`` sudah berbeda variabel.
+
+* Nama Variabel harus didahului dengan huruf, ``$`` atau underscore(_)
+
+==================================================
+Mendeklarasikan Variabel dan me-assign value
+==================================================
+
+Terdapat 2 cara dalam mendeklarasikan variabel di dalam javascript.
+
+1. Dengan mendeklarasikan variabel, baru setelahnya memberikan value::
+
+    var nama_mobil;
+
+    var warna;
+
+    nama_mobil = "kijang";
+
+    warna = "merah";
+
+2.Dengan mendeklarasikan variabel sekalugus memberikannya value::
+
+    var nama_mobil = "kijang", warna = "merah";
+
+3.Langsung, tanpa adanya keyword "var"::
+
+    nama_mobil = "kijang";
+
+Dalam cara 1, jika variabel tidak diberikan value, maka variabel memiliki value ``undefined``.
+
+Variabel tidak akan bertipe data ``NULL`` dengan membuat re-declare.
+
+misal::
+
+    var nama_mobil = "kijang";
+
+    var nama_mobil; //variabel nama_mobil tidak akan memiliki value NULL.
+
+Dalam cara 3, akan membuat variabel tersebut bersifat **GLOBAL** (global scope), meski dieksekusi di dalam function.
+
+Silahkan melihat materi **Function** untuk lebih lengkapnya mengenai :ref:`js-local-global-scope`.

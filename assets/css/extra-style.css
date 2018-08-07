@@ -1,0 +1,157 @@
+/* extra-style.css */
+
+.font-intro {
+	font-size: 1.2em;
+}
+
+/* -NAVIGATION */
+
+nav.navigation {
+	position: fixed;
+	height: auto;
+	top: 10px;
+	z-index: 2;
+	width: 100%;
+}
+
+nav label {
+	display: none;
+	width: 36px;
+	height: 36px;
+	background: #555;
+	color: #fff;
+	text-align: center;
+	line-height: 36px;
+	font-size: 1.6rem;
+	border-radius: 2px;
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	transition: .4s;
+}
+
+nav label:before {
+	font-family: FontAwesome;
+	font-size: 24px;
+	content: "\f0c9";
+	text-align: center;
+}
+
+ul.menu-nav {
+	padding: 0;
+	margin:0 auto;
+	list-style:none;
+	display: table;
+	text-align: center;
+	background: #96878a9c;
+}
+
+ul.menu-nav > li {
+	display: inline-block;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	padding: 0;
+}
+
+ul.menu-nav > li a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	font-size: 1.8rem;
+	border-bottom: none;
+	padding: 10px 30px;
+}
+
+ul.menu-nav > li a.active-menu {
+	background-color: #d4151585;
+}
+
+ul.menu-nav > li:hover {
+	background-color: #15151587;
+}
+
+/* Scroll Zone*/
+
+.scrollZone {
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.2; /* Standard CSS3 opacity setting */
+	-moz-opacity: 0.2; /* Opacity for really old versions of Mozilla Firefox (0.9 or older) */
+	filter: alpha(opacity = 35); /* Opacity for Internet Explorer. */
+	zoom: 1; /* Trigger "hasLayout" in Internet Explorer 6 or older versions */
+}
+
+.scrollZone:hover {
+	background-color: #fff;
+}
+
+#wrapper > .scrollZone.left {
+	cursor: url(../../images/cursor/cursor_arrow_left.png), url(../../images/cursor/cursor_arrow_left.cur),w-resize;
+	background-image: url(../../images/cursor/arrow_left.gif);
+
+}
+
+#wrapper > .scrollZone.right {
+	cursor: url(../../images/cursor/cursor_arrow_right.png), url(../../images/cursor/cursor_arrow_right.cur),w-resize;
+	background-image: url(../../images/cursor/arrow_right.gif);
+}
+
+.reveal-scroll
+{
+	opacity:0;
+}
+
+
+.profil-image {
+	padding: 3.5rem;
+	border: 1px #dad0e042 solid;
+}
+
+.profil-image img {
+	width: 100%;
+}
+
+.profil-image p {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 12px;
+}
+
+/************* MEDIA QUERIES **************/
+
+@media only screen and (max-width: 720px) {
+
+	/* -NAVIGATION */
+
+	nav.navigation > .menu {
+		display: none;
+	}
+
+	nav.navigation ul {
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+		transition: all .5s;
+		position: absolute;
+		width: 100%;
+	}
+
+	nav.navigation li {
+		flex: none;
+		width: 100%;
+		border-bottom: solid 1px #777;
+	}
+
+	nav.navigation label {
+		display: block;
+	}
+
+	ul.menu-nav > li a.active-menu {
+		background-color: #d4151585;
+	}
+
+	ul.menu-nav > li:hover {
+		background-color: #15151587;
+	}
+
+}

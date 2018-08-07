@@ -1,0 +1,713 @@
+Javascript Function
+=============================
+
+.. important::
+
+	Sebelum membahas lebih lanjut tentang **function** yang ada di javascript, terlebih dahulu akan dibahas mengenai ``local`` dan ``global`` scope di dalam javascript.
+
+.. contents:: Table of Contents
+.. section-numbering::
+
+.. _js-local-global-scope:
+
+===============================
+Local dan Global Scope
+===============================
+
+Javascript memiliki keunikan tersendiri dalam penggunaan ``scope`` variabel.
+Seperti diketahui bahwa terdapat 2 macam scope yaitu ``Global Scope`` dan ``Local Scope``.
+
+``Global Scope`` terletak di luar function atau object, sedangkan ``Local Scope`` terletak di dalam **function/object**.
+
+Namun terlepas dari hal mendasar tersebut, dalam bahasa javascript, ``Global Scope`` dapat diakses di dalam **function/object** tanpa perlu menggunakan ``closure`` atau keyword ``use`` pada **function** (``closure`` di dalam javascript memiliki bentuk yang agak berbeda).
+
+.. literalinclude:: source-code/programming-test/js-global-scope.html
+	:language: html
+
+Result
+
+.. image:: images/global-scope.png
+
+Sedangkan ``Local Scope`` selamanya hanya akan dapat diakses di dalam **function/object**.
+
+.. literalinclude:: source-code/programming-test/js-local-scope.html
+	:language: html
+
+Result
+
+.. image:: images/local-scope.png
+
+.. note:: 
+
+	**function** dan **object** dalam javascript memiliki konsep yang sama.
+
+Keyword **var**
+````````````````````
+
+Selain itu terdapat adanya keyword **var** dalam mendeklarasikan variable di javascript.
+
+Perlu diketahui terdapat perbedaan pada variable yang menggunaan keyword **var** dengan variabel tanpa menggunakan keyword **var**.
+
+Jika menggunakan keyword **var** maka ketika berada di luar **function/object** itu akan menjadi ``Global Scope``, namun jika terdapat di dalam **function/object** maka akan menjadi ``Local Scope``.
+
+.. literalinclude:: source-code/programming-test/var-js-replacing-1.html
+	:language: html
+
+Result
+
+.. image:: images/keyword-var-js.png
+
+Sedangkan tanpa menggunakan keyword **var** maka akan menjadi ``Global Scope`` (dapat diakses di luar function dan dalam function)
+
+.. literalinclude:: source-code/programming-test/var-js-replacing-2.html
+	:language: html
+
+Result
+
+.. image:: images/keyword-var-js-2.png
+
+.. note::
+
+	ini juga berlaku untuk setiap bagian yang lain, satu hal yang pasti adalah ketika tidak menggunakan keyword **var** maka itu akan menjadi ``Global Scope``
+
+	.. literalinclude:: source-code/programming-test/var-js-replacing-3.html
+		:language: html
+
+	Result
+
+	.. image:: images/keyword-var-js-3.png
+
+	Semisal menggunakan cara lain
+
+	.. literalinclude:: source-code/programming-test/var-js-replacing-4.html
+		:language: html
+
+	Result
+
+	.. image:: images/keyword-var-js-4.png
+
+.. danger::
+
+	Cukup berbahaya jika membuat deklarasi variable tanpa menggunakan keyword **var**.
+
+	Jika semisal mendeklarasikan suatu variable tanpa keyword **var** di dalam **function/object** artinya variable tersebut akan dapat diakses di ``Global Scope``.
+
+	Maka setelah **function/object** tersebut dijalankan akan tercipta variable baru yang nantinya akan terdapat di ``Global Scope``.
+
+	Sehingga sangat mungkin sekali terjadi kesalahan karena terdapat replacing value pada variable yang memiliki nama yang sama di suatu eksekusi kode. 
+
+	misalkan
+
+	.. code-block:: coffee-script
+
+		var x = "value pertama";
+
+		var y;
+
+		var z = "value ketiga";
+
+		function foo() {
+			x = "value kedua";
+		}
+
+		foo()
+
+		y = x + z;
+
+	artinya ketika function foo() dijalankan kemudian melanjutkan ke statement ``y = x + z;`` maka value dari variable x sudah menjadi **value kedua** dan bukan **value pertama**
+
+	Oleh karena itu sebaiknya selalu gunakan keyword var untuk setiap deklarasi variable di javascript.
+
+
+Penggunaan syntax **use strict**
+````````````````````````````````````
+
+Javascript merupakan bahasa yang masih belum bisa dikatakan stabil sampai saat ini. Masih terdapat banyak komponen yang belum berjalan dengan baik. Bahkan antara browser satu dengan yang lainnya bisa memiliki adanya perbedaan dalam penggunaan komponen komponen javascript tersebut.
+
+Selain itu penanganan seperti error atau kesalahan syntax juga masih belum cukup mudah dipahami.
+
+Semenjak versi 1.8.5 (ECMAScript versi 5) javascript telah memperbaharui pembacaan kodenya dengan dengan menggunakan syntax ``use strict``. Syntax ``use strict`` mendefinisikan bahwa code javascript akan diekseskusi dalam mode ``strict``. Syntax ini bukanlah suatu statement namun sebuah ``literal expression``.
+
+Tujuan dari adanya mode ``strict`` secara paling mudah adalah harus membuat adanya keyword **var** dalam mendeklarasikan suatu variable
+
+.. literalinclude:: source-code/programming-test/strict-mode-js-variable.html
+	:language: html
+
+Result
+
+.. image:: images/strict-js-mode-variable-keyword.png
+
+Mode strict di javascript sudah dapat didukung di browser:
+
+- IE from version 10. 
+
+- Firefox from version 4.
+
+- Chrome from version 13. 
+
+- Safari from version 5.1.
+
+- Opera from version 12.
+
+````````````````````````````````````
+Deklarasi ``use strict``
+````````````````````````````````````
+
+Syntax ``use strict`` dapat di deklarasikan di awal suatu script atau suatu **function/object**.
+
+Jika dideklarasikan di script (awal script), maka seluruh code tersebut akan dieksekusi dalam mode ``strict``
+
+.. literalinclude:: source-code/programming-test/declare-strict-global.html
+	:language: html
+
+Result
+
+.. image:: images/strict-global-declare.png
+
+jika dideklarasikan di suatu **function/object**, maka hanya **function/object** tersebut yang menggunakan mode ``strict``
+
+.. literalinclude:: source-code/programming-test/declare-strict-in-local.html
+	:language: html
+
+Result
+
+.. image:: images/strict-local-declare.png
+
+````````````````````````````````````
+Mengapa menggunakan strict mode ???
+````````````````````````````````````
+
+``Strict`` mode akan memudahkan dalam menulis code javascript secara lebih aman (secure).
+
+``Strict`` mode mengubah syntax syntax yang sebelumnya merupakan **bad syntax** menjadi **error** secara real.
+
+Dalam mode strict, tiap assign ke property non-writable, mengakses property yang belum ada, mengakses variable yang belum ada atau mengakses object yang belum ada akan menimbulkan error.
+
+Contoh aturan penggunaan code javascript dalam mode ``strict``
+
+- Menggunakan object tanpa mendeklarasikannya
+
+.. code-block:: coffee-script
+
+	"use strict";
+	x = {p1:10, p2:20};      // This will cause an error 
+
+- Tidak dapat menghapus variable atau object
+
+.. code-block:: coffee-script
+
+	"use strict";
+	var x = 3.14;
+	delete x;
+
+- Tidak dapat menghapus function
+
+.. code-block:: coffee-script
+
+	"use strict";
+	function x(p1, p2) {};
+	delete x;
+
+- Tidak dapat menggunakan parameter yang sama (duplikasi)
+
+.. code-block:: coffee-script
+
+	"use strict";
+	function x(p1, p1) {};   // This will cause an error 
+
+- Tidak dapat menggunakan angka numerik dalam bentuk ``octal``
+
+.. code-block:: coffee-script
+
+	"use strict";
+	var x = 010;             // This will cause an error
+
+- Tidak dapat menggunakan ``escape character``
+
+.. code-block:: html
+
+	"use strict";
+	var x = \010;            // This will cause an error 
+
+- Tidak dapat menuliskan/me-assign suatu property yang mana berada di suatu object yang memiliki opsi **writable : false**
+
+.. code-block:: coffee-script
+
+	"use strict";
+	var obj = {};
+	Object.defineProperty(obj, "x", {value:0, writable:false});
+
+	obj.x = 3.14;            // This will cause an error 
+
+- Tidak dapat menuliskan/assign pada property dengan menggunakan method ``get-only``
+
+.. code-block:: coffee-script
+
+	"use strict";
+	var obj = {get x() {return 0} };
+
+	obj.x = 3.14;            // This will cause an error 
+
+- Tidak dapat menghapus property yang tidak dapat dihapus
+
+.. code-block:: coffee-script
+
+	"use strict";
+	delete Object.prototype; // This will cause an error 
+
+- string ``eval`` tidak dapat digunakan sebagai nama variable
+
+.. code-block:: coffee-script
+
+	"use strict";
+	var eval = 3.14;         // This will cause an error 
+
+- statement ``with`` tidak dapat digunakan
+
+.. code-block:: coffee-script
+
+	"use strict";
+	with (Math){x = cos(2)}; // This will cause an
+
+- method eval() tidak diperbolehkan untuk membuat variable pada scope pemanggilannya.
+
+.. code-block:: coffee-script
+
+	"use strict";
+	eval ("var x = 2");
+	alert (x);               // This will cause an error 
+
+
+````````````````````````````````````````````````````````````````````````
+Variable yang harus dihindari dalam menggunakan ``strict`` mode
+````````````````````````````````````````````````````````````````````````
+Dalam penggunaan strict mode, terdapat keyword yang tidak boleh digunakan yaitu:
+
+- implements
+
+- interface
+
+- let
+
+- package
+
+- private
+
+- protected
+
+- public
+
+- static
+
+- yield
+
+misal
+
+.. code-block:: coffee-script
+
+	 ``use strict``
+	var public = 1500;      // This will cause an error 
+
+
+================
+Function
+================
+
+**Function** adalah blok kode statement yang akan diakses setelah adanya perintah pemanggilan function tersebut.
+
+Seperti pada umumnya, **function** di javascript juga memiliki scope tersendiri di dalam blok statementnya.
+Dalam javascript, suatu function bisa berada di dalam function (function di dalam function), sehingga untuk memanggil function tersebut terlebih dahulu harus memanggil parent function nya.
+
+Secara eksplisit dalam javascript, terdapat 2 jenis function menurut namanya, yaitu ``function dengan nama`` dan ``function anonymous`` (tanpa nama), untuk keselanjutnya akan disebut sebagai `function regular` dan `function non-regular` untuk mudahnya.
+
+
+Function Regular (normal function)
+````````````````````````````````````````
+
+Function dalam javascript secara normal dapat dideklarasikan dengan membuat statement function kemudian diikuti dengan nama function tersebut dan selanjutnya memberikan statement function.
+
+.. code-block:: html
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title></title>
+			<script type="text/javascript">
+				document.write(foo(2)); //hasil 4
+				document.write("<br><hr>");
+				function foo(x)
+				{
+				return x * x;
+				}
+				document.write(foo(2)); //hasil 4
+			</script>
+		</head>
+		<body>
+		</body>
+	</html>
+	 
+	<!-- COMMENT -->
+
+.. image:: images/Basic_FunctionDeclaration.jpg
+
+.. note::
+
+	Pemanggilan function dalam javascript, khususnya yang memiliki nama (normal function), maka function tersebut bersifat ``hoisting``, yaitu dapat dipanggil di bagian mana saja (function dapat dipanggil diatas atau dibawah).
+
+	Berbeda dengan ``function anonymous`` yang biasa digunakan di suatu expression atau akan dipanggil setelah pembuatan function.
+
+
+Function non-regular
+````````````````````````
+
+**Function non-regular** yang dimaksud disini adalah function yang tidak menggunakan nama atau tidak dengan menggunakan metode function secara umumnya (normal function).
+
+Ada beberapa bentuk macam function tanpa nama ini, selanjutnya akan dibedakan menjadi 3 bentuk yaitu : **anonymous function**, **self-invoking function** dan **closure**.
+Kesetiap bagian sebenarnya saling memiliki relevansi satu sama lain hanya bentuk dan fungsinya berbeda.
+
+
+````````````````````
+Anonymous function
+````````````````````
+
+Anonymous function adalah function yang tidak memiliki nama.
+
+Anonymous function biasa digunakan untuk menjadi suatu expression atau digunakan sebagai callback (argument parameter dalam bentuk function).
+
+- Contoh penggunaaan anonymous function **secara tunggal**
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/1.1.anonymous-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/anonymous-function.png
+
+- Penggunaan anonymous function dengan parameter di dalamnya
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/1.2.anonymous-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/anonymous-function-with-param.png
+
+**Penggunaan anonymous function sebagai expression atau callback**
+
+- Contoh penggunaan anonymous function sebagai expression
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/2.1.anonymous-function-as-expression.html
+		:language: html
+
+	Result
+
+	.. image:: images/anonymous-function-as-expression.png
+
+	.. note::
+
+		Dalam function expression sebenarnya bisa memberikan suatu nama, namun itu tidak akan berdampak pada cara pemanggilannya.
+
+		.. literalinclude:: source-code/programming-test/non-regular-function/2.1.1.anonymous-funtion-as-expression-with-name.html
+			:language: html
+
+		Result
+
+		.. image:: images/anonymous-function-as-expression-with-name-function.png
+
+- Contoh penggunaan anonymous function sebagai callback
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/2.2.1.passing-anonymous-function-as-callback.html
+		:language: html
+
+	Result
+
+	.. image:: images/passing-anonymous-function-as-callback.png
+
+	Dapat dilihat bahwa dalam keterangan ``console.log(callback)`` mennghasilkan skema function tersebut.
+
+	.. note::
+
+		Penggunaan anonymous function sebagai callback juga dapat dideklarasikan secara tunggal(dipanggil setelah membuat anonymous function) pada argument tersebut.
+
+		- Contoh penggunaan anonymous function dimana saat pemberian argument, anonymous function tersebut langsung dipanggil (**called**)
+
+			.. literalinclude:: source-code/programming-test/non-regular-function/2.2.2.self-calling-anonymous-function-in-argument.html
+				:language: html
+
+			Result
+
+			.. image:: images/self-calling-anonymous-function-as-callback.png
+
+			Dapat dilihat bahwa hasilnya akan error pada saat menjalankan function tersebut ``console.log(callback(argument))`` ini dikarenakan kita mempass argument yang telah memiliki value yaitu ``10`` dan bukan mempass anonymous function tersebut.
+
+- Contoh penggunaan anonymous function sebagai callback secara lebih luas
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/2.2.3.function-anonymous-as-callback.html
+		:language: html
+
+	Result
+
+	.. image:: images/anonymous-function-as-callback-2.png
+
+
+- Contoh penggunaan anonymous function sebagai argument pada ``common function`` javascript
+
+	.. literalinclude:: source-code/programming-test/non-regular-function/2.3.anonymou-function-as-argument-on-common-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/anonymous-function-as-argument-on-common-function.gif
+
+.. note::
+
+	Selain dengan menggunakan syntax function secara umum, function juga dapat dibuat dengan menggunakan construction.
+
+	Function bisa dibuat dengan keyword new (sama seperti instansiasi object).
+
+	- contoh anonymous function dalam bentuk construction function (dengan keyword new).
+
+		.. literalinclude:: source-code/programming-test/non-regular-function/3.1.constructor-function.html
+			:language: html
+
+		Result
+
+		.. image:: images/anonymous-function-with-constructor-new-keyword.png
+
+	Sebenarnya ketika kita menggunakan function expression itu juga tidak jauh beda dengan constructor function, ini adalah bentuk lain construction function tanpa keyword new dan penggunaan method object.
+
+	- contoh penggunaan construction function tanpa menggunakan keyword new (hampir sama dengan function expression)
+
+		.. literalinclude:: source-code/programming-test/non-regular-function/3.2.constructor-function-no-new-keyword.html
+				:language: html
+
+		Result
+
+		.. image:: images/anonymous-function-with-constructor-direct.png
+
+	.. hint::
+
+		Passing parameter dengan function (callback) dalam javascript juga hampir sama dengan bahasa pemrograman lainnya.
+
+		Bisa dengan mempassing nya dengan nama function tersebut
+
+		.. literalinclude:: source-code/programming-test/callback/1.callback.html
+				:language: html
+
+		Result
+
+		.. image:: images/passing-parameter-with-function-name.png
+
+
+````````````````````````
+Self invoking-function
+````````````````````````
+
+Self invoking function adalah metode pemanggilan function secara langsung.
+Penggunaannya adalah ``(function() { //statement })();``, mungkin hampir sama dengan definisi anonymous function secara tunggal diatas, namun yang dimaksud disini adalah penggunaannya.
+
+**Untuk apa self-invoking function ???**
+
+Tujuan dalam penggunaan self-invoking function adalah untuk dapat membuat atau menggunakan library dalam javascript.
+Seperti yang diketahui local dan global scope dalam javascript masih belum berjalan dengan baik.
+Padahal bisa saja dalam satu halaman terdapat berbagai library yang akan digunakan.
+Maka dari itu tiap library harus membuat adanya scope tersendiri agar tidak ada tiap bagian yang mempengaruhi library lain atau agar tidak berada dalam satu scope.
+
+Untuk lebih jelasnya akan dibuat contoh secara bertahap berikut ini :
+
+
+#. Kode normal javascript seperti yang terlihat seperti berikut:
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/1.normal-code-in-js.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-1.png
+
+	Hanya saja masalahnya adalah bagaimana jika semisal kode tersebut akan digunakan sebagai library???
+	Ke depannya kita akan membuat kode tersebut untuk bisa digunakan menjadi sebuah library.
+
+#. Tentu menjadi tidak baik ketika ada pembuatan variable atau function yang berada di global scope, maka kita akan membuatkannya di suatu function
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/2.function-regular-as-wrapper.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-2.png
+
+#. Namun masalahnya jika menggunakan scope yang biasa (dibungkus dengan function biasa) maka serasa ada sesuatu yang masih bisa dikatakan tidak baik, karena artinya kita juga memberikan nama pada function tersebut. artinya ada batasan nama function agar tidak sama dengan library lainnya, makanya dibuat self invoking functioni
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/3.self-invoking-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-3.png
+
+.. note::
+
+	Self invoking function juga dapat diberikan parameter didalamnya
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/3.1.self-invoking-function-with-parameter.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-4.png
+
+.. tip::
+
+	Satu lagi ada hal baik jika kita menamakan nama dari self invoking function tersebut, sehingga mengetahui mana yang error.
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/3.2.self-invoking-function-with-name.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-5.png
+
+	Dan satu lagi bahwa ini juga dapat diberikan parameter di dalamnya.
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/3.3.self-invoking-function-with-name-and-parameter.html
+		:language: html
+
+	Result
+
+	.. image:: images/self-invoking-function-6.png
+
+.. danger::
+
+	Salah satu pentingnya penggunaan self invoking function adalah karena pada javascript ketika sudah mendeklarasikan variable di global scope, maka selamanya variable itu akan tetap ada
+
+	.. literalinclude:: source-code/programming-test/self-invoking-function/catatan-alasan-menggunakan-self-invoking-fucntion.html
+		:language: html
+
+	Result
+
+	.. image:: images/alasan-menggunakan-self-invoking-function.png
+
+
+````````````````
+Closure
+````````````````
+
+Secara definisi, closure adalah suatu metode dalam membaca data (semisal variable) yang berada di luar scopenya (scope parent atau scope atasnya).
+
+Dalam javascript, closure hanya dapat terjadi(digunakan) pada function yang me-return suatu function.
+
+
+.. tip::
+
+	Sifat dasar ``variable`` di javascript adalah ketika variable tersebut bersifat **global** maka variable tersebut akan dapat diakses di suatu function (scope function tersebut).
+
+	Contoh variable yang dideklarasikan di global scope:
+
+	.. code-block:: rst
+
+		var a = 4;
+
+		function myFunction() {
+
+		    return a * a;
+		}
+
+	contoh variable yang dideklarasikan di local scope:
+
+	.. code-block:: rst
+
+		function myFunction() {
+
+		    var a = 4;
+
+		    return a * a;
+		}
+
+	Javascript memang tidak memiliki adanya syntax penegas dalam penggunaan closure, namun javascript memiliki beberapa sifat dasar yang akan membuatnya seolah olah memiliki adanya closure.
+
+
+Untuk lebih memudahkan dalam memahami closure berikut akan diberikan contoh dari dasar sampai implementasi (penggunaan) closure itu sendiri:
+
+- non-closure
+
+	Sejatinya suatu variable di suatu scope function tidak akan dapat diakses di scope functin lain.
+
+	.. literalinclude:: source-code/programming-test/closure/1.non-closure.html
+		:language: html
+
+	Result
+
+	.. image:: images/non-closure.png
+
+
+- simpel closure
+
+	Jika suatu function (parent) me-return suatu function (child) maka setiap variable yang berada di parent function akan dapat diakses di child function.
+
+	.. literalinclude:: source-code/programming-test/closure/2.1.simple-closure.html
+		:language: html
+
+	Result
+
+	.. image:: images/simple-closure.png
+
+
+- closure dengan anonymous function
+
+	Biasanya closure menggunakan anonymous function.
+
+	.. literalinclude:: source-code/programming-test/closure/2.2.common-closure.html
+		:language: html
+
+	Result
+
+	.. image:: images/common-closure.png
+
+
+- Penggunaan closure dengan mengakses variable terluar (global scope)
+
+	Setiap variable yang berada di scope terluar masih akan dapat diakses dengan closure.
+
+	.. literalinclude:: source-code/programming-test/closure/2.3.closure-chain.html
+		:language: html
+
+	Result
+
+	.. image:: images/closure-chain.png
+
+- Penggunaan closure dalam self-invoking function
+
+	Closure dalam self-invoking function.
+
+	.. literalinclude:: source-code/programming-test/closure/2.4.closure-in-self-invoking.html
+		:language: html
+
+	Result
+
+	.. image:: images/closure-in-self-invoking.png
+
+- implentasi closure
+
+	Berikut adalah contoh implementasi closure.
+
+	.. literalinclude:: source-code/programming-test/closure/3.1.simple-implementation-of-closure.html
+		:language: html
+
+	Result
+
+	.. image:: images/simple-implementation-of-closure.png
+
+- implementasi closure dengan menggunakan self-invoking
+
+	Closure juga dapat dimodifikasi dengan menggunakan self-invoking function yang berbentuk **function expression**.
+
+	.. literalinclude:: source-code/programming-test/closure/3.2.closure-with-self-invoke-and-assign-variable.html
+		:language: html
+
+	Result
+
+	.. image:: images/closure-with-self-invoke-and-assign-variable.png
+
+
+

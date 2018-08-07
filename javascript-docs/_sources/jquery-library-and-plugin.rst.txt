@@ -1,0 +1,32 @@
+jQuery Library and Plugin
+==============================
+
+==============================
+Datetimepicker `Eonasdan`
+==============================
+
+set date and time
+--------------------------
+
+perlu diketahui bahwa ketika kita mendeklarasikan input type="date"
+maka sejatinya format di dalamnya adalah "YYYY-MM-DD 00:00+GMT",
+
+jika semisal dalam input type date itu kita rubah maka sejatinya kita akan mendapatkan adanya error bahwa format salah,
+seperti misalkan dalam datetimepicker terdapat adanya custom config yang dapat memberikan adanya date yang dapat diinput menurut minDate dan maxDate maka kita akan menemui error jika mengaplikasikannya ke dalam hal ini
+laravel => {!! Form::date('tanggal_ambil', $bidding->tanggal_ambil , ['class'=> 'form-control', 'id' => 'tgl_ambil']) !!}
+html => <input type="date" name="tanggal_ambil" value="$bidding->tanggal_ambil" class="form-control" id="tgl_ambil">
+
+dan kita membuat suatu deklarasi berikut ::
+
+    $("#tgl_ambil").datetimepicker({
+        format: "YYYY-MM-DD",
+        minDate: "2016-09-03",
+        maxDate: "2016-09-09"
+    });
+
+keterangan errornya(console) adalah
+The specified value "2016-09-09T00:00:00+07:00" does not conform to the required format, "yyyy-MM-dd".
+
+maka satu satunya cara dalam menggunkana custome config tersebut adalah dengan menggunakan input type text
+laravel => {!! Form::input('text', 'tanggal_ambil', $bidding->tanggal_ambil , ['class'=> 'form-control', 'id' => 'tgl_ambil']) !!}
+html => <input type="text" name="tanggal_ambil" value="$bidding->tanggal_ambil" class="form-control" id="tgl_ambil">

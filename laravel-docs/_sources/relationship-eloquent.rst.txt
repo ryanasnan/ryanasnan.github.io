@@ -1,0 +1,1324 @@
+Relationship
+===================
+
+Dalam suatu pemrograman akan terdapat adanya tabel-tabel dalam menangani datanya.
+
+Dan diantara tabel tabel tersebut sangat mungkin terjadi adanya relasi, hal ini dikarenakan karena fungsi suatu entitas pada tiap tiap tabel.
+
+Dalam suatu relasi antar tabel maka akan terdapat 2 unsur dari segi kepemilikan.
+
+Yaitu **tabel yang memiliki tabel lain** dan **tabel yang dimiliki tabel lain**.
+
+Istilah lain yang lebih mudah adalah tabel ``Parent`` dan tabel ``Child``, dimana tabel parent artinya tabel yang idnya akan direferesikan ke tabel lain.
+
+Secara mudahnya adalah satu data suatu tabel dapat memiliki tabel lain, dan satu data suatu tabel dapat dimiliki tabel lain.
+
+Dengan adanya hal tersebut maka tabel yang dimiliki tabel lain, dipastikan akan memiliki adanya field khusus yang mana memuat field id(identifier) pada tabel yang memiliki
+
+misalkan adalah tabel ``artist`` dan ``album``.
+
+artist dapat memiliki album, dan album dapat dimiliki artist, artinya tabel artist memiliki tabel album, dan tabel album dimiliki oleh tabel artist.
+
+karena tabel album dimiliki tabel artist, maka tabel album akan memiliki adanya field identifier dari tabel artist yang mana semisal 'artist_id', field ini berguna sebagai penghubung(relasi) dengan tabel artist.
+
+.. image:: images/gambar/9.1.1.relationeloquent.jpg
+
+Ketika 2 tabel saling berelasi maka terdapat beberapa hal yang perlu diperhatikan disini seperti :
+
+misalkan bagaimana data di suatu tabel yang memiliki data pada tabel lain akan dilakukan update atau edit.
+
+atau bagaimana jika suatu data di tabel yang dimiliki data pada tabel lain yang akan dilakukan update dan edit.
+
+tentu ini terdapat adanya suatu pemrosesan yang khusus.
+
+misalkan kita memiliki data tabel berikut
+
+.. image:: images/gambar/9.1.2.relationeloquent2.jpg
+
+.. image:: images/gambar/9.1.3.relationeloquent3.jpg
+
+bagaimana jika kita menghapus pada tabel artist apa yang akan terjadi, atau bagaimana jika kita mengedit id dari artist apa akan berefek pada tabel album.
+
+Well sebenarnya ini sudah dibahas pada materi database n schema builder tentang opsi onUpdate dan onDelete.
+ 
+======================================
+Relationship Basic
+======================================
+
+Dalam RDBMS terdapat 3 relasi utama yang ada yaitu :
+
+1. One to One
+
+2. One to Many
+
+3. Many to Many
+
+Istilah mudah untuk memahami ``relasi`` adalah kita diizinkan untuk memiliki data di tabel lain.
+
+misalkan dalam relasi one to one , artinya pada satu data pada tabel pertama hanya diizinkan memiliki relasi satu data pada tabel kedua, dan satu data pada tabel kedua diizinkan memiliki satu data pada tabel pertama.
+
+one to many , artinya pada satu data pada tabel pertama diizinkan memiliki relasi lebih dari satu data pada tabel kedua, dan satu data pada tabel kedua diizinkan memiliki satu data pada tabel pertama.
+
+ada pula relasi many to many yang mana satu data pada suatu tabel diizinkan memiliki relasi lebih dari satu datapada tabel lain, dan data pada tabel lain tersebut diizinkan memiliki lebih dari satu data pada tabel pertama.
+
+Untuk mengetahui bagaimana jelasnya suatu relasi dapat terjadi dapat dilihat pada beberapa studi kasus berikut ini :
+
+Relasi One to One
+````````````````````
+
+relasi ini adalah relasi yang mana dalam satu data suatu tabel hanya memiliki data pada tabel lain, dan satu data pada tabel lain hanya memiliki satu data pada tabel tersebut.
+
+Misalkan adalah tabel users dan tabel preferences yang mana satu data user hanya memiliki satu data preference dan satu data preference hanya memiliki satu data di tabel users
+
+.. image:: images/gambar/9.2.1.relation_one_to_one_hasone.jpg
+
+.. image:: images/gambar/9.2.1.relation_one_to_one_belongsone.jpg
+
+Relasi One to Many
+````````````````````
+
+relasi ini adalah relasi yang mana dalam satu data suatu tabel dapat memiliki banyak data pada tabel lain, dan satu data pada tabel lain hanya memiliki satu data pada tabel tersebut.
+
+misalkan adalah tabel artists dan tabel album ,satu data pada tabel artist dapat memiliki banyak data di tabel albums, sedangkan satu data albums hanya dapat memiliki satu data pada tabel artist
+
+
+Relasi Many to Many
+
+.. attention::
+
+    sekedar catatan bahwa studi kasus diatas belum menjelaskan tabel mana yang memiliki posisi ``tabel yang memiliki tabel lain`` dan ``tabel yang dimiliki tabel lain``, hanya sekedar mempermudah dalam pengetahuan relasi saja.
+
+    Sebenarnya ini akan dibahas pada materi selanjutnya, namun ini sebagai preview saja, untuk mendefinisikan nya maka kita harus membuat method dengan nama method adalah nama model(ingat bukan tabel sehingga berlaku singular) yang mana statement di dalamnya adalah method tentang kepemilikan.
+
+    berikut method kepemilikan tersebut :
+
+    belongsTo('model_yang_memiliki') => adalah method yang dimiliki oleh model lain (model lain ditulis pada parameter) , dengan tipe one
+
+    hasOne('model_yang_dimiliki') =>adalah method yang memiliki model lain (model lain ditulis pada parameter) , dengan tipe one
+
+    hasMany('model_yang_memiliki') => adalah method yang memiliki model lain (mode lain ditulis pada parameter), dengan tipe many
+
+    belongsToMany('model_yang_memiliki') => adalah method yang dimiliki oleh model lain (model lain ditulis pada parameter) , dengan tipe many
+
+    relasi one to one maka akan menggunakan
+
+    model(tabel) yan memiliki tabel lain terdapt method hasOne() yang mana parameternya adalah model lain
+
+    model(tabel) yang dimiliki tabel lain terdapat method belongsTo() yang mana parameternya adalah model lain
+
+    relasi one to many maka akan menggunakan
+
+    model(tabel) yan memiliki tabel lain terdapt method hasMany() yang mana parameternya adalah model lain
+
+    model(tabel) yang dimiliki tabel lain terdapat method belongsTo() yang mana parameternya adalah model lain
+
+    relasi many to many maka akan menggunakan
+
+    model(tabel) yan memiliki tabel lain terdapt method belongsToMany() yang mana parameternya adalah model lain
+
+    model(tabel) yang dimiliki tabel lain terdapat method belongsToMany() yang mana parameternya adalah model lain
+
+    untuk dapat memudahkan kita dapat mengartiskan "has" sebagai model/tabel yang memiliki dan "belongs" sebagai model/tabel yang dimiliki.
+
+    kemudian untuk one atau many
+
+    kemudian untuk relasi many to many mengapa kedua method menggunakan "belongsToMany()", ini dikarenakan kedua model/tabel tersebut tidak memiliki adanya field yang mereferensikan dengan tabel yang berelasi, maksudnya pada relasi many to many ini maka diperlukan adanya tabel baru yang mana menjadi tabel relasi yang akan digunakan.
+
+    Semisal saja tabel "articles" dan tabel "categories", dan relasi yang terjadi adalah many to many (satu data di tabel articles dapat memiliki relasi dengan lebih dari satu data di tabel categories, dan satu data di tabel categories dapat memiliki relasi dengan lebih dari satu data di tabel articles)
+
+one to many relation
+````````````````````````
+
+model artist::
+
+
+    public function albums() {
+        return $this->hasMany('App\Album');
+    }
+
+artinya tabel/model artists memiliki "many" ke tabel/model "albums"
+
+model albums::
+
+    public function artist() {
+        return $this->belongsTo('App\Artist')
+    }
+
+artinya tabel/model albums memiliki "one" to
+
+
+oke sepertinya masih ada konsep antara ``has`` dan ``belongs`` disini
+
+jika one to one, kan masih ada tabel yang memiliki/utama dan tabel yang dimiliki (yang ada field misal country_id)
+
+kalau di one to many kan berarti ada juga tabel yang memiliki dan tabel yang dimiliki
+
+tapi kalau many to many berarti semuanya sama sama memiliki (belongsTo)
+
+kecuali pada
+
+.. note::
+
+    Mengapa setiap relasi antar tabel harus didefinisikan
+
+    Ini berhubungan pada saat kita melakukan manipulasi tabel dengan **cara yang lebih mudah**.
+
+    Ketika terdapat adanya relasi, maka secara fundamental kita harus mengaplikasikan penggunaan foreign key(meski bisa saja tidak, namun ini adalah aturan di dalam database sendiri)
+
+    Nah ketika terdapat foreign key tersebut maka akan terdapat aturan di dalam database mengenai update dan delete data yang memiliki relasi,
+
+    jika semisal opsi dalam ``onUpdate`` dan ``onDelete`` adalah **restrict** maka kita tidak akan dapat menghapus data pada tabel yang memiliki tabel lain menggunakan syntax biasa(query builder atau eloquent) dalam laravel tidak akan bisa, bahkan ketika kita menggunakana syntax SQL(secara murni) sendiri juga tidak akan bisa, karena kondisi opsi dalam onUpdate dan onDelete adalah restrict
+
+    kecuali jika opsi adalah **cascade** maka tanpa adanya penghancuran relasi(detach) akan tetap dapat dijaalankan di laravel
+
+    nah permasalahannya adalah untuk apa pula kita susah susah mendefinisikan restrict dan cascade pada database,
+
+    sebenarnya kita bisa saja mendefinisikan setiap opsi onDelete dan onUpdate dengan opsi cascade, sehingga ketika menghapus data tidak akan terjadi error (karena data pada tabel lain yang memiliki data tersebut juga akan dihapus)
+
+    tapi ini akan jadi permasalahan, yaitu struktur tabel menjadi tidak custom/advance, bagaimana jika kita memberikan adanya larangan dalam menghapus data yang memiliki data pada tabel lain, atau mudahnya kita mengatur restrict pada opsi onDelete.
+
+    akan jadi repot kalau harus membuat struktur opsi onDelete dan onUpdate yang berbeda beda pada migration
+
+    nah cara yang palig baik agar dapat memberikan larangan(restrict) dan dapat menghapus secara bebas(cascade)
+
+    maka sebaiknya kita tidak perlu memberikan opsi onDelete dan onUpdate
+
+    nantinya secara default opsinya akan menjadi ``restrict``
+
+    namun tak perlu khawatir karena ketika mau menghapus data kita dapat melepas relasi tersebut, dengan method detach
+
+    sehinggan nantinya opsi akan berubah menjadi ``cascade``, sehingga ketika data pada tabel utama (tabel yang memiliki tabel lain) dihapus maka tabel lain(tabel yang dimiliki tabel lain/tabel utama) akan ikut terhapus pula
+     
+    selainn itu penggunaan definisi relasi nantinya akan memermudah dalam melakukan join tabel
+
+    sehingga tidak perlu melakukannya dengan query builder yang sangat panjang
+     
+    untuk lebih jelasnya tentang catatan ini dapat dilihat pada materi selanjutnya.
+
+==============================
+Relation One to One
+==============================
+
+Relasi ``one to one`` adalah ketika dalam satu data di suatu tabel memiliki relasi satu data pada tabel lain.
+
+Artinya data pada suatu tabel hanya diizinkan memiliki satu data pada tabel lain.
+
+Pada relasi one-to-one ini biasanya terbuat dari 2 tabel yang sebenarnya masih dapat dijadikan dalam satu kesatuan.
+
+Misalkan saja kita memiliki tabel ``users``, di dalamnya memiliki field : ``username``, ``password``.
+
+Nah bisa saja kita menambahkan data lain yang akan ditambahkan ke tabel users seperti ``negara``, ``mata_uang``
+
+Seperti yang diketahui setiap user memiliki negara dan mata uang masing-masing, tentu ini bisa saja dijadikan ke dalam satu tabel.
+
+Namun ini akan memberikan tanggung jawab yang lebih kepada tabel users, nantinya ketika kita membutuhkan data negara dan mata uang user maka akan menggunakan tabel users, ini.
+
+Akan jauh lebh baik bila field ``negara`` dan ``mata_uang`` dibuatkan tabel tersendiri.
+
+Misalkan kita membuatkan tabel ``Preferences`` dengan field ``country``, ``currency`` , ``user_id``.
+
+selanjutnya kita juga akan memberikan adanya relasi foreign key.
+
+Dan pada model kita akan mendeklarasikan relasi dengan menggunakan method.
+
+kita sebenarnya dapat menamai apa saja method tersebut namun sangat disarankan dalam memberikan nama sesuai dengan model yang akan direlasikan untuk mempermudah.
+
+migrasi tabel **users**
+
+.. code-block:: php
+
+    <?php
+    
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Database\Migrations\Migration;
+     
+    class CreateUsersTable extends Migration
+    {
+        /**
+        * Run the migrations.
+        *
+        * @return void
+        */
+        public function up()
+        {
+            Schema::create('users', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('password', 60);
+                $table->rememberToken();
+                $table->timestamps();
+            });
+        }
+         
+        /**
+        * Reverse the migrations.
+        *
+        * @return void
+        */
+        public function down()
+        {
+            Schema::drop('users');
+        }
+    }
+
+migrasi tabel ``preferences``
+
+.. code-block:: php
+
+    <?php
+     
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Database\Migrations\Migration;
+     
+    class BuatTabelPreferences extends Migration
+    {
+        /**
+        * Run the migrations.
+        *
+        * @return void
+        */
+        public function up()
+        {
+            Schema::create('preferences', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('country');
+                $table->string('currency');
+                $table->integer('user_id')->unsigned();
+                $table->timestamps();
+                 
+                $table->foreign('user_id')->references('id')->on('users');
+            });
+        }
+         
+        /**
+        * Reverse the migrations.
+        *
+        * @return void
+        */
+        public function down()
+        {
+            Schema::drop('preferences');
+        }
+    }
+
+model ``User``
+
+.. code-block:: php
+
+    <?php
+     
+    namespace App;
+     
+    use Illuminate\Auth\Authenticatable;
+    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Auth\Passwords\CanResetPassword;
+    use Illuminate\Foundation\Auth\Access\Authorizable;
+    use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+    use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+    use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+     
+    class User extends Model implements AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
+    {
+        use Authenticatable, Authorizable, CanResetPassword;
+         
+        /**
+        * The database table used by the model.
+        *
+        * @var string
+        */
+        protected $table = 'users';
+         
+        /**
+        * The attributes that are mass assignable.
+        *
+        * @var array
+        */
+        protected $fillable = ['name', 'email', 'password'];
+         
+        /**
+        * The attributes excluded from the model's JSON form.
+        *
+        * @var array
+        */
+        protected $hidden = ['password', 'remember_token'];
+         
+        //kita akan mendefinisikan method yang akan mereturn bahwa dalam model ini(tabel users) memiliki model 'Preference' (tabel preferences)
+        public function preference()
+        {
+            return $this->hasOne('App\Preference');
+        }
+         
+    }
+
+model ``Preference``
+
+.. code-block:: php
+
+    <?php
+     
+    namespace App;
+     
+    use Illuminate\Database\Eloquent\Model;
+     
+    class Preference extends Model
+    {
+        protected $fillable = [ 'country', 'currency', 'user_id'];
+         
+        //kita akan mendefinisikan method yang akan mereturn bahwa dalam model ini(tabel preferences) dimiliki model 'User'(tabel users)
+        public function user()
+        {
+            return $this->belongsTo('App\User');
+        }
+    }
+
+.. image:: images/gambar/10.1.1.onetoone.jpg
+
+.. image:: images/gambar/10.1.2.onetoone2.jpg
+
+.. image:: images/gambar/10.1.3.onetoone3.jpg
+
+Dynamic Properties
+````````````````````
+
+Dalam eloquent setiap terdapat method yang berisikan statement relasi dengan tabel lain maka secara otomatis method tersebut akan ditambahkan ke dalam attribute model.
+
+Misal pada contoh diatas kita mendefinisikan method ``preference()`` pada model ``User`` dan ``user()`` pada model ``Preference`` , maka method tersebut akan otomatis dijadikan attribute di dalam eloquent.
+
+.. image:: images/gambar/10.1.4.onetoone4.jpg
+
+Dengan adanya dynamic property maka kita dapat memanipulasi dengan lebih custom/advance.
+
+misal kita dapat megupdate data pada model secara langsung tanpa menggunakan model tersebut(melalui model lain yang memiliki relasi).
+
+.. image:: images/gambar/10.1.5.onetoone5.jpg
+
+atau bisa saja kita menambahkan 2 data yang saling berelasi sekaligus
+
+.. image:: images/gambar/10.1.6.onetoone6.jpg
+
+well sebenarnya penggunaan method ini akan jauh lebih berasa pada bagian one to many, dimana kita dapat menyimpan satu data yang memiliki relasi pada data tabel lain lebih dari 1 sekaligus.
+
+penggunaannya adalah dengan method ``saveMany()``
+
+Tidak dapat menghapus data pada tabel yang memiliki tabel lain
+Ketika kita memiliki adanya foreign key pada tabel yang dimiliki tabel lain, maka kita tidak akan dapat menghapus data pada tabel yang memiliki tabel lain.
+
+Ini dikarenakan ketika membuat adanya relasi maka kita membuat opsi restrict pada onDelete dan onUpdate
+
+maka dari itu kita harus membuatnya menjadi cascade sehingga saat menghapus data pada tabel yang memiliki tabel lain tidak akan terjadi error.
+
+Dalam laravel kita dapat menggunakan method ``detach()``, sebenarnya dalam laravel fungsi ini disebut sebagai pelepasan foreign, namun ternyata hasilnya data yang dimiliki tabel lain juga ikut terhapus, sehingga sebenarnya ini lebih mirip mengubah opsi restrict menjadi cascade.
+
+well bahasan ini masih menunggu bagian lainnya.
+
+.. image:: images/gambar/10.1.7.onetoone7.jpg
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+secara default laravel telah mendefinisikan property setiap model dengan nama field yang telah disediakan, agar menjadi mudah diakses dalam relasi dan lain lain
+namun bagaimana jika berususan dengan tabel yang mana columnya berbeda dari yang laravel sediakan
+
+misal tabel dari luar gitu
+
+
+maka dari itu pendefinisian ini sangat lah penting
+
+perlu diketahui bahwa ada beberapa hal yang harus diperhatikan
+
+has => memiliki
+artinya ini adalah tabel yang memiliki, tentu letaknya pada model yang memiliki model lain
+belongs => dimiliki
+artinya ini adalah tabel yang dimiliki, tentu letaknya pada model yang dimiliki model lain
+
+one
+artinya pada model ini hanya memiliki/dimiliki oleh satu data dari model lain
+many
+artiany pada model ini dapat memiliki/dimiliki lebih dari satu data dari model lain
+
+misalkan kita punya tabel artists, dan tabel albums
+
+tabel artist memiliki tabel album sehinggan strukturnya adalah
+
+struktur tabel::
+
+    # Name          Type
+    1 id            int(10)
+    2 name          varchar(255)
+    3 created_at    timestamp
+    4 updated_at    timestamp
+
+tabel albums dimiliki oleh tabel artist, artinya akan ada field yang menjadi relasi dengan tabel albums, sehingga strukturnya adalah
+
+struktur tabel::
+
+    # Name          Type
+    1 id            int(10)
+    2 name          varchar(255)
+    3 tahun         varchar(255)
+    4 id_artist     int(11)
+    5 created_at    timestamp
+    6 updated_at    timestamp
+
+
+
+selanjutnya dalam mengolah suatu resource kita membutuhkan adanya 2 data dari tabel tersebut, yang berelasi tentunya, maka dalam pendefinisian model harus memiliki adanya method dalam mengakses model lain
+
+
+
+method belongsTo
+
+``function __construct(Builder $query, Model $parent, $foreignKey, $otherKey, $relation)``
+
+method hasMany (sebenarnya hasOne juga sama sih)
+
+``function __construct(Builder $query, Model $parent, $foreignKey, $localKey)``
+
+dalam pecarian penulis localKey adalah key dari tabel/model field lokal, dalam hal ini secara default adalah field "id"
+
+
+model artist::
+
+
+    public function albums() {
+        return $this->hasMany('App\Album', 'id_artist');
+    }
+    //model artist memiliki tabel album ini didefinisikan pada method albums(ingat karena bisa memiliki lebih dari satu data pada model album, maka gunakan jamak/plural, menjadi 'albums')
+    //foreign keynya adalah 'id_artist'
+
+model albums::
+
+    public function artist() {
+        return $this->belongsTo('App\Artist','id_artist');
+    }
+    //model albums dimiliki tabel artists ini didefinisikan pada method artist(ingat karena bisa hanay dapat dimmiliki satu data pada model artist, maka gunakan tunggal/singular, menjadi 'artist')
+    //foreign keynya adalah 'id_artist'
+
+
+wait mengapa parameter kedua adalah sama pada keduanya
+
+ingat bahwa parameter kedua itu adalah foreign key, jadi bukan primary key
+dan itu sudah dibuktikan dengan beberapa method seperti with
+
+
+lantas bagaimana dengan many to many
+
+dalam relasi many to many pasti akan ada tabel perantara yang mengkoneksikan antar 2 tabel (catatan, penulis masih belum sammpai pada bagian relasi 3 tabel dalam satu tabel)
+
+hal yang pertama perlu digarisbawahi disini adalah kita akan mencoba membuat foreign key (di tabel perantara) yang tidak mengikuti standarisasi dari laravel, selain itu tabel perantara tersebut juga tidak mengikuti aturan nama dari laravel
+
+berikut adalah strukturnya::
+
+    mysql> desc articles;
+    +------------+------------------+------+-----+---------------------+----------------+
+    | Field      | Type             | Null | Key | Default             | Extra          |
+    +------------+------------------+------+-----+---------------------+----------------+
+    | id         | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+    | title      | varchar(255)     | NO   |     | NULL                |                |
+    | tahun      | varchar(255)     | NO   |     | NULL                |                |
+    | created_at | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | updated_at | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    +------------+------------------+------+-----+---------------------+----------------+
+
+    mysql> desc categories;
+    +------------+------------------+------+-----+---------------------+----------------+
+    | Field      | Type             | Null | Key | Default             | Extra          |
+    +------------+------------------+------+-----+---------------------+----------------+
+    | id         | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+    | category   | varchar(255)     | NO   |     | NULL                |                |
+    | created_at | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | updated_at | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    +------------+------------------+------+-----+---------------------+----------------+
+
+    mysql> desc kategori_artikel;
+    +-------------+------------------+------+-----+---------------------+----------------+
+    | Field       | Type             | Null | Key | Default             | Extra          |
+    +-------------+------------------+------+-----+---------------------+----------------+
+    | id          | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+    | id_artikel  | int(11)          | NO   |     | NULL                |                |
+    | id_kategori | int(11)          | NO   |     | NULL                |                |
+    | created_at  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | updated_at  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    +-------------+------------------+------+-----+---------------------+----------------+
+
+
+
+artinya tabel yang bukan perantara (tabel 'article' dan 'category') akan menjadi tabel yang dimiliki namun bersifat many
+berikut adalah method dalam belongsToMany
+function __construct(Builder $query, Model $parent, $table, $foreignKey, $otherKey, $relationName = null)
+keterangan parameter :
+Builder $query => ini adalah builder, jadi gak perlu diisi
+Model $parent, => ini adalah model yang akan dijadikan parent, dalam hal ini adalah model sebelahnya (well penulis masih gak ngerti jika semisal ada 3 tabel yang berelasi many to many)
+$table,        => ini adalah tabel perantara
+$foreignKey,   => ini adalah foreign key
+$otherKey,     => ini adalah key, atau mudahnya field dari model parent(tabel sebelahnya)
+$relationName = null => ini adalah nama relasinya, secara default laravel akan membuatkan nama relasi secara otomatis (jika menggunakan method foreign dan references pada migration)
+
+oke sekarang  kita akan mencobanya
+
+model article::
+
+    public function categories() {
+        return $this->belongsToMany('App\Category','kategori_artikel','id_artikel','id_kategori');
+    }
+
+
+model category::
+
+    public function articles() {
+        return $this->belongsToMany('App\Article','kategori_artikel','id_kategori','id_artikel');
+    }
+
+seperti yang diketahui bahwa tabel yang jadi perantara adalah tabel 'kategori_artikel'
+foreign key adalah field pada tabel perantara pada model tersebut
+sedangkan
+other key disini adalah key lain dari tabel perantara (field foreign key dari model lain)
+
+kemudian bagaimana menyimpan di tabel perantara ini
+kita dapat menggunakan method save dan saveMany
+namun sanget disarankan dengan menggunakan attach sedangkan dalam menghapus data perantara dengan detach
+
+misal::
+
+    >>> $app = App\Article::find(1)
+    => App\Article {#689
+         id: 1,
+         title: "artikel pertama",
+         tahun: "2009",
+         created_at: "2016-12-12 08:58:22",
+         updated_at: "2016-12-12 08:58:22",
+       }
+    >>> $app = $app->categories()->attach(2)
+    => null
+    >>> $app = App\Category::find(1)
+    => App\Category {#690
+         id: 1,
+         category: "hiburan",
+         created_at: "2016-12-12 09:08:17",
+         updated_at: "2016-12-12 09:08:17",
+       }
+
+    maka hasil di tabel perantara adalah
+    id  id_artikel  id_kategori
+    1   1           2
+
+    atau sebailiknya
+    >>> $app = App\Category::find(1)
+    => App\Category {#689
+        id: 1,
+        category: "hiburan",
+        created_at: "2016-12-12 09:08:17",
+        updated_at: "2016-12-12 09:08:17",
+      }
+    >>> $app = $app->articles()->attach(1)
+    => null
+    maka hasil di tabel perantara adalah
+    id  id_artikel  id_kategori
+    1   1           1
+
+    sedangkan detach adalah cara dalam menghapus namun dari bagian lain
+    misal datanya
+    id  id_artikel  id_kategori
+    1   1           2
+
+    >>> $app = App\Article::find(1)
+    => App\Article {#689
+         id: 1,
+         title: "artikel pertama",
+         tahun: "2009",
+         created_at: "2016-12-12 08:58:22",
+         updated_at: "2016-12-12 08:58:22",
+       }
+    >>> $app = $app->categories()->detach(2)
+    => null
+
+artinya adalah menghapus data di tabel 'kategori_artikel' yang mana id_artikel adalah 1 dan id_kategori adalah 2
+
+so semisal kita punya data
+id  id_artikel  id_kategori
+1   1           1
+2   1           2
+3   2           1
+4   2           2
+5   2           3
+
+nah kita mau menghapus data yang mana id_artikel adalah 2
+maka yang akan dilakukan adalah::
+
+    $app = App\Article::find(2)
+    >>> $app = $app->categories()->detach()
+    maka otomatis akan menghapus semuanya
+
+namun sebenarnya ada method yang jauh lebih direkomendasikan yaitu sync
+
+
+sync
+--------------------------
+
+berbeda dengan attach/detach sync adalah pembaharuan
+mudahnya begini, ketiak attach akan nambah ,ketika detach akan ngurangin dari id
+
+nah sync itu kayak detach semua yang ada lalu attach
+
+kalau belum ada datanya berarti kayak diattach
+
+misalnya begini kita memiliki data
+id  id_artikel  id_kategori
+1   1           2
+
+nah kita mau memperbaharui nih, yaitu id_artikel 1 dan id_kategori 1
+tapi ternyata dalam memperbaharui itu kita harus menghapus dulu yang lama (detach)
+karena terlalu ribet kita dapt menggunakan sync::
+
+    >>> $app = App\Article::find(1)
+    >>> $app = $app->categories()->sync([1])
+
+otomatis datanya menjadi
+id  id_artikel  id_kategori
+2   1           1
+
+sync ini jika belum maka fungsinya akan sama kayak attach, jadi gak perlu takutlah
+
+
+.. note::
+
+    catatan penting
+    laravel tidak akan mencegah ketika terdapat adanya duplikasi di tabel perantara
+    >>> $app = App\Article::find(2)
+    >>> $app = $app->categories()->attach(4)
+    >>> $app = $app->categories()->attach(4)
+
+    artinya di tabel perantara "article_categoty"::
+
+        +-------------+-------------+------------+------------+
+        | article_id  | category_id | created_at | updated_at |
+        +-------------+-------------+------------+------------+
+        |           2 |           4 | ...        | ...        |
+        |           2 |           4 | ...        | ...        |
+
+    ternyata sama kan ?
+
+lalau bagaiamana semisal kita akan menambahkan hal tersebut
+
+
+studi kasus
+misal terdapat 5 category yang telah dibuat yaitu : 1,2,3,4,5
+
+kemudian kita membuat artikel kedua (katakanlah article dengan id 2) dengan memberikan category_id adalah 4
+
+jadi hasilnya::
+
+    +-------------+-------------+------------+------------+
+    | article_id  | category_id | created_at | updated_at |
+    +-------------+-------------+------------+------------+
+    |           2 |           4 | ...        | ...        |
+
+nah suatu saat kita ingin mengedit kategori pada artikel kedua tersebut, misalkan ingin kita tambahkan category_id 5, nah masalahnya gak ada filter dalam memmilih kategori 2
+ternyata kita bisa attach kategori category_id 4 dan category_id 5::
+
+    +-------------+-------------+------------+------------+
+    | article_id  | category_id | created_at | updated_at |
+    +-------------+-------------+------------+------------+
+    |           2 |           4 | ...        | ...        |
+    |           2 |           4 | ...        | ...        |
+    |           2 |           5 | ...        | ...        |
+
+
+jelas salah nantinnya kan
+lalu apa solusinya
+
+ada 2 cara
+1.cek dahulu apa yang udah ada sebelumnya , lalu masukkan ke dalam sync
+2.menggunakan parameter 2 dalam sync
+
+agak ribet dengan cara 1 sebaiknya kita gunakan sync aja
+dengan cara yaitu dengan menambahkan adanya parameter 2 pada sync yaitu false
+
+dengan ini jika sudah ada tidak akan menambah
+dan jika belum ada akan menambah
+ini jauh lebih baik
+
+//misal kita tambah dengan id_kategori 1,2::
+
+    >>> $app = App\Article::find(1)
+    => App\Article {#675
+         id: 1,
+         title: "artikel pertama",
+         tahun: "2009",
+         created_at: "2016-12-12 08:58:22",
+         updated_at: "2016-12-12 08:58:22",
+       }
+    >>> $app = $app->categories()->sync([1,2], false)
+    => [
+         "attached" => [
+           1,
+           2,
+         ],
+         "detached" => [],
+         "updated" => [],
+       ]
+    //lalu kita refix id_kategori dengan menambahkan 1,2,3
+    >>> $app = App\Article::find(1)
+    => App\Article {#692
+         id: 1,
+         title: "artikel pertama",
+         tahun: "2009",
+         created_at: "2016-12-12 08:58:22",
+         updated_at: "2016-12-12 08:58:22",
+       }
+    >>> $app = $app->categories()->sync([1,2,3], false)
+    => [
+         "attached" => [
+           3,
+         ],
+         "detached" => [],
+         "updated" => [],
+       ]
+    >>>
+
+so artinya hanya akan me attach 3, dan tidak akan menghapus 1,2
+
+
+================================
+Polymorph
+================================
+
+sebelumnya just remember bahwa morphOne dan morphMany itu sama saja, yang beda cuma penamaan function saja, kalau many biasanya nama methodnya plural dan sebaliknya
+
+terdapat 2 jenis polymorph disini
+1.one to one/many polymorphic relations
+yaitu jenis relasi yang mana kita membutuhukan resource yang sebenarnya sejenis tapi dibutuhkan oleh beberapa model
+
+misalkan kita akan membuat adanya data produk dan staff
+dalam data tersebt ternyata dibutuhkan adanya foto
+apakah mungkin kita menyertakan field 'foto_path' pada kesetiap model
+sednagkan sebenarnya kita bisa membuat polymorph dengan membuat tabel photos dan terintegrasi dengan model produk dan staff
+
+misal::
+
+    staff
+        id - integer
+        name - string
+
+    products
+        id - integer
+        price - integer
+
+    photos
+        id - integer
+        path - string
+        imageable_id - integer
+        imageable_type - string
+
+
+code::
+
+    class Photo extends Model
+    {
+        /**
+         * Get all of the owning imageable models.
+         */
+        public function imageable()
+        {
+            return $this->morphTo();
+        }
+    }
+
+    class Staff extends Model
+    {
+        /**
+         * Get all of the staff member's photos.
+         */
+        public function photos()
+        {
+            return $this->morphMany('App\Photo', 'imageable');
+        }
+    }
+
+    class Product extends Model
+    {
+        /**
+         * Get all of the product's photos.
+         */
+        public function photos()
+        {
+            return $this->morphMany('App\Photo', 'imageable');
+        }
+    }
+
+jika antara morphOne dan morphMany sama mengapa menggunakan morphMany pada kasus diatas
+sebelumnya pahami bagian hasMany dan hasOne
+misal artist dapat memiliki banyak album kan
+artist peterpan dapat memiliki album 'bintang di surga', 'alexandria'
+sama dengan diatas, staff bisa memiliki lebih dari satu  photo begitupula  dengan produk
+
+
+2.Many To Many Polymorphic Relations
+mengapa ada jenis ini
+simple setiap data di tabel morph belum tentu hanya direlasikan ke bagian satu model, sehingga satu data morph dapat diletakkan pada lebih dari satu model
+
+misalkan adalah data posts dan video
+ternyata bisa memiliki tag, nah mungkin gak satu tag hanya untuk satu model saja
+misal
+tag 'merdeka' kan bisa saja masuk ke dalam bagian posts atau video
+
+jadi satu tag bisa direlasikan ke 2 bagian model
+berbeda dengan one to one/many polymorphic relations
+
+pada contoh diatas, sudah pasti satu photo hanya untuk satu model::
+
+    posts
+        id - integer
+        name - string
+
+    videos
+        id - integer
+        name - string
+
+    tags
+        id - integer
+        name - string
+
+    taggables
+        tag_id - integer
+        taggable_id - integer
+        taggable_type - string
+
+
+code::
+
+    class Post extends Model
+    {
+        /**
+         * Get all of the tags for the post.
+         */
+        public function tags()
+        {
+            return $this->morphToMany('App\Tag', 'taggable');
+        }
+    }
+
+    class Video extends Model
+    {
+        /**
+         * Get all of the tags for the post.
+         */
+        public function tags()
+        {
+            return $this->morphToMany('App\Tag', 'taggable');
+        }
+    }
+
+sedangkan di model tag::
+
+    class Tag extends Model
+    {
+        /**
+         * Get all of the posts that are assigned this tag.
+         */
+        public function posts()
+        {
+            return $this->morphedByMany('App\Post', 'taggable');
+        }
+
+        /**
+         * Get all of the videos that are assigned this tag.
+         */
+        public function videos()
+        {
+            return $this->morphedByMany('App\Video', 'taggable');
+        }
+    }
+
+================================
+With method
+================================
+
+method with pada eloquent adalah mnampilkan data tabel utama dan relasinya
+misal::
+
+    $app = User::with('preference')->get();
+
+perlu diketahui sebelumnya bahwa dalam menggunakan method with ini, sebelumnya telah membuat adanya relasi pada model
+
+model 'User'::
+
+    public function preference() {
+        return $this->hasOne('App\Preference','id_user');
+    }
+
+model 'Preference'::
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+
+
+output::
+
+    $app = User::all();
+    Collection {#152 ▼
+      #items: array:2 [▼
+        0 => User {#153 ▼
+          #table: "users"
+          #fillable: array:3 [▶]
+          #hidden: array:2 [▶]
+          #connection: null
+          #primaryKey: "id"
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:7 [▼
+            "id" => 1
+            "name" => "user_one"
+            "email" => "email_one"
+            "password" => ""
+            "remember_token" => null
+            "created_at" => "2016-12-11 09:30:40"
+            "updated_at" => "2016-12-11 09:31:54"
+          ]
+          #original: array:7 [▼
+            "id" => 1
+            "name" => "user_one"
+            "email" => "email_one"
+            "password" => ""
+            "remember_token" => null
+            "created_at" => "2016-12-11 09:30:40"
+            "updated_at" => "2016-12-11 09:31:54"
+          ]
+          #relations: []
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+        1 => User {#154 ▶}
+      ]
+    }
+
+
+output::
+
+    $app = User::with('preference')->get();
+
+
+    Collection {#159 ▼
+      #items: array:2 [▼
+        0 => User {#154 ▼
+          #table: "users"
+          #fillable: array:3 [▶]
+          #hidden: array:2 [▶]
+          #connection: null
+          #primaryKey: "id"
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:7 [▼
+            "id" => 1
+            "name" => "user_one"
+            "email" => "email_one"
+            "password" => ""
+            "remember_token" => null
+            "created_at" => "2016-12-11 09:30:40"
+            "updated_at" => "2016-12-11 09:31:54"
+          ]
+          #original: array:7 [▼
+            "id" => 1
+            "name" => "user_one"
+            "email" => "email_one"
+            "password" => ""
+            "remember_token" => null
+            "created_at" => "2016-12-11 09:30:40"
+            "updated_at" => "2016-12-11 09:31:54"
+          ]
+          #relations: array:1 [▼
+            "preference" => Preference {#160 ▼
+              #fillable: array:3 [▶]
+              #connection: null
+              #table: null
+              #primaryKey: "id"
+              #perPage: 15
+              +incrementing: true
+              +timestamps: true
+              #attributes: array:6 [▼
+                "id" => 1
+                "country" => "INA"
+                "currency" => "IDR"
+                "id_user" => 1
+                "created_at" => "2016-12-11 09:34:16"
+                "updated_at" => "2016-12-11 09:40:01"
+              ]
+              #original: array:6 [▼
+                "id" => 1
+                "country" => "INA"
+                "currency" => "IDR"
+                "id_user" => 1
+                "created_at" => "2016-12-11 09:34:16"
+                "updated_at" => "2016-12-11 09:40:01"
+              ]
+              #relations: []
+              #hidden: []
+              #visible: []
+              #appends: []
+              #guarded: array:1 [▶]
+              #dates: []
+              #dateFormat: null
+              #casts: []
+              #touches: []
+              #observables: []
+              #with: []
+              #morphClass: null
+              +exists: true
+              +wasRecentlyCreated: false
+            }
+          ]
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+        1 => User {#155 ▶}
+      ]
+    }
+
+
+jika ingin menambahkan adanya where clause maka::
+
+    $app = Artist::with(['albums' => function ($q) { $q->where('tahun','=','2008'); }])->get();
+    dd($app);
+
+    Collection {#160 ▼
+      #items: array:2 [▼
+        0 => Artist {#154 ▼
+          #fillable: array:1 [▶]
+          #connection: null
+          #table: null
+          #primaryKey: "id"
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:4 [▶]
+          #original: array:4 [▶]
+          #relations: array:1 [▼
+            "albums" => Collection {#153 ▼
+              #items: []
+            }
+          ]
+          #hidden: []
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+        1 => Artist {#155 ▼
+          #fillable: array:1 [▶]
+          #connection: null
+          #table: null
+          #primaryKey: "id"
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:4 [▶]
+          #original: array:4 [▶]
+          #relations: array:1 [▼
+            "albums" => Collection {#158 ▼
+              #items: array:1 [▼
+                0 => Album {#161 ▼
+                  #fillable: array:3 [▶]
+                  #connection: null
+                  #table: null
+                  #primaryKey: "id"
+                  #perPage: 15
+                  +incrementing: true
+                  +timestamps: true
+                  #attributes: array:6 [▼
+                    "id" => 1
+                    "name" => "bintang di surga"
+                    "tahun" => "2008"
+                    "id_artist" => 2
+                    "created_at" => "2016-12-12 03:28:54"
+                    "updated_at" => "2016-12-12 03:29:56"
+                  ]
+                  #original: array:6 [▶]
+                  #relations: []
+                  #hidden: []
+                  #visible: []
+                  #appends: []
+                  #guarded: array:1 [▶]
+                  #dates: []
+                  #dateFormat: null
+                  #casts: []
+                  #touches: []
+                  #observables: []
+                  #with: []
+                  #morphClass: null
+                  +exists: true
+                  +wasRecentlyCreated: false
+                }
+              ]
+            }
+          ]
+          #hidden: []
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+      ]
+    }
+
+
+jika ingin mengakses data di tabel relasi::
+
+    $app = Artist::with('albums')->get();
+    dd($app[1]->albums[0]->tahun);
+
+perlu diketahui bahwa dalam menggunakan with dengan maka data utama (tabel artist) akan selalu tampil, namun jika data utama tidak memiliki adanya relasi maka data di relasinya juga akan kosong
+
+
+jangan lupa bahwa parameter pertama didalam method with adalah nama method yang menjadi penghubungnya
+
+
+lantas bagaimana dengan relasi dengan lebih dari 2 tabel
+misal tabel artists, albums dan songs
+
+artists memiliki albums
+albums memiliki songs
+
+artists (parent)
+albums (parent-child)
+songs (child)
+
+
+maka dari itu dibutuhkan adaya nested eager loaing
+yaitu dengan menambahkan adanya dot syntax
+
+misal::
+
+    $app = App\Artist::with('albums.songs');
+
+    Collection {#256 ▼
+      #items: array:1 [▼
+        0 => Content {#242 ▼
+          #fillable: array:2 [▶]
+          #connection: null
+          #table: null
+          #primaryKey: "id"
+          #perPage: 15
+          +incrementing: true
+          +timestamps: true
+          #attributes: array:5 [▶]
+          #original: array:5 [▶]
+          #relations: array:1 [▼
+            "sectiontitle" => Collection {#247 ▼
+              #items: array:2 [▼
+                0 => Section_title {#249 ▼
+                  #fillable: array:3 [▶]
+                  #connection: null
+                  #table: null
+                  #primaryKey: "id"
+                  #perPage: 15
+                  +incrementing: true
+                  +timestamps: true
+                  #attributes: array:6 [▶]
+                  #original: array:6 [▶]
+                  #relations: array:1 [▼
+                    "sectioncontents" => Collection {#254 ▼
+                      #items: array:2 [▼
+                        0 => Section_content {#257 ▼
+                          #fillable: array:3 [▶]
+                          #connection: null
+                          #table: null
+                          #primaryKey: "id"
+                          #perPage: 15
+                          +incrementing: true
+                          +timestamps: true
+                          #attributes: array:6 [▶]
+                          #original: array:6 [▶]
+                          #relations: []
+                          #hidden: []
+                          #visible: []
+                          #appends: []
+                          #guarded: array:1 [▶]
+                          #dates: []
+                          #dateFormat: null
+                          #casts: []
+                          #touches: []
+                          #observables: []
+                          #with: []
+                          #morphClass: null
+                          +exists: true
+                          +wasRecentlyCreated: false
+                        }
+                        1 => Section_content {#258 ▶}
+                      ]
+                    }
+                  ]
+                  #hidden: []
+                  #visible: []
+                  #appends: []
+                  #guarded: array:1 [▶]
+                  #dates: []
+                  #dateFormat: null
+                  #casts: []
+                  #touches: []
+                  #observables: []
+                  #with: []
+                  #morphClass: null
+                  +exists: true
+                  +wasRecentlyCreated: false
+                }
+                1 => Section_title {#250 ▶}
+              ]
+            }
+          ]
+          #hidden: []
+          #visible: []
+          #appends: []
+          #guarded: array:1 [▶]
+          #dates: []
+          #dateFormat: null
+          #casts: []
+          #touches: []
+          #observables: []
+          #with: []
+          #morphClass: null
+          +exists: true
+          +wasRecentlyCreated: false
+        }
+      ]
+    }

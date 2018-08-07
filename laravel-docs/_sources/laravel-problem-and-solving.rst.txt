@@ -1,0 +1,50 @@
+Masalah Laravel dan pemecahannya
+====================================
+
+
+Laravel tidak dapat jalan terdapat error di permission laravel.log namun sudah benar permissionnya
+--------------------------------------------------------------------------------------------------------------------
+
+masalah ada pada module rewrite yang belum di-enable
+
+mengaktifkan module rewrite 
+
+	``a2enmod rewrite``
+
+selanjutnya restart apache 
+
+	``service apache2 restart``
+
+.. code-block:: rst
+
+	a2enmod rewrite
+	Enabling module rewrite.
+	To activate the new configuration, you need to run:
+	  service apache2 restart
+	root@ryan-Satellite-C55t-C:/var/www/html# /etc/init.d/apache2 restart
+	[ ok ] Restarting apache2 (via systemctl): apache2.service.
+
+=========================
+Laravel ajax logout
+=========================
+
+.. hint::
+
+	Masih belum diketahui pasti penyebab laravel akan melakukan logout ketika mengeksekusi ajax.
+
+
+ketika menggunakan laravel ajax, maka terkadang request tersebut akan membuat laravel melakukan logout(kehilangan session), namun ini anehnya hanya terjadi di local.
+
+Berikut beberapa spesifikasi komponen software yang membuat error:
+
+#. ubuntu 14/16
+#. php versi 7.0
+#. laravel 5.1
+#. ajax menggunakan jQuery
+#. penggunaan ajax lebih dari satu kali
+
+Kemungkinan penyebab terbesar adalah dari versi php, karena ketika diubah menjadi php versi 5.6 (namun tetep menggunakan module php 7.0) hampir tidak ada request ajax yang menyebabkan error lagi.
+
+Hanya saja ketika penulis me-switch kembali ke php 7.0, ternyata request ajax juga tidak menyebabkan logout seperti sebelumnya. 
+
+Sehingga masih belum jelas bagian mana yang sebenarnya menyebabkan logout.

@@ -1,0 +1,107 @@
+Multi Branch di Laravel dan setting untuk deploy
+==================================================
+
+==================================================
+Multi Branch di Laravel
+==================================================
+
+Repository Laravel sebenarnya sudah sangat cukup fleksibel, bahkan satu repo dapat berisikan berbagai versi project atau bahkan bermacam macam project jika dimanage dengan sangat baik.
+
+Yang menjadi masalah terbesar disini adalah apakah setiap package laravel dapat disimpan ke dalam tiap branch tersendiri ???
+
+Sebenarnya bisa, tetapi artinya semua file dan folder yang berada di repo akan dimasukkan ke git (tidak ada yang diignore), yang artinya tentu tidak akan menjadi repo yang fleksibel jika packagenya berbeda tiap branch.
+
+Artinya akan jauh lebih baik jika semua package diletakkan menjadi satu, yang artinya ketika suatu branch membutuhkan package tidak perlu menginstall lewat composer laig, karena ternyata sebelumnya telah terdapat adanya package tersebut.
+
+Untuk membuat sampai se-fleksibel tersebut maka dibutuhkan adanya management git ignore yang cukup baik.
+
+Berikut adalah saran pengisian gitignore pada repository laravel agar dapat menjadi fleksibel::
+
+    /vendor
+    /node_modules
+    /bootstrap
+    /storage
+    /tests
+    .env.example
+    artisan
+    composer.json
+    composer.lock
+    gulpfile.js
+    package.json
+    phpspec.yml
+    phpunit.xml
+    readme.md
+    server.php
+
+Dengan begitu setiap adanya penambahan package di file ``composer.json`` maka akan memasukkan ke direkgori ``vendor`` (bahkan dapat digunakan di gulp), sehingga branch lain juga dapat menggunakan package tersebut.
+
+Setting untuk deploy dengan adanya setting gitignore tersebut
+--------------------------------------------------------------
+
+Kemudian jika file/folder penting di-ignore, kemudian bagaimana bisa kita mendeploynya ???
+
+Serperti misalkan file ``composer.json`` dan ``.env``, atau file lain yang terhidden, bukankah juga penting ???
+
+Maka dari itu saat akan melakukan deploy berikut adalah langkah yang paling tepat:
+
+1. Buat branch baru khusus untuk deploy
+
+    Semisal memiliki branch ``trukinv2``, berarti kita akan membuat branch ``deploy_trukinv2``
+
+    Branch ini adalah branch sementara, fungsinya hanya untuk deploy
+
+2. Hapus beberapa file/folder di file ``.gitignore`` pada branch khusus deploy tersebut
+
+    Berikut adalah file/folder yang dihapus pada file ``.gitignore``::
+
+        /bootstrap
+        /storage
+        /tests
+        artisan
+        composer.json
+        composer.lock
+        gulpfile.js
+        package.json
+        phpspec.yml
+        phpunit.xml
+        readme.md
+        server.php
+
+    Artinya hanya menyisakan file dan folder berikut::
+
+        /vendor
+        /node_modules
+        .env.example
+
+3. Jangan lupa untuk file env dicek di server perlu ada penggantian atau tidak
+
+4. Lakukan deploy (push)
+
+    Dalam git biasanya jika ingin mendeploy suatu branch non master ke master maka kita harus mendeskripsikannya,
+
+    misal::
+
+        git push gitlab trukinv2:master
+
+    artinya branch lokal ``trukinv2`` akan dipush ke branch remote ``master``
+
+4. Hapus branch khusus deploy tersebut
+
+selanjutnya dapat menggunakan ``composer install`` untuk menginstall package di file ``composer.json``
+
+.. note::
+
+    Artinya file ``.env`` tidak di-ignore???
+
+    Ya, karena ini dalam tiap branch akan berbeda beda settingnya
+
+
+note:
+
+
+==================================================
+Setting deploy
+==================================================
+
+
+ingat permission harus 775 dan chown www-data:user-name

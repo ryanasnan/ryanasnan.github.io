@@ -1,0 +1,1631 @@
+Laravel Architecture
+======================================================
+
+.. attention::
+
+    Tidak kesemua materi yang ditulis ini berasal dari sumber yang pasti, semuanya berasal dari beberapa sumber yang dikumpulkan dan ditelaah sendiri oleh penulis.
+
+.. contents:: Table of Contents
+
+======================================================
+``Service Provider``
+======================================================
+
+Fungsi daripada ``Service Provider`` adalah melakukan **bootstraping** aplikasi.
+
+**Bootstraping** disini adalah suatu proses memasukan komponen ke dalam aplikasi yang diakses laravel.
+
+Mudahnya adalah dalam menjalankan aplikasi laravel, maka dibutuhkan adanya beberapa komponen yang akan dijalankan, seperti untuk routing, dan lain-lain.
+
+Terdapat 2 macam servicce provider dalam laravel, yaitu Laravel framework ``Service Provider`` dan Application ``Service Provider``.
+
+Kesemua ``service provider`` ini disimpan pada file ``config/app.php`` yang terletak pada key providers.
+
+Pada ``Laravel Framework Service Provider``, tidak dapat dimodifikasi(dihapus atau ditambah), sedangkan pada ``Application Service Provider`` dapat dimodifikasi sesuai kebutuhan.
+
+File pada ``Framework Service Provider`` disimpan pada ``vendor\laravel\framework\Illuminate``, sedangkan pada ``Application Service Provider`` disimpan pada ``app/Http/providers``.
+
+Secara default ``Application Service Provider`` memiliki 4 ``service provider`` yaitu : **AppServiceProvider**, **BusServiceProvider**, **ConfigServiceProvider**, dan **RouteSeviceProvider**.
+
+**RouteServiceProvider** memiliki fungsi dalam meregistrasikan file ``app/Http/Routes.php`` yang mana nantinya file ``Routes.php`` ini digunakan untuk mengakses routing.
+
+Dari sini kita sebenarnya dapat menambahkan akses file routing lain misal, kita tambahkan file ``custom-routes.php`` pada direktori ``app/Http``.
+
+kemudian kita daftarkan pada ``RouteServiceProvider.php``
+
+.. image:: images/3.arsitektur_laravel/serviceprovider_routelist.jpg
+
+
+misal buat file **app/Http/custom-routes.php** pada framework laravel, kemudian isi dengan code beriktu::
+
+    <?php
+
+    Route::get('/kontak', function() {
+
+    return 'Kontak saya di 087822250272';
+
+    });
+
+tambahkan code pada file **app/Providers/RouteServiceProvider.php**::
+
+    ...
+
+    public function map(Router $router)
+
+    {
+
+    $router->group(['namespace' => $this->namespace], function($router)
+
+    {
+
+    require app_path('Http/routes.php');
+
+    require app_path('Http/custom-routes.php');
+
+    });
+
+    }
+
+    ...
+
+.. image:: images/3.arsitektur_laravel/serviceprovider_routelist_2.jpg
+
+
+.. note:: 
+
+    **Fungsi default service provider**
+
+    Dalam direkrori ``Providers`` (app/Providers) terdapat 4 buah file yaitu **AppServiceProvider**, **AuthServiceProvider**, **EventServiceProvider**, dan **RouteSeviceProvider**.
+
+    Keempatnya merupakan application ``service provider`` `default` laravel, dan masing masing memiliki fungsi tersendiri, seperti misalkan pada **RouteServiceProvider** yang berfungsi dalam menangani routing.
+
+    Kemudian sebenarnya darimana fungsi fungsi tersebut dapat digunakan/dijalankan, ternyata fungsi tersebut berasal dari pengunaan script default laravel yang telah ada.
+
+    seperti misalkan **RouteServiceProvider** yang meload class ``RouteServiceProvider`` pada direktori default laravel.
+
+    .. image:: images/3.arsitektur_laravel/applicationserviceprovider.jpg
+
+    Dan hampir kesemua ``class/trait`` script laravel yang digunakan dibuat `alias`(nama lain) karena mungkin nantinya akan terdaat proses selanjutnya yang membutuhkan depedency class ``ServiceProvider``.
+
+    Tentu masing-masing service provider default ini memiliki fungsi tersendiri, seperti misalkan **AppServiceProvider** yang memiliki fungsi untuk melakukan `binding` ke ``service container``.
+
+    Dalam dokumentasi resmi laravel class ``ServiceProvider``(Illuminate\Support\ServiceProvider) memiliki method abstract ``register``, method ini harus dioverride (karena bersifat abstract) dan fungsi dalam method ini adalah untuk binding ke dalam service container(ingat method ``register`` ini hanya untuk binding).
+
+    Berikut keterangan dalam dokumentasi resmi laravel::
+
+        Within the ``register`` method, you should only bind things into the service contianer. You should never attempt to register any event listeners, routes, or any other piece of functionality within the ``register`` method.
+
+    Method ``register`` tidak dipergunakan dalam me-``register`` event listener, route atau fungsi lain.
+
+    Inilah sebabnya dalam RouteServiceProvider untuk mendaftarkan route nya menggunakan method selain ``register`` yaitu `map`, tentu method `map` ini juga telah memiliki adanya script default yang akan menjalankannya.
+
+.. note::
+
+    Namun dalam ``service provider`` laravel kita juga akan menemui adanya method **boot**, lantas apa fungsi method ini ???
+
+    dalam dokumentasi resmi laravel disebutkan bahawa method boot ini akan dipanggil setelah semua ``service provider`` di-register.
+
+    Berikut keterangan dalam dokumentasi resmi laravel::
+
+        So, what if we need to register a view composer within our ``service provider``? This should be done within the boot method. This method is called after all other ``service provider``s have been registered, meaning you have access to all other services that have been registered by the framework:
+
+    entah bagaimana memahami pernyataan tersebut, namun dalam penggunaannya method ini biasa digunakan dengan melibatkan semua method pada class/trait yang digunakan dalam ``service provider`` tersebut.
+
+    kemungkinan yang diartikan mehod boot ini yaitu tentang akan dipanggil setelah semua ``service provider`` diregister adalah method ini baru akan dijalankan setelah semua class/trait yang dibutuhkan di-load.
+
+    Hal ini dapat dilihat pada beberapa ``service provider`` default yang memiliki statement yang mana akan dijalankan namun baru akan dapat digunakan seletah class/trait yang dibutuhkan diload(isteilah laravel dalam melakukan memasukkan tiap class/trait ke dalam sistem laravel disebut register).
+
+    Menurut penulis method boot ini seperti method construct(__construct) yang akan dipanggil pertama kali, namun bedanya adalah pada method boot ini akan dipanggil setelah semua class/trait di-register(dimadukkan dalam sistem laravel).
+
+    Selain menggunakan method dalam class/trait yang digunakan, terkadang dalam method boot ini diberikan statement yang meload view composer, view composer adalah view yang akan dijalankan sebelum adanya view utama dirender(dijalankan), dan biasanya dalam view composer hanya terdapat beberapa method yang akan dijalankan(method compose adalah method yang pasti akan dijalanakan).
+
+Membuat ``Service provider``
+````````````````````````````````
+
+``Service provider`` dapat dibuat secara custom, selain itu karena ``service provider`` ini akan melakukan registrasi suatu komponen, maka kita juga dapat membuat binding ke dlaam service container, yang mana pada akhirnya kita tidak memerlukan adanya inisialisasi komponen tersebut.
+
+.. note:: 
+
+    Apa itu ``Service Container`` ???
+
+    ``Service Container`` adalah layanan dalam laravel yang berfungsi untuk menampung suatu komponen seperti object, variabel, closure, dll.
+
+    Singkatnya setiap kita menyimpan komponen ini, kita bisa langsung menngaksesnya, daripada kita hrus menginisialisasi setiap komponennya.
+
+    Selain itu terdapat fitur ``automatic resolution`` (menyelesiakan maslaah depedency inject), dan masih banyak lainnya, pembahasan lebih lanjut akan dibahas pada ``Service Container``.
+
+Penggunaan ``service provider``
+``````````````````````````````````
+
+Misalkan kita ingin menggunakan ``parser markdown``, kita dapat menginstalnya melalui composer CLI => **composer require league/commonmark**, syntax ini akan menambah key `require` pada file **composer.json** dan menginstallnya.
+
+Selanjutnya kita menjalankannya(kali ini kita menggunakan php artisan tinker, sebenarnya bisa saja jika membuat controller sekkaligus view, namun karena dirasa terlalu lama, maka sebaiknya menggunakan artisan tinker, lagipula kita hanya ingin melihat hasilnya saja).
+
+.. image:: images/3.arsitektur_laravel/serviceprovider_customserviceprovider.jpg
+
+Dapat terlihat bahwa untuk menggunakan ``markdown parser`` dibutuhkan adanya insisialisasi(membuat object new CommonMarkConverter) dan juga sebelumnya kita perlu untuk meload class/trait nya terlebih dahulu.
+
+Untuk itu mari kita buat ``service provider`` untuk mempermudah dalam penggunaannya.
+
+Pertama buat service provider melalui artisan cli => **php artisan make:provider MarkdownServiceProvider**
+
+kemudian akan ada file baru pada **app/providers** yaitu **MarkdownServiceProvider.php**
+
+Dalam file ini terdapat 2 method yaitu **boot** dan **regisster**, kita akan menggunakan method **boot** untuk membuat object **CommonMarkConverter** sedangkan kita akan membuat binding container pada **register**. 
+
+perlu diketahui saja bahwa proses ``binding`` adlaah penyimpanan komponen dalam ``service container``, dalam kasus ini kta akan membuat binding key ``markdown`` yang mana akan membuat object.
+
+Istlah mudahnya adalah binding adalah menyimpan (set) dan nantinya kita akan melakukan get(resolve dalam service container).
+
+file **app/providers/MarkdownServiceProvider.php**
+
+.. code-block:: php
+
+    <?php 
+    namespace App\Providers; 
+
+    //menggunakan class ServiceProvider
+    use Illuminate\Support\ServiceProvider;
+    use League\CommonMark\CommonMarkConverter;
+     
+    class MarkdownServiceProvider extends ServiceProvider {
+     
+        protected $markdown;
+        /**
+        * Bootstrap the application services.
+        *
+        * @return void
+        */
+         
+        public function boot()
+        {
+            $this->markdown = new CommonMarkConverter;
+        }
+         
+        /**
+        * Register the application services.
+        *
+        * @return void
+        */
+         
+        public function register()
+        {
+            $this->app->singleton('markdown', function() {
+                return $this->markdown;
+            });
+        }
+     
+    }
+
+Kemudian kita tambahkan ``service provider`` pada file **config/app** pada key `providers` pada bagian **Application Service Provider**
+
+'App\Providers\MarkdownServiceProvider',
+
+Selanjutnya kita dapat emngakses markdown commonmark dengan **app()['markdown']**, **app()->make('markdown')** atau **app('markdown')**.
+
+Syntax ``app();`` adalah syntax binding pada ``service container``, di dalamnya kita dapat mmeberikan key dan value, dalam kasus ini kita sudah membuat ``app('markdown')`` secara custom
+
+``app('markdown')`` disini adaah binding melakukan register(method register) pada service provider, yang mana hasilnya adalah mendapatkan object(sebelumnya sudah di-instasnsiasikan pada method boot).
+
+.. image:: images/3.arsitektur_laravel/serviceprovider_customserviceprovider_2.jpg
+
+
+======================================================
+Service Container
+======================================================
+
+Pada materi ``Service Provider`` telah dijelaskan bahwa ``service container`` adalah tempat untuk menyimpan berbeagai komponen seperti `object`, `string`, dll.
+
+Dalam ``service container`` terdapat istilah ``binding`` dan ``resolve``, keduanya diakses dengan key dan valuenya.
+
+**binding** adalah proses dalam menyimpan komponen, ini lebih mirip dengan set, dalam binding kita akan menggunakan key dan value yang akan dimasukkan.
+
+Sedangkan **resolve** adalah proses mendapatkan komponen tersebut, ini lebih mirip get, dalam resolve kita akan menggunakan key dalam mendapatkan value.
+
+misal dalam contoh berikut kita akan melakukan binding dengan key apa itu laravel dan akan membuat value `framework keren gan`.
+
+syntax => ``app()->bind('apa itu laravel', function() return {return framework keren gan;});``
+
+untuk melakukan resolve(mengaksesnya)
+
+syntax => ``app('apa itu laravel');``
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindresolve.jpg
+
+Untuk menyimpan ``binding`` diatas ke dalam ``service container``, kita dapat menuliskannya pada method ``register``
+
+Contoh:
+
+.. code-block:: php
+
+    public function register()
+    {
+        $this->app->singleton('markdown', function() {
+            return $this->markdown;
+        });
+
+        $this->app->bind('apa itu laravel?', function() {
+            return 'Laravel adalah framework Laravel paling keren dan elegan.';
+        });
+    }
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindresolve_2.jpg
+
+``Automatic resolution``
+````````````````````````
+
+``Automatic resolution`` adalah fitur dalam ``service container`` yang akan mengangani masalah ``depedency injection``.
+
+Sehingga semua file di dalam laravel, ketika membutuhkan adanya ``depedency injection`` (entah itu class, interface, dll), maka automatic resolution akan menemukan semua class ``depedency injection`` tersebut.
+
+Misalkan kita mempunyai2 buah class yaitu ``dompet`` dan ``customer``, Object daripada ``Customer`` membutuhkan object daripada ``Dompet``
+
+file ``app/Dompet.php``
+
+.. code-block:: php
+
+    <?php namespace App;
+    class Dompet
+    {
+        private $saldo;
+        public function __construct($saldo = 100)
+        {
+            $this->saldo = $saldo;
+        }
+        public function cekIsi()
+        {
+            return $this->saldo;
+        }
+    }
+
+
+file ``app/Customer.php``
+
+.. code-block:: php
+
+    <?php namespace App;
+    class Customer
+    {
+        private $dompet;
+        public function __construct(Dompet $dompet)
+        {
+            $this->dompet = $dompet;
+        }
+        public function cekDompet()
+        {
+            return $this->dompet->cekIsi();
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_automaticresolution.jpg
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_automaticresolution_2.jpg
+
+.. hint::
+
+    laravel memiliki fitur automatic resolution yang dapat menginisialisasi depedency dari suatu class
+
+ .. note::
+
+    Untuk diketahui saja bahwa syntax ``app('key')`` adalah proses ``resolve``, namun ketika key disini adalah suatu class(berisi namespace\class) maka syntax tersebut artinya akan menyertakan class tersebut, mungkin bukan mneyertakan namun menginstansiasi
+
+
+Binding Interface
+``````````````````````
+
+Perlu diketahui bahwa ``interface`` bukanlah suatu ``object``, namun bukan berarti kita tidak dapat menjadikannya sebagai ``depedency injection``.
+
+Loh apa bisa ??? bukankah selama ini yang jadi ``depedency`` itu adalah object dari instansiasi class tertentu, jika gak sesuai dengan class itu maka gak bisa.
+
+Bisa, hanya saja ada beberapa cara dalam menggunakan depedency object yang membutuhkan depedency interface.
+
+misal kita membuat aplikasi yang membutuhkan object (dengan depedency interface) **PaymentMethod**.
+
+file **app/PaymentMethod.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    interface PaymentMethod
+    {
+        public function cekIsi();
+    }
+
+file **app/Pelanggan.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class Pelanggan
+    {
+        private $payment;
+        public function __construct(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function setPayment(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function cekPayment()
+        {
+            return $this->payment->cekIsi();
+        }
+    }
+
+file **app/KartuKredit.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class KartuKredit implements PaymentMethod
+    {
+        private $saldo;
+        private $cardNumber;
+        public function __construct($saldo = 100, $cardNumber = null)
+        {
+            $this->saldo = $saldo;
+            $this->cardNumber = $cardNumber;
+        }
+        public function cekIsi()
+        {
+            return $this->saldo . ' saldo tersisa.';
+        }
+    }
+
+file **app/RekeningPonsel.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class RekeningPonsel implements PaymentMethod
+    {
+        private $pulsa;
+        private $phoneNo;
+        public function __construct($pulsa = 100, $phoneNo = null)
+        {
+            $this->pulsa = $pulsa;
+            $this->phoneNo = $phoneNo;
+        }
+        public function cekIsi()
+        {
+            return $this->pulsa . ' pulsa tersisa.';
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginterface.jpg
+
+.. note:: 
+
+    pengaksesan object pelanggan, terlihat kita masih belum menggunakan automatic resolution
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginterface_2.jpg
+
+.. note::
+
+    pengaksesan menggunakan ``service container``, ternyata gagal.ini dikarebnakan interface bukanlah object daripada suatu class
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginterface_pembaharuan_5.jpg
+
+.. note::
+
+    satu-satunya cara adalah dengan melakukan binding dengan key interface dan valueya adalah object daripada depedency(yang memiliki interface)
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginterface_pembaharuan_3.jpg
+
+.. note::
+
+    how about another key(key selain iterface namun valuenya adalah object daripada depeedency), tentu saja salah
+
+Binding ini diletakkan pada method ``register`` pada file **service provider** Misal kita memasukkanya pada **AppServiceProvider**
+
+file **app/Providers/AppServiceProvider.php**
+
+.. code-block:: php
+
+    ...
+    public function register()
+    {
+        $this->app->bind(
+            'Illuminate\Contracts\Auth\Registrar',
+            'App\Services\Registrar'
+        );
+        
+        $this->app->bind(
+            'App\PaymentMethod',
+            'App\KartuKredit'
+        );
+    }
+    ...
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginterface_pembaharuan_4.jpg
+
+
+``Binding Instance``
+``````````````````````
+
+``Binding Instance`` adalah suatu cara ``binding`` didalam ``service provider``,dalam bentuk object (instansiasi).
+
+Sebagai catatan aktivitas ini tidaklah berbeda dengan **$this->app->bind('key', value)**.
+
+Hanya saja sebelumnya kita harus membuat suatu instansiasi.
+
+misal:
+
+.. code-block:: php
+
+    $obj = new App\Pelanggan;
+
+    $this->app->instance('suatu_key',$obj);
+
+syntax diatas diberikan pada ``service provider``
+
+Dengan syantx diatas, artinya kita membuat instansiasi object secara manual, sehingga memiliki value didalamnya beserta parameternya.
+
+contoh berikut, ubah dahulu file di ``service provider``
+
+file **app/Providers/AppServiceProvider.php**
+
+.. code-block:: php
+
+    public function register()
+    {
+        $this->app->bind(
+            'Illuminate\Contracts\Auth\Registrar',
+            'App\Services\Registrar'
+        );
+
+        $cc = new \App\KartuKredit(2000, '42542353545');
+        $this->app->instance('App\PaymentMethod', $cc);
+    }
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_bindinginstance.jpg
+
+.. note::
+
+    JUST REMEMBER, bahwa **App\PaymentMethod** hanyalah ``key`` dan bukan berarti mengakses file ``PaymentMethod``.
+
+
+Contextual Binding
+``````````````````````````
+
+Pada contoh diatas, terlihat bahwasanya kita masih menggunakan satu ``service container`` (satu binding) untuk satu impelemntasi interface.
+
+Kita bisa saja membuat agar 2 binding dapat mengimplementaasikan satu interface sekaligus mengakses 2 object dari depedency interface tersebut.
+
+misal kkita buat class ``Seller``, selain itu ubah method ``register``
+
+file ``app/Seller.php``
+
+.. code-block:: php
+
+    <?php namespace App;
+    class Seller
+    {
+        private $payment;
+        public function __construct(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        
+        public function setPayment(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        
+        public function cekPayment()
+        {
+            return $this->payment->cekIsi();
+        }
+    }
+
+file **app/Providers/AppServiceProvider**
+
+.. code-block:: php
+
+    public function register()
+    {
+        $this->app->bind(
+            'Illuminate\Contracts\Auth\Registrar',
+            'App\Services\Registrar'
+        );
+        
+        $this->app->when('App\Customer')
+        ->needs('App\PaymentMethod')
+        ->give('App\RekeningPonsel');
+
+        $this->app->when('App\Seller')
+        ->needs('App\PaymentMethod')
+        ->give('App\KartuKredit');
+    }
+
+
+.. image:: images/3.arsitektur_laravel/servicecontainer_contextualBinding_2.jpg
+
+.. note::
+
+    Dari contoh diatas, terlihat bahwa meski antara pelanggan dan seller membutuhkan implementasi interface(interface PaymentMethod) yang sama namun impelementasi object yang diberikan berbeda(KartuKredit atau RekeningPonsel), tergantung proses binding
+
+``Singleton Binding``
+``````````````````````
+
+``Singleton Biding`` adalah teknik dalam menginstansiasi satu class hanya untuk satu object, entah untuk apa fitur ini yang jelas satu class hanya akan di-instansiasi ke dalam satu object saja.
+
+misalkan kita memberikan keterangan pada suatu method dalam class yang akan diinstansiasi lebih dari satu kali, misalkan class berikut, berikan syntax echo untuk memberikan berapa kali class ini akan di-instansiasi kan
+
+file **app/KartuKredit.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class KartuKredit implements PaymentMethod
+    {
+        private $saldo;
+        private $cardNumber;
+        public function __construct($saldo = 100, $cardNumber = null)
+        {
+            $this->saldo = $saldo;
+            $this->cardNumber = $cardNumber;
+            echo 'membuat kartu kredit...';
+        }
+        public function cekIsi()
+        {
+            return $this->saldo . ' saldo tersisa.';
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/service_container_singletonbinding.jpg
+
+ternyata setiap melakukan resolve, class akan di-instansiasikan ke dalam objectnya.
+
+file **app/AppServiceProvider.php**
+
+.. code-block:: php
+
+    public function register()
+    {
+        $this->app->bind(
+            'Illuminate\Contracts\Auth\Registrar',
+            'App\Services\Registrar'
+        );
+
+        $this->app->when('App\Pelanggan')->needs('App\PaymentMethod')->give('App\RekeningPonsel');
+        $this->app->when('App\Seller')->needs('App\PaymentMethod')->give('App\KartuKredit');
+        $this->app->singleton('App\KartuKredit', function($app)
+        {
+            return new \App\KartuKredit;
+        });
+
+        /*
+        Ketika kita menuliskan suatu syntax disini maka akan diakses saat laravel berjalan, conthnya dibawah, kita akan menginstansiasikan class KartuKredit
+        $cc = new \App\KartuKredit(2000, '42542353545');
+        $this->app->instance('App\PaymentMethod', $cc);
+        */
+    }
+
+.. image:: images/3.arsitektur_laravel/service_container_singletonbinding_2.jpg
+
+============================================================================================================
+Penjelasan lebih jauh tentang ``Service Provider``, Service Container, Binding, Resolve
+============================================================================================================
+
+.. attention::
+
+    Tulisan ini bertujuan untuk mempermudah dalam pengertian materi ``service provider``, ``service container``, ``binding``, dan ``resolve``.
+
+    Mengapa ??? Karena semua materi tersebut saling berkaitan, materi ini sebagai referensi yang memberikan bahan lain sekaligus sebagai penutup yang memberikan kesimpulan dari semua materi tersebut.
+
+    (catatan informasi yang lebih detail, tentang materi ini satu persatu dapat dilihat pada bagiannya, bagian ini hanya sebagai rangkuman yang mempermudah)
+
+Laravel adalah framework dengan struktur pembangun yang cukup rumit, namun dari kerumitan itu laravel menjadi framework yang memiliki fungsionalitas yang sangat komplek, baik dari sisi luar maupun dalam.
+
+Dengan manajemen laravel yang baik ini kita dapat menggunakan class di dalam laravel dan menyertakan class lain(class luar) dengan jauh lebih mudah.
+
+Laravel memiliki banyak sekali class/trait, lalu bagaimanakah cara dalam mengakses semua class/trait tersebut sehingga dapat menjalankan framework laravel.
+
+Sampai saat tulisan ini ditulis penulis masih belum mengetahui bagaimana alur awal(event secara awal) pengaksesan laravel, namun terdapat keterangan yang cukup penting yang menjelaskan bagaimana kesemua fungsi fundamental laravel tersebut dijalankan.
+
+Kesemua fungsi tersebut dibangun dari provider, dan dari provider inilah class-class tersebut akan dapat diakses(termasuk class luar).
+
+**kata kunci**
+
+``service provider`` == tempat menyimpan class(script) yang nantinya akan dapat digunakan dengan ``service container``
+
+``service container`` == tempat script yang dapat dijalankan sewaktu waktu(script ``service provider`` yang dibuat/diwujudkan)
+
+``binding`` == menyimpan(set) suatu class ke dalam ``service container``
+
+``resolve`` == mendapatkan(get) script dari ``service container``
+
+Cukup abstrak dalam memahami kesemua pondasi fundamental laravel.
+
+Berikut akan kita jelaskan secara lebih mudah, caranya dengan membuat class diluar laravel(library lain), tapi tenang saja, implementasinya tidak akan jauh berbeda dengan class internal laravel.
+
+Contoh kasus:
+
+Mari kita tambahkan library dalam aplikasi berbasis framework laravel.
+
+Tujuan utamanya adalah bagaimana dapat mengakses library tersebut dengan mudah.
+
+Untuk mewujudkannya maka kita harus melakukan hal berikut::
+
+    1. Download library tersebut(lewat composer), atau mungkin kalau sudah mahir dapat membuat sendiri classnya(dan juga konfigurasi agar dapat dijalankan pada framework laravel)
+
+    2. Membuat provider dan menyertakan library
+
+    3. Membuat binding pada method register
+
+    4. Mendaftarkan provider
+
+    5. Melakukan Resolve (Mengakses service container)
+
+Kelihatannnya tidak cukup mudah, namun sebenarnya ini cukup sederhana.
+
+Berikut adalah cara dalam membuat library ``markdown parse``, yaitu library yang dapat mengconvert (parse) dari string ke dalam markdown(misal mengubah simbol menjadi heading, bold, dll dalam bentuk markdown).
+
+Pertama kita membutuhkan librarynya, untuk melakukannya dapat menggunakan composer ``syntax CLI`` => **composer require league/commonmark**.
+
+Setelahnya akan terdapat direktori baru pada direktori ``vendor``.
+
+Selanjutnya adalah membuat provider, ini juga dapat dilakukan dengan ``syntax CLI`` => **php artisan make:provider MarkdownServiceProvider**.
+
+file(class) ini disimpan di dalam direktori ``app/Providers`` (direktori ini hanya berisikan provider luar, namun laravel memberikan 4 class provider default, sedangkan provider utama laravel berada pada direktori illumminate).
+
+Masih pada tahap yang sama, jangan lupa untuk menyertakan library ini (use League\CommonMark\CommonMarkConverter).
+
+Selanjutnya kita akan membuat binding, atau intinya memasukkan script ke dalam container, biasanya script yang dimasukkan adalah object dari class(kebanyakan library dari luar laravel hanya memasukkan object, sedangkan dalam provider utama laravel yang dimasukkan bukan hanya object, bisa seperti method, property, closure, string , dll).
+
+Kemudian kita mendaftarkan provider ini supaya dapat diakses(diberikan pada config/app.php pada key 'provider ', dan tentu pada bagian '')
+
+.. image:: images/gambar/dirprovider.jpg
+
+.. image:: images/gambar/medaftarkanprovider.jpg
+
+file **app/providers/MarkdownServiceProvider.php**
+
+.. code-block:: php
+
+    <?php 
+    namespace App\Providers;
+    //menggunakan class ServiceProvider
+    use Illuminate\Support\ServiceProvider;
+    use League\CommonMark\CommonMarkConverter;
+    class MarkdownServiceProvider extends ServiceProvider {
+        protected $markdown;
+        /**
+        * Bootstrap the application services.
+        *
+        * @return void
+        */
+         
+        public function boot()
+        {
+            $this->markdown = new CommonMarkConverter;
+        }
+         
+        /**
+        * Register the application services.
+        *
+        * @return void
+        */
+         
+        public function register()
+        {
+            $this->app->singleton('markdown', function() {
+                return $this->markdown;
+            });
+        }
+    }
+
+Pada code **MarkdwonServiceProvider**,kita membuatkan object dari `method boot` dan disimpan ke dalam `property` markdown, selanjutnya kita `binding` ke dalam ``service container`` dengan cara memberikan syntaxya di dalam method ``register``.
+
+Sedangkan pada gambar kedua kita mendaftarkan ke dalam provider, sehingga dapat diakses.
+
+hasil akhirnya adalah kita akan dapat mengakses (resolve) dengan lebih mudah.
+
+``method singleton`` diatas adalah agar ketika kita menginstansiasi class markdown maka hanya satu object yang tercipata dalam lebih dari satu variable, penjelasan lebih lanjut ada pada bagian ``singleton binding``.
+
+``Method singleton`` diatas bisa juga kita ganti dengan method `bind`, perbedaannya method `bind` akan menginstansiasikan class pada variabel yang berbeda
+
+.. image:: images/gambar/resolve.jpg
+
+.. note::
+
+    Terdapat banyak ``service provider`` namun, kesemua provider akan dijadikan satu dalam service container(berdasarkan berjalannya aplikasi yang dijalankan)
+
+    sehingga jika ada binding dengan key yang sama dari provider lain(semmisal terdapat 2 `binding` key yang sama dalam provider yang berbeda) maka hanya salah satu yang akan dijalankan.
+
+Mengakses tanpa ``service provider`` dan service container
+``````````````````````````````````````````````````````````````
+
+Apakah ada cara lain dalam mengakses tanpa harus menggunakan ``service provider`` ataupun ``service container``, tentu ada, yaitu dengan hanya menyertakan class tersebut (use League\CommonMark\CommonMarkConverter).
+
+Namun jika menggunakan cara ini, dalam kasus diatas maka kita perlu membuat objectnya secara manual.
+
+.. image:: images/3.arsitektur_laravel/serviceprovider_customserviceprovider.jpg
+
+.. note::
+
+    Mengapa kita harus membuat ``service provider`` dan mendaftarkan(binding) ke ``service container`` ???
+
+    Kita bisa saja mengakses suatu class secara langsung juga kan(seperti cara diatas).
+
+    Memang iya, namun dalam laravel jika kita menggunakan ``service container``, maka kita akan mendapatkan fitur ``automatic resolution``, yaitu setiap ada depedency pada parameter methodnya akan dibuatkan terlebih dahulu, ini dapat dilihat pada materi ``service container``.
+
+ 
+Dari beberapa deskripsi diatas ini sudah dapat menjawab pertanyaan ``mengapa tidak menggunakan php native ??``, 
+
+karena dalam php native ketika kita akan menggunakan suatu library, maka kita perlu menyertakannya (`include`) kemudian meletakkan pada direktori tertentu (untuk mempermudah dalam mengakses library), 
+
+namun masalah terbesar adalah bagaimana jika library tersebut memiliki **depedency**, akan sangat merepotkan jika harus menginstansiasikan class depedencynya satu persatu.
+
+
+.. note::
+
+    Haruskah melakukan binding dan resolve ???
+
+    fungsi ``binding`` dan ``resolve`` sebenarnya adalah mempermudah dalam pengaksesan setiap script dalam laravel.
+
+    Namun tidak setiap library yang kita butuhkan harus menggunakan cara diatas(menggunakan ``service provider`` dan mendaftarkannya ke ``service container``).
+
+    Misalkan bagaimana jika ternyata dalam suatu script pada aplikasi (browser dan bukan php artisan tinker), kita membutuhkan library tersebut, semisal markdown parser.
+
+    namun kita tidak membutuhkan adanya resolve dari service container, bisa saja terjadi bukan.
+
+    Sehingga yang kita lakukan adalah seperti dalam bagian ``Mengakses tanpa service container``.
+
+Provider default dan utama laravel
+````````````````````````````````````````
+
+Semua provider default dan utama laravel akan memiliki hal yang sama seperti kasus diatas.
+
+Ke setiap ``service provider`` akan memiliki method register untuk nantinya dapat diakses di dalam service container.
+
+.. image:: images/gambar/defaultserviceprovider.jpg
+
+.. image:: images/gambar/defaultserviceprovider2.jpg
+
+Binding dan resolve
+``````````````````````````
+
+Seperti yang telah dijelaskan diatas bahwa ``binding`` adalah menyimpan (set) ke dalam service container dalam bentuk key serta valuenya, sedangkan ``resolve`` adalah mendapatakan (get) value dari key tersebut.
+
+Hampir semua class internal menggunakan ``binding`` dan ``resolve`` bahkan class eksternal juga terkadang dibuat ``binding`` dan ``resolve``.
+
+Namun hampir semua ``resolve`` dalam class internal laravel menggunakan fitur ``facade``, agar mempermudah dalam mengakses service container, bahasan ``facade`` ini akan dibahas pada bagian ``facade``.
+
+Proses ``binding`` dapat kita lakukan pada suatu class namun cara ini sangat jarang digunakan, biasanya ``binding`` akan dilakukan pada provider(method register).
+
+Berikut contoh sederhana dalam melakukan ``binding`` dan ``resolve`` , penulis menggunakan tinker untuk mempermudah. 
+
+cara pertama adalah dengan membuatkan ``binding`` secara on the fly, cara ini adalah membuat ``binding`` pada class yang akan digunakan, 
+
+namun cara ini sangat jarang ditemui penulis, sedangkan cara kedua adalah dengan menuliskan pada provider, cara ini biasa penulis temui saat membutuhkan library luar.
+
+.. image:: images/gambar/bindingresolve.jpg
+
+file **app/providers/AppServiceProvider**
+
+.. code-block:: php
+
+    ...
+    public function register()
+    {
+        $this->app->bind('apa itu laravel', function() {
+            return 'framework yang keren dan elegan';
+        });
+    }
+
+.. image:: images/gambar/bindingresolve2.jpg
+
+Resolve class dan automatic resolution
+``````````````````````````````````````````
+
+Bagian ini sebenarnya dibahas lebih jauh pada file ``service container`` namun penulis disini hanya ingin memberikan gambaran saja.
+
+Dalam contoh diatas kita melakukan ``resolve`` dari sesuatu yang kita ``binding`` ke dalam ``service container``.kemudian lebih jauh apa itu ``resolve``???
+
+Apakah hanya digunakan jika kita menggunakan ``bidding``, ternyata tidak kita dapat menggunakannya pada class.
+
+Namun ini diluar dengan cara ``binding`` diatas, yang mana ketika kita menggunakan pada class kita bisa langsung me-``resolve`` nya.
+
+Ini lebih berkaitan kepada penggunaan ``service container``, sejauh ini penulis baru mengetahui tentang ``binding`` dan class.
+
+Intinya adalah kita dapat menginstansisasi class dan dapat mengaksesanya dengan ``resolve``.
+
+Ketika kita menginstansiasi class menggunakan ``service container`` seperti **app(path_file');** maka otomatis kita akan dapat menggunakan object tersebut, sama halnya dengan instansiasi class dengan cara biasa.
+
+Perbedaannya adalah jika kita menggunakan ``service container`` maka ketika terdapat adanya depedency suatu class, laravel akan secara otomatis memenuhinya(entah caranya di-instansiasi atau tidak), bahasan lebih lanjut silahkan melihat pada bagian ``service container``.
+
+file **App/Dompet**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class Dompet
+    {
+        private $saldo;
+        public function __construct($saldo = 100)
+        {
+            $this->saldo = $saldo;
+        }
+        public function cekIsi()
+        {
+            return $this->saldo;
+        }
+    }
+
+.. image:: images/gambar/resolvedasar.jpg
+
+
+.. note::
+
+    Satu hal yang perlu diperhatikan disini adalah ketika kita menggunakan ``resolve`` dari class ini kita bisa saja langsung mengakses methodnya tanpa perlu me-assign ke dalam suatu variabel.
+
+    Berbeda dengan cara menginstansiasi secara native dimana kita akan me-assign ke dalam variabel dan baru dapat mengakses methodnya setelah object terbentuk.
+
+    Sedangkan dengan ``resolve`` kita sudah menjadikan object dan langsung dapat mengakses methodnya
+
+    .. image:: images/gambar/resolve2.jpg
+
+    sebagai tambahan dalam laravel terdapat fitur facade, yaitu melakukan ``resolve`` namun dengan lebih singkat, caranya adalah setelah melakukan binding di method register, kita membuat class dengan meextends class facade dan meoverride method getFacadeAccessor dan mereturn string yang bervalue key dari binding yang dilakukan dalam method register.
+
+    dalam syntax laravel secara internal lebih banyak menggunakan facade daripada ``resolve``.
+
+
+Binding interface, Binding instance, Contextual Binding, Singleton Binding
+```````````````````````````````````````````````````````````````````````````````````
+
+Dalam laravel terdapat berbagai macam dalam melakukan ``binding``, yaitu ``binding interface``, ``binding instance``, ``contextual binding``, dan ``singleton binding``.
+
+``````````````````````````````````
+Binding interface
+``````````````````````````````````
+
+**Binding interface** dan **binding instance** hampir sama, hanya perbedaannya pada masalah class yang memiliki implementasi suatu interface.
+
+Seperti diketahui bahwa dalam proses ``binding`` kita memberikan key dan value, namun apa jadinya jika key dan value yang kita binding adalah suatu class/interface.
+
+Well lupakan tulisan diatas, dalam materi tentang ``service provider`` (tidak terdapat pada bagian di file ini melainkan pada materi `service provider`) kita telah diberitahukan bahwa jika memiliki suatu class dan dijalankan dengan ``resolve`` (misalkan app('App\SuatuClass');) maka ketika dalam method terserbut memiliki adanya depedency akan class lain, maka akan dibuatkan depedency-nya.
+
+Akan tetapi bagaimana jika yang menjadi depedency nya adalah interface ??? apakah bisa kita instansiasiakan classnya dengan resolve, ternyata akan gagal, lantas bagaimanakah menginstansiasi class yang memiliki depedency interface dengan service container(resolve).
+
+Caranya adalah dengan membuat ``binding`` terlebih dahulu dengan key berupa class yang memiliki depedency dan valuenya adalah class yang mengimplementasikan interface tersebut.
+
+Sebagai tambahan bahwa jika suatu class membutukan adanya depedency berupa interface, maka yang harus mengisikan depedency tersebut adalah class yang meng-implementasikan interface tersebut, misalkan contoh berikut:
+
+file **App/PaymentMethod**
+
+.. code-block:: php
+
+    <?php namespace App;
+    interface PaymentMethod
+    {
+    public function cekIsi();
+    }
+
+file **App/Customer.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class Customer
+    {
+        private $payment;
+        public function __construct(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function setPayment(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function cekPayment()
+        {
+            return $this->payment->cekIsi();
+        }
+    }
+
+file **App/KartuKredit.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class KartuKredit implements PaymentMethod
+    {
+        private $saldo;
+        private $cardNumber;
+        public function __construct($saldo = 100, $cardNumber = null)
+        {
+            $this->saldo = $saldo;
+            $this->cardNumber = $cardNumber;
+        }
+        public function cekIsi()
+        {
+            return $this->saldo . ' saldo tersisa.';
+        }
+    }
+
+Kita tidak bisa menggunakan ``service container`` untuk menginstansisasikan class **Customer** dan akan memenuhi `depedency`-nya, kita bisa saja menggantikan depedency dari interface ke class yang menginplementasikan interface tersebut, namun tentu bukan ini caranya , karena yang kita butuhkan dari depedency interface adalah methodnya yang nantinya akan dioverride oleh class yang mengimplementasikannya, Karena pasti setiap class yang mengimplementasikannya memiliki cara yang berbeda (jika yang mengimplementasikan interface lebih dari satu class).
+
+Satu-satunya solusi adalah dengan menggunakan ``bidding interface`` yang mana key nya adalah `interface` dan valuenya adalah class yang mengimplementasikan interface tersebut, nantinya ketika kita menginstansiasi class yang memiliki depedency daripada interface yang kita binding maka kita dapat melakukannya lewat ``service container`` (resolve).
+
+.. danger::
+
+    btw contoh di bukularavel itu salah, pada halaman 154 harusnya yang dibinding interface dengan value class yang mengimplementasiakan interface tersebut.
+
+.. image:: images/gambar/bindinginterface.jpg
+
+.. image:: images/gambar/bindinginterface1.jpg
+
+.. hint::
+
+    Sedikit tambahan, dapat pula menambahkan dengan binding di provider()method register, nantinya aakan dapat dipanggil seperti resolve diatas
+
+    $this->app->bind('App\PaymentMethod','App\KartuKredit');
+
+**Hey stop it, just remember what is our write on the top.**
+
+Ketika kita membuat ``binding`` dari key dan value maka yang terjadi adalah saat ``resolve`` kita akan menuliskan key dan mendapatkan value, ini juga berlaku pada ``binding`` dengan key/value class/interface.
+
+Maksudnya adalah jangan berpatok pada classnya namun pada key dan valuenya, ingat itu hanya key dan value.
+
+mari kita buktikan, ketika kita telah membuat ``binding`` dengan key berupa interface dan value berupa class yang mengimplementasikannya maka saat kita melakukan resolve dengan key tersebut sebenarnya adalah melakukan instansiasi class yang meng implementasikannya.
+
+.. image:: images/gambar/bindinginterface2.jpg
+
+.. note::
+
+    Perlu diketahui bahwa suatu interface bisa saja di implementasikan oleh lebih dari satu class, kemudian bagaimana jika kita memiliki class dengan depedency interface dan kita memiliki perbedaan pada class yang akan mengimplementasikan interface teersebut, hal ini akan dibahas pada bagian contract
+
+``````````````````````````````````
+Binding Instance
+``````````````````````````````````
+
+Masih dalam kasus yang sama dengan ``Binding Interface``, pada ``Binding Instance`` ini kita akan menginstansiasi suatu class yang memiliki implement suatu interface, tujuannya adalah kita dapat memberikan value default.
+
+Seperti pada contoh diatas, jika kita menginstansiasi suatu class dengan resolve(service container) maka yang terjadi adalah kita tidak dapat memberikan parameter pada class, tentu parameter yang dimaksud adalah parameter dalam method construct.
+
+Dengan binding interface maka kita dapat membinding dengan value berupa object, berbeda dengan method bind yang valuenya tidak dapat diberikan object namun class asli.
+
+Keuntungannya adalah karena value yang diberikan berupa object maka kita dapat memberikan value default sebelumnya.
+
+semisal kita mendeklarasiakan script ini di dalam method register suatu provider::
+
+    $cc = new \App\KartuKredit(2000, '42542353545');
+    $this->app->bind('App\PaymentMethod', $cc);
+
+.. image:: images/gambar/bindinginstance1.jpg
+
+namun jika kita menggunakan method instance maka kita akan dapat memberian value sebuah object
+
+    $cc = new \App\KartuKredit(2000, '42542353545');
+    $this->app->instance('App\PaymentMethod', $cc);
+
+.. image images/gambar/bindinginstance2.jpg
+
+but remember dalam kasus ini kita membinding dengan key interface dan value instansiasi class yang menginplementasikan interface tersebut
+
+Dan jangan sampai kebalik
+
+    $cc = new \App\KartuKredit(2000, '42542353545');
+    $this->app->instance('App\KartuKredit', $cc);
+
+.. image:: images/gambar/bindinginstance2.jpg
+
+``````````````````````````````````
+Contextual binding
+``````````````````````````````````
+
+Adalah menempatkan setiap implementasi interface ketika akan menggunakan class yang membutuhkan ``depedency interface``.
+
+Misalkan adalah ketika kita memiliki lebih dari satu class namun class-class tersebut memiliki adanya ``depedency interface`` yang sama namun nantinya kita akan memenuhi depedencynya dengan class yang mengimpleementasikannya secara berbeda.
+
+contohnya kita meiliki class ``seller`` yang mana class ini juga memiliki adanya depedency berupa interface ``PaymentMethod``, maka jika memiliki class yang mengimplementasikan interface tersebut berbeda maka kita bisa menentukannya secara berbeda pula.
+
+file **App/Seller**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class Seller
+    {
+        private $payment;
+        public function __construct(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function setPayment(PaymentMethod $payment)
+        {
+            $this->payment = $payment;
+        }
+        public function cekPayment()
+        {
+            return $this->payment->cekIsi();
+        }
+    }
+
+file **App/RekeningPonsel**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class RekeningPonsel implements PaymentMethod
+    {
+        private $pulsa;
+        private $phoneNo;
+        public function __construct($pulsa = 100, $phoneNo = null)
+        {
+            $this->pulsa = $pulsa;
+            $this->phoneNo = $phoneNo;
+        }
+        public function cekIsi()
+        {
+            return $this->pulsa . ' pulsa tersisa.';
+        }
+    }
+
+.. image:: images/gambar/contextualbinding.jpg
+
+.. note::
+
+    Dengan menggunakan ``contextual binding`` maka 1 interface dapat digunakan ke dalam lebih dari satu class yang membutuhkan depedency nya.
+
+    Berbeda dengan pada bagian ``binding interface`` yang mana kita hanya mem-binding satu interface ke dalam 1 class yang mengimpleentasikannya.
+
+    Sehingga ketika kita menggunakan suatu class yang memiliki ``depedency interface`` tersebut kita akan mengisikan depedency nya dengan class yang mengimplementasikan(artinya hanya satu).
+
+
+````````````````````````````````
+Singleton Binding
+````````````````````````````````
+
+Adalah membuat ``binding`` dengan menginstansiasi class dalam **satu kali**.
+
+Ini dimakudkan agar setiap kita menggunakan ``resolve`` maka kita tidak perlu menginstansiasi class tersebut lagi.
+
+Semisal dalam contoh markdownconverter diatas, maka saat melakukan ``resolve`` kita tidak akan menginstansiasi class markdowwn tersebut.
+
+Sehingga nilainya tidak akan berubah.
+
+Inti dari pemrosesan singleton ini adalah ketika terdapat ``resolve`` yang sama maka kita akan menggunakan instansiasi class(object) sebelumnya, meskipun kita menggunakan variabel lainnya.
+
+Sebagai contoh semisal kita akan menggunakan Class ``KartuKredit``, maka jika kita menggunakan ``resolve`` lebih dari satu kali maka class ``KartuKredit`` akan diinstansiasi lebih dari satu kali.
+
+file ``App/KartuKredit``
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class KartuKredit implements PaymentMethod
+    {
+        private $saldo;
+        private $cardNumber;
+        public function __construct($saldo = 100, $cardNumber = null)
+        {
+            $this->saldo = $saldo;
+            $this->cardNumber = $cardNumber;
+            //kita menambahkan adanya hasil ketika class ini diinstansiasikan
+            echo 'membuat kartu kredit...';
+        }
+        public function cekIsi()
+        {
+            return $this->saldo . ' saldo tersisa.';
+        }
+    }
+
+.. image:: images/gambar/singletonbinding.jpg
+
+file ``App/AppServiceProvider``
+
+.. code-block:: php
+
+    //jika kita menambahkan syntax ini di dalam method register maka ketika kita melakukan ``resolve``, class KartuKredit hanya akan diinstansiasikan satu kali
+    $this->app->singleton('App\KartuKredit', function($app)
+    {
+    return new \App\KartuKredit;
+    });
+
+.. image:: images/gambar/singletonbinding2.jpg
+
+
+Facade dan Contract
+``````````````````````````
+
+.. attention::
+
+    Bagian ini hanya sebagai penambah informasi saja, untuk info lebih lengkap silahkan kunjungi pada file ``facade`` dan ``contract``
+
+
+````````````````
+Facade
+````````````````
+
+Facade adalah cara dalam menggunakan ``resolve`` laravel dengan lebih singkat.
+
+Misalkan saja kita dapat menggunakan syntax **Log::info('message')**
+
+Maka sebenarnya kita me``resolve`` **app('log')->info('message')**.
+
+Untuk menggunakan fitur facade pada class luar(library) anda dapat melihat pada file facade.
+
+Sedangkan laravel sendiri memiliki cara tersendiri dalam membuat fitur facade, selengkapanya anda dapat membaca pada bagian catatan dibawah.
+
+
+````````````````
+Contract
+````````````````
+
+disini penulis hanya ingin membahas contract dari sisi laravel saja untuk mempermudah.
+
+Mungkin bagian ini hampir mirip dengan ``binding interface``, namun memiliki perbedaan pada masalah dasar fungsionalitas.
+
+Contract di dalam laravel digunakan sebagai penentu kebutuhan pengakses yang diperlukan dalam berjalannya aplikasi laravel.
+
+semisal kita memiliki adanya suatu aplikasi pengirim newsletter, misalkan mengirimkan informasi/pesan ke ``mailserver`` yang kita miliki.
+
+``mailserver`` itu sendiri adalah library yang berasal dari class luar.
+
+Pada sebelumnya kita hanya menjadikan depedency class ``mailserver`` tersebut, masalah muncul ketika kita harus menggunakan ``mailserver`` lain.
+
+file ``App/MailChimp``
+
+.. code-block:: php
+
+    <?php 
+    namespace App;
+    class MailChimp {
+
+        public function subscribe($email)
+        {
+            return 'subscribing ' . $email . ' to mailchimp server.';
+        }
+    }
+
+flle **App/NewsLetterV1**
+
+.. code-block:: php
+
+    <?php namespace App;
+    class NewsLetterV1 {
+
+        protected $mailchimp;
+         
+        public function __construct(MailChimp $mailchimp)
+        {
+            $this->mailchimp = $mailchimp;
+        }
+        public function register($email) {
+            return $this->mailchimp->subscribe($email);
+        }
+    }
+
+.. image:: images/gambar/contratcs.jpg
+
+Namun bagaimana jika kita memiliki ``mailserver`` lain dan akan kita jalankan secara **on the fly**, semisal `mail server` berikut:
+
+file ``App/CampaignMonitor``
+
+.. code-block:: php
+
+    <?php namespace App;
+    class CampaignMonitor {
+
+        public function add($email)
+        {
+        return 'subscribing ' . $email . ' to campaign monitor server.';
+        }
+    }
+
+Satu-satunya jalan adalah membuat `interface` (contract) dan membuat class wrapper yang menginplementasi interface tersebut karena seperti diketahui bahwa ``mailserver`` MailChimp dan CampaignMonitor berasal dari class luar(library luar)
+
+file **App/Contracts/MailListContract**
+
+.. code-block:: php
+
+    <?php namespace App\Contracts;
+
+    interface MailListContract {
+        /**
+        * Mendaftarkan email ke server mailing list
+        * @param String $email
+        */
+        public function register($email);
+    }
+
+file **App/MailChimpList**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    use App\Contracts\MailListContract;
+    class MailChimpList implements MailListContract {
+        protected $mailchimp;
+        public function __construct(MailChimp $mailchimp)
+        {
+            $this->mailchimp = $mailchimp;
+        }
+        public function register($email)
+        {
+            return $this->mailchimp->subscribe($email);
+        }
+    }
+
+file **App/CampaignMonitorList**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    use App\Contracts\MailListContract;
+    class CampaignMonitorList implements MailListContract {
+        protected $campaignMonitor;
+        public function __construct(CampaignMonitor $campaignMonitor)
+        {
+            $this->campaignMonitor = $campaignMonitor;
+        }
+        public function register($email)
+        {
+            return $this->campaignMonitor->add($email);
+        }
+    }
+
+file **App/NewsLetterV3**
+
+.. code-block:: php
+
+    <?php namespace App;
+    use App\Contracts\MailListContract;
+    class NewsLetterV3
+    {
+        protected $mailList;
+        public function __construct(MailListContract $mailList)
+        {
+            $this->mailList = $mailList;
+        }
+        public function register($email) {
+            return $this->mailList->register($email);
+        }
+    }
+
+.. image:: images/gambar/contracts2.jpg
+
+.. hint::
+
+    tujuan utama dengan adanya contract ini adalah kita dapat menggunakan lebih dari satu class dalam mengakses satu komponen dalam laravel.
+
+.. note::
+
+    Hal yang masih belum diketahui oleh penulis adalah dalam laravel tidak terdapat adanya binding interface contract.
+
+    dari sumber referensi yang ada bahwa binding terjadi pada file Illuminate/Foundation/Application.php pada method registerCoreContainerAliases di variabel key 'aliases' didalamnya terdapat key dan value.
+
+    bindingnya adalah key yang sama dengan facade dan valuenya adalah file class asli dan terkadang ada file contract tersebut, ini tentunya sangat aneh sekali. mengapa pula kita memberikan value berupa contract(interface)nya, dan anehnya lagi kita bisa melakukan ``resolve`` dengan contract(interface) ini.
+
+
+.. image:: images/gambar/facadecontracts.jpg
+
+.. image:: images/gambar/facadecontracts2.jpg
+
+seperti yang diketahui adalah laravel membuatkan facade di file config/app.php pada key aliases, kita juga dapat mengguakan class luar dengan menuliskan facade disini , misalkan kita akan mengambil contoh binding log yang akan ditulis facadenya di Support/Facades/Log
+
+.. image:: images/gambar/facade.jpg
+
+kemudian facade ini akan mengambil sebuah key (key binding) , keynya yaitu berupa string log
+
+.. image:: images/gambar/facade2.jpg
+
+binding terjadi pada file 'illuminate/Foundation/Application' , key binding ini anehnya tidak seperti dengan binding interface namun berbentuk array dan valuenya adalah class yang akan mengimplemntasikan interface(contract)
+
+.. image:: images/gambar/keybinding.jpg
+
+jika kita melihat class aslinya, maka akan ditrmui bahwa class asli ini mengimpmentasikan contract
+
+.. image:: images/gambar/classasli.jpg
+
+.. image:: images/gambar/classasli2.jpg
+
+
+muncul pertanyaan bagaimanakah menggunakan class lain ketika kita tahu bahwa hanya satu class yang akan dijalankan dan itu adalah class yang mengimplementasikan interface(contract), apakah memang secar internal class dalam laravel hanya dijalankan oleh satu class
+
+Bagaimana jika kita menggunakan class luar, apa perlu untuk mengimplentasikan interface(contract) tersebut
+
+**well kemungkinan tidak**
+
+dan mungkin saja komponen di laravel ini memang hanya menggunakan satu class saja
+
+dalam `bukularavel rahmatawaludin` pun juga seperti itu
+
+ketika kita meggunakan contract itu(menyertakan) dan menjadikan depedency maka secara otomatis kita akan menggunakan class 'Illuminate/Log/Writer'
+
+contoh file **app/NewsLetterV3.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+    use App\Contracts\MailListContract;
+    use Illuminate\Contracts\Logging\Log;
+    class NewsLetterV3 {
+        protected $mailList;
+        protected $logger;
+        public function __construct(MailListContract $mailList, Log $logger)
+        {
+            $this->mailList = $mailList;
+            $this->logger = $logger;
+        }
+        public function register($email) {
+            $this->logger->info('User baru diregistrasi : ' . $email);
+            return $this->mailList->register($email);
+        }
+    }
+
+.. image:: images/gambar/contract4.jpg
+
+.. image:: images/gambar/contract5.jpg
+
+======================================================
+Facades
+======================================================
+
+``Facade`` adalah shortcut dalam mempermudah pengaksesan resolve.
+
+misalkan resolve ``app('log')->info('message')`` dengan facade maka akan menjadi ``Log::info('message');``
+
+Perlu diketahui bahwa syntax ``Log::info('message')`` **bukan** berarti mengakses static method info.
+
+Karena sebenarnya facade ini hanya untuk mempermudah dalam coding, berikut percobaan
+
+.. image:: images//3.arsitektur_laravel/Facades_oprek.jpg
+
+selanjutnya akan muncul keterangan log pada storage/logs
+
+.. image:: images/3.arsitektur_laravel/Facades_oprek_2.jpg
+
+.. image:: images/3.arsitektur_laravel/Facades_oprek_3.jpg
+
+Namun saat membuka file tersebut (**log.php**) maka tidak akan ada method static info.
+
+Membuat Facades
+``````````````````
+
+Kita dapat membuat facades, bahkan dari library.
+
+Dibawah kita akan mencoba membuat facade dari library **commonMarkdownConverter**
+
+terdapat 3 langkah untuk membuat facade ini :
+
+1. Membuat Binding ke service container
+
+2. Membuat ``Facade`` class yang me-extends class Illuminate\Support\Facades\Facade.
+
+3. Membuat ``alias`` di **config/app**
+
+.. attention::
+
+    dalam langkah 1 kita sudah membuatnya , yang mana kita membuat semua nya sekalian dengan service provider nya
+
+2.buat class **Facades**
+
+file **app/Facades/MarkdownFacade.php**
+
+.. code-block:: php
+
+    <?php namespace App\Facades;
+    use Illuminate\Support\Facades\Facade;
+
+    class MarkdownFacade extends Facade {
+        protected static function getFacadeAccessor() { return 'markdown'; }
+    }
+
+Tambahkan `key markdown` di dalam file **config/app.php**::
+
+    'Markdown' => 'App\Facades\MarkdownFacade',
+
+.. image:: images/3.arsitektur_laravel/Facades_oprek_4.jpg
+
+======================================================
+Contracts
+======================================================
+
+Dalam materi sebelumnya sebenarnya fitur Contracts ini sudah dicoba, yaitu pada materi ``Service Container`` pada bahasan ``binding interface``
+
+Perbedaanya adalah, pada fitur Contracts ini kita meletakkan interface(dalam hal ini contracts) yang akan menjadi depedency di dalam suatu direktori (tidak bersama dengan file eksekusi).
+
+berikut strukturnya
+
+`materi Binding interface`::
+
+        app/
+        ├── PaymentMethod.php   => **interface*
+        ├── Pelanggan.php       => **file eksekusi (membutuhkan depedency object yang me-implement interface)**
+        ├── KartuKredit.php     => **class depedency yang akan me-implent interface**
+
+
+`materi Contracts`::
+
+    root/
+    ├── Contracts
+    |  └── MailListContract.php
+    ├── NewsLetterV3.php
+    ├── KirimSurat.php
+
+
+pada materi Contracts ini kita akan menyertakan file Contracts pada file eksekusi dan class depedency yang akan me-implement interface
+
+misal : **use App\Contracts\MailListContract;**
+
+Contracts adalah suatu cara dalam laravel dalam membuat suatu object sesuai dengan kriteria yang dikehendaki.
+
+Contracts ini menggunakan interface yang mana nantinya dapat digunakan dalam satu atau lebih dari satu class.
+
+mengapa harus ada contract ???
+
+Karena tidak setiap library memiliki nama method yang sama meski, cara dan hasil methodnya sebenarnya sama(nama methodnya beda, tapi cara dan hasilnya sama).
+
+Misalkan kita memiliki aplikasi yang mana di dalamnya memiliki fitur pengantar pesan (mail) ke server pesan (mailserver) dan aplikasi tersebut berbentuk library.
+
+Jika hanya memiliki satu library maka tidak perlu menggunakan contracts. Semisal berikut
+
+file **App/MailChimp.php** (library ``mailchimp``)
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class MailChimp {
+
+        public function subscribe($email)
+        {
+            return 'subscribing ' . $email . ' to mailchimp server.';
+        }
+    }
+
+file **App/NewsLetterV1** (class yang akan menjalankan class ``MailChimp`` => pada method **subscribe**)
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class NewsLetterV1 {
+        protected $mailchimp;
+         
+        public function __construct(MailChimp $mailchimp)
+        {
+            $this->mailchimp = $mailchimp;
+        }
+        public function register($email) {
+            return $this->mailchimp->subscribe($email);
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/contracts_nousecontract.jpg
+
+Namun Bagaimana bila kita diharuskan membuat **2** saluran mailserver, yang mana tentu saja nama method daripada fungsi **subscribe** kemungkinan berbeda.
+
+Semisal kita akan menggunakan library **CampaignMonitor**, dan ternyata nama method dalam subscribenya adalah **add()**.
+
+Bisa saja kita membuat 1 class untuk satu ``MailServer``,namun bagaimana jika mail servernya bertambah lagi???
+
+Dalam kasus ini kita dapat membuat contracts sehingga hanya dibutuhkan beberapa class yang dapat mengakses library lebih dari 1.
+
+Contracts bebrentuk interface yang dapat diletakkan dimana saja, misal kan kita membuat contracts berikut
+
+file **App/CampaignMonitor.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    class CampaignMonitor {
+
+        public function add($email)
+        {
+            return 'subscribing ' . $email . ' to campaign monitor server.';
+        }
+    }
+
+file **App/NewsLetterV3.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    //berikut ini adalah script contractnya
+    use App\Contracts\MailListContract;
+    class NewsLetterV3 {
+        protected $mailList;
+        public function __construct(MailListContract $mailList)
+        {
+            $this->mailList = $mailList;
+        }
+        public function register($email) {
+            return $this->mailList->register($email);
+        }
+    }
+
+Dikarenakan class **NewsLetter** membutuhkan adanya depedency berupa object yang me-implement interface **MailListContract** maka untuk dapat memberikan argumentnya kita harus membuat object yang mana me-implement interface **MailListContract**.
+
+ada 2 cara, yaitu mengubah library (**MailChimp** dan **CampaignMonitor**) untuk me-implement interface **MailListContract** dan me-override method ``register``, atau dengan membuat class `wrapper`,atau class baru yang me-adaptasi(adapter) library tersebut.
+
+Cara kedua jauh lebih baik karea kita tidak perlu merubah struktur asli library.
+
+file **App/MailChimpList.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+     
+    use App\Contracts\MailListContract;
+     
+    class MailChimpList implements MailListContract {
+        protected $mailchimp;
+        
+        public function __construct(MailChimp $mailchimp)
+        {
+            $this->mailchimp = $mailchimp;
+        }
+
+        public function register($email)
+        {
+            return $this->mailchimp->subscribe($email);
+        }
+    }
+
+file **App/CampaignMonitorList.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+
+    use App\Contracts\MailListContract;
+
+    class CampaignMonitorList implements MailListContract {
+        protected $campaignMonitor;
+
+        public function __construct(CampaignMonitor $campaignMonitor)
+        {
+            $this->campaignMonitor = $campaignMonitor;
+        }
+        public function register($email)
+        {
+            return $this->campaignMonitor->add($email);
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/contracts_usecontract.jpg
+
+.. note::
+
+    Karena contract berbentuk interface maka kita harus melakukan binding
+
+.. image:: images/3.arsitektur_laravel/contracts_usecontract_2.jpg
+
+.. note::
+
+    Dikarenakan kita akan memberikan argument pada method reguiter berupa email, maka di interface juga diberikan parameter tersebut.
+
+    Setiap method interface harus sama persis dengan class yang me-implementasikan, jika semisal method register dalam interface MailListContract tidak memiliki parameter, tentu clas yang me-implementnya tidak boleh ada parameternya
+
+file **App\KirimSurat.php**
+
+.. code-block:: php
+
+    <?php namespace App;
+     
+    use App\Contracts\MailListContract;
+    class KirimSurat implements MailListContract {
+     
+        public function register($email)
+        {
+            return 'Mendaftarkan email ' . $email . ' ke server Kirim Surat.';
+        }
+    }
+
+.. image:: images/3.arsitektur_laravel/contracts_usecontract_3.jpg

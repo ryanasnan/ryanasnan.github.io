@@ -1,0 +1,159 @@
+Introduction
+=====================
+
+``Javascript`` adalah bahasa standar yang digunakan dalam halaman web, tetapi juga secara luas digunakan pada ``desktop apps``, ``apps`` ponsel dan server internet.
+
+Javascript merupakan ``Scripting Language`` (Bahasa Script), yaitu bahasa pemrograman yang mendukung penulisan pada script.
+
+Script adalah baris kode yang dapat di-interpretasikan dan dieksekusi ``on-the-fly`` , tanpa adanya compile nyata dan langkah secara berbaris.
+
+Maksudnya adalah Javascript dapat di-interpretasikan (dimasukkan) pada hampir semua browser(firefox, chrome, opera, dll) dan kodenya dapat dieksekusi secara terpisah dari pembacaan file(baru akan dieksekusi saat adanya event baik dari halaman atau dari user)
+
+**Kegunaan Javascript** :
+
+* Javascript memberikan desainer HTML sebuah alat bantuan dalam pemrograman
+
+Membuat HTML tidak dapat dikatakan sebagai membuat sebuah program, namun adanya javascript yang diletakkan di dalam HTML maka HTML akan menjadi suatu program yang menjalankan syntax-nya
+
+* Javascript dapat memanipulasi HTML dan CSS
+
+Javascript dapat membaca dan mengganti (r/w) isi dari elemen HTML dan juga style dari elemen HTML
+
+* Javascript dapat memvalidasi data
+
+Javascript dapat digunakan untuk mem-validasi data, seperti saat melakukan form input
+
+* Javascript dapat menyimpan data
+
+Javascript dapat menyimpan dan me-retrieve(menampilkan) informasi dari pengunjung komputer.
+
+* Javascript bereaksi terhadap suatu event
+
+Javascript dapat di-set untuk mengeksekusi ketika terjadi sesuatu(event), misalkan seperti ketika user mengklik elemen HTML
+
+=========================
+**Javascript VS JAVA**
+=========================
+
+Javascript berbeda dengan Java dan keduanya merupakan bahasa yang berbeda baik konsep maupun desain.
+
+Java(dikembangkan oleh SUn Microsystems) adalah bahasa pemrograman kompleks yang sama dengan bahasa C/C++.
+
+Sedangkan javascript dikembangkan oleh ECMA yang dipelopori oleh Brendan Eich pada Netscape.
+
+Pengembangan daripada Javascript masih dilakukan.
+
+=========================
+Script Javascript
+=========================
+
+Script/code Javascript diletakkan di dalam tag <script>.
+
+misal::
+
+    <script>
+    //code javascript
+    </script>
+
+.. note::
+
+    Dalam beberapa contoh terdapat atribut di dalam tag script yaitu "text/script='javascript' " dan "language='javascript'".
+
+    Atribut tersebut sudah tidak perlu diberikan pada html 5.
+
+=========================
+Letak Javascript
+=========================
+
+Script daripada javascript dapat diletakkan di dalam **head** (<head></head>) atau di dalam **body** (<body></body>).
+
+Namun yang perlu diperhatikan, meski javascript berisi syntax yang biasa digunakan dengan cara pemanggilan yang dinamis dalam suatu web(on the fly), namun sebenarnya peletakan dalam javascript juga berpengaruh.
+
+Ini dikarenakan document HTML akan dibaca dari atas ke bawah (urut), begitu pula setiap object element-nya(termasuk tag <script>).
+
+Artinya manipulasi javascript terhadap object document HTML baru bisa dilakukan jika Object document HTML TELAH TERBENTUK.
+
+Jika belum ada object document HTML, maka javascript juga tidak akan dapat memanipulasi object document HTML tersebut.
+
+Tetapi bukan berarti javascript tidak boleh dipasang di dalam tag <head>.
+
+Hal ini juga membutuhkan kebutuhan syntax daripada javascript terhadap manipulasi object document HTML.
+
+Syntax javascript bisa saja hanya diberikan function-function atau object literal, dan mungkin setiap menjalankannya dibutuhkan adanya event.
+
+Contoh
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Introduction</title>
+        </head>
+        <body>
+            <p id="pertama">Paragraf Pertama</p>
+            <p id="kedua">Paragraf Kedua</p>
+            <script>
+                document.getElementById("kedua").innerHTML = "Paragraf Kedua <b>diubah</b>";
+            </script>
+        </body>
+    </html>
+     
+    <!-- COMMENT -->
+
+.. image:: images/Basic_Introduction.jpg
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Introduction</title>
+            <script>
+                document.getElementById("kedua").innerHTML = "Paragraf Kedua <b>diubah</b>";
+            </script>
+        </head>
+        <body>
+            <p id="pertama">Paragraf Pertama</p>
+            <p id="kedua">Paragraf Kedua</p>
+        </body>
+    </html>
+
+    <!-- COMMENT -->
+
+.. image:: images/Basic_Introduction_2.jpg
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Introduction</title>
+            <script>
+            function ubah()
+            {
+                document.getElementById("kedua").innerHTML = "Paragraf Kedua <b>diubah</b>";
+            }
+            </script>
+        </head>
+        <body>
+            <p id="pertama">Paragraf Pertama</p>
+            <p id="kedua" onclick="ubah();">Paragraf Kedua</p>
+        </body>
+    </html>
+
+    <!-- COMMENT -->
+
+.. image:: images/Basic_Introduction_3_part1.jpg
+
+.. image:: images/Basic_Introduction_3_part2.jpg
+
+External Javascript
+````````````````````````
+
+Javascript dapat diletakkan dari sumber luar(file luar) dengan mengguankan atribut "src"
+
+misal :
+
+<script src="../base.js"></script>
+

@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Multi Branch di Laravel dan setting untuk deploy &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Mobile Apps" href="mobile-apps.html"/>
+        <link rel="prev" title="Manajemen FIle" href="file-management.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multi Branch di Laravel dan setting untuk deploy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#multi-branch-di-laravel">Multi Branch di Laravel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-untuk-deploy-dengan-adanya-setting-gitignore-tersebut">Setting untuk deploy dengan adanya setting gitignore tersebut</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-deploy">Setting deploy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Multi Branch di Laravel dan setting untuk deploy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/laravel-multi-branch-and-set-deploy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="multi-branch-di-laravel-dan-setting-untuk-deploy">
+<h1>Multi Branch di Laravel dan setting untuk deploy<a class="headerlink" href="#multi-branch-di-laravel-dan-setting-untuk-deploy" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="multi-branch-di-laravel">
+<h2>Multi Branch di Laravel<a class="headerlink" href="#multi-branch-di-laravel" title="Permalink to this headline">¶</a></h2>
+<p>Repository Laravel sebenarnya sudah sangat cukup fleksibel, bahkan satu repo dapat berisikan berbagai versi project atau bahkan bermacam macam project jika dimanage dengan sangat baik.</p>
+<p>Yang menjadi masalah terbesar disini adalah apakah setiap package laravel dapat disimpan ke dalam tiap branch tersendiri ???</p>
+<p>Sebenarnya bisa, tetapi artinya semua file dan folder yang berada di repo akan dimasukkan ke git (tidak ada yang diignore), yang artinya tentu tidak akan menjadi repo yang fleksibel jika packagenya berbeda tiap branch.</p>
+<p>Artinya akan jauh lebih baik jika semua package diletakkan menjadi satu, yang artinya ketika suatu branch membutuhkan package tidak perlu menginstall lewat composer laig, karena ternyata sebelumnya telah terdapat adanya package tersebut.</p>
+<p>Untuk membuat sampai se-fleksibel tersebut maka dibutuhkan adanya management git ignore yang cukup baik.</p>
+<p>Berikut adalah saran pengisian gitignore pada repository laravel agar dapat menjadi fleksibel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">vendor</span>
+<span class="o">/</span><span class="n">node_modules</span>
+<span class="o">/</span><span class="n">bootstrap</span>
+<span class="o">/</span><span class="n">storage</span>
+<span class="o">/</span><span class="n">tests</span>
+<span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">example</span>
+<span class="n">artisan</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">json</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">lock</span>
+<span class="n">gulpfile</span><span class="o">.</span><span class="n">js</span>
+<span class="n">package</span><span class="o">.</span><span class="n">json</span>
+<span class="n">phpspec</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">phpunit</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">md</span>
+<span class="n">server</span><span class="o">.</span><span class="n">php</span>
+</pre></div>
+</div>
+<p>Dengan begitu setiap adanya penambahan package di file <code class="docutils literal"><span class="pre">composer.json</span></code> maka akan memasukkan ke direkgori <code class="docutils literal"><span class="pre">vendor</span></code> (bahkan dapat digunakan di gulp), sehingga branch lain juga dapat menggunakan package tersebut.</p>
+<div class="section" id="setting-untuk-deploy-dengan-adanya-setting-gitignore-tersebut">
+<h3>Setting untuk deploy dengan adanya setting gitignore tersebut<a class="headerlink" href="#setting-untuk-deploy-dengan-adanya-setting-gitignore-tersebut" title="Permalink to this headline">¶</a></h3>
+<p>Kemudian jika file/folder penting di-ignore, kemudian bagaimana bisa kita mendeploynya ???</p>
+<p>Serperti misalkan file <code class="docutils literal"><span class="pre">composer.json</span></code> dan <code class="docutils literal"><span class="pre">.env</span></code>, atau file lain yang terhidden, bukankah juga penting ???</p>
+<p>Maka dari itu saat akan melakukan deploy berikut adalah langkah yang paling tepat:</p>
+<ol class="arabic">
+<li><p class="first">Buat branch baru khusus untuk deploy</p>
+<blockquote>
+<div><p>Semisal memiliki branch <code class="docutils literal"><span class="pre">trukinv2</span></code>, berarti kita akan membuat branch <code class="docutils literal"><span class="pre">deploy_trukinv2</span></code></p>
+<p>Branch ini adalah branch sementara, fungsinya hanya untuk deploy</p>
+</div></blockquote>
+</li>
+<li><p class="first">Hapus beberapa file/folder di file <code class="docutils literal"><span class="pre">.gitignore</span></code> pada branch khusus deploy tersebut</p>
+<blockquote>
+<div><p>Berikut adalah file/folder yang dihapus pada file <code class="docutils literal"><span class="pre">.gitignore</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">bootstrap</span>
+<span class="o">/</span><span class="n">storage</span>
+<span class="o">/</span><span class="n">tests</span>
+<span class="n">artisan</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">json</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">lock</span>
+<span class="n">gulpfile</span><span class="o">.</span><span class="n">js</span>
+<span class="n">package</span><span class="o">.</span><span class="n">json</span>
+<span class="n">phpspec</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">phpunit</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">md</span>
+<span class="n">server</span><span class="o">.</span><span class="n">php</span>
+</pre></div>
+</div>
+<p>Artinya hanya menyisakan file dan folder berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">vendor</span>
+<span class="o">/</span><span class="n">node_modules</span>
+<span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">example</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Jangan lupa untuk file env dicek di server perlu ada penggantian atau tidak</p>
+</li>
+<li><p class="first">Lakukan deploy (push)</p>
+<blockquote>
+<div><p>Dalam git biasanya jika ingin mendeploy suatu branch non master ke master maka kita harus mendeskripsikannya,</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">gitlab</span> <span class="n">trukinv2</span><span class="p">:</span><span class="n">master</span>
+</pre></div>
+</div>
+<p>artinya branch lokal <code class="docutils literal"><span class="pre">trukinv2</span></code> akan dipush ke branch remote <code class="docutils literal"><span class="pre">master</span></code></p>
+</div></blockquote>
+</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li>Hapus branch khusus deploy tersebut</li>
+</ol>
+<p>selanjutnya dapat menggunakan <code class="docutils literal"><span class="pre">composer</span> <span class="pre">install</span></code> untuk menginstall package di file <code class="docutils literal"><span class="pre">composer.json</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Artinya file <code class="docutils literal"><span class="pre">.env</span></code> tidak di-ignore???</p>
+<p class="last">Ya, karena ini dalam tiap branch akan berbeda beda settingnya</p>
+</div>
+<p>note:</p>
+</div>
+</div>
+<div class="section" id="setting-deploy">
+<h2>Setting deploy<a class="headerlink" href="#setting-deploy" title="Permalink to this headline">¶</a></h2>
+<p>ingat permission harus 775 dan chown www-data:user-name</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mobile-apps.html" class="btn btn-neutral float-right" title="Mobile Apps" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="file-management.html" class="btn btn-neutral" title="Manajemen FIle" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

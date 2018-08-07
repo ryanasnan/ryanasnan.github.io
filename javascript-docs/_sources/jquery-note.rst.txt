@@ -1,0 +1,9 @@
+Catatan jQuery
+========================
+
+unutk mneggunakan opertator gunakan tanda kurung
+
+    cloneInput.appendTo($('#multi-image-list')).addClass('uploaded-file').attr('name', 'image-vehicle-list['+($('.uploaded-file').length - 1)+']');
+
+akan gagal
+    cloneInput.appendTo($('#multi-image-list')).addClass('uploaded-file').attr('name', 'image-vehicle-list['+$('.uploaded-file').length - 1+']');

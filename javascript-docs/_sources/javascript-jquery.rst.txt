@@ -1,0 +1,132 @@
+JQuery
+===========
+
+JQuery merupakan salah satu library pada javascript.
+
+JQuery akan mempermudah dalam penggunaan javascript, seperti manipulasi element, ajax, pengaksesan object dan lainnya.
+
+Ketika membuat atau mengambil suatu element dalam jQuery maka jQuery akan me-return element tersebut dalam sebuah collection (koleksi object).
+Yang mana kita akan dapat menggunakan collection tersebut untuk melakukan berbagai manipulasi.
+
+.. note::
+
+	Sebenarnya Object Collection dalam jQuery hampir mirip dengan array, karena terdapat adanya property length, namun sebenarnya bukanlah array, namun lebih kompleks dari object itu sendiri.
+
+Contoh object collection pada jQuery
+
+.. literalinclude:: source-code/programming-test/jquery/concept-and-architecture/jQuery-collection-object.html
+	:language: html
+
+Result
+
+.. image:: images/jquery-collection-object.png
+
+
+Keuntungan menggunakan jQuery :
+
+- compability 
+
+	Tidak kesemua browser memiliki `interpret` javascript yang sama, yang artinya antara satu browser satu dengan yang lain mungkin ada sedikit perbedaan dalam menggunakan syntax javascript.
+
+	Namun dengan menggunakan jQuery maka kesemua syntax nya dapat digunakan oleh semua browser (hampir semua).
+
+	contoh::
+
+		var target = document.getElementById( "target" );
+		 
+		target.innerHTML = "<td>Hello <b>World</b>!</td>"
+
+	sedangkan dengan jQuery::
+
+		// Setting the inner HTML with jQuery.
+		 
+		var target = document.getElementById( "target" );
+		 
+		$( target ).html( "<td>Hello <b>World</b>!</td>" );
+
+	.. warning::
+	
+		Dalam javascript sendiri sebenarnya ada perbedaan antara append dan appendChild.
+
+		Bisa dilihat pada referensi :ref:`append-appendchild-in-js`
+
+- convenience
+
+	Penggunaan syntax javascript sendiri masih dirasa kurang baik dalam penggunaannya.
+	Dengan jquery maka penggunaan syntax javascript akan lebih mudah dan lebih sedikit.
+
+	Misal::
+
+		// Inserting a new element after another with the native DOM API.
+		 
+		var target = document.getElementById( "target" );
+		 
+		var newElement = document.createElement( "div" );
+		 
+		target.parentNode.insertBefore( newElement, target.nextSibling );
+
+	sedangkan di jQuery jauh lebih simpel dan pendek::
+
+		// Inserting a new element after another with jQuery.
+		 
+		var target = document.getElementById( "target" );
+		 
+		var newElement = document.createElement( "div" );
+		 
+		$( target ).after( newElement );
+
+
+Jquery Object architecture
+=============================
+
+jQuery sedikit merombak code dalam javascript.
+Tujuannya adalah untuk mempermudah dalam manipulasi dengan syntax javascript.
+
+Penggunaan tanda ``jQuery`` atau ``$`` pada jQuery adalah merepresentasikan object di dalam jQuery.
+Object tersebut dapat digunakan untuk menggunakan member object di dalamnya.
+
+Semisal adalah menyeleksi suatu element.
+
+Penggunaannya adalah ``$(argumentContainElementSelector)`` atau ``jQuery(argumentContainElementSelector)``.
+
+Setelah menggunakan jquery object (yang diberikan argument berupa selector element) diatas maka keselanjutnya kita dapat menggunakan member object yang telah ada di jQuery untuk memanipulasi element tersebut, semisal mengetahui value suatu attribute dalam element tersebut.
+
+Jquery juga telah mengganti penggunaan **property** ``prototype`` menjadi **property** ``fn`` untuk mempermudah dalam menggunakan pewarisan.
+
+Contoh implementasi arsitektur jQuery
+
+.. literalinclude:: source-code/programming-test/jquery/variable-in-jquery/1.jQuery-simple-architecture.html
+	:language: html
+
+Result
+
+.. image:: images/1.jQuery-simple-architecture.png
+
+jQuery sendiri telah menyertakan extension nya sendiri (atau biasa disebut API) seperti untuk implementasi DOM, AJAX, dan lainnya.
+
+Selain itu juga, terdapat extension lain (extension tambahan) yang ada di jQuery seperti datatable, FullCalendar, yang dibuat oleh developer lain sebagai pembantu dalam menggunakan aplikasi berkaitan dengan javascript.
+
+.. note:: 
+
+	**Naming convention variable pada jquery**
+
+	Dalam jQuery untuk mendeklarasikan suatu variable biasa dengan menambahkan tanda ``$`` di depannya, tujuannya untuk membedakan antara variable ``jQuery`` dan variable ``javascript``.
+
+	Misal seperti berikut::
+
+		var $myHeaderDiv = $('#header');
+		var myHeaderDiv = document.getElementById('header');
+
+	Dalam contoh diatas variable ``$myHeaderDiv`` adalah object di jQuery maka kita akan dapat menggunakan api pada object tersebut.
+
+	misal::
+
+		$myHeaderDiv.fade();
+
+	Penggunaan jQuery atau $ adalah sama
+	
+	misal::
+
+		var $myHeaderDiv = jQuery(myHeaderDiv); //assign
+		$(myHeaderDiv).fade(); //use
+

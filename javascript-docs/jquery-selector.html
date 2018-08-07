@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JQuery Selector &mdash; javascript-mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="javascript-mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Catatan jQuery" href="jquery-note.html"/>
+        <link rel="prev" title="JQuery" href="javascript-jquery.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> javascript-mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="javascript-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-variable.html">Javascript Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-object.html">1&nbsp;&nbsp;&nbsp;Javascript Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-function.html">1&nbsp;&nbsp;&nbsp;Javascript Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-dom.html">Javascript DOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html">Catatan Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html#apa-itu-span">apa itu span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html">JQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-jquery.html#jquery-object-architecture">Jquery Object architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JQuery Selector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-selector">Common Selector</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#all-element">All Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-by-identifier">Select by Identifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-by-class">Select by Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-by-element">Select by Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-element-selection">Multi Element Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#direct-element-selection">Direct Element Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parent-descendant">Parent Descendant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-element-selection">Next Element Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-sibling">Element Sibling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-attribute-selector-in-one-element">Multiple attribute selector in one Element</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#select-by-position-of-element">Select By Position of Element</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#position-element">Position Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specific-position-element">Specific Position Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#single-index-selection">Single Index Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-index-selection">Multi Index Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#select-by-element-attribute">Select by Element Attribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#select-by-attribute">Select by Attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#has-selection">Has Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contain-selection">Contain Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visibility-selection">Visibility Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parent-selection">Parent Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#not-selection">Not Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#input-selector">Input Selector</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-type">Input Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-variety-element">Input variety Element</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-note.html">Catatan jQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-library-and-plugin.html">Javascript Library dan Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-library-and-plugin.html">jQuery Library and Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-input-another-language.html">Memasukkan bahasa pemrograman lain ke dalam javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="array-php-to-array-javascript.html">Array PHP ke Array Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-class-each-process.html">jQuery proses value tiap class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-integration-in-ie.html">1&nbsp;&nbsp;&nbsp;Integrasi Javascript di Browser Internet Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-stack-problem-fix.html">Kumpulan perbaikan masalah Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="temporary-list-record.html">Daftar Catatan Sementara</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">javascript-mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>JQuery Selector</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/jquery-selector.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jquery-selector">
+<h1>JQuery Selector<a class="headerlink" href="#jquery-selector" title="Permalink to this headline">¶</a></h1>
+<p>Jquery telah menyediakan cara untuk memilih suatu element DOM berdasarkan dari selector-nya.</p>
+<p>Jika dikelompokkan maka akan terdapat 4 tipe selector yang digunakan yaitu common selector, select by position of element, select by element attribute, input selector.</p>
+<p>Tabel dari masing masing selector dan reference nya.</p>
+<p><strong>Common Selector</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="17%" />
+<col width="8%" />
+<col width="53%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>name_selector</td>
+<td>selector</td>
+<td>example</td>
+<td>explain</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#all-element"><span class="std std-ref">All Element</span></a></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>$(“*”)</td>
+<td>Menyeleksi semua element pada html</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#select-by-identifier"><span class="std std-ref">Select by Identifier</span></a></td>
+<td>#id</td>
+<td>$(“#identifier”)</td>
+<td>Menyeleksi element yang memiliki id=”identifier”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#select-by-class"><span class="std std-ref">Select by Class</span></a></td>
+<td>.class</td>
+<td>$(“.class”)</td>
+<td>Menyeleksi element yang memiliki class=”class”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#select-by-element"><span class="std std-ref">Select by Element</span></a></td>
+<td>name-of-element</td>
+<td>$(“p”)</td>
+<td>Menyeleksi element &lt;p&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#multi-element-selection"><span class="std std-ref">Multi Element Selection</span></a></td>
+<td>selector1, selector2, … , selectorn</td>
+<td>$(“h1,div,p”)</td>
+<td>Menyeleksi element &lt;h1&gt;, &lt;div&gt; dan &lt;p&gt;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#direct-element-selection"><span class="std std-ref">Direct Element Selection</span></a></td>
+<td>selector-parent &gt; selector-child</td>
+<td>$(“div &gt; p”)</td>
+<td>Menyeleksi element &lt;p&gt; yang mana memiliki parent dalam satu level berupa element &lt;div&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#parent-descendant"><span class="std std-ref">Parent Descendant</span></a></td>
+<td>selector1 selector 2</td>
+<td>$(“div p”)</td>
+<td>Menyeleksi element &lt;p&gt; yang mana memiliki parent dalam beberapa level berupa element &lt;div&gt;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#next-element-selection"><span class="std std-ref">Next Element Selection</span></a></td>
+<td>selector1 + selector-next</td>
+<td>$(“div + p”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada setelah elament &lt;div&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#element-sibling"><span class="std std-ref">Element Sibling</span></a></td>
+<td>selector1 ~ selector-sibling</td>
+<td>$(“div ~ p”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada pada level yang sama dengan element &lt;div&gt; dan berada setelah element &lt;div&gt; tersebut</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#multiple-attribute-selector-one-element"><span class="std std-ref">Multiple attribute selector in one Element</span></a></td>
+<td>selector1selector 2</td>
+<td>$(“div.class”)</td>
+<td>Menyeleksi element &lt;div&gt; yang memiliki class=class</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Select By Position of Element</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="7%" />
+<col width="9%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>name_selector</td>
+<td>selector</td>
+<td>example</td>
+<td>explain</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#position-element"><span class="std std-ref">Position Element</span></a></td>
+<td>:first</td>
+<td>$(“p:first”)</td>
+<td>Menyeleksi element &lt;p&gt; pertama (awal)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#position-element"><span class="std std-ref">Position Element</span></a></td>
+<td>:last</td>
+<td>$(“p:last”)</td>
+<td>Menyeleksi element &lt;p&gt; terakhir</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#position-element"><span class="std std-ref">Position Element</span></a></td>
+<td>:even</td>
+<td>$(“tr:even”)</td>
+<td>Menyeleksi element &lt;tr&gt; yang berindex genap (0,2,4), namun jika dilihat seperti ganjil (dimulai dari element awal atau pertama) ini dikarenakan index element selalu dimulai dari 0</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#position-element"><span class="std std-ref">Position Element</span></a></td>
+<td>:odd</td>
+<td>$(“tr:odd”)</td>
+<td>Menyeleksi element &lt;tr&gt; yang berindex ganjil (1,3,5), namun jika dilihat seperti genap (dimulai dari element kedua) ini dikarenakan index element selalu dimulai dari index 0</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:first-child</td>
+<td>$(“p:first-child”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index awal (0) pada tiap terdapat adanya element parent, namun jika pada awal element child adalah selain &lt;p&gt;, maka ketika setelahnya terdapat element &lt;p&gt; tetap tidak akan terseleksi</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:first-of-type</td>
+<td>$(“p:first-of-type”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index awal (0) pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang memiliki element &lt;p&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:last-child</td>
+<td>$(“p:last-child”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index terakhir pada tiap terdapat adanya element parent, namun jika pada akhir element child adalah selain &lt;p&gt;, maka ketika sebelumnya terdapat element &lt;p&gt; tetap tidak akan terseleksi</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:last-of-type</td>
+<td>$(“p:last-of-type”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index terakhir pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang memiliki element &lt;p&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:nth-child(n)</td>
+<td>$(“p:nth-child(2)”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index 2 pada tiap terdapat adanya element parent, namun jika pada index 2 element child adalah selain &lt;p&gt;, maka ketika setelahnya terdapat element &lt;p&gt; tetap tidak akan terseleksi</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:nth-last-child(n)</td>
+<td>$(“p:nth-last-child(2)”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index 2 dihitung dari bawah pada tiap terdapat adanya element parent, namun jika pada index tersebut element child adalah selain &lt;p&gt;, maka ketika sebelumnya terdapat element &lt;p&gt; tetap tidak akan terseleksi</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:nth-of-type(n)</td>
+<td>$(“p:nth-of-type(2)”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index 2 pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang sama dan berada di index 2 yang memiliki element &lt;p&gt;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:nth-last-of-type(n)</td>
+<td>$(“p:nth-last-of-type(2)”)</td>
+<td>Menyeleksi element &lt;p&gt; yang berada di index 2 dihitung dari bawah pada tiap terdapat adanya element parent, ini berlaku pada tiap child element yang sama dan berada di index 2 dihitung dari bawah yang memiliki element &lt;p&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:only-child</td>
+<td>$(“p:only-child”)</td>
+<td>Menyeleksi element &lt;p&gt; yang sendirian pada suatu parent. namun jika terdapat element lain sebelumnya maka tidak akan terseleksi</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#specific-position-element"><span class="std std-ref">Specific Position Element</span></a></td>
+<td>:only-of-type</td>
+<td>$(“p:only-of-type”)</td>
+<td>Menyeleksi element &lt;p&gt; yang sendirian pada suatu parent element. Ini juga berlaku jika semisal terdapat element lain pada parent tersebut</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#single-index-selection"><span class="std std-ref">Single Index Selection</span></a></td>
+<td>:eq(index)</td>
+<td>$(“p:eq(3)”)</td>
+<td>Menyeleksi element &lt;p&gt; pada index 3. Namun ini tidak berpengaruh ketika ada element &lt;p&gt; lain yang berada di suatu child dan berada pada index 3</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#multi-index-selection"><span class="std std-ref">Multi Index Selection</span></a></td>
+<td>:gt(no)</td>
+<td>$(“ul li:gt(3)”)</td>
+<td>Menyeleksi element &lt;li&gt; (pada parent ul) yang dimulai dari index 3 dan akan berlaku pada element selanjutnya yang sama (element &lt;li&gt;)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#multi-index-selection"><span class="std std-ref">Multi Index Selection</span></a></td>
+<td>:lt(no)</td>
+<td>$(“ul li:lt(3)”)</td>
+<td>Menyeleksi element &lt;li&gt; (pada parent ul) yang dimulai dari index 3 dihitung dari bawah dan akan berlaku pada element diatasnya yang sama (element &lt;li&gt;)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Select by Element Attribute</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="10%" />
+<col width="12%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>name_selector</td>
+<td>selector</td>
+<td>example</td>
+<td>explain</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#select-by-attribute"><span class="std std-ref">Select by Attribute</span></a></td>
+<td>[attribute]</td>
+<td>$(“[href]”)</td>
+<td>Menyeleksi element yang memiliki attribute “href”. Ini juga bisa dikombinasikan dengan “attribute=value”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#element-has-selection"><span class="std std-ref">Has Selection</span></a></td>
+<td>:has(selector)</td>
+<td>$(“div:has(p)”)</td>
+<td>Menyeleksi element &lt;div&gt; yang memiliki element &lt;p&gt;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#element-contain-selection"><span class="std std-ref">Contain Selection</span></a></td>
+<td>:contains(text)</td>
+<td>$(“p:contains(is)”)</td>
+<td>Menyeleksi element &lt;p&gt; yang memiliki text berupa “is”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#visibility-element"><span class="std std-ref">Visibility Selection</span></a></td>
+<td>:empty</td>
+<td>$(“:empty”)</td>
+<td>Menyeleksi element yang kosong, misal adalah column table yang tidak ada isinya</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#element-parent-selection"><span class="std std-ref">Parent Selection</span></a></td>
+<td>:parent</td>
+<td>$(“td:parent”)</td>
+<td>Menyeleksi element &lt;td&gt; yang tidak kosong, ini merupakan kebalikan dari selector :empty</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#visibility-element"><span class="std std-ref">Visibility Selection</span></a></td>
+<td>:hidden</td>
+<td>$(“p:hidden”)</td>
+<td>Menyeleksi element &lt;p&gt; yang tersembunyi, atau yang memiliki atribute “style:display:none”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#visibility-element"><span class="std std-ref">Visibility Selection</span></a></td>
+<td>:visible</td>
+<td>$(“p:visible”)</td>
+<td>Menyeleksi element &lt;p&gt; yang terlihat atau tidak tersembunyi</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#not-selection"><span class="std std-ref">Not Selection</span></a></td>
+<td>:not(selector)</td>
+<td>$(“p:not(.intro)”)</td>
+<td>menyeleksi element &lt;p&gt; yang tidak memliki class “intro”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Input Selector</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="10%" />
+<col width="15%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>name_selector</td>
+<td>selector</td>
+<td>example</td>
+<td>explain</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:input</td>
+<td>$(“:input”)</td>
+<td>Menyeleksi semua element input</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:text</td>
+<td>$(“:text”)</td>
+<td>Menyeleksi element input dengan attribute type=”text”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:password</td>
+<td>$(“:password”)</td>
+<td>Menyeleksi element input dengan attribute type=”password”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:radio</td>
+<td>$(“:radio”)</td>
+<td>Menyeleksi element input dengan attribute type=”radio”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:checkbox</td>
+<td>$(“:checkbox”)</td>
+<td>Menyeleksi element input dengan attribute type=”checkbox”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:submit</td>
+<td>$(“:submit”)</td>
+<td>Menyeleksi element input dengan attribute type=”submit”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:reset</td>
+<td>$(“:reset”)</td>
+<td>Menyeleksi element input dengan attribute type=”reset”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:button</td>
+<td>$(“:button”)</td>
+<td>Menyeleksi element input dengan attribute type=”button”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:image</td>
+<td>$(“:image”)</td>
+<td>Menyeleksi element input dengan attribute type=”image”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-type"><span class="std std-ref">Input Type</span></a></td>
+<td>:file</td>
+<td>$(“:file”)</td>
+<td>Menyeleksi element input dengan attribute type=”file”</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-variety"><span class="std std-ref">Input variety Element</span></a></td>
+<td>:enabled</td>
+<td>$(“:enabled”)</td>
+<td>Menyeleksi element input yang enable (tidak sedang disable)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-variety"><span class="std std-ref">Input variety Element</span></a></td>
+<td>:disabled</td>
+<td>$(“:disabled”)</td>
+<td>Menyeleksi element input dyang disabled</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#input-variety"><span class="std std-ref">Input variety Element</span></a></td>
+<td>:selected</td>
+<td>$(“:selected”)</td>
+<td>Menyeleksi element input yang dipilih</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#input-variety"><span class="std std-ref">Input variety Element</span></a></td>
+<td>:checked</td>
+<td>$(“:checked”)</td>
+<td>Menyeleksi element input yang dicek</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="common-selector">
+<h2>Common Selector<a class="headerlink" href="#common-selector" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="all-element">
+<span id="id1"></span><h3>All Element<a class="headerlink" href="#all-element" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="select-by-identifier">
+<span id="id2"></span><h3>Select by Identifier<a class="headerlink" href="#select-by-identifier" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="select-by-class">
+<span id="id3"></span><h3>Select by Class<a class="headerlink" href="#select-by-class" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="select-by-element">
+<span id="id4"></span><h3>Select by Element<a class="headerlink" href="#select-by-element" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="multi-element-selection">
+<span id="id5"></span><h3>Multi Element Selection<a class="headerlink" href="#multi-element-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="direct-element-selection">
+<span id="id6"></span><h3>Direct Element Selection<a class="headerlink" href="#direct-element-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="parent-descendant">
+<span id="id7"></span><h3>Parent Descendant<a class="headerlink" href="#parent-descendant" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="next-element-selection">
+<span id="id8"></span><h3>Next Element Selection<a class="headerlink" href="#next-element-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="element-sibling">
+<span id="id9"></span><h3>Element Sibling<a class="headerlink" href="#element-sibling" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="multiple-attribute-selector-in-one-element">
+<span id="multiple-attribute-selector-one-element"></span><h3>Multiple attribute selector in one Element<a class="headerlink" href="#multiple-attribute-selector-in-one-element" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="select-by-position-of-element">
+<h2>Select By Position of Element<a class="headerlink" href="#select-by-position-of-element" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="position-element">
+<span id="id10"></span><h3>Position Element<a class="headerlink" href="#position-element" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="specific-position-element">
+<span id="id11"></span><h3>Specific Position Element<a class="headerlink" href="#specific-position-element" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="single-index-selection">
+<span id="id12"></span><h3>Single Index Selection<a class="headerlink" href="#single-index-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="multi-index-selection">
+<span id="id13"></span><h3>Multi Index Selection<a class="headerlink" href="#multi-index-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="select-by-element-attribute">
+<h2>Select by Element Attribute<a class="headerlink" href="#select-by-element-attribute" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="select-by-attribute">
+<span id="id14"></span><h3>Select by Attribute<a class="headerlink" href="#select-by-attribute" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="has-selection">
+<span id="element-has-selection"></span><h3>Has Selection<a class="headerlink" href="#has-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="contain-selection">
+<span id="element-contain-selection"></span><h3>Contain Selection<a class="headerlink" href="#contain-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="visibility-selection">
+<span id="visibility-element"></span><h3>Visibility Selection<a class="headerlink" href="#visibility-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="parent-selection">
+<span id="element-parent-selection"></span><h3>Parent Selection<a class="headerlink" href="#parent-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="not-selection">
+<span id="id15"></span><h3>Not Selection<a class="headerlink" href="#not-selection" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="input-selector">
+<h2>Input Selector<a class="headerlink" href="#input-selector" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="input-type">
+<span id="id16"></span><h3>Input Type<a class="headerlink" href="#input-type" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="input-variety-element">
+<span id="input-variety"></span><h3>Input variety Element<a class="headerlink" href="#input-variety-element" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="jquery-note.html" class="btn btn-neutral float-right" title="Catatan jQuery" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="javascript-jquery.html" class="btn btn-neutral" title="JQuery" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,1561 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Laravel Architecture &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Konfigurasi Laravel" href="laravel-config.html"/>
+        <link rel="prev" title="Konsep Dasar" href="basic-concept.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Laravel Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#service-provider"><code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#membuat-service-provider">Membuat <code class="docutils literal"><span class="pre">Service</span> <span class="pre">provider</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#penggunaan-service-provider">Penggunaan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#service-container">Service Container</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-resolution"><code class="docutils literal"><span class="pre">Automatic</span> <span class="pre">resolution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-interface">Binding Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-instance"><code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Instance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contextual-binding">Contextual Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#singleton-binding"><code class="docutils literal"><span class="pre">Singleton</span> <span class="pre">Binding</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#penjelasan-lebih-jauh-tentang-service-provider-service-container-binding-resolve">Penjelasan lebih jauh tentang <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code>, Service Container, Binding, Resolve</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mengakses-tanpa-service-provider-dan-service-container">Mengakses tanpa <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> dan service container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#provider-default-dan-utama-laravel">Provider default dan utama laravel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-dan-resolve">Binding dan resolve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resolve-class-dan-automatic-resolution">Resolve class dan automatic resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-interface-binding-instance-contextual-binding-singleton-binding">Binding interface, Binding instance, Contextual Binding, Singleton Binding</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Binding interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Binding Instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Contextual binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Singleton Binding</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#facade-dan-contract">Facade dan Contract</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#facade">Facade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contract">Contract</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#facades">Facades</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#membuat-facades">Membuat Facades</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contracts">Contracts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Laravel Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/laravel-architecture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="laravel-architecture">
+<h1><a class="toc-backref" href="#id5">Laravel Architecture</a><a class="headerlink" href="#laravel-architecture" title="Permalink to this headline">¶</a></h1>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Tidak kesemua materi yang ditulis ini berasal dari sumber yang pasti, semuanya berasal dari beberapa sumber yang dikumpulkan dan ditelaah sendiri oleh penulis.</p>
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#laravel-architecture" id="id5">Laravel Architecture</a><ul>
+<li><a class="reference internal" href="#service-provider" id="id6"><code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code></a><ul>
+<li><a class="reference internal" href="#membuat-service-provider" id="id7">Membuat <code class="docutils literal"><span class="pre">Service</span> <span class="pre">provider</span></code></a></li>
+<li><a class="reference internal" href="#penggunaan-service-provider" id="id8">Penggunaan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#service-container" id="id9">Service Container</a><ul>
+<li><a class="reference internal" href="#automatic-resolution" id="id10"><code class="docutils literal"><span class="pre">Automatic</span> <span class="pre">resolution</span></code></a></li>
+<li><a class="reference internal" href="#binding-interface" id="id11">Binding Interface</a></li>
+<li><a class="reference internal" href="#binding-instance" id="id12"><code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Instance</span></code></a></li>
+<li><a class="reference internal" href="#contextual-binding" id="id13">Contextual Binding</a></li>
+<li><a class="reference internal" href="#singleton-binding" id="id14"><code class="docutils literal"><span class="pre">Singleton</span> <span class="pre">Binding</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#penjelasan-lebih-jauh-tentang-service-provider-service-container-binding-resolve" id="id15">Penjelasan lebih jauh tentang <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code>, Service Container, Binding, Resolve</a><ul>
+<li><a class="reference internal" href="#mengakses-tanpa-service-provider-dan-service-container" id="id16">Mengakses tanpa <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> dan service container</a></li>
+<li><a class="reference internal" href="#provider-default-dan-utama-laravel" id="id17">Provider default dan utama laravel</a></li>
+<li><a class="reference internal" href="#binding-dan-resolve" id="id18">Binding dan resolve</a></li>
+<li><a class="reference internal" href="#resolve-class-dan-automatic-resolution" id="id19">Resolve class dan automatic resolution</a></li>
+<li><a class="reference internal" href="#binding-interface-binding-instance-contextual-binding-singleton-binding" id="id20">Binding interface, Binding instance, Contextual Binding, Singleton Binding</a><ul>
+<li><a class="reference internal" href="#id1" id="id21">Binding interface</a></li>
+<li><a class="reference internal" href="#id2" id="id22">Binding Instance</a></li>
+<li><a class="reference internal" href="#id3" id="id23">Contextual binding</a></li>
+<li><a class="reference internal" href="#id4" id="id24">Singleton Binding</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#facade-dan-contract" id="id25">Facade dan Contract</a><ul>
+<li><a class="reference internal" href="#facade" id="id26">Facade</a></li>
+<li><a class="reference internal" href="#contract" id="id27">Contract</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#facades" id="id28">Facades</a><ul>
+<li><a class="reference internal" href="#membuat-facades" id="id29">Membuat Facades</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contracts" id="id30">Contracts</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="service-provider">
+<h2><a class="toc-backref" href="#id6"><code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code></a><a class="headerlink" href="#service-provider" title="Permalink to this headline">¶</a></h2>
+<p>Fungsi daripada <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code> adalah melakukan <strong>bootstraping</strong> aplikasi.</p>
+<p><strong>Bootstraping</strong> disini adalah suatu proses memasukan komponen ke dalam aplikasi yang diakses laravel.</p>
+<p>Mudahnya adalah dalam menjalankan aplikasi laravel, maka dibutuhkan adanya beberapa komponen yang akan dijalankan, seperti untuk routing, dan lain-lain.</p>
+<p>Terdapat 2 macam servicce provider dalam laravel, yaitu Laravel framework <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code> dan Application <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code>.</p>
+<p>Kesemua <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> ini disimpan pada file <code class="docutils literal"><span class="pre">config/app.php</span></code> yang terletak pada key providers.</p>
+<p>Pada <code class="docutils literal"><span class="pre">Laravel</span> <span class="pre">Framework</span> <span class="pre">Service</span> <span class="pre">Provider</span></code>, tidak dapat dimodifikasi(dihapus atau ditambah), sedangkan pada <code class="docutils literal"><span class="pre">Application</span> <span class="pre">Service</span> <span class="pre">Provider</span></code> dapat dimodifikasi sesuai kebutuhan.</p>
+<p>File pada <code class="docutils literal"><span class="pre">Framework</span> <span class="pre">Service</span> <span class="pre">Provider</span></code> disimpan pada <code class="docutils literal"><span class="pre">vendor\laravel\framework\Illuminate</span></code>, sedangkan pada <code class="docutils literal"><span class="pre">Application</span> <span class="pre">Service</span> <span class="pre">Provider</span></code> disimpan pada <code class="docutils literal"><span class="pre">app/Http/providers</span></code>.</p>
+<p>Secara default <code class="docutils literal"><span class="pre">Application</span> <span class="pre">Service</span> <span class="pre">Provider</span></code> memiliki 4 <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> yaitu : <strong>AppServiceProvider</strong>, <strong>BusServiceProvider</strong>, <strong>ConfigServiceProvider</strong>, dan <strong>RouteSeviceProvider</strong>.</p>
+<p><strong>RouteServiceProvider</strong> memiliki fungsi dalam meregistrasikan file <code class="docutils literal"><span class="pre">app/Http/Routes.php</span></code> yang mana nantinya file <code class="docutils literal"><span class="pre">Routes.php</span></code> ini digunakan untuk mengakses routing.</p>
+<p>Dari sini kita sebenarnya dapat menambahkan akses file routing lain misal, kita tambahkan file <code class="docutils literal"><span class="pre">custom-routes.php</span></code> pada direktori <code class="docutils literal"><span class="pre">app/Http</span></code>.</p>
+<p>kemudian kita daftarkan pada <code class="docutils literal"><span class="pre">RouteServiceProvider.php</span></code></p>
+<img alt="_images/serviceprovider_routelist.jpg" src="_images/serviceprovider_routelist.jpg" />
+<p>misal buat file <strong>app/Http/custom-routes.php</strong> pada framework laravel, kemudian isi dengan code beriktu:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?php
+
+Route::get(&#39;/kontak&#39;, function() {
+
+return &#39;Kontak saya di 087822250272&#39;;
+
+});
+</pre></div>
+</div>
+<p>tambahkan code pada file <strong>app/Providers/RouteServiceProvider.php</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>...
+
+public function map(Router $router)
+
+{
+
+$router-&gt;group([&#39;namespace&#39; =&gt; $this-&gt;namespace], function($router)
+
+{
+
+require app_path(&#39;Http/routes.php&#39;);
+
+require app_path(&#39;Http/custom-routes.php&#39;);
+
+});
+
+}
+
+...
+</pre></div>
+</div>
+<img alt="_images/serviceprovider_routelist_2.jpg" src="_images/serviceprovider_routelist_2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>Fungsi default service provider</strong></p>
+<p>Dalam direkrori <code class="docutils literal"><span class="pre">Providers</span></code> (app/Providers) terdapat 4 buah file yaitu <strong>AppServiceProvider</strong>, <strong>AuthServiceProvider</strong>, <strong>EventServiceProvider</strong>, dan <strong>RouteSeviceProvider</strong>.</p>
+<p>Keempatnya merupakan application <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> <cite>default</cite> laravel, dan masing masing memiliki fungsi tersendiri, seperti misalkan pada <strong>RouteServiceProvider</strong> yang berfungsi dalam menangani routing.</p>
+<p>Kemudian sebenarnya darimana fungsi fungsi tersebut dapat digunakan/dijalankan, ternyata fungsi tersebut berasal dari pengunaan script default laravel yang telah ada.</p>
+<p>seperti misalkan <strong>RouteServiceProvider</strong> yang meload class <code class="docutils literal"><span class="pre">RouteServiceProvider</span></code> pada direktori default laravel.</p>
+<img alt="_images/applicationserviceprovider.jpg" src="_images/applicationserviceprovider.jpg" />
+<p>Dan hampir kesemua <code class="docutils literal"><span class="pre">class/trait</span></code> script laravel yang digunakan dibuat <cite>alias`(nama lain) karena mungkin nantinya akan terdaat proses selanjutnya yang membutuhkan depedency class ``ServiceProvider`</cite>.</p>
+<p>Tentu masing-masing service provider default ini memiliki fungsi tersendiri, seperti misalkan <strong>AppServiceProvider</strong> yang memiliki fungsi untuk melakukan <cite>binding</cite> ke <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>.</p>
+<p>Dalam dokumentasi resmi laravel class <code class="docutils literal"><span class="pre">ServiceProvider``(Illuminate\Support\ServiceProvider)</span> <span class="pre">memiliki</span> <span class="pre">method</span> <span class="pre">abstract</span> <span class="pre">``register</span></code>, method ini harus dioverride (karena bersifat abstract) dan fungsi dalam method ini adalah untuk binding ke dalam service container(ingat method <code class="docutils literal"><span class="pre">register</span></code> ini hanya untuk binding).</p>
+<p>Berikut keterangan dalam dokumentasi resmi laravel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Within the ``register`` method, you should only bind things into the service contianer. You should never attempt to register any event listeners, routes, or any other piece of functionality within the ``register`` method.
+</pre></div>
+</div>
+<p>Method <code class="docutils literal"><span class="pre">register</span></code> tidak dipergunakan dalam me-<code class="docutils literal"><span class="pre">register</span></code> event listener, route atau fungsi lain.</p>
+<p class="last">Inilah sebabnya dalam RouteServiceProvider untuk mendaftarkan route nya menggunakan method selain <code class="docutils literal"><span class="pre">register</span></code> yaitu <cite>map</cite>, tentu method <cite>map</cite> ini juga telah memiliki adanya script default yang akan menjalankannya.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Namun dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> laravel kita juga akan menemui adanya method <strong>boot</strong>, lantas apa fungsi method ini ???</p>
+<p>dalam dokumentasi resmi laravel disebutkan bahawa method boot ini akan dipanggil setelah semua <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> di-register.</p>
+<p>Berikut keterangan dalam dokumentasi resmi laravel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>So, what if we need to register a view composer within our ``service provider``? This should be done within the boot method. This method is called after all other ``service provider``s have been registered, meaning you have access to all other services that have been registered by the framework:
+</pre></div>
+</div>
+<p>entah bagaimana memahami pernyataan tersebut, namun dalam penggunaannya method ini biasa digunakan dengan melibatkan semua method pada class/trait yang digunakan dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> tersebut.</p>
+<p>kemungkinan yang diartikan mehod boot ini yaitu tentang akan dipanggil setelah semua <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> diregister adalah method ini baru akan dijalankan setelah semua class/trait yang dibutuhkan di-load.</p>
+<p>Hal ini dapat dilihat pada beberapa <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> default yang memiliki statement yang mana akan dijalankan namun baru akan dapat digunakan seletah class/trait yang dibutuhkan diload(isteilah laravel dalam melakukan memasukkan tiap class/trait ke dalam sistem laravel disebut register).</p>
+<p>Menurut penulis method boot ini seperti method construct(__construct) yang akan dipanggil pertama kali, namun bedanya adalah pada method boot ini akan dipanggil setelah semua class/trait di-register(dimadukkan dalam sistem laravel).</p>
+<p class="last">Selain menggunakan method dalam class/trait yang digunakan, terkadang dalam method boot ini diberikan statement yang meload view composer, view composer adalah view yang akan dijalankan sebelum adanya view utama dirender(dijalankan), dan biasanya dalam view composer hanya terdapat beberapa method yang akan dijalankan(method compose adalah method yang pasti akan dijalanakan).</p>
+</div>
+<div class="section" id="membuat-service-provider">
+<h3><a class="toc-backref" href="#id7">Membuat <code class="docutils literal"><span class="pre">Service</span> <span class="pre">provider</span></code></a><a class="headerlink" href="#membuat-service-provider" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Service</span> <span class="pre">provider</span></code> dapat dibuat secara custom, selain itu karena <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> ini akan melakukan registrasi suatu komponen, maka kita juga dapat membuat binding ke dlaam service container, yang mana pada akhirnya kita tidak memerlukan adanya inisialisasi komponen tersebut.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Apa itu <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Container</span></code> ???</p>
+<p><code class="docutils literal"><span class="pre">Service</span> <span class="pre">Container</span></code> adalah layanan dalam laravel yang berfungsi untuk menampung suatu komponen seperti object, variabel, closure, dll.</p>
+<p>Singkatnya setiap kita menyimpan komponen ini, kita bisa langsung menngaksesnya, daripada kita hrus menginisialisasi setiap komponennya.</p>
+<p class="last">Selain itu terdapat fitur <code class="docutils literal"><span class="pre">automatic</span> <span class="pre">resolution</span></code> (menyelesiakan maslaah depedency inject), dan masih banyak lainnya, pembahasan lebih lanjut akan dibahas pada <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Container</span></code>.</p>
+</div>
+</div>
+<div class="section" id="penggunaan-service-provider">
+<h3><a class="toc-backref" href="#id8">Penggunaan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code></a><a class="headerlink" href="#penggunaan-service-provider" title="Permalink to this headline">¶</a></h3>
+<p>Misalkan kita ingin menggunakan <code class="docutils literal"><span class="pre">parser</span> <span class="pre">markdown</span></code>, kita dapat menginstalnya melalui composer CLI =&gt; <strong>composer require league/commonmark</strong>, syntax ini akan menambah key <cite>require</cite> pada file <strong>composer.json</strong> dan menginstallnya.</p>
+<p>Selanjutnya kita menjalankannya(kali ini kita menggunakan php artisan tinker, sebenarnya bisa saja jika membuat controller sekkaligus view, namun karena dirasa terlalu lama, maka sebaiknya menggunakan artisan tinker, lagipula kita hanya ingin melihat hasilnya saja).</p>
+<img alt="_images/serviceprovider_customserviceprovider.jpg" src="_images/serviceprovider_customserviceprovider.jpg" />
+<p>Dapat terlihat bahwa untuk menggunakan <code class="docutils literal"><span class="pre">markdown</span> <span class="pre">parser</span></code> dibutuhkan adanya insisialisasi(membuat object new CommonMarkConverter) dan juga sebelumnya kita perlu untuk meload class/trait nya terlebih dahulu.</p>
+<p>Untuk itu mari kita buat <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> untuk mempermudah dalam penggunaannya.</p>
+<p>Pertama buat service provider melalui artisan cli =&gt; <strong>php artisan make:provider MarkdownServiceProvider</strong></p>
+<p>kemudian akan ada file baru pada <strong>app/providers</strong> yaitu <strong>MarkdownServiceProvider.php</strong></p>
+<p>Dalam file ini terdapat 2 method yaitu <strong>boot</strong> dan <strong>regisster</strong>, kita akan menggunakan method <strong>boot</strong> untuk membuat object <strong>CommonMarkConverter</strong> sedangkan kita akan membuat binding container pada <strong>register</strong>.</p>
+<p>perlu diketahui saja bahwa proses <code class="docutils literal"><span class="pre">binding</span></code> adlaah penyimpanan komponen dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, dalam kasus ini kta akan membuat binding key <code class="docutils literal"><span class="pre">markdown</span></code> yang mana akan membuat object.</p>
+<p>Istlah mudahnya adalah binding adalah menyimpan (set) dan nantinya kita akan melakukan get(resolve dalam service container).</p>
+<p>file <strong>app/providers/MarkdownServiceProvider.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App\Providers</span><span class="p">;</span>
+
+<span class="c1">//menggunakan class ServiceProvider</span>
+<span class="k">use</span> <span class="nx">Illuminate\Support\ServiceProvider</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">League\CommonMark\CommonMarkConverter</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MarkdownServiceProvider</span> <span class="k">extends</span> <span class="nx">ServiceProvider</span> <span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$markdown</span><span class="p">;</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Bootstrap the application services.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">boot</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">markdown</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CommonMarkConverter</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * Register the application services.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">singleton</span><span class="p">(</span><span class="s1">&#39;markdown&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">markdown</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Kemudian kita tambahkan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> pada file <strong>config/app</strong> pada key <cite>providers</cite> pada bagian <strong>Application Service Provider</strong></p>
+<p>‘AppProvidersMarkdownServiceProvider’,</p>
+<p>Selanjutnya kita dapat emngakses markdown commonmark dengan <strong>app()[‘markdown’]</strong>, <strong>app()-&gt;make(‘markdown’)</strong> atau <strong>app(‘markdown’)</strong>.</p>
+<p>Syntax <code class="docutils literal"><span class="pre">app();</span></code> adalah syntax binding pada <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, di dalamnya kita dapat mmeberikan key dan value, dalam kasus ini kita sudah membuat <code class="docutils literal"><span class="pre">app('markdown')</span></code> secara custom</p>
+<p><code class="docutils literal"><span class="pre">app('markdown')</span></code> disini adaah binding melakukan register(method register) pada service provider, yang mana hasilnya adalah mendapatkan object(sebelumnya sudah di-instasnsiasikan pada method boot).</p>
+<img alt="_images/serviceprovider_customserviceprovider_2.jpg" src="_images/serviceprovider_customserviceprovider_2.jpg" />
+</div>
+</div>
+<div class="section" id="service-container">
+<h2><a class="toc-backref" href="#id9">Service Container</a><a class="headerlink" href="#service-container" title="Permalink to this headline">¶</a></h2>
+<p>Pada materi <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code> telah dijelaskan bahwa <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> adalah tempat untuk menyimpan berbeagai komponen seperti <cite>object</cite>, <cite>string</cite>, dll.</p>
+<p>Dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> terdapat istilah <code class="docutils literal"><span class="pre">binding</span></code> dan <code class="docutils literal"><span class="pre">resolve</span></code>, keduanya diakses dengan key dan valuenya.</p>
+<p><strong>binding</strong> adalah proses dalam menyimpan komponen, ini lebih mirip dengan set, dalam binding kita akan menggunakan key dan value yang akan dimasukkan.</p>
+<p>Sedangkan <strong>resolve</strong> adalah proses mendapatkan komponen tersebut, ini lebih mirip get, dalam resolve kita akan menggunakan key dalam mendapatkan value.</p>
+<p>misal dalam contoh berikut kita akan melakukan binding dengan key apa itu laravel dan akan membuat value <cite>framework keren gan</cite>.</p>
+<p>syntax =&gt; <code class="docutils literal"><span class="pre">app()-&gt;bind('apa</span> <span class="pre">itu</span> <span class="pre">laravel',</span> <span class="pre">function()</span> <span class="pre">return</span> <span class="pre">{return</span> <span class="pre">framework</span> <span class="pre">keren</span> <span class="pre">gan;});</span></code></p>
+<p>untuk melakukan resolve(mengaksesnya)</p>
+<p>syntax =&gt; <code class="docutils literal"><span class="pre">app('apa</span> <span class="pre">itu</span> <span class="pre">laravel');</span></code></p>
+<img alt="_images/servicecontainer_bindresolve.jpg" src="_images/servicecontainer_bindresolve.jpg" />
+<p>Untuk menyimpan <code class="docutils literal"><span class="pre">binding</span></code> diatas ke dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, kita dapat menuliskannya pada method <code class="docutils literal"><span class="pre">register</span></code></p>
+<p>Contoh:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;singleton(&#39;markdown&#39;, function() {</span>
+<span class="x">        return $this-&gt;markdown;</span>
+<span class="x">    });</span>
+
+<span class="x">    $this-&gt;app-&gt;bind(&#39;apa itu laravel?&#39;, function() {</span>
+<span class="x">        return &#39;Laravel adalah framework Laravel paling keren dan elegan.&#39;;</span>
+<span class="x">    });</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_bindresolve_2.jpg" src="_images/servicecontainer_bindresolve_2.jpg" />
+<div class="section" id="automatic-resolution">
+<h3><a class="toc-backref" href="#id10"><code class="docutils literal"><span class="pre">Automatic</span> <span class="pre">resolution</span></code></a><a class="headerlink" href="#automatic-resolution" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Automatic</span> <span class="pre">resolution</span></code> adalah fitur dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> yang akan mengangani masalah <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">injection</span></code>.</p>
+<p>Sehingga semua file di dalam laravel, ketika membutuhkan adanya <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">injection</span></code> (entah itu class, interface, dll), maka automatic resolution akan menemukan semua class <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">injection</span></code> tersebut.</p>
+<p>Misalkan kita mempunyai2 buah class yaitu <code class="docutils literal"><span class="pre">dompet</span></code> dan <code class="docutils literal"><span class="pre">customer</span></code>, Object daripada <code class="docutils literal"><span class="pre">Customer</span></code> membutuhkan object daripada <code class="docutils literal"><span class="pre">Dompet</span></code></p>
+<p>file <code class="docutils literal"><span class="pre">app/Dompet.php</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Dompet</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <code class="docutils literal"><span class="pre">app/Customer.php</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Customer</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$dompet</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Dompet</span> <span class="nv">$dompet</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dompet</span> <span class="o">=</span> <span class="nv">$dompet</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekDompet</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dompet</span><span class="o">-&gt;</span><span class="na">cekIsi</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_automaticresolution.jpg" src="_images/servicecontainer_automaticresolution.jpg" />
+<img alt="_images/servicecontainer_automaticresolution_2.jpg" src="_images/servicecontainer_automaticresolution_2.jpg" />
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<blockquote>
+<div>laravel memiliki fitur automatic resolution yang dapat menginisialisasi depedency dari suatu class</div></blockquote>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Untuk diketahui saja bahwa syntax <code class="docutils literal"><span class="pre">app('key')</span></code> adalah proses <code class="docutils literal"><span class="pre">resolve</span></code>, namun ketika key disini adalah suatu class(berisi namespaceclass) maka syntax tersebut artinya akan menyertakan class tersebut, mungkin bukan mneyertakan namun menginstansiasi</p>
+</div>
+</div>
+</div>
+<div class="section" id="binding-interface">
+<h3><a class="toc-backref" href="#id11">Binding Interface</a><a class="headerlink" href="#binding-interface" title="Permalink to this headline">¶</a></h3>
+<p>Perlu diketahui bahwa <code class="docutils literal"><span class="pre">interface</span></code> bukanlah suatu <code class="docutils literal"><span class="pre">object</span></code>, namun bukan berarti kita tidak dapat menjadikannya sebagai <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">injection</span></code>.</p>
+<p>Loh apa bisa ??? bukankah selama ini yang jadi <code class="docutils literal"><span class="pre">depedency</span></code> itu adalah object dari instansiasi class tertentu, jika gak sesuai dengan class itu maka gak bisa.</p>
+<p>Bisa, hanya saja ada beberapa cara dalam menggunakan depedency object yang membutuhkan depedency interface.</p>
+<p>misal kita membuat aplikasi yang membutuhkan object (dengan depedency interface) <strong>PaymentMethod</strong>.</p>
+<p>file <strong>app/PaymentMethod.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>app/Pelanggan.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Pelanggan</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setPayment</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekPayment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span><span class="o">-&gt;</span><span class="na">cekIsi</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>app/KartuKredit.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">KartuKredit</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$cardNumber</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cardNumber</span> <span class="o">=</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">.</span> <span class="s1">&#39; saldo tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>app/RekeningPonsel.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">RekeningPonsel</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$pulsa</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$phoneNo</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$pulsa</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$phoneNo</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pulsa</span> <span class="o">=</span> <span class="nv">$pulsa</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">phoneNo</span> <span class="o">=</span> <span class="nv">$phoneNo</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pulsa</span> <span class="o">.</span> <span class="s1">&#39; pulsa tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_bindinginterface.jpg" src="_images/servicecontainer_bindinginterface.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pengaksesan object pelanggan, terlihat kita masih belum menggunakan automatic resolution</p>
+</div>
+<img alt="_images/servicecontainer_bindinginterface_2.jpg" src="_images/servicecontainer_bindinginterface_2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pengaksesan menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, ternyata gagal.ini dikarebnakan interface bukanlah object daripada suatu class</p>
+</div>
+<img alt="_images/servicecontainer_bindinginterface_pembaharuan_5.jpg" src="_images/servicecontainer_bindinginterface_pembaharuan_5.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">satu-satunya cara adalah dengan melakukan binding dengan key interface dan valueya adalah object daripada depedency(yang memiliki interface)</p>
+</div>
+<img alt="_images/servicecontainer_bindinginterface_pembaharuan_3.jpg" src="_images/servicecontainer_bindinginterface_pembaharuan_3.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">how about another key(key selain iterface namun valuenya adalah object daripada depeedency), tentu saja salah</p>
+</div>
+<p>Binding ini diletakkan pada method <code class="docutils literal"><span class="pre">register</span></code> pada file <strong>service provider</strong> Misal kita memasukkanya pada <strong>AppServiceProvider</strong></p>
+<p>file <strong>app/Providers/AppServiceProvider.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">...</span>
+<span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;bind(</span>
+<span class="x">        &#39;Illuminate\Contracts\Auth\Registrar&#39;,</span>
+<span class="x">        &#39;App\Services\Registrar&#39;</span>
+<span class="x">    );</span>
+
+<span class="x">    $this-&gt;app-&gt;bind(</span>
+<span class="x">        &#39;App\PaymentMethod&#39;,</span>
+<span class="x">        &#39;App\KartuKredit&#39;</span>
+<span class="x">    );</span>
+<span class="x">}</span>
+<span class="x">...</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_bindinginterface_pembaharuan_4.jpg" src="_images/servicecontainer_bindinginterface_pembaharuan_4.jpg" />
+</div>
+<div class="section" id="binding-instance">
+<h3><a class="toc-backref" href="#id12"><code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Instance</span></code></a><a class="headerlink" href="#binding-instance" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Instance</span></code> adalah suatu cara <code class="docutils literal"><span class="pre">binding</span></code> didalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code>,dalam bentuk object (instansiasi).</p>
+<p>Sebagai catatan aktivitas ini tidaklah berbeda dengan <strong>$this-&gt;app-&gt;bind(‘key’, value)</strong>.</p>
+<p>Hanya saja sebelumnya kita harus membuat suatu instansiasi.</p>
+<p>misal:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$obj = new App\Pelanggan;</span>
+
+<span class="x">$this-&gt;app-&gt;instance(&#39;suatu_key&#39;,$obj);</span>
+</pre></div>
+</div>
+<p>syntax diatas diberikan pada <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code></p>
+<p>Dengan syantx diatas, artinya kita membuat instansiasi object secara manual, sehingga memiliki value didalamnya beserta parameternya.</p>
+<p>contoh berikut, ubah dahulu file di <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code></p>
+<p>file <strong>app/Providers/AppServiceProvider.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;bind(</span>
+<span class="x">        &#39;Illuminate\Contracts\Auth\Registrar&#39;,</span>
+<span class="x">        &#39;App\Services\Registrar&#39;</span>
+<span class="x">    );</span>
+
+<span class="x">    $cc = new \App\KartuKredit(2000, &#39;42542353545&#39;);</span>
+<span class="x">    $this-&gt;app-&gt;instance(&#39;App\PaymentMethod&#39;, $cc);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_bindinginstance.jpg" src="_images/servicecontainer_bindinginstance.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">JUST REMEMBER, bahwa <strong>AppPaymentMethod</strong> hanyalah <code class="docutils literal"><span class="pre">key</span></code> dan bukan berarti mengakses file <code class="docutils literal"><span class="pre">PaymentMethod</span></code>.</p>
+</div>
+</div>
+<div class="section" id="contextual-binding">
+<h3><a class="toc-backref" href="#id13">Contextual Binding</a><a class="headerlink" href="#contextual-binding" title="Permalink to this headline">¶</a></h3>
+<p>Pada contoh diatas, terlihat bahwasanya kita masih menggunakan satu <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> (satu binding) untuk satu impelemntasi interface.</p>
+<p>Kita bisa saja membuat agar 2 binding dapat mengimplementaasikan satu interface sekaligus mengakses 2 object dari depedency interface tersebut.</p>
+<p>misal kkita buat class <code class="docutils literal"><span class="pre">Seller</span></code>, selain itu ubah method <code class="docutils literal"><span class="pre">register</span></code></p>
+<p>file <code class="docutils literal"><span class="pre">app/Seller.php</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Seller</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setPayment</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekPayment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span><span class="o">-&gt;</span><span class="na">cekIsi</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>app/Providers/AppServiceProvider</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;bind(</span>
+<span class="x">        &#39;Illuminate\Contracts\Auth\Registrar&#39;,</span>
+<span class="x">        &#39;App\Services\Registrar&#39;</span>
+<span class="x">    );</span>
+
+<span class="x">    $this-&gt;app-&gt;when(&#39;App\Customer&#39;)</span>
+<span class="x">    -&gt;needs(&#39;App\PaymentMethod&#39;)</span>
+<span class="x">    -&gt;give(&#39;App\RekeningPonsel&#39;);</span>
+
+<span class="x">    $this-&gt;app-&gt;when(&#39;App\Seller&#39;)</span>
+<span class="x">    -&gt;needs(&#39;App\PaymentMethod&#39;)</span>
+<span class="x">    -&gt;give(&#39;App\KartuKredit&#39;);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/servicecontainer_contextualBinding_2.jpg" src="_images/servicecontainer_contextualBinding_2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Dari contoh diatas, terlihat bahwa meski antara pelanggan dan seller membutuhkan implementasi interface(interface PaymentMethod) yang sama namun impelementasi object yang diberikan berbeda(KartuKredit atau RekeningPonsel), tergantung proses binding</p>
+</div>
+</div>
+<div class="section" id="singleton-binding">
+<h3><a class="toc-backref" href="#id14"><code class="docutils literal"><span class="pre">Singleton</span> <span class="pre">Binding</span></code></a><a class="headerlink" href="#singleton-binding" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Singleton</span> <span class="pre">Biding</span></code> adalah teknik dalam menginstansiasi satu class hanya untuk satu object, entah untuk apa fitur ini yang jelas satu class hanya akan di-instansiasi ke dalam satu object saja.</p>
+<p>misalkan kita memberikan keterangan pada suatu method dalam class yang akan diinstansiasi lebih dari satu kali, misalkan class berikut, berikan syntax echo untuk memberikan berapa kali class ini akan di-instansiasi kan</p>
+<p>file <strong>app/KartuKredit.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">KartuKredit</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$cardNumber</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cardNumber</span> <span class="o">=</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s1">&#39;membuat kartu kredit...&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">.</span> <span class="s1">&#39; saldo tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/service_container_singletonbinding.jpg" src="_images/service_container_singletonbinding.jpg" />
+<p>ternyata setiap melakukan resolve, class akan di-instansiasikan ke dalam objectnya.</p>
+<p>file <strong>app/AppServiceProvider.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;bind(</span>
+<span class="x">        &#39;Illuminate\Contracts\Auth\Registrar&#39;,</span>
+<span class="x">        &#39;App\Services\Registrar&#39;</span>
+<span class="x">    );</span>
+
+<span class="x">    $this-&gt;app-&gt;when(&#39;App\Pelanggan&#39;)-&gt;needs(&#39;App\PaymentMethod&#39;)-&gt;give(&#39;App\RekeningPonsel&#39;);</span>
+<span class="x">    $this-&gt;app-&gt;when(&#39;App\Seller&#39;)-&gt;needs(&#39;App\PaymentMethod&#39;)-&gt;give(&#39;App\KartuKredit&#39;);</span>
+<span class="x">    $this-&gt;app-&gt;singleton(&#39;App\KartuKredit&#39;, function($app)</span>
+<span class="x">    {</span>
+<span class="x">        return new \App\KartuKredit;</span>
+<span class="x">    });</span>
+
+<span class="x">    /*</span>
+<span class="x">    Ketika kita menuliskan suatu syntax disini maka akan diakses saat laravel berjalan, conthnya dibawah, kita akan menginstansiasikan class KartuKredit</span>
+<span class="x">    $cc = new \App\KartuKredit(2000, &#39;42542353545&#39;);</span>
+<span class="x">    $this-&gt;app-&gt;instance(&#39;App\PaymentMethod&#39;, $cc);</span>
+<span class="x">    */</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/service_container_singletonbinding_2.jpg" src="_images/service_container_singletonbinding_2.jpg" />
+</div>
+</div>
+<div class="section" id="penjelasan-lebih-jauh-tentang-service-provider-service-container-binding-resolve">
+<h2><a class="toc-backref" href="#id15">Penjelasan lebih jauh tentang <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Provider</span></code>, Service Container, Binding, Resolve</a><a class="headerlink" href="#penjelasan-lebih-jauh-tentang-service-provider-service-container-binding-resolve" title="Permalink to this headline">¶</a></h2>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>Tulisan ini bertujuan untuk mempermudah dalam pengertian materi <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code>, <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, <code class="docutils literal"><span class="pre">binding</span></code>, dan <code class="docutils literal"><span class="pre">resolve</span></code>.</p>
+<p>Mengapa ??? Karena semua materi tersebut saling berkaitan, materi ini sebagai referensi yang memberikan bahan lain sekaligus sebagai penutup yang memberikan kesimpulan dari semua materi tersebut.</p>
+<p class="last">(catatan informasi yang lebih detail, tentang materi ini satu persatu dapat dilihat pada bagiannya, bagian ini hanya sebagai rangkuman yang mempermudah)</p>
+</div>
+<p>Laravel adalah framework dengan struktur pembangun yang cukup rumit, namun dari kerumitan itu laravel menjadi framework yang memiliki fungsionalitas yang sangat komplek, baik dari sisi luar maupun dalam.</p>
+<p>Dengan manajemen laravel yang baik ini kita dapat menggunakan class di dalam laravel dan menyertakan class lain(class luar) dengan jauh lebih mudah.</p>
+<p>Laravel memiliki banyak sekali class/trait, lalu bagaimanakah cara dalam mengakses semua class/trait tersebut sehingga dapat menjalankan framework laravel.</p>
+<p>Sampai saat tulisan ini ditulis penulis masih belum mengetahui bagaimana alur awal(event secara awal) pengaksesan laravel, namun terdapat keterangan yang cukup penting yang menjelaskan bagaimana kesemua fungsi fundamental laravel tersebut dijalankan.</p>
+<p>Kesemua fungsi tersebut dibangun dari provider, dan dari provider inilah class-class tersebut akan dapat diakses(termasuk class luar).</p>
+<p><strong>kata kunci</strong></p>
+<p><code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> == tempat menyimpan class(script) yang nantinya akan dapat digunakan dengan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code></p>
+<p><code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> == tempat script yang dapat dijalankan sewaktu waktu(script <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> yang dibuat/diwujudkan)</p>
+<p><code class="docutils literal"><span class="pre">binding</span></code> == menyimpan(set) suatu class ke dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code></p>
+<p><code class="docutils literal"><span class="pre">resolve</span></code> == mendapatkan(get) script dari <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code></p>
+<p>Cukup abstrak dalam memahami kesemua pondasi fundamental laravel.</p>
+<p>Berikut akan kita jelaskan secara lebih mudah, caranya dengan membuat class diluar laravel(library lain), tapi tenang saja, implementasinya tidak akan jauh berbeda dengan class internal laravel.</p>
+<p>Contoh kasus:</p>
+<p>Mari kita tambahkan library dalam aplikasi berbasis framework laravel.</p>
+<p>Tujuan utamanya adalah bagaimana dapat mengakses library tersebut dengan mudah.</p>
+<p>Untuk mewujudkannya maka kita harus melakukan hal berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Download</span> <span class="n">library</span> <span class="n">tersebut</span><span class="p">(</span><span class="n">lewat</span> <span class="n">composer</span><span class="p">),</span> <span class="n">atau</span> <span class="n">mungkin</span> <span class="n">kalau</span> <span class="n">sudah</span> <span class="n">mahir</span> <span class="n">dapat</span> <span class="n">membuat</span> <span class="n">sendiri</span> <span class="n">classnya</span><span class="p">(</span><span class="n">dan</span> <span class="n">juga</span> <span class="n">konfigurasi</span> <span class="n">agar</span> <span class="n">dapat</span> <span class="n">dijalankan</span> <span class="n">pada</span> <span class="n">framework</span> <span class="n">laravel</span><span class="p">)</span>
+
+<span class="mf">2.</span> <span class="n">Membuat</span> <span class="n">provider</span> <span class="n">dan</span> <span class="n">menyertakan</span> <span class="n">library</span>
+
+<span class="mf">3.</span> <span class="n">Membuat</span> <span class="n">binding</span> <span class="n">pada</span> <span class="n">method</span> <span class="n">register</span>
+
+<span class="mf">4.</span> <span class="n">Mendaftarkan</span> <span class="n">provider</span>
+
+<span class="mf">5.</span> <span class="n">Melakukan</span> <span class="n">Resolve</span> <span class="p">(</span><span class="n">Mengakses</span> <span class="n">service</span> <span class="n">container</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Kelihatannnya tidak cukup mudah, namun sebenarnya ini cukup sederhana.</p>
+<p>Berikut adalah cara dalam membuat library <code class="docutils literal"><span class="pre">markdown</span> <span class="pre">parse</span></code>, yaitu library yang dapat mengconvert (parse) dari string ke dalam markdown(misal mengubah simbol menjadi heading, bold, dll dalam bentuk markdown).</p>
+<p>Pertama kita membutuhkan librarynya, untuk melakukannya dapat menggunakan composer <code class="docutils literal"><span class="pre">syntax</span> <span class="pre">CLI</span></code> =&gt; <strong>composer require league/commonmark</strong>.</p>
+<p>Setelahnya akan terdapat direktori baru pada direktori <code class="docutils literal"><span class="pre">vendor</span></code>.</p>
+<p>Selanjutnya adalah membuat provider, ini juga dapat dilakukan dengan <code class="docutils literal"><span class="pre">syntax</span> <span class="pre">CLI</span></code> =&gt; <strong>php artisan make:provider MarkdownServiceProvider</strong>.</p>
+<p>file(class) ini disimpan di dalam direktori <code class="docutils literal"><span class="pre">app/Providers</span></code> (direktori ini hanya berisikan provider luar, namun laravel memberikan 4 class provider default, sedangkan provider utama laravel berada pada direktori illumminate).</p>
+<p>Masih pada tahap yang sama, jangan lupa untuk menyertakan library ini (use LeagueCommonMarkCommonMarkConverter).</p>
+<p>Selanjutnya kita akan membuat binding, atau intinya memasukkan script ke dalam container, biasanya script yang dimasukkan adalah object dari class(kebanyakan library dari luar laravel hanya memasukkan object, sedangkan dalam provider utama laravel yang dimasukkan bukan hanya object, bisa seperti method, property, closure, string , dll).</p>
+<p>Kemudian kita mendaftarkan provider ini supaya dapat diakses(diberikan pada config/app.php pada key ‘provider ‘, dan tentu pada bagian ‘’)</p>
+<img alt="_images/dirprovider.jpg" src="_images/dirprovider.jpg" />
+<img alt="_images/medaftarkanprovider.jpg" src="_images/medaftarkanprovider.jpg" />
+<p>file <strong>app/providers/MarkdownServiceProvider.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App\Providers</span><span class="p">;</span>
+<span class="c1">//menggunakan class ServiceProvider</span>
+<span class="k">use</span> <span class="nx">Illuminate\Support\ServiceProvider</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">League\CommonMark\CommonMarkConverter</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MarkdownServiceProvider</span> <span class="k">extends</span> <span class="nx">ServiceProvider</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$markdown</span><span class="p">;</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Bootstrap the application services.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">boot</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">markdown</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CommonMarkConverter</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">    * Register the application services.</span>
+<span class="sd">    *</span>
+<span class="sd">    * @return void</span>
+<span class="sd">    */</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">singleton</span><span class="p">(</span><span class="s1">&#39;markdown&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">markdown</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Pada code <strong>MarkdwonServiceProvider</strong>,kita membuatkan object dari <cite>method boot</cite> dan disimpan ke dalam <cite>property</cite> markdown, selanjutnya kita <cite>binding</cite> ke dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> dengan cara memberikan syntaxya di dalam method <code class="docutils literal"><span class="pre">register</span></code>.</p>
+<p>Sedangkan pada gambar kedua kita mendaftarkan ke dalam provider, sehingga dapat diakses.</p>
+<p>hasil akhirnya adalah kita akan dapat mengakses (resolve) dengan lebih mudah.</p>
+<p><code class="docutils literal"><span class="pre">method</span> <span class="pre">singleton</span></code> diatas adalah agar ketika kita menginstansiasi class markdown maka hanya satu object yang tercipata dalam lebih dari satu variable, penjelasan lebih lanjut ada pada bagian <code class="docutils literal"><span class="pre">singleton</span> <span class="pre">binding</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">Method</span> <span class="pre">singleton</span></code> diatas bisa juga kita ganti dengan method <cite>bind</cite>, perbedaannya method <cite>bind</cite> akan menginstansiasikan class pada variabel yang berbeda</p>
+<img alt="_images/resolve.jpg" src="_images/resolve.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Terdapat banyak <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> namun, kesemua provider akan dijadikan satu dalam service container(berdasarkan berjalannya aplikasi yang dijalankan)</p>
+<p class="last">sehingga jika ada binding dengan key yang sama dari provider lain(semmisal terdapat 2 <cite>binding</cite> key yang sama dalam provider yang berbeda) maka hanya salah satu yang akan dijalankan.</p>
+</div>
+<div class="section" id="mengakses-tanpa-service-provider-dan-service-container">
+<h3><a class="toc-backref" href="#id16">Mengakses tanpa <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> dan service container</a><a class="headerlink" href="#mengakses-tanpa-service-provider-dan-service-container" title="Permalink to this headline">¶</a></h3>
+<p>Apakah ada cara lain dalam mengakses tanpa harus menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> ataupun <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, tentu ada, yaitu dengan hanya menyertakan class tersebut (use LeagueCommonMarkCommonMarkConverter).</p>
+<p>Namun jika menggunakan cara ini, dalam kasus diatas maka kita perlu membuat objectnya secara manual.</p>
+<img alt="_images/serviceprovider_customserviceprovider.jpg" src="_images/serviceprovider_customserviceprovider.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mengapa kita harus membuat <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> dan mendaftarkan(binding) ke <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> ???</p>
+<p>Kita bisa saja mengakses suatu class secara langsung juga kan(seperti cara diatas).</p>
+<p class="last">Memang iya, namun dalam laravel jika kita menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, maka kita akan mendapatkan fitur <code class="docutils literal"><span class="pre">automatic</span> <span class="pre">resolution</span></code>, yaitu setiap ada depedency pada parameter methodnya akan dibuatkan terlebih dahulu, ini dapat dilihat pada materi <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>.</p>
+</div>
+<p>Dari beberapa deskripsi diatas ini sudah dapat menjawab pertanyaan <code class="docutils literal"><span class="pre">mengapa</span> <span class="pre">tidak</span> <span class="pre">menggunakan</span> <span class="pre">php</span> <span class="pre">native</span> <span class="pre">??</span></code>,</p>
+<p>karena dalam php native ketika kita akan menggunakan suatu library, maka kita perlu menyertakannya (<cite>include</cite>) kemudian meletakkan pada direktori tertentu (untuk mempermudah dalam mengakses library),</p>
+<p>namun masalah terbesar adalah bagaimana jika library tersebut memiliki <strong>depedency</strong>, akan sangat merepotkan jika harus menginstansiasikan class depedencynya satu persatu.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Haruskah melakukan binding dan resolve ???</p>
+<p>fungsi <code class="docutils literal"><span class="pre">binding</span></code> dan <code class="docutils literal"><span class="pre">resolve</span></code> sebenarnya adalah mempermudah dalam pengaksesan setiap script dalam laravel.</p>
+<p>Namun tidak setiap library yang kita butuhkan harus menggunakan cara diatas(menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> dan mendaftarkannya ke <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>).</p>
+<p>Misalkan bagaimana jika ternyata dalam suatu script pada aplikasi (browser dan bukan php artisan tinker), kita membutuhkan library tersebut, semisal markdown parser.</p>
+<p>namun kita tidak membutuhkan adanya resolve dari service container, bisa saja terjadi bukan.</p>
+<p class="last">Sehingga yang kita lakukan adalah seperti dalam bagian <code class="docutils literal"><span class="pre">Mengakses</span> <span class="pre">tanpa</span> <span class="pre">service</span> <span class="pre">container</span></code>.</p>
+</div>
+</div>
+<div class="section" id="provider-default-dan-utama-laravel">
+<h3><a class="toc-backref" href="#id17">Provider default dan utama laravel</a><a class="headerlink" href="#provider-default-dan-utama-laravel" title="Permalink to this headline">¶</a></h3>
+<p>Semua provider default dan utama laravel akan memiliki hal yang sama seperti kasus diatas.</p>
+<p>Ke setiap <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> akan memiliki method register untuk nantinya dapat diakses di dalam service container.</p>
+<img alt="_images/defaultserviceprovider.jpg" src="_images/defaultserviceprovider.jpg" />
+<img alt="_images/defaultserviceprovider2.jpg" src="_images/defaultserviceprovider2.jpg" />
+</div>
+<div class="section" id="binding-dan-resolve">
+<h3><a class="toc-backref" href="#id18">Binding dan resolve</a><a class="headerlink" href="#binding-dan-resolve" title="Permalink to this headline">¶</a></h3>
+<p>Seperti yang telah dijelaskan diatas bahwa <code class="docutils literal"><span class="pre">binding</span></code> adalah menyimpan (set) ke dalam service container dalam bentuk key serta valuenya, sedangkan <code class="docutils literal"><span class="pre">resolve</span></code> adalah mendapatakan (get) value dari key tersebut.</p>
+<p>Hampir semua class internal menggunakan <code class="docutils literal"><span class="pre">binding</span></code> dan <code class="docutils literal"><span class="pre">resolve</span></code> bahkan class eksternal juga terkadang dibuat <code class="docutils literal"><span class="pre">binding</span></code> dan <code class="docutils literal"><span class="pre">resolve</span></code>.</p>
+<p>Namun hampir semua <code class="docutils literal"><span class="pre">resolve</span></code> dalam class internal laravel menggunakan fitur <code class="docutils literal"><span class="pre">facade</span></code>, agar mempermudah dalam mengakses service container, bahasan <code class="docutils literal"><span class="pre">facade</span></code> ini akan dibahas pada bagian <code class="docutils literal"><span class="pre">facade</span></code>.</p>
+<p>Proses <code class="docutils literal"><span class="pre">binding</span></code> dapat kita lakukan pada suatu class namun cara ini sangat jarang digunakan, biasanya <code class="docutils literal"><span class="pre">binding</span></code> akan dilakukan pada provider(method register).</p>
+<p>Berikut contoh sederhana dalam melakukan <code class="docutils literal"><span class="pre">binding</span></code> dan <code class="docutils literal"><span class="pre">resolve</span></code> , penulis menggunakan tinker untuk mempermudah.</p>
+<p>cara pertama adalah dengan membuatkan <code class="docutils literal"><span class="pre">binding</span></code> secara on the fly, cara ini adalah membuat <code class="docutils literal"><span class="pre">binding</span></code> pada class yang akan digunakan,</p>
+<p>namun cara ini sangat jarang ditemui penulis, sedangkan cara kedua adalah dengan menuliskan pada provider, cara ini biasa penulis temui saat membutuhkan library luar.</p>
+<img alt="_images/bindingresolve.jpg" src="_images/bindingresolve.jpg" />
+<p>file <strong>app/providers/AppServiceProvider</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">...</span>
+<span class="x">public function register()</span>
+<span class="x">{</span>
+<span class="x">    $this-&gt;app-&gt;bind(&#39;apa itu laravel&#39;, function() {</span>
+<span class="x">        return &#39;framework yang keren dan elegan&#39;;</span>
+<span class="x">    });</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<img alt="_images/bindingresolve2.jpg" src="_images/bindingresolve2.jpg" />
+</div>
+<div class="section" id="resolve-class-dan-automatic-resolution">
+<h3><a class="toc-backref" href="#id19">Resolve class dan automatic resolution</a><a class="headerlink" href="#resolve-class-dan-automatic-resolution" title="Permalink to this headline">¶</a></h3>
+<p>Bagian ini sebenarnya dibahas lebih jauh pada file <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> namun penulis disini hanya ingin memberikan gambaran saja.</p>
+<p>Dalam contoh diatas kita melakukan <code class="docutils literal"><span class="pre">resolve</span></code> dari sesuatu yang kita <code class="docutils literal"><span class="pre">binding</span></code> ke dalam <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>.kemudian lebih jauh apa itu <code class="docutils literal"><span class="pre">resolve</span></code>???</p>
+<p>Apakah hanya digunakan jika kita menggunakan <code class="docutils literal"><span class="pre">bidding</span></code>, ternyata tidak kita dapat menggunakannya pada class.</p>
+<p>Namun ini diluar dengan cara <code class="docutils literal"><span class="pre">binding</span></code> diatas, yang mana ketika kita menggunakan pada class kita bisa langsung me-<code class="docutils literal"><span class="pre">resolve</span></code> nya.</p>
+<p>Ini lebih berkaitan kepada penggunaan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>, sejauh ini penulis baru mengetahui tentang <code class="docutils literal"><span class="pre">binding</span></code> dan class.</p>
+<p>Intinya adalah kita dapat menginstansisasi class dan dapat mengaksesanya dengan <code class="docutils literal"><span class="pre">resolve</span></code>.</p>
+<p>Ketika kita menginstansiasi class menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> seperti <strong>app(path_file’);</strong> maka otomatis kita akan dapat menggunakan object tersebut, sama halnya dengan instansiasi class dengan cara biasa.</p>
+<p>Perbedaannya adalah jika kita menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> maka ketika terdapat adanya depedency suatu class, laravel akan secara otomatis memenuhinya(entah caranya di-instansiasi atau tidak), bahasan lebih lanjut silahkan melihat pada bagian <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code>.</p>
+<p>file <strong>App/Dompet</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Dompet</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/resolvedasar.jpg" src="_images/resolvedasar.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Satu hal yang perlu diperhatikan disini adalah ketika kita menggunakan <code class="docutils literal"><span class="pre">resolve</span></code> dari class ini kita bisa saja langsung mengakses methodnya tanpa perlu me-assign ke dalam suatu variabel.</p>
+<p>Berbeda dengan cara menginstansiasi secara native dimana kita akan me-assign ke dalam variabel dan baru dapat mengakses methodnya setelah object terbentuk.</p>
+<p>Sedangkan dengan <code class="docutils literal"><span class="pre">resolve</span></code> kita sudah menjadikan object dan langsung dapat mengakses methodnya</p>
+<img alt="_images/resolve2.jpg" src="_images/resolve2.jpg" />
+<p>sebagai tambahan dalam laravel terdapat fitur facade, yaitu melakukan <code class="docutils literal"><span class="pre">resolve</span></code> namun dengan lebih singkat, caranya adalah setelah melakukan binding di method register, kita membuat class dengan meextends class facade dan meoverride method getFacadeAccessor dan mereturn string yang bervalue key dari binding yang dilakukan dalam method register.</p>
+<p class="last">dalam syntax laravel secara internal lebih banyak menggunakan facade daripada <code class="docutils literal"><span class="pre">resolve</span></code>.</p>
+</div>
+</div>
+<div class="section" id="binding-interface-binding-instance-contextual-binding-singleton-binding">
+<h3><a class="toc-backref" href="#id20">Binding interface, Binding instance, Contextual Binding, Singleton Binding</a><a class="headerlink" href="#binding-interface-binding-instance-contextual-binding-singleton-binding" title="Permalink to this headline">¶</a></h3>
+<p>Dalam laravel terdapat berbagai macam dalam melakukan <code class="docutils literal"><span class="pre">binding</span></code>, yaitu <code class="docutils literal"><span class="pre">binding</span> <span class="pre">interface</span></code>, <code class="docutils literal"><span class="pre">binding</span> <span class="pre">instance</span></code>, <code class="docutils literal"><span class="pre">contextual</span> <span class="pre">binding</span></code>, dan <code class="docutils literal"><span class="pre">singleton</span> <span class="pre">binding</span></code>.</p>
+<div class="section" id="id1">
+<h4><a class="toc-backref" href="#id21">Binding interface</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p><strong>Binding interface</strong> dan <strong>binding instance</strong> hampir sama, hanya perbedaannya pada masalah class yang memiliki implementasi suatu interface.</p>
+<p>Seperti diketahui bahwa dalam proses <code class="docutils literal"><span class="pre">binding</span></code> kita memberikan key dan value, namun apa jadinya jika key dan value yang kita binding adalah suatu class/interface.</p>
+<p>Well lupakan tulisan diatas, dalam materi tentang <code class="docutils literal"><span class="pre">service</span> <span class="pre">provider</span></code> (tidak terdapat pada bagian di file ini melainkan pada materi <cite>service provider</cite>) kita telah diberitahukan bahwa jika memiliki suatu class dan dijalankan dengan <code class="docutils literal"><span class="pre">resolve</span></code> (misalkan app(‘AppSuatuClass’);) maka ketika dalam method terserbut memiliki adanya depedency akan class lain, maka akan dibuatkan depedency-nya.</p>
+<p>Akan tetapi bagaimana jika yang menjadi depedency nya adalah interface ??? apakah bisa kita instansiasiakan classnya dengan resolve, ternyata akan gagal, lantas bagaimanakah menginstansiasi class yang memiliki depedency interface dengan service container(resolve).</p>
+<p>Caranya adalah dengan membuat <code class="docutils literal"><span class="pre">binding</span></code> terlebih dahulu dengan key berupa class yang memiliki depedency dan valuenya adalah class yang mengimplementasikan interface tersebut.</p>
+<p>Sebagai tambahan bahwa jika suatu class membutukan adanya depedency berupa interface, maka yang harus mengisikan depedency tersebut adalah class yang meng-implementasikan interface tersebut, misalkan contoh berikut:</p>
+<p>file <strong>App/PaymentMethod</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">interface</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/Customer.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Customer</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setPayment</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekPayment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span><span class="o">-&gt;</span><span class="na">cekIsi</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/KartuKredit.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">KartuKredit</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$cardNumber</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cardNumber</span> <span class="o">=</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">.</span> <span class="s1">&#39; saldo tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Kita tidak bisa menggunakan <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> untuk menginstansisasikan class <strong>Customer</strong> dan akan memenuhi <cite>depedency</cite>-nya, kita bisa saja menggantikan depedency dari interface ke class yang menginplementasikan interface tersebut, namun tentu bukan ini caranya , karena yang kita butuhkan dari depedency interface adalah methodnya yang nantinya akan dioverride oleh class yang mengimplementasikannya, Karena pasti setiap class yang mengimplementasikannya memiliki cara yang berbeda (jika yang mengimplementasikan interface lebih dari satu class).</p>
+<p>Satu-satunya solusi adalah dengan menggunakan <code class="docutils literal"><span class="pre">bidding</span> <span class="pre">interface</span></code> yang mana key nya adalah <cite>interface</cite> dan valuenya adalah class yang mengimplementasikan interface tersebut, nantinya ketika kita menginstansiasi class yang memiliki depedency daripada interface yang kita binding maka kita dapat melakukannya lewat <code class="docutils literal"><span class="pre">service</span> <span class="pre">container</span></code> (resolve).</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">btw contoh di bukularavel itu salah, pada halaman 154 harusnya yang dibinding interface dengan value class yang mengimplementasiakan interface tersebut.</p>
+</div>
+<img alt="_images/bindinginterface.jpg" src="_images/bindinginterface.jpg" />
+<img alt="_images/bindinginterface1.jpg" src="_images/bindinginterface1.jpg" />
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>Sedikit tambahan, dapat pula menambahkan dengan binding di provider()method register, nantinya aakan dapat dipanggil seperti resolve diatas</p>
+<p class="last">$this-&gt;app-&gt;bind(‘AppPaymentMethod’,’AppKartuKredit’);</p>
+</div>
+<p><strong>Hey stop it, just remember what is our write on the top.</strong></p>
+<p>Ketika kita membuat <code class="docutils literal"><span class="pre">binding</span></code> dari key dan value maka yang terjadi adalah saat <code class="docutils literal"><span class="pre">resolve</span></code> kita akan menuliskan key dan mendapatkan value, ini juga berlaku pada <code class="docutils literal"><span class="pre">binding</span></code> dengan key/value class/interface.</p>
+<p>Maksudnya adalah jangan berpatok pada classnya namun pada key dan valuenya, ingat itu hanya key dan value.</p>
+<p>mari kita buktikan, ketika kita telah membuat <code class="docutils literal"><span class="pre">binding</span></code> dengan key berupa interface dan value berupa class yang mengimplementasikannya maka saat kita melakukan resolve dengan key tersebut sebenarnya adalah melakukan instansiasi class yang meng implementasikannya.</p>
+<img alt="_images/bindinginterface2.jpg" src="_images/bindinginterface2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Perlu diketahui bahwa suatu interface bisa saja di implementasikan oleh lebih dari satu class, kemudian bagaimana jika kita memiliki class dengan depedency interface dan kita memiliki perbedaan pada class yang akan mengimplementasikan interface teersebut, hal ini akan dibahas pada bagian contract</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h4><a class="toc-backref" href="#id22">Binding Instance</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Masih dalam kasus yang sama dengan <code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Interface</span></code>, pada <code class="docutils literal"><span class="pre">Binding</span> <span class="pre">Instance</span></code> ini kita akan menginstansiasi suatu class yang memiliki implement suatu interface, tujuannya adalah kita dapat memberikan value default.</p>
+<p>Seperti pada contoh diatas, jika kita menginstansiasi suatu class dengan resolve(service container) maka yang terjadi adalah kita tidak dapat memberikan parameter pada class, tentu parameter yang dimaksud adalah parameter dalam method construct.</p>
+<p>Dengan binding interface maka kita dapat membinding dengan value berupa object, berbeda dengan method bind yang valuenya tidak dapat diberikan object namun class asli.</p>
+<p>Keuntungannya adalah karena value yang diberikan berupa object maka kita dapat memberikan value default sebelumnya.</p>
+<p>semisal kita mendeklarasiakan script ini di dalam method register suatu provider:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$cc = new \App\KartuKredit(2000, &#39;42542353545&#39;);
+$this-&gt;app-&gt;bind(&#39;App\PaymentMethod&#39;, $cc);
+</pre></div>
+</div>
+<img alt="_images/bindinginstance1.jpg" src="_images/bindinginstance1.jpg" />
+<p>namun jika kita menggunakan method instance maka kita akan dapat memberian value sebuah object</p>
+<blockquote>
+<div>$cc = new AppKartuKredit(2000, ‘42542353545’);
+$this-&gt;app-&gt;instance(‘AppPaymentMethod’, $cc);</div></blockquote>
+<p>but remember dalam kasus ini kita membinding dengan key interface dan value instansiasi class yang menginplementasikan interface tersebut</p>
+<p>Dan jangan sampai kebalik</p>
+<blockquote>
+<div>$cc = new AppKartuKredit(2000, ‘42542353545’);
+$this-&gt;app-&gt;instance(‘AppKartuKredit’, $cc);</div></blockquote>
+<img alt="_images/bindinginstance2.jpg" src="_images/bindinginstance2.jpg" />
+</div>
+<div class="section" id="id3">
+<h4><a class="toc-backref" href="#id23">Contextual binding</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>Adalah menempatkan setiap implementasi interface ketika akan menggunakan class yang membutuhkan <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">interface</span></code>.</p>
+<p>Misalkan adalah ketika kita memiliki lebih dari satu class namun class-class tersebut memiliki adanya <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">interface</span></code> yang sama namun nantinya kita akan memenuhi depedencynya dengan class yang mengimpleementasikannya secara berbeda.</p>
+<p>contohnya kita meiliki class <code class="docutils literal"><span class="pre">seller</span></code> yang mana class ini juga memiliki adanya depedency berupa interface <code class="docutils literal"><span class="pre">PaymentMethod</span></code>, maka jika memiliki class yang mengimplementasikan interface tersebut berbeda maka kita bisa menentukannya secara berbeda pula.</p>
+<p>file <strong>App/Seller</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Seller</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setPayment</span><span class="p">(</span><span class="nx">PaymentMethod</span> <span class="nv">$payment</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span> <span class="o">=</span> <span class="nv">$payment</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekPayment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">payment</span><span class="o">-&gt;</span><span class="na">cekIsi</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/RekeningPonsel</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">RekeningPonsel</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$pulsa</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$phoneNo</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$pulsa</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$phoneNo</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pulsa</span> <span class="o">=</span> <span class="nv">$pulsa</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">phoneNo</span> <span class="o">=</span> <span class="nv">$phoneNo</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pulsa</span> <span class="o">.</span> <span class="s1">&#39; pulsa tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contextualbinding.jpg" src="_images/contextualbinding.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Dengan menggunakan <code class="docutils literal"><span class="pre">contextual</span> <span class="pre">binding</span></code> maka 1 interface dapat digunakan ke dalam lebih dari satu class yang membutuhkan depedency nya.</p>
+<p>Berbeda dengan pada bagian <code class="docutils literal"><span class="pre">binding</span> <span class="pre">interface</span></code> yang mana kita hanya mem-binding satu interface ke dalam 1 class yang mengimpleentasikannya.</p>
+<p class="last">Sehingga ketika kita menggunakan suatu class yang memiliki <code class="docutils literal"><span class="pre">depedency</span> <span class="pre">interface</span></code> tersebut kita akan mengisikan depedency nya dengan class yang mengimplementasikan(artinya hanya satu).</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h4><a class="toc-backref" href="#id24">Singleton Binding</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>Adalah membuat <code class="docutils literal"><span class="pre">binding</span></code> dengan menginstansiasi class dalam <strong>satu kali</strong>.</p>
+<p>Ini dimakudkan agar setiap kita menggunakan <code class="docutils literal"><span class="pre">resolve</span></code> maka kita tidak perlu menginstansiasi class tersebut lagi.</p>
+<p>Semisal dalam contoh markdownconverter diatas, maka saat melakukan <code class="docutils literal"><span class="pre">resolve</span></code> kita tidak akan menginstansiasi class markdowwn tersebut.</p>
+<p>Sehingga nilainya tidak akan berubah.</p>
+<p>Inti dari pemrosesan singleton ini adalah ketika terdapat <code class="docutils literal"><span class="pre">resolve</span></code> yang sama maka kita akan menggunakan instansiasi class(object) sebelumnya, meskipun kita menggunakan variabel lainnya.</p>
+<p>Sebagai contoh semisal kita akan menggunakan Class <code class="docutils literal"><span class="pre">KartuKredit</span></code>, maka jika kita menggunakan <code class="docutils literal"><span class="pre">resolve</span></code> lebih dari satu kali maka class <code class="docutils literal"><span class="pre">KartuKredit</span></code> akan diinstansiasi lebih dari satu kali.</p>
+<p>file <code class="docutils literal"><span class="pre">App/KartuKredit</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">KartuKredit</span> <span class="k">implements</span> <span class="nx">PaymentMethod</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$saldo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$saldo</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">$cardNumber</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">=</span> <span class="nv">$saldo</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cardNumber</span> <span class="o">=</span> <span class="nv">$cardNumber</span><span class="p">;</span>
+        <span class="c1">//kita menambahkan adanya hasil ketika class ini diinstansiasikan</span>
+        <span class="k">echo</span> <span class="s1">&#39;membuat kartu kredit...&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">cekIsi</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saldo</span> <span class="o">.</span> <span class="s1">&#39; saldo tersisa.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/singletonbinding.jpg" src="_images/singletonbinding.jpg" />
+<p>file <code class="docutils literal"><span class="pre">App/AppServiceProvider</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">//jika kita menambahkan syntax ini di dalam method register maka ketika kita melakukan ``resolve``, class KartuKredit hanya akan diinstansiasikan satu kali</span>
+<span class="x">$this-&gt;app-&gt;singleton(&#39;App\KartuKredit&#39;, function($app)</span>
+<span class="x">{</span>
+<span class="x">return new \App\KartuKredit;</span>
+<span class="x">});</span>
+</pre></div>
+</div>
+<img alt="_images/singletonbinding2.jpg" src="_images/singletonbinding2.jpg" />
+</div>
+</div>
+<div class="section" id="facade-dan-contract">
+<h3><a class="toc-backref" href="#id25">Facade dan Contract</a><a class="headerlink" href="#facade-dan-contract" title="Permalink to this headline">¶</a></h3>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Bagian ini hanya sebagai penambah informasi saja, untuk info lebih lengkap silahkan kunjungi pada file <code class="docutils literal"><span class="pre">facade</span></code> dan <code class="docutils literal"><span class="pre">contract</span></code></p>
+</div>
+<div class="section" id="facade">
+<h4><a class="toc-backref" href="#id26">Facade</a><a class="headerlink" href="#facade" title="Permalink to this headline">¶</a></h4>
+<p>Facade adalah cara dalam menggunakan <code class="docutils literal"><span class="pre">resolve</span></code> laravel dengan lebih singkat.</p>
+<p>Misalkan saja kita dapat menggunakan syntax <strong>Log::info(‘message’)</strong></p>
+<p>Maka sebenarnya kita me``resolve`` <strong>app(‘log’)-&gt;info(‘message’)</strong>.</p>
+<p>Untuk menggunakan fitur facade pada class luar(library) anda dapat melihat pada file facade.</p>
+<p>Sedangkan laravel sendiri memiliki cara tersendiri dalam membuat fitur facade, selengkapanya anda dapat membaca pada bagian catatan dibawah.</p>
+</div>
+<div class="section" id="contract">
+<h4><a class="toc-backref" href="#id27">Contract</a><a class="headerlink" href="#contract" title="Permalink to this headline">¶</a></h4>
+<p>disini penulis hanya ingin membahas contract dari sisi laravel saja untuk mempermudah.</p>
+<p>Mungkin bagian ini hampir mirip dengan <code class="docutils literal"><span class="pre">binding</span> <span class="pre">interface</span></code>, namun memiliki perbedaan pada masalah dasar fungsionalitas.</p>
+<p>Contract di dalam laravel digunakan sebagai penentu kebutuhan pengakses yang diperlukan dalam berjalannya aplikasi laravel.</p>
+<p>semisal kita memiliki adanya suatu aplikasi pengirim newsletter, misalkan mengirimkan informasi/pesan ke <code class="docutils literal"><span class="pre">mailserver</span></code> yang kita miliki.</p>
+<p><code class="docutils literal"><span class="pre">mailserver</span></code> itu sendiri adalah library yang berasal dari class luar.</p>
+<p>Pada sebelumnya kita hanya menjadikan depedency class <code class="docutils literal"><span class="pre">mailserver</span></code> tersebut, masalah muncul ketika kita harus menggunakan <code class="docutils literal"><span class="pre">mailserver</span></code> lain.</p>
+<p>file <code class="docutils literal"><span class="pre">App/MailChimp</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MailChimp</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;subscribing &#39;</span> <span class="o">.</span> <span class="nv">$email</span> <span class="o">.</span> <span class="s1">&#39; to mailchimp server.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>flle <strong>App/NewsLetterV1</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">NewsLetterV1</span> <span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailChimp</span> <span class="nv">$mailchimp</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span> <span class="o">=</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span><span class="o">-&gt;</span><span class="na">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contratcs.jpg" src="_images/contratcs.jpg" />
+<p>Namun bagaimana jika kita memiliki <code class="docutils literal"><span class="pre">mailserver</span></code> lain dan akan kita jalankan secara <strong>on the fly</strong>, semisal <cite>mail server</cite> berikut:</p>
+<p>file <code class="docutils literal"><span class="pre">App/CampaignMonitor</span></code></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">CampaignMonitor</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">return</span> <span class="s1">&#39;subscribing &#39;</span> <span class="o">.</span> <span class="nv">$email</span> <span class="o">.</span> <span class="s1">&#39; to campaign monitor server.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Satu-satunya jalan adalah membuat <cite>interface</cite> (contract) dan membuat class wrapper yang menginplementasi interface tersebut karena seperti diketahui bahwa <code class="docutils literal"><span class="pre">mailserver</span></code> MailChimp dan CampaignMonitor berasal dari class luar(library luar)</p>
+<p>file <strong>App/Contracts/MailListContract</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App\Contracts</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Mendaftarkan email ke server mailing list</span>
+<span class="sd">    * @param String $email</span>
+<span class="sd">    */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/MailChimpList</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MailChimpList</span> <span class="k">implements</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailChimp</span> <span class="nv">$mailchimp</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span> <span class="o">=</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span><span class="o">-&gt;</span><span class="na">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/CampaignMonitorList</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">CampaignMonitorList</span> <span class="k">implements</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$campaignMonitor</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CampaignMonitor</span> <span class="nv">$campaignMonitor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">campaignMonitor</span> <span class="o">=</span> <span class="nv">$campaignMonitor</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">campaignMonitor</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/NewsLetterV3</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">NewsLetterV3</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailList</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailListContract</span> <span class="nv">$mailList</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span> <span class="o">=</span> <span class="nv">$mailList</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contracts2.jpg" src="_images/contracts2.jpg" />
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">tujuan utama dengan adanya contract ini adalah kita dapat menggunakan lebih dari satu class dalam mengakses satu komponen dalam laravel.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Hal yang masih belum diketahui oleh penulis adalah dalam laravel tidak terdapat adanya binding interface contract.</p>
+<p>dari sumber referensi yang ada bahwa binding terjadi pada file Illuminate/Foundation/Application.php pada method registerCoreContainerAliases di variabel key ‘aliases’ didalamnya terdapat key dan value.</p>
+<p class="last">bindingnya adalah key yang sama dengan facade dan valuenya adalah file class asli dan terkadang ada file contract tersebut, ini tentunya sangat aneh sekali. mengapa pula kita memberikan value berupa contract(interface)nya, dan anehnya lagi kita bisa melakukan <code class="docutils literal"><span class="pre">resolve</span></code> dengan contract(interface) ini.</p>
+</div>
+<img alt="_images/facadecontracts.jpg" src="_images/facadecontracts.jpg" />
+<img alt="_images/facadecontracts2.jpg" src="_images/facadecontracts2.jpg" />
+<p>seperti yang diketahui adalah laravel membuatkan facade di file config/app.php pada key aliases, kita juga dapat mengguakan class luar dengan menuliskan facade disini , misalkan kita akan mengambil contoh binding log yang akan ditulis facadenya di Support/Facades/Log</p>
+<img alt="_images/facade.jpg" src="_images/facade.jpg" />
+<p>kemudian facade ini akan mengambil sebuah key (key binding) , keynya yaitu berupa string log</p>
+<img alt="_images/facade2.jpg" src="_images/facade2.jpg" />
+<p>binding terjadi pada file ‘illuminate/Foundation/Application’ , key binding ini anehnya tidak seperti dengan binding interface namun berbentuk array dan valuenya adalah class yang akan mengimplemntasikan interface(contract)</p>
+<img alt="_images/keybinding.jpg" src="_images/keybinding.jpg" />
+<p>jika kita melihat class aslinya, maka akan ditrmui bahwa class asli ini mengimpmentasikan contract</p>
+<img alt="_images/classasli.jpg" src="_images/classasli.jpg" />
+<img alt="_images/classasli2.jpg" src="_images/classasli2.jpg" />
+<p>muncul pertanyaan bagaimanakah menggunakan class lain ketika kita tahu bahwa hanya satu class yang akan dijalankan dan itu adalah class yang mengimplementasikan interface(contract), apakah memang secar internal class dalam laravel hanya dijalankan oleh satu class</p>
+<p>Bagaimana jika kita menggunakan class luar, apa perlu untuk mengimplentasikan interface(contract) tersebut</p>
+<p><strong>well kemungkinan tidak</strong></p>
+<p>dan mungkin saja komponen di laravel ini memang hanya menggunakan satu class saja</p>
+<p>dalam <cite>bukularavel rahmatawaludin</cite> pun juga seperti itu</p>
+<p>ketika kita meggunakan contract itu(menyertakan) dan menjadikan depedency maka secara otomatis kita akan menggunakan class ‘Illuminate/Log/Writer’</p>
+<p>contoh file <strong>app/NewsLetterV3.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Contracts\Logging\Log</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">NewsLetterV3</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailList</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$logger</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailListContract</span> <span class="nv">$mailList</span><span class="p">,</span> <span class="nx">Log</span> <span class="nv">$logger</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span> <span class="o">=</span> <span class="nv">$mailList</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s1">&#39;User baru diregistrasi : &#39;</span> <span class="o">.</span> <span class="nv">$email</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contract4.jpg" src="_images/contract4.jpg" />
+<img alt="_images/contract5.jpg" src="_images/contract5.jpg" />
+</div>
+</div>
+</div>
+<div class="section" id="facades">
+<h2><a class="toc-backref" href="#id28">Facades</a><a class="headerlink" href="#facades" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Facade</span></code> adalah shortcut dalam mempermudah pengaksesan resolve.</p>
+<p>misalkan resolve <code class="docutils literal"><span class="pre">app('log')-&gt;info('message')</span></code> dengan facade maka akan menjadi <code class="docutils literal"><span class="pre">Log::info('message');</span></code></p>
+<p>Perlu diketahui bahwa syntax <code class="docutils literal"><span class="pre">Log::info('message')</span></code> <strong>bukan</strong> berarti mengakses static method info.</p>
+<p>Karena sebenarnya facade ini hanya untuk mempermudah dalam coding, berikut percobaan</p>
+<img alt="_images/Facades_oprek.jpg" src="_images/Facades_oprek.jpg" />
+<p>selanjutnya akan muncul keterangan log pada storage/logs</p>
+<img alt="_images/Facades_oprek_2.jpg" src="_images/Facades_oprek_2.jpg" />
+<img alt="_images/Facades_oprek_3.jpg" src="_images/Facades_oprek_3.jpg" />
+<p>Namun saat membuka file tersebut (<strong>log.php</strong>) maka tidak akan ada method static info.</p>
+<div class="section" id="membuat-facades">
+<h3><a class="toc-backref" href="#id29">Membuat Facades</a><a class="headerlink" href="#membuat-facades" title="Permalink to this headline">¶</a></h3>
+<p>Kita dapat membuat facades, bahkan dari library.</p>
+<p>Dibawah kita akan mencoba membuat facade dari library <strong>commonMarkdownConverter</strong></p>
+<p>terdapat 3 langkah untuk membuat facade ini :</p>
+<ol class="arabic simple">
+<li>Membuat Binding ke service container</li>
+<li>Membuat <code class="docutils literal"><span class="pre">Facade</span></code> class yang me-extends class IlluminateSupportFacadesFacade.</li>
+<li>Membuat <code class="docutils literal"><span class="pre">alias</span></code> di <strong>config/app</strong></li>
+</ol>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">dalam langkah 1 kita sudah membuatnya , yang mana kita membuat semua nya sekalian dengan service provider nya</p>
+</div>
+<p>2.buat class <strong>Facades</strong></p>
+<p>file <strong>app/Facades/MarkdownFacade.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App\Facades</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Support\Facades\Facade</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MarkdownFacade</span> <span class="k">extends</span> <span class="nx">Facade</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getFacadeAccessor</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;markdown&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Tambahkan <cite>key markdown</cite> di dalam file <strong>config/app.php</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;Markdown&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;App\Facades\MarkdownFacade&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+<img alt="_images/Facades_oprek_4.jpg" src="_images/Facades_oprek_4.jpg" />
+</div>
+</div>
+<div class="section" id="contracts">
+<h2><a class="toc-backref" href="#id30">Contracts</a><a class="headerlink" href="#contracts" title="Permalink to this headline">¶</a></h2>
+<p>Dalam materi sebelumnya sebenarnya fitur Contracts ini sudah dicoba, yaitu pada materi <code class="docutils literal"><span class="pre">Service</span> <span class="pre">Container</span></code> pada bahasan <code class="docutils literal"><span class="pre">binding</span> <span class="pre">interface</span></code></p>
+<p>Perbedaanya adalah, pada fitur Contracts ini kita meletakkan interface(dalam hal ini contracts) yang akan menjadi depedency di dalam suatu direktori (tidak bersama dengan file eksekusi).</p>
+<p>berikut strukturnya</p>
+<p><cite>materi Binding interface</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>app/
+├── PaymentMethod.php   =&gt; **interface*
+├── Pelanggan.php       =&gt; **file eksekusi (membutuhkan depedency object yang me-implement interface)**
+├── KartuKredit.php     =&gt; **class depedency yang akan me-implent interface**
+</pre></div>
+</div>
+<p><cite>materi Contracts</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>root/
+├── Contracts
+|  └── MailListContract.php
+├── NewsLetterV3.php
+├── KirimSurat.php
+</pre></div>
+</div>
+<p>pada materi Contracts ini kita akan menyertakan file Contracts pada file eksekusi dan class depedency yang akan me-implement interface</p>
+<p>misal : <strong>use AppContractsMailListContract;</strong></p>
+<p>Contracts adalah suatu cara dalam laravel dalam membuat suatu object sesuai dengan kriteria yang dikehendaki.</p>
+<p>Contracts ini menggunakan interface yang mana nantinya dapat digunakan dalam satu atau lebih dari satu class.</p>
+<p>mengapa harus ada contract ???</p>
+<p>Karena tidak setiap library memiliki nama method yang sama meski, cara dan hasil methodnya sebenarnya sama(nama methodnya beda, tapi cara dan hasilnya sama).</p>
+<p>Misalkan kita memiliki aplikasi yang mana di dalamnya memiliki fitur pengantar pesan (mail) ke server pesan (mailserver) dan aplikasi tersebut berbentuk library.</p>
+<p>Jika hanya memiliki satu library maka tidak perlu menggunakan contracts. Semisal berikut</p>
+<p>file <strong>App/MailChimp.php</strong> (library <code class="docutils literal"><span class="pre">mailchimp</span></code>)</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MailChimp</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;subscribing &#39;</span> <span class="o">.</span> <span class="nv">$email</span> <span class="o">.</span> <span class="s1">&#39; to mailchimp server.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/NewsLetterV1</strong> (class yang akan menjalankan class <code class="docutils literal"><span class="pre">MailChimp</span></code> =&gt; pada method <strong>subscribe</strong>)</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NewsLetterV1</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailChimp</span> <span class="nv">$mailchimp</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span> <span class="o">=</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span><span class="o">-&gt;</span><span class="na">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contracts_nousecontract.jpg" src="_images/contracts_nousecontract.jpg" />
+<p>Namun Bagaimana bila kita diharuskan membuat <strong>2</strong> saluran mailserver, yang mana tentu saja nama method daripada fungsi <strong>subscribe</strong> kemungkinan berbeda.</p>
+<p>Semisal kita akan menggunakan library <strong>CampaignMonitor</strong>, dan ternyata nama method dalam subscribenya adalah <strong>add()</strong>.</p>
+<p>Bisa saja kita membuat 1 class untuk satu <code class="docutils literal"><span class="pre">MailServer</span></code>,namun bagaimana jika mail servernya bertambah lagi???</p>
+<p>Dalam kasus ini kita dapat membuat contracts sehingga hanya dibutuhkan beberapa class yang dapat mengakses library lebih dari 1.</p>
+<p>Contracts bebrentuk interface yang dapat diletakkan dimana saja, misal kan kita membuat contracts berikut</p>
+<p>file <strong>App/CampaignMonitor.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CampaignMonitor</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;subscribing &#39;</span> <span class="o">.</span> <span class="nv">$email</span> <span class="o">.</span> <span class="s1">&#39; to campaign monitor server.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/NewsLetterV3.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="c1">//berikut ini adalah script contractnya</span>
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">NewsLetterV3</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailList</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailListContract</span> <span class="nv">$mailList</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span> <span class="o">=</span> <span class="nv">$mailList</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailList</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Dikarenakan class <strong>NewsLetter</strong> membutuhkan adanya depedency berupa object yang me-implement interface <strong>MailListContract</strong> maka untuk dapat memberikan argumentnya kita harus membuat object yang mana me-implement interface <strong>MailListContract</strong>.</p>
+<p>ada 2 cara, yaitu mengubah library (<strong>MailChimp</strong> dan <strong>CampaignMonitor</strong>) untuk me-implement interface <strong>MailListContract</strong> dan me-override method <code class="docutils literal"><span class="pre">register</span></code>, atau dengan membuat class <cite>wrapper</cite>,atau class baru yang me-adaptasi(adapter) library tersebut.</p>
+<p>Cara kedua jauh lebih baik karea kita tidak perlu merubah struktur asli library.</p>
+<p>file <strong>App/MailChimpList.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MailChimpList</span> <span class="k">implements</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MailChimp</span> <span class="nv">$mailchimp</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span> <span class="o">=</span> <span class="nv">$mailchimp</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailchimp</span><span class="o">-&gt;</span><span class="na">subscribe</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>App/CampaignMonitorList.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CampaignMonitorList</span> <span class="k">implements</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$campaignMonitor</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CampaignMonitor</span> <span class="nv">$campaignMonitor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">campaignMonitor</span> <span class="o">=</span> <span class="nv">$campaignMonitor</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">campaignMonitor</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$email</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contracts_usecontract.jpg" src="_images/contracts_usecontract.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Karena contract berbentuk interface maka kita harus melakukan binding</p>
+</div>
+<img alt="_images/contracts_usecontract_2.jpg" src="_images/contracts_usecontract_2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Dikarenakan kita akan memberikan argument pada method reguiter berupa email, maka di interface juga diberikan parameter tersebut.</p>
+<p class="last">Setiap method interface harus sama persis dengan class yang me-implementasikan, jika semisal method register dalam interface MailListContract tidak memiliki parameter, tentu clas yang me-implementnya tidak boleh ada parameternya</p>
+</div>
+<p>file <strong>AppKirimSurat.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Contracts\MailListContract</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">KirimSurat</span> <span class="k">implements</span> <span class="nx">MailListContract</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;Mendaftarkan email &#39;</span> <span class="o">.</span> <span class="nv">$email</span> <span class="o">.</span> <span class="s1">&#39; ke server Kirim Surat.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<img alt="_images/contracts_usecontract_3.jpg" src="_images/contracts_usecontract_3.jpg" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="laravel-config.html" class="btn btn-neutral float-right" title="Konfigurasi Laravel" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic-concept.html" class="btn btn-neutral" title="Konsep Dasar" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

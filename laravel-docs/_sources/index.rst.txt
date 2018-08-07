@@ -1,0 +1,50 @@
+.. laravel mdd documentation master file, created by
+   sphinx-quickstart on Tue Feb  7 01:29:43 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to laravel mdd's documentation!
+=======================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 3
+
+   basic-concept
+   laravel-architecture
+   laravel-config
+   routing
+   database
+   model-eloquent
+   relationship-eloquent
+   collection-eloquent
+   view
+   controller
+   request-response
+   validate
+   middleware
+   authenticate-authorization-grant-access
+   validation
+   jobs
+   file-management
+   laravel-multi-branch-and-set-deploy
+   mobile-apps
+   repository-pattern
+   laravel-simple-register-activation
+   laravel-new-project-recommended-structure
+   laravel-tips
+   laravel-emergency
+   timezone-laravel
+   laravel-problem-and-solving
+   artisan-console
+   content-baru
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

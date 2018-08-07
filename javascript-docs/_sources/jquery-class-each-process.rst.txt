@@ -1,0 +1,28 @@
+jQuery proses value tiap class 
+==================================
+
+Jika semisal data dari html itu berkelompok dan memiliki kesamaan dalam hal sruktur dan bentuknya, maka untuk dapat mengaturnya (mengaksesnya) akan lebih menggunakan class.
+
+class element html ini seperti halnya array dalam bahasa pemrograman, yang akan diakses satu persatu dengan foreach.
+
+satu hal yang pasti adalah kita akan memberikan adanya pengambilan value melalui perulangan foreach yang akan dilakukan.
+
+.. code-blocK:: html
+
+	<div class="foo">
+		<textarea class="bar">value</textarea>
+		<textarea class="baz">value</textarea>
+	</div>
+
+	<script>
+		var declareVariable1;
+		var declareVariable2;
+
+		$(".foo").each(function( index ) {
+			declareVariable1 = $(this).find(".bar").val();
+			declareVariable2 = $(this).find(".baz").val();
+			//process variable value
+		});
+	</script>
+
+method "each" itu seperti foreach yang akan mengulangi bagian class element html.

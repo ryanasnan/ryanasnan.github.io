@@ -1,0 +1,895 @@
+Javascript Object
+========================
+
+.. contents:: Table of Contents
+.. section-numbering::
+
+================================================
+Sekilas pengenalan object di Javascript
+================================================
+
+Dalam javascript, **HAMPIR** semua komponen di dalamnya berupa object.
+
+Secara eksplisit dalam javascript, hanya terdapat 2 tipe data yaitu tipe data ``primitive`` dan tipe data ``object``.
+
+Tipe data primitive seperti diketahui adalah tipe data ``string``, ``number``, ``boolean``, ``undefined`` dan ``null``.
+Sedangkan yang lainnya merupakan bagian dari object, seperti ``array``, ``dates``, ``math``, ``object`` bahkan ``function`` juga termasuk dari object.
+
+.. note::
+
+	Tipe data ``string``, ``number`` dan ``boolean`` tidak akan berupa object, jika tidak dideklarasikan dengan keyword ``new``.
+
+.. important::
+
+	Object dalam javascript sejatinya hanya berisikan **key** dan **value**.
+	Hampir mirip dengan konsep tipe data array pada umumnya.
+
+	Key disini bisa disebut sebagai ``property``, sedangkan value di dalamnya dapat diisikan dengan tipe data ``primitive``, tipe data ``object`` atau suatu ``function`` (dalam bentuk function expression).
+	Namun karena function sendiri juga sebenarnya bagian dari object, maka bisa dikatakan value dari key suatu object hanya berisikan tipe data primitive dan tipe data object.
+	
+	Untuk lebih jelasnya dapat melihat referensi di bagian bawah :ref:`konsep-key-value-object-js`.
+
+	Untuk memudahkan pengertian object pada bagian awal materi, sebaiknya anggap saja seperti konsep object pada umumnya yaitu terdapat adanya property dan method, keduanya secara umum akan dipanggil sebagai **member object**.
+	Property biasa berisikan tipe data primitive, sedangkan method berisikan function expression.
+
+================================================
+Pembuatan object di javascript
+================================================
+
+Object di javascript memang sedikit berbeda dari bahasa pemrograman lainnya.
+
+Tidak seperti bahasa pemrograman secara umumnya, object di javascript bisa langsung dibuat tanpa adanya cetakan (**blueprint**) yang dalam bahasa lain biasa disebut ``class``.
+
+Secara umumnya object di javascript dapat dibuat dengan 3 cara yaitu:
+
+- Literal
+
+- Constructor
+
+- Clone-prototype
+
+
+Literal
+------------------
+
+Pembuatan object di javascript dengan metode literal adalah methode yang paling mudah dalam membuat object.
+
+Untuk dapat membuat object dengan cara ini hanya perlu menggunakan tanda ``{}`` dan di dalamnya diisi dengan member object (property dan method).
+
+contoh pembuatan object dengan literal
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/1.1.simple-object-from-literal.html
+	:language: html
+
+Result
+
+.. image:: images/1.1.simple-object-from-literal.png
+
+Object tersebut juga dapat ditambahkan property atau methodnya.
+
+contoh penambahan property dan method pada object literal
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/1.2.add-member-object-literal.html
+	:language: html
+
+Result
+
+.. image:: images/1.2.add-member-object-literal.png
+
+.. warning::
+
+	Keterangan yang benar tentang strucktur suatu object dalam console browser itu adalah yang bagian atas.
+
+	Sedangkan keterangan object yang di expand akan menghasilkan keterangan struktur object yang **final** (telah dimanipulasi sampai tahap akhir)
+
+	contoh penjelasan struktur object pada console browser
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/catatan-tentang-hasil-tampilan-object-di-console.html
+		:language: html
+
+	Result
+
+	.. image:: images/catatan-tentang-hasil-tampilan-object-di-console.png
+
+.. hint::
+
+	Dalam object sendiri juga dapat diisikan dengan object lain.
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/chain-object.html
+		:language: html
+
+	Result
+
+	.. image:: images/chain-object.gif
+
+Constructor
+------------------
+
+Pembuatan object dengan constructor ini jauh lebih mirip dengan penggunaan object berbasis ``class``.
+Yaitu dapat dengan membuat suatu cetakan (**blueprint**) lalu membuat object berdasar cetakan tersebut.
+
+Hanya saja cetakan(blueprint) ini menggunakan **function**.
+
+Terdapat sedikit perbedaan dalam menentukan property dan method yang ada di dalam contructor.
+Untuk menentukan property atau method yang terdapat di constructor maka diperlukan adanya keyword ``this``.
+
+Contoh pembuatan object dengan constructor
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/2.1.simple-constructor-object.html
+	:language: html
+
+Result
+
+.. image:: images/2.1.simple-constructor-object.gif
+
+.. note::
+
+	Jika dalam membuat constructor sebaiknya hindari penggunaan property yang sekiranya kosong.
+	
+	Sebaiknya buat property saat object tersebut membutuhkan (tidak dibuat di constructor).
+	
+	Atau jika bisa juga dengan memberikan value berupa null.
+	
+	contoh untuk membuat contructor
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/catatan-dalam-membuat-constructor.html
+		:language: html
+
+	Result
+
+	.. image:: images/catatan-dalam-membuat-constructor.png
+
+.. note::
+
+	Object contructor (yang menggunakan function) hanya dapat dibuat dengan cara instansiasi function tersebut (menggunakan keyword **new**).
+	Sedangkan property dari object constructor hanya akan tercipta dari keyword **this**
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/keyword-this-and-new-in-constructor.html
+		:language: html
+
+	Result
+
+	.. image:: images/keyword-this-and-new-in-constructor.png
+
+------------------------------------
+Penjelaan mengenai ``Prototype`` 
+------------------------------------
+
+Javascript merupakan bahasa yang berbasis prototype (**prototype-based language**).
+Functon yang digunakan sebagai constructor juga sebenarnya menggunakan prinsip tersebut.
+
+Prototype dalam javascript lebih bisa dikatakan sebagai ``pembungkus`` atau ``wrapper`` daripada property dan method dalam object.
+Singkatnya setiap object di javascript akan memiliki property berupa prototype.
+
+.. image:: images/object-prototype-flow.png
+
+**lantas apa guna prototype ini ???**
+
+Memang agak sedikit membingungkan, tetapi fungsi daripada prototype (selain membungkus member object) adalah memungkinkan untuk terjadinya **pewarisan** member object(property dan method) dari object satu ke object lain.
+
+Dalam konsep constructor (function) ini kita bisa memberikan adanya property dan method yang berada di bawahnya (diwarisikan), untuk melakukan itu maka diperlukan prototype.
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/2.2.prototype-object-constructor.html
+	:language: html
+
+.. raw:: html
+
+	<center>
+		<video width="900" controls>
+			<source src="../../videos/prototype-object-constructor.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+		</video>
+		<p>Caption</p>
+	</center>
+
+.. note::
+
+	Untuk lebih memperjelas tentang prototype ini, berikut akan diberikan contoh mengenai perbedaan pemberian property dan method dari methode literal, non-protoype dan prototype
+	
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/perbedaan-pemberian-property-method-di-dalam-dan-di-luar-constructor.html
+		:language: html
+
+	Result
+
+	.. image:: images/perbedaan-pemberian-property-method-di-dalam-dan-di-luar-constructor.png
+
+.. note::
+
+	Jika kita menggunakan console, sebaiknya jangan pernah terkecoh dengan hasil object yang tertera saat di expand. Karena hasil tampilan dari expand object tersebut adalah hasil tampilan object terakhir.
+
+	Sejatinya code javascript akan dibaca/dieksekusi dari atas ke bawah.
+	
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/catatan-untuk-mempejelas-masalah-pembacaan-di-prototype.html
+		:language: html
+
+	Result
+
+	.. image:: images/catatan-untuk-mempejelas-masalah-pembacaan-di-prototype.png
+
+------------------------------------
+Prototype Chain
+------------------------------------
+
+Prototype memiliki fungsi yang hampir sama dengan pewarisan, dimana property dan method tidak perlu ditaruh semuanya ke dalam suatu constructor(function).
+
+Tiap prototype yang masih dalam satu object dapat disebut sebagai **prototype chain**.
+
+Intinya adalah suatu object masih dapat mengakses property dan method di bawahnya (di prototypenya).
+
+Seperti yang telah dijelaskan diatas bahwa semua object di javascript ini merupakan turunan dari object yang bernama ``Object``.
+Artinya kita dapat menggunakan property atau method yang dimiliki oleh object ``Object``.
+Semisal seperti property ``constructor`` atau method ``hasOwnProperty`` yang telah `built-in` di dalam object tersebut.
+
+.. note::
+
+	Ketika mengakses suatu property atau method di suatu object, sebenarnya javascript pertama kali akan mencarinya di object tersebut (``current object``), jika tidak ada maka javascript akan mencarinya di prototype parent. 
+	
+	Jika masih belum ada maka javascript akan melanjutkan sampai ke null. Null adalah salah satu bentuk yang tidak memilikii prototype (return undefined).
+
+.. _konsep-key-value-object-js:
+
+Konsep key dan Object
+````````````````````````````
+
+.. danger::
+
+	Sejatinya object dalam javascript hanya berisikan 2 bagian, yaitu ``key`` dan ``value``.	
+	Sama halnya dengan konsep tipe data ``array`` pada umumnya.
+
+	Object di dalam javascript tidak dapat disamakan seperti halnya object di bahasa pemrograman lain yang memuat property dan method.
+	Karena setiap key dari object akan memuat value.
+
+	Value di dalamnya dapat diisikan tipe data yang telah ada, seperti ``primitive``, tipe data ``object`` atau suatu ``function`` (**function expression**).
+	
+	Jika key berisikan tipe data primitive atau object maka untuk mengaksesnya tidak perlu dipanngil (called), sedangkan jika berisikan function expression maka perlu memanggilnya.
+
+		.. note:: 
+
+			Array sendiri juga termasuk tipe data object karena memiliki constructor berupa array
+
+	untuk lebih mudah dalam mengartikan bahasan key dan value ini, dibawah akan diberikan contoh yang menggunakan method ``hasOwnProperty``.
+
+Method ``hasOwnProperty`` adalah untuk mengecek apakah suatu object memiliki suatu property tertentu.
+
+contoh penggunaan method hasOwnProperty
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/2.3.prototype-from-default-object-constructor.html
+	:language: html
+
+.. raw:: html
+
+	<center>
+		<video width="900" controls>
+			<source src="../../videos/has-own-property-object.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+		</video>
+		<p>Caption</p>
+	</center>
+
+.. note::
+
+	Perlu diperhatikan Dalam penggunaan prototype, bahwa dalam menggunakan referensi suatu property  atau method di constructor hanya bisa menggunakan method (dalam bentuk function expression).
+
+	contoh
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/catatan-tidak-dapat-mengakses-property-method-di-constructor-utama.html
+		:language: html
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/accessing-member-constructor.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+Selain method ``hasOwnProperty()`` pada object ``Object`` terdapat pula property ``constructor`` untuk mengetahui constructor suatu object.
+
+misal::
+
+	var o = {};
+	o.constructor === Object; // true
+
+	var a = [];
+	a.constructor === Array; // true
+
+.. note::
+
+	Ada satu lagi bentuk lain daripada pembuatan object menggunakan constructor, yaitu menginstansiasi constructor ``Object`` itu sendiri.
+
+	Seperti diketahui bahwa dalam javascript telah ada object built-in bernama ``Object`` yang memuat beberapa property dan method di dalamnya, constructor ini juga dapat untuk membuat object baru secara kosong.
+
+	misal::
+
+		var x = new Object();
+
+		x.property1 = “value contain string of property1”;
+
+		x.method1 = function() {
+			return “return contain string of method1”;
+		}
+
+.. note::
+
+	Untuk tujuan dan penggunaan prototype secara keseluruhan masih belum bisa dibahas oleh penulis.
+
+	Hanya saja penulis telah membuat beberapa asumsi dasar yang mungkin bisa untuk dijadikan sebagai sumber referensi.
+
+	Tujuan adanya prototype menurut penulis adalah untuk dapat menggunakan konsep pewarisan (inheritance) seperti halnya class dan object di bahasa pemrograman lain.
+	Hanya saja ini memiliki bentuk yang lebih berbeda. Prototype lebih seperti semacam extension pada suatu object.
+
+	Seperti diketahui bahwa prinsip object/class adalah dapat mewakili tiap property atau method daripadanya.
+	Oleh karena itu maka dibuatlah prototype yang dapat memisahkan kepada object constructor utama.
+	Singkatnya tidak kesemua fitur/fungsi selalu berada atau berdasar dari constructor utama.
+
+	Sebenarnya materi prototype ini sudah menyangkut ke masalah **design pattern**, sehingga cukup sulit untuk dijelaskan.
+	Materi yang ditulis disini hanya akan menjelaskan tentang dasar dasar pengertian saja.
+	Jika ingin mengetahui lebih lanjut bisa melihat lebih lanjut di bagian design pattern javascript tutorial.
+
+**Clone-object**
+----------------------
+
+Metode pembuatan object disini adalah dengan menyalin (copy) dari object lain.
+
+Terdapat 2 cara dalam menggunakannya yaitu dengan menyalin prototype object lain dan menyalin isi member object lain (menyalin property dan value).
+
+----------------------
+Clone prototype
+----------------------
+
+Syntax yang digunakan adalah ``Object.create(prototypeSource, [ownProperties])``.
+
+Metode ini akan meng-**copy** seluruh prototype yang ada di object sumber namun tidak meletakkanya di member object utama (**copy**-an berada di prototype di bawahnya).
+
+Contoh clone prototype
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/3.1.simple-object-create.html
+	:language: html
+
+Result
+
+.. raw:: html
+
+	<center>
+		<video width="900" controls>
+			<source src="../../videos/simple-create-object.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+		</video>
+		<p>Caption</p>
+	</center>
+
+.. caution::
+
+	Pastikan dalam menggunakan memberikan parameter pertama dalam ``Object.create()`` adalah object dan bukan suatu function (kecuali prototype suatu constructor function).
+
+	.. literalinclude:: source-code/programming-test/object/way-to-make-object/3.2.constructor-prototype-object-create.html
+		:language: html
+
+	Result
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/constructor-prototype-object-create.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+
+----------------------
+Clone member object
+----------------------
+
+Syntax yang digunakan adalah ``Object.assign(targetObject, sourceObject1, sourceObjectn)``.
+
+Metode ini akan meng-**copy** seluruh member object yang ada di object sumber dan meletakkanya di member object utama.
+
+Contoh clone member object
+
+.. literalinclude:: source-code/programming-test/object/way-to-make-object/3.3.object-assign.html
+	:language: html
+
+Result
+
+.. raw:: html
+
+	<center>
+		<video width="900" controls>
+			<source src="../../videos/object-assign.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+		</video>
+		<p>Caption</p>
+	</center>
+
+
+.. important::
+
+	Sekilas kesemuanya memiliki kesamaan dalam membuat object, namun sebenarnya ada suatu hal yang cukup berbeda dari ketiganya.
+
+	Dari ketiganya sebenarnya terdapat perbedaan yaitu dari cara penggunaan penyimpanan object itu sendiri.
+
+	Dari beberapa contoh diatas object yang dibentuk seakan diassign ke dalam variable.
+
+	Misal::
+
+		var objLiteral = {property: value};
+		var objConstructor = new Object;
+		var objClone = Object.create(prototype);
+
+	Namun yang sebenarnya terjadi pada methode literal dan constructor adalah **mereferensikan** object ke dalam variable, yang artinya tidak menyimpan (**store**) object ke dalam variable melainkan mereferensikan (**reference**).
+
+	Bukti paling konkret dalam pernyataan tersebut adalah ketika ada variable lain yang me-**assign** variable object (baik dari literal atau constructor), maka setiap ada perubahan value pada propertynya (baik dari kedua variable tersebut) maka seluruh value property object akan berubah atau mengikuti perubahan tersebut.
+
+	Contoh reference pada ketiganya
+
+	**literal**
+
+	.. literalinclude:: source-code/programming-test/object/differ-literal-constructor-object/1.literal.html
+		:language: html
+
+	Result
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/reference-object-in-literal.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+	**construcor**
+
+	.. literalinclude:: source-code/programming-test/object/differ-literal-constructor-object/2.constructor.html
+		:language: html
+
+	Result
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/reference-object-in-constructor.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+	**object-create**
+
+	.. literalinclude:: source-code/programming-test/object/differ-literal-constructor-object/3.1.object-create.html
+		:language: html
+
+	Result
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/reference-object-in-object-create.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+	**object-assign** (sama seperti contoh sebelumnya)
+
+	.. literalinclude:: source-code/programming-test/object/differ-literal-constructor-object/3.2.object-assign.html
+		:language: html
+
+	Result
+
+	.. raw:: html
+
+		<center>
+			<video width="900" controls>
+				<source src="../../videos/reference-object-in-object-assign.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<p>Caption</p>
+		</center>
+
+	Artinya tiap data object (yang tercipta baik dari ``literal`` atau ``constructor``) itu ketika diassign ke dalam variable maka dia hanya akan mereferensikan dan disimpan ke dalam memori, yang mana nantinya kita akan mengakses object tersebut dari memori.
+
+	Namun ini hanya berlaku pada tipe data **object**, sedangkan pada tipe data **primitive**, hal ini tidak berlaku.
+	Pada tipe data primitive, jika kita menyimpan value dengan tipe data primitive ke suatu variable, maka variable tersebut akan menyimpan data tersebut.
+
+	misal::
+
+		var a = 34;
+
+		var b = a;
+
+		a = 65;
+
+		//hasil
+		//a = 65
+		//b = 34
+
+============================================================
+Beberapa hal yang terdapat dalam object di javascript.
+============================================================
+
+.. caution::
+
+	Tulisan di bagian ini hanya akan membahas beberapa materi javascript yang tingkatnya sudah advance (tingkat tinggi).
+	
+	Oleh karenanya setiap materinya tidak dibuat per bagian namun dikelompokkan menjadi satu di tulisan ini.
+	
+	Nantinya diharapkan jika pada waktunya dibutuhkan untuk mengetahui/memahami secara lebih dalam pada materi ini, baru akan dipelajari lebih lanjut dan diperbaharui lagi.
+
+Sifat property di javascript 
+------------------------------
+
+Property dalam object javascript tidak mengenal adanya ``visibility`` seperti ``public``, ``protected`` dan ``private``.
+
+Hanya saja tiap property akan memiliki 3 hal yaitu ``enumerable``, ``writable`` dan ``configurable``.
+
+Ketika menciptakan suatu object dengan literal maupun constructor, maka secara otomatis, ketiga sifat ini akan memiliki value true.
+
+------------------------------
+Enumerable 
+------------------------------
+
+Enumerable adalah kemampuan property untuk bisa diproses dengan looping (``for...in``).
+
+Itulah sebabnya property di javascript bisa dilakukan looping.
+
+.. note::
+
+	ada 2 macam bentuk looping dengan menggunakan for:
+
+		- ``for``
+
+		- ``for … in``
+
+	perulangan ``for … in`` hanya dapat dilakukan untuk object (member object khususnya pada property).
+	
+	Contoh perulangan for ... in
+
+	.. literalinclude:: source-code/programming-test/object/enumerable-writable-configurable/catatan-for-in-loop.html
+		:language: html
+
+	Result
+
+	.. image:: images/catatan-for-in.png
+
+Contoh enumerable property
+
+.. literalinclude:: source-code/programming-test/object/enumerable-writable-configurable/1.enumerable.html
+	:language: html
+
+Result
+
+.. image:: images/enumerable.png
+
+------------------------------
+Writeable 
+------------------------------
+
+Writable adalah kemampuan suatu property untuk diubah valuenya.
+
+Jika writable nya dibuat false, maka value suatu property tidak akan diubah.
+
+Ini sebenarnya hampir sama dengan konsep constanta dalam OOP.
+
+Contoh writable property
+
+.. literalinclude:: source-code/programming-test/object/enumerable-writable-configurable/2.writable.html
+	:language: html
+
+Result
+
+.. image:: images/writable.png
+
+------------------------------
+Configurable
+------------------------------
+
+Configurable adalah kemampuan untuk mengubah setiap sifat property.
+
+Intinya jika configurable valuenya true, maka kita bisa mengubah baik enumerable, writable bahkan configurable menjadi non-enumerable, non-writable dan non-configurable.
+
+Contoh configurable property
+
+.. literalinclude:: source-code/programming-test/object/enumerable-writable-configurable/3.configurable.html
+	:language: html
+
+Keyword **this**
+-------------------------
+
+Dalam javascript keyword ``this`` akan me-**return** **object** nya sendiri.
+
+contoh penggunaan keyword this pada object literal
+
+.. literalinclude:: source-code/programming-test/keyword-this/1.return-keyword-this.html
+	:language: html
+
+Result
+
+.. image:: images/keyword-this.png
+
+Namun jika digunakan di selain **object** maka keyword ``this`` akan me **return** ke object **window**.
+
+.. literalinclude:: source-code/programming-test/keyword-this/2.1.keyword-this-return-window-object.html
+	:language: html
+
+Result
+
+.. image:: images/keyword-this-return-window-object.png
+
+.. note::
+
+	Ketika keyword ``this`` berada di selain **method** object maka dia juga akan me-**return** ke object **window**.
+
+	.. literalinclude:: source-code/programming-test/keyword-this/2.2.keyword-this-outer-method.html
+		:language: html
+
+	Result
+
+	.. image:: images/keyword-this-outside-method.png
+
+--------------------------------------------------
+Keyword ``this`` pada constructor function
+--------------------------------------------------
+
+Dalam pembuatan object menggunakan **constructor** function, maka keyword ``this`` akan mereferensikan property/key yang ada di dalam constructor tersebut.
+
+.. literalinclude:: source-code/programming-test/keyword-this/3.this-keyword-in-constructor-function.html
+	:language: html
+
+
+Call, Apply and Bind
+---------------------------
+
+Call, Apply dan Bind adalah suatu teknik dalam peminjaman/pemakaian suatu method pada suatu object yang diaplikasikan kepada object lain.
+
+Misalkan suatu object A memiliki method sehingga dalam menggunakan method tersebut cukup memanggil methodnya.
+
+Namun pada object lain belum tentu akan memiliki method yang sama seperti object A tersebut, untuk itu dapat dilakukan peminjaman method dengan teknik call, apply dan bind.
+
+--------
+Call
+--------
+
+Teknik ``call`` adalah meminjam suatu method object lain yang akan diaplikasikan kepada object lain.
+
+Satu hal yang perlu digarisbawahi disini adalah teknik ini akan dijalankan secara otomatis ketika menggunakan method call tersebut.
+
+Untuk mengisikan parameter yang ada di dalam suatu methodnya, dapat diberikan setelah memberikan argument object yang akan diaplikasikan, dan tiap parameternya akan dipassing secara berurutan (berpisah).
+
+.. literalinclude:: source-code/programming-test/bind-call-apply/1.1.call-in-another-object.html
+	:language: html
+
+Result
+
+.. image:: images/call-in-object.png
+
+
+.. note::
+
+	Jika semisal kita me-assign suatu methode call ke dalam variable artinya value yang ada di variable tersebut akan mengarah ke method object tersebut.
+
+	.. literalinclude:: source-code/programming-test/bind-call-apply/1.3.call-in-antoher-object-with-return.html
+		:language: html
+
+	Result
+
+	.. image:: images/return-of-method-call.png
+
+.. warning::
+
+	Penggunaan call lebih tepatnya adalah menjalankan suatu function yang mana akan meminjam suatu object.
+
+	Artinya tidak hanya method saja yang berasal dari object, namun function juga dapat dilakukan peminjaman tersebut dan dapat menjalankan yang ada di object yang diaplikasikan
+
+	.. literalinclude:: source-code/programming-test/bind-call-apply/1.2.call-in-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/call-in-function.png
+
+---------
+Apply
+---------
+
+Teknik ``apply`` hampir sama dengan call, hanya perbedaannya adalah ketika akan memberikan parameter pada suatu object yang dipinjam maka kita akan mem-passing nya dalam bentuk array, sehingga cukup satu parameter saja dalam bentuk array.
+
+.. literalinclude:: source-code/programming-test/bind-call-apply/2.1.apply-in-another-object.html
+	:language: html
+
+Result
+
+.. image:: images/apply-in-object.png
+
+.. hint::
+
+	Penggunaan teknik apply juga bisa dilakukan pada suatu function (function expression)
+
+	.. literalinclude:: source-code/programming-test/bind-call-apply/2.2.apply-in-function.html
+		:language: html
+
+	Result
+
+	.. image:: images/apply-in-function.png
+
+.. warning::
+
+	Sebenarnya arti dalam peminjaman sendiri masih belum dapat mereferensikan artian daripada call, apply dan bind.
+	
+	Yang sebenarnya terjadi adalah kita menjalankan suatu method atau function dengan mengaplikasikannya pada object lain.
+
+--------
+Bind
+--------
+
+Teknik ``bind`` tidak jauh berbeda dengan teknik call atau apply, hanya saja ketika menggunakan teknik call atau apply maka akan langsung dieksekusi.
+
+Sedangkan dengan teknik bind akan menyimpan ke dalam suatu function baru, yang mana kita akan dapat menjalankan function tersebut.
+
+Dan dapat pula memberikan argument pada pembuatan function tersebut, sehingga ketika memanggil function tersebut hanya perlu memberikan parameter sisanya.
+
+.. literalinclude:: source-code/programming-test/bind-call-apply/3.1.bind-in-another-object.html
+	:language: html
+
+Result
+
+.. image:: images/bind-in-another-object.png
+
+
+.. literalinclude:: source-code/programming-test/bind-call-apply/3.2.bind-in-function.html
+	:language: html
+
+Result
+
+.. image:: images/bind-in-function.png
+
+.. note::
+
+	Perbedaan yang nyata antara bind dengan call/apply adalah dalam bind akan menjadikan suatu function baru yang dapat dijalankan.
+	Dalam pembuatan function baru tersebut dapat memberikan semcam default value yang diisi, sehingga dalam menggunakannya lagi dapat dengan memberikan parameter lain yang berbeda.
+
+Penggunaan teknik bind sebagai function expression pada argument
+````````````````````````````````````````````````````````````````````
+
+Contoh diatas hanya memanggil function secara langsung, dibawah adalah contoh dalam menggunakan teknik bind sebagai function expression, yang mana tentu akan menghasilkan output yang berbeda.
+
+.. literalinclude:: source-code/programming-test/bind-call-apply/3.3.implementation-of-bind.html
+	:language: html
+
+Result
+
+.. image:: images/implementation-of-bind.png
+
+
+============================
+Javascript method chain
+============================
+
+Object Dalam javascript juga dapat melakukan proses method chain atau memproses method secara berantai.
+
+Tujuannya adalah untuk mempersingkat adanya fungsi dari method tersebut.
+
+Hanya saja satu hal yang perlu diperhatikan adalah saat melakukan method chain tersebut, kita memprosesnya suatu data secara berurutan dan selalu me-**return** di tiap method tersebut.
+
+contoh penggunaan single method
+
+.. literalinclude:: source-code/programming-test/jquery/chain/1.single-method-using-in-js.html
+	:language: html
+
+Result
+
+.. image:: images/javascript-single-method.png
+
+Hanya saja ketika mencoba untuk menggunakan method chain akan gagal, dikarenakan di tiap methodnya tidak me-return object, sehingga terputus (tidak memiliki value) dan tidak bisa menggunakan method lain pada object tersebut.
+
+.. literalinclude:: source-code/programming-test/jquery/chain/2.1.failed-method-chain-in-js.html
+	:language: html
+
+Result
+
+.. image:: images/failed-using-method-chain-in-object-js.png
+
+misal kita akses satu method diatas maka akan menghasilkan value ``undefined`` karena tidak mereturn datanya.
+
+contoh::
+
+	var bob = new Kitten();
+
+	var tmp = bob.setName('Bob');
+
+	console.log(tmp); //undefined
+
+	tmp.setColor('black');
+
+	// ERROR:
+	// > Uncaught TypeError: Cannot call method 'setColor' of undefined
+
+untuk dapat menggunakan method chain di javascript maka kita harus mereturn tiap method dengan object tersebut.
+
+.. literalinclude:: source-code/programming-test/jquery/chain/3.1.method-chain-in-js.html
+	:language: html
+
+Result
+
+.. image:: images/method-chain-in-js-1.png
+
+.. tip::
+
+	kita hanya perlu mereturn berupa object tersebut, sehingga kita akan mereturn dengan keyword ``this``.
+
+	Setelahnya maka masih dapat mengakses method lain karena method sebelumnya telah me-return object tersebut.
+
+=========================
+Standard built object
+=========================
+
+Javascript telah memiliki beberapa object yang telah built-in (terbuat di dalamnya).
+
+Bahkan object Object sendiri juga sudah ada dan memiliki beberapa property dan methodnya.
+
+Object object ini seperti halnya function built-in yang ada di php, yaitu untuk membantu dalam memanipulasi atau memproses suatu data.
+
+Berikut  beberapa object yang sudah built-in di javascript :
+
+- Array
+
+- Boolean
+
+- Date
+
+- Error
+
+- Function
+
+- JSON
+
+- Map
+
+- Math
+
+- NaN
+
+- Number
+
+- Object
+
+- RegExp
+
+- String
+
+- Symbol
+
+- SyntaxError
+
+- escape()
+
+- eval()
+
+- isNaN()
+
+- null
+
+- parseFloat()
+
+- parseInt()
+
+- undefined
+
+sumber : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+
+=====================
+Web API
+=====================
+
+seperti halnya bahasa pemrograman lain, javascript juga memiliki beberapa web api, atau suatu code yang telah built-in tertanam di dalamnya yang mana nanti akan memiliki fungsi dalam memanipulasi.
+
+Untuk mengetahui daftar web api tersebut dapat mengunjugi bagian https://developer.mozilla.org/en-US/docs/Web/API
+
+di dalamnya akan terdapat banyak code built-in yang tercipta dengan berbagai bentuk, seperti object, interface, funciton dan lainnya.

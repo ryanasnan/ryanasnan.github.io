@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JQuery &mdash; javascript-mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="javascript-mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="JQuery Selector" href="jquery-selector.html"/>
+        <link rel="prev" title="Catatan Javascript" href="javascript-note.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> javascript-mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="javascript-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-variable.html">Javascript Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-object.html">1&nbsp;&nbsp;&nbsp;Javascript Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-function.html">1&nbsp;&nbsp;&nbsp;Javascript Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-dom.html">Javascript DOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html">Catatan Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-note.html#apa-itu-span">apa itu span</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#jquery-object-architecture">Jquery Object architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-selector.html">JQuery Selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-note.html">Catatan jQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-library-and-plugin.html">Javascript Library dan Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-library-and-plugin.html">jQuery Library and Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-input-another-language.html">Memasukkan bahasa pemrograman lain ke dalam javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="array-php-to-array-javascript.html">Array PHP ke Array Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jquery-class-each-process.html">jQuery proses value tiap class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-integration-in-ie.html">1&nbsp;&nbsp;&nbsp;Integrasi Javascript di Browser Internet Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-stack-problem-fix.html">Kumpulan perbaikan masalah Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="temporary-list-record.html">Daftar Catatan Sementara</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">javascript-mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>JQuery</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/javascript-jquery.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jquery">
+<h1>JQuery<a class="headerlink" href="#jquery" title="Permalink to this headline">¶</a></h1>
+<p>JQuery merupakan salah satu library pada javascript.</p>
+<p>JQuery akan mempermudah dalam penggunaan javascript, seperti manipulasi element, ajax, pengaksesan object dan lainnya.</p>
+<p>Ketika membuat atau mengambil suatu element dalam jQuery maka jQuery akan me-return element tersebut dalam sebuah collection (koleksi object).
+Yang mana kita akan dapat menggunakan collection tersebut untuk melakukan berbagai manipulasi.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sebenarnya Object Collection dalam jQuery hampir mirip dengan array, karena terdapat adanya property length, namun sebenarnya bukanlah array, namun lebih kompleks dari object itu sendiri.</p>
+</div>
+<p>Contoh object collection pada jQuery</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;identifierOfElement&quot;</span><span class="p">&gt;</span>Content of Element of id<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;classOfElement&quot;</span><span class="p">&gt;</span>Content of Element of class one<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;classOfElement&quot;</span><span class="p">&gt;</span>Content of Element of class two<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;../jquery-3.2.1.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="kd">var</span> <span class="nx">idElement</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#identifierOfElement&quot;</span><span class="p">);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">idElement</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">getElementOfId</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#identifierOfElement&quot;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getElementOfId</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">classElementOfId</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.classOfElement&quot;</span><span class="p">);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">classElementOfId</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">getElementofClassOne</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.classOfElement&quot;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getElementofClassOne</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">getElementofClassTwo</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.classOfElement&quot;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getElementofClassTwo</span><span class="p">);</span>
+
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="_images/jquery-collection-object.png" src="_images/jquery-collection-object.png" />
+<p>Keuntungan menggunakan jQuery :</p>
+<ul>
+<li><p class="first">compability</p>
+<blockquote>
+<div><p>Tidak kesemua browser memiliki <cite>interpret</cite> javascript yang sama, yang artinya antara satu browser satu dengan yang lain mungkin ada sedikit perbedaan dalam menggunakan syntax javascript.</p>
+<p>Namun dengan menggunakan jQuery maka kesemua syntax nya dapat digunakan oleh semua browser (hampir semua).</p>
+<p>contoh:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">target</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span> <span class="s2">&quot;target&quot;</span> <span class="p">);</span>
+
+<span class="n">target</span><span class="o">.</span><span class="n">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;td&gt;Hello &lt;b&gt;World&lt;/b&gt;!&lt;/td&gt;&quot;</span>
+</pre></div>
+</div>
+<p>sedangkan dengan jQuery:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>// Setting the inner HTML with jQuery.
+
+var target = document.getElementById( &quot;target&quot; );
+
+$( target ).html( &quot;&lt;td&gt;Hello &lt;b&gt;World&lt;/b&gt;!&lt;/td&gt;&quot; );
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Dalam javascript sendiri sebenarnya ada perbedaan antara append dan appendChild.</p>
+<p class="last">Bisa dilihat pada referensi <a class="reference internal" href="javascript-note.html#append-appendchild-in-js"><span class="std std-ref">Fungsi Javascript append dan appendChild</span></a></p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">convenience</p>
+<blockquote>
+<div><p>Penggunaan syntax javascript sendiri masih dirasa kurang baik dalam penggunaannya.
+Dengan jquery maka penggunaan syntax javascript akan lebih mudah dan lebih sedikit.</p>
+<p>Misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Inserting</span> <span class="n">a</span> <span class="n">new</span> <span class="n">element</span> <span class="n">after</span> <span class="n">another</span> <span class="k">with</span> <span class="n">the</span> <span class="n">native</span> <span class="n">DOM</span> <span class="n">API</span><span class="o">.</span>
+
+<span class="n">var</span> <span class="n">target</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span> <span class="s2">&quot;target&quot;</span> <span class="p">);</span>
+
+<span class="n">var</span> <span class="n">newElement</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span> <span class="s2">&quot;div&quot;</span> <span class="p">);</span>
+
+<span class="n">target</span><span class="o">.</span><span class="n">parentNode</span><span class="o">.</span><span class="n">insertBefore</span><span class="p">(</span> <span class="n">newElement</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">nextSibling</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>sedangkan di jQuery jauh lebih simpel dan pendek:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>// Inserting a new element after another with jQuery.
+
+var target = document.getElementById( &quot;target&quot; );
+
+var newElement = document.createElement( &quot;div&quot; );
+
+$( target ).after( newElement );
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="jquery-object-architecture">
+<h1>Jquery Object architecture<a class="headerlink" href="#jquery-object-architecture" title="Permalink to this headline">¶</a></h1>
+<p>jQuery sedikit merombak code dalam javascript.
+Tujuannya adalah untuk mempermudah dalam manipulasi dengan syntax javascript.</p>
+<p>Penggunaan tanda <code class="docutils literal"><span class="pre">jQuery</span></code> atau <code class="docutils literal"><span class="pre">$</span></code> pada jQuery adalah merepresentasikan object di dalam jQuery.
+Object tersebut dapat digunakan untuk menggunakan member object di dalamnya.</p>
+<p>Semisal adalah menyeleksi suatu element.</p>
+<p>Penggunaannya adalah <code class="docutils literal"><span class="pre">$(argumentContainElementSelector)</span></code> atau <code class="docutils literal"><span class="pre">jQuery(argumentContainElementSelector)</span></code>.</p>
+<p>Setelah menggunakan jquery object (yang diberikan argument berupa selector element) diatas maka keselanjutnya kita dapat menggunakan member object yang telah ada di jQuery untuk memanipulasi element tersebut, semisal mengetahui value suatu attribute dalam element tersebut.</p>
+<p>Jquery juga telah mengganti penggunaan <strong>property</strong> <code class="docutils literal"><span class="pre">prototype</span></code> menjadi <strong>property</strong> <code class="docutils literal"><span class="pre">fn</span></code> untuk mempermudah dalam menggunakan pewarisan.</p>
+<p>Contoh implementasi arsitektur jQuery</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+
+            <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">jQuery</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// core constructor</span>
+                    <span class="c1">// ensure to use the `new` operator</span>
+                    <span class="c1">// will instance the jQuery object</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">jQuery</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="k">new</span> <span class="nx">jQuery</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="c1">// store an argument for this example</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">myArg</span> <span class="o">=</span> <span class="nx">arg</span><span class="p">;</span>
+                    <span class="c1">//..</span>
+                <span class="p">};</span>
+
+                <span class="c1">// create `fn` alias to `prototype` property</span>
+                <span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                        <span class="c1">//statement</span>
+                    <span class="p">}</span>
+                    <span class="c1">//...</span>
+                <span class="p">};</span>
+
+                <span class="c1">// expose the library</span>
+                <span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">;</span>
+            <span class="p">})();</span>
+
+            <span class="c1">// Extension:</span>
+            <span class="c1">// extension plugin like datatable, or another plugin</span>
+            <span class="c1">// And in jquery have own plugin too</span>
+            <span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">myPlugin</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">myArg</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span> <span class="c1">// return `this` for chainability</span>
+            <span class="p">};</span>
+
+            <span class="c1">///using the extension</span>
+            <span class="nx">jQuery</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">).</span><span class="nx">myPlugin</span><span class="p">();</span> <span class="c1">// &quot;bar&quot; (execute console of myArg)</span>
+
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">jQuery</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">).</span><span class="nx">myPlugin</span><span class="p">());</span>
+            <span class="cm">/*</span>
+<span class="cm">            return</span>
+<span class="cm">            bar</span>
+<span class="cm">            jQuery {myArg: &quot;bar&quot;}</span>
+
+<span class="cm">            the expand of jQuery object</span>
+<span class="cm">            myArg:&quot;bar&quot;</span>
+<span class="cm">                __proto__:</span>
+<span class="cm">                    init:ƒ ()</span>
+<span class="cm">                    myPlugin:ƒ ()</span>
+<span class="cm">                    __proto__ : Object</span>
+<span class="cm">            */</span>
+
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!--</span>
+<span class="c">tanda jQuery atau $ dalam jQuery merupakan constructor jQuery yang akan diisi oleh suatu parameter (atau mungkin tanpa parameter)</span>
+<span class="c">dengan penggunaan tanda tersebut maka kita akan mengakses property (member object) dalam jQuery</span>
+<span class="c">seperti mungkin suatu implementasi DOM (append, parent, chilren), window (load), AJAX dll, kesemuanya dapat dipanggil sebagai extension</span>
+<span class="c">jQuery sendiri telah menyertakan extension nya sendiri (atau biasa disebut API) seperti untuk implementasi DOM, AJAX</span>
+
+<span class="c">selain itu juga banyak extension luar yang menggunakan jQuery seperti Datatable, FullCalendar, dll.</span>
+
+<span class="c">sedangkan property fn sendiri merupakan pengganti dalam penggunaan prototype dalam jQuery.</span>
+<span class="c"> --&gt;</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="_images/1.jQuery-simple-architecture.png" src="_images/1.jQuery-simple-architecture.png" />
+<p>jQuery sendiri telah menyertakan extension nya sendiri (atau biasa disebut API) seperti untuk implementasi DOM, AJAX, dan lainnya.</p>
+<p>Selain itu juga, terdapat extension lain (extension tambahan) yang ada di jQuery seperti datatable, FullCalendar, yang dibuat oleh developer lain sebagai pembantu dalam menggunakan aplikasi berkaitan dengan javascript.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>Naming convention variable pada jquery</strong></p>
+<p>Dalam jQuery untuk mendeklarasikan suatu variable biasa dengan menambahkan tanda <code class="docutils literal"><span class="pre">$</span></code> di depannya, tujuannya untuk membedakan antara variable <code class="docutils literal"><span class="pre">jQuery</span></code> dan variable <code class="docutils literal"><span class="pre">javascript</span></code>.</p>
+<p>Misal seperti berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>var $myHeaderDiv = $(&#39;#header&#39;);
+var myHeaderDiv = document.getElementById(&#39;header&#39;);
+</pre></div>
+</div>
+<p>Dalam contoh diatas variable <code class="docutils literal"><span class="pre">$myHeaderDiv</span></code> adalah object di jQuery maka kita akan dapat menggunakan api pada object tersebut.</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$myHeaderDiv.fade();
+</pre></div>
+</div>
+<p>Penggunaan jQuery atau $ adalah sama</p>
+<p>misal:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span>var $myHeaderDiv = jQuery(myHeaderDiv); //assign
+$(myHeaderDiv).fade(); //use
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="jquery-selector.html" class="btn btn-neutral float-right" title="JQuery Selector" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="javascript-note.html" class="btn btn-neutral" title="Catatan Javascript" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

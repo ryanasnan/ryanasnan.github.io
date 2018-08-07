@@ -1,0 +1,8 @@
+Timezone Laravel
+========================
+
+Disaat menjalankan syntax php ``date()`` maka secara otomatis ini akan menggunakan date dengan timezone secara default (GMT 0)
+
+Artinya ketika saat ini adalah jam **14.00** WIB maka ketika menggunakan fungsi ``date()`` akan menghasilkan jam **07.00**.
+
+Untuk itu maka perlu diset dahulu timezone yang akan digunakan yaitu dengan memberikan value pada key **'timezone' => 'Asia/Jakarta',** di file **Config/app.php**

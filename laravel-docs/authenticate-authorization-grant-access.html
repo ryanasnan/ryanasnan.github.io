@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Autentikasi &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Validasi di Laravel" href="validation.html"/>
+        <link rel="prev" title="Middleware" href="middleware.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#autorize">Autorize</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#membuat-hak-akses-dengan-rbac">Membuat hak akses dengan RBAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ability-policy-dan-gate">Ability, Policy, dan Gate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contoh-penggunaan-ability-di-dalam-view">Contoh penggunaan ability di dalam view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#penggunaan-ability-di-dalam-controller">Penggunaan ability di dalam controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peggunaan-method-autorize">Peggunaan method autorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#passing-model-lain-ke-ability">Passing model lain ke ability</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Autentikasi</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/authenticate-authorization-grant-access.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="autentikasi">
+<h1>Autentikasi<a class="headerlink" href="#autentikasi" title="Permalink to this headline">¶</a></h1>
+<p>dalam laravel terdapat keanehan</p>
+<p>ketika mengakses <code class="docutils literal"><span class="pre">Auth::user()-&gt;fieldTabelUsers</span></code></p>
+<p>maka ketika sebelumnya membuatkan suatu deklarasi yang menggunakan object instansiasi <code class="docutils literal"><span class="pre">Auth::user()</span></code></p>
+<p>maka secara otomatis akan berubah itu</p>
+<p>semisal adalah ketika kita membuatkan suatu deklarasi variabel yang berisikan Auth::user()</p>
+<p>misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function create()
+{
+    $admin = new Admin();
+    $user = new User();
+    $this-&gt;authorize(&#39;create&#39;, $admin);
+    $user_dashboard = Auth::user();
+    $user_dashboard-&gt;pp_path =  &#39;/..&#39;.$user_dashboard-&gt;pp_path;
+
+    return view(&#39;admins.create&#39;,compact(&#39;user&#39;,&#39;admin&#39;,&#39;user_dashboard&#39;));
+}
+</pre></div>
+</div>
+<p>pada syntax <code class="docutils literal"><span class="pre">$user_dashboard-&gt;pp_path</span> <span class="pre">=</span>&#160; <span class="pre">'/..'.$user_dashboard-&gt;pp_path;</span></code> maka kita telah memberikan set pada property “pp_path” pada object Auth::user()
+sehingga ketika di view (admmins.create)</p>
+<p>maka akan menghasilkan adanya prefix berupa “../”</p>
+<p>misal di view terdapat adany syntax:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?php $src = url().Auth::user()-&gt;pp_path; ?&gt;
+&lt;div class=&quot;profile-img&quot;&gt;&lt;img src=&quot;{{$src}}&quot;&gt;&lt;/div&gt;
+</pre></div>
+</div>
+<p>maka hasil daripada $src adalah <code class="docutils literal"><span class="pre">http://localhost/trukinidlima/public/../images/users/20160422022526.Under_construction.png</span></code></p>
+<p>yang mana seharusnya <code class="docutils literal"><span class="pre">http://localhost/trukinidlima/public/images/users/20160422022526.Under_construction.png</span></code></p>
+<p>yang dimaksud disini adalah perubahan value property “pp_path” pada Auth::user()-&gt;pp_path</p>
+<p>tentu ini akan menghasilkan adanya eror apabila dalam server terdapat</p>
+<p>artinya Auth::user() ini telah masuk ke $user_dashboard
+sehingga ketika ada penggantian property id $user_dashboard maka akan mengganti Auth::user() juga</p>
+<p>artinya new User() itu sama dengan Auth::user, hanya saja pada Auth::user() lebih khusus kepada si user</p>
+</div>
+<div class="section" id="autorize">
+<h1>Autorize<a class="headerlink" href="#autorize" title="Permalink to this headline">¶</a></h1>
+<p>Hak akses user atau biasa disebut <code class="docutils literal"><span class="pre">autorization</span></code> adalah proses dalam menangani apakah user dapat memproses suatu mekanisme sistem.</p>
+<p>Contoh sederhana autorization adalah seperti user <strong>admin</strong> dengan user <strong>biasa</strong>, user admin mungkin dapat melakukan proses menghapus user, sedangkan user biasa belum tentu dapat melakukannya.</p>
+<p>Dalam autorization dikenal 2 teknik yang biasa digunakan yaitu <strong>RBAC</strong> (Role Based Access Control) dan <strong>ACL</strong> (Access Control List).</p>
+<p>Laravel telah mengintegrasi kedua teknik tersebut sehingga pengkonfigurasian dan penggunaan jauh lebih mudah.</p>
+<p>Perbedaan mendasar keduanya adalah apa yang menjadi penentu dalam proses <code class="docutils literal"><span class="pre">authorization</span></code></p>
+<p>Dalam teknik RBAC maka yang menjadi penentu adalah dari role/group, setiap user akan memiliki role, dan role ini yang menjadi patokan dalam mengakses suatu resource.</p>
+<p>Terdapat 3 tipe RBAC yang dapat digunakan yaitu :</p>
+<p>1.**One User One Role**</p>
+<p>Tipe RBAC ini adalah mengkonfigurasi bahwa satu user hanya memiliki satu role.</p>
+<p>Caranya cukup menambahkan field <code class="docutils literal"><span class="pre">role</span></code> pada tabel <code class="docutils literal"><span class="pre">users</span></code>.</p>
+<img alt="_images/13.2.1.rbac_tipe_1.jpg" src="_images/13.2.1.rbac_tipe_1.jpg" />
+<p>2.**One User Multi Role**</p>
+<p>Tipe RBAC ini adalah mengkonfigurasi bahwa satu user dapat memiliki banyak role</p>
+<p>Caranya dengan membuat tabel <code class="docutils literal"><span class="pre">roles</span></code> yang berisikan nama roles dan tabel <code class="docutils literal"><span class="pre">user_roles</span></code> yang mana memuat relasi antara tabel <code class="docutils literal"><span class="pre">users</span></code> dan tabel <code class="docutils literal"><span class="pre">roles</span></code> (berlaku many to many)</p>
+<img alt="_images/13.2.2.rbac_tipe_2.jpg" src="_images/13.2.2.rbac_tipe_2.jpg" />
+<p>3.**One Access Permission for Specific User**</p>
+<p>Tipe RBAC ini jauh lebih kompleks dengan mengkonfigurasi bagian mana (mekanisme sistem) yang dapat diakses oleh user tertentu, sehingga meski ada beberapa user yang memiliki role yang sama, mungkin tidak dapat mengakses suatu resource.</p>
+<p>Proses autorization pada bagian ini menggunakan <code class="docutils literal"><span class="pre">permission</span></code>. permission inilah yang akan menentukan apakah user tertentu dapat mengakses suatu resource, seperti misalkan user ryan memiliki role admin, namun dia juga memiliki permission <code class="docutils literal"><span class="pre">delete_user</span></code> yang mana dapat menghapus user, sedangkan user <code class="docutils literal"><span class="pre">Andy</span></code> juga memiliki role admin namun tidak memiliki permission <code class="docutils literal"><span class="pre">delete_user</span></code> sehingga tidak dapat menghapus user.</p>
+<p>Artinya role disini masih ada tingkatannya dalam mengakses sesuatu, dan setiap role belum tentu dapat mengakses permission yang sama</p>
+<p>Cara ini masih belum diketahui oleh penulis secara pasti namun sepertinya cara ini menitikberatkan pada akses suatu resource.</p>
+<img alt="_images/13.2.2.rbac_tipe_3.jpg" src="_images/13.2.2.rbac_tipe_3.jpg" />
+<p>Kemudian bagaimana dengan ACL (Access Control List)</p>
+<p>Cara ini lebih seperti RBAC tipe 3 namun tidak mengimplementasikan adanya roles, tetapi langsung dengan menggunakan permission.</p>
+<p>Teknik ACL ini dapat digunakan tanpa harus terdapat adanya tabel roles dan permission, konfigurasinya dapat ditulis di code/script (hard code)</p>
+<img alt="_images/13.2.4.acl.jpg" src="_images/13.2.4.acl.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>keterangan</p>
+<p>kotak =&gt; tabel utama</p>
+<p>belah ketupat =&gt; tabel yang menjadi penghubung (relasi many to many)</p>
+<p class="last">lingkaran =&gt; field</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Teknik ACL bukan berarti kita tidak akan menggunakan adanya role dari user, namun lebih kepada bahwa pengaksesan suatu resource menggunakan langsung permission yang telah dibuat/konfigurasi.</p>
+<p>Hal yang menjadi patokan dalam teknik ACL ini adalah apakah suatu user memiliki ability(kemampuan) dalam mengakses suatu resource.</p>
+<p>materi ability akan jauh lebih dijelaskan pada bahasan selanjutnya, tulisan ini hanya sekedar preview agar lebih memudahkan tentang pemahamaan ACL.</p>
+<p>lebih jelasnya perbedaan antara ACL dan RBAC adalah pada RBAC kemungkinan besar membutuhkan tabel, sedangkan teknid ACL penggunaan tabel adalah opsional (meski membutuhkan adanya data yang memuat role user).</p>
+<p class="last">Dalam beberapa package yang menangani autorization sendiri biasanya menyertakan keduanya (RBAC dan ACL) sehingga pembeda antar keduanya hampir tidak ada.</p>
+</div>
+<div class="section" id="membuat-hak-akses-dengan-rbac">
+<h2>Membuat hak akses dengan RBAC<a class="headerlink" href="#membuat-hak-akses-dengan-rbac" title="Permalink to this headline">¶</a></h2>
+<p>Kali ini kita akan membuat hak akses dengan RBAC teknik pertama, caranya cukup mudah, kita hanya perlu menambahkan adanya field <code class="docutils literal"><span class="pre">role</span></code> pada tabel users.</p>
+<p>studi kasus yang akan digunakan adalah suatu sistem memiliki 2 user level yaitu <code class="docutils literal"><span class="pre">organizer</span></code> (panitia) dan <code class="docutils literal"><span class="pre">participant</span></code> (peserta).</p>
+<p>kita akan memberikan opsi pilihan user level saat pendaftaran user atau register.</p>
+<p>Selanjutnya kita akan memberikan adanya 2 route dengan method get , yang mana di tiap halaman hanya dapat diakses oleh user level tertentu</p>
+<p>Bagi organizer dapat melihat data event schedule sedangkan bagi peserta hanya dapat melihat data event history.</p>
+<p>Penulis tidak akan menjelaskan bagaimana sampai data user tersebut terbuat, namun akan lebih menjelaskan pada bagian mana hak akses rbac ini akan digunakan</p>
+<p>berikut adalah contoh data yang akan digunakan sebagai studi kasus event ini</p>
+<img alt="_images/13.2.5.rbactipe1.jpg" src="_images/13.2.5.rbactipe1.jpg" />
+<p>sekedar catatan dalam validasi laravel kita dapat menentukan value input apa yang dapat diinput, seperti misalkan dalam pendaftaran user ini kita dapat memberikan validasi seperti berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>``&#39;role&#39; =&gt; &#39;in:organizer,participant&#39;``
+</pre></div>
+</div>
+<p>arti syntax diatas adalah input role hanya dapat valid(benar) jika value inputnya adalah <code class="docutils literal"><span class="pre">organizer</span></code> atau <code class="docutils literal"><span class="pre">participant</span></code></p>
+<p>selanjutnya kita akan membuat adanya middleware yang akan menjadi penyaring apakah halaman tersebut dapat diakses atau tidak (tergantung kondisi yang ada, dalam studi kasus ini akan digunakan user role yang dapat mengakses suatu resource)</p>
+<p>untuk membuat middleware HasRole dapat menggunakan syntax <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">make:middleware</span> <span class="pre">HasRole</span></code> pada commannd prompt</p>
+<p>selanjutnya kita akan merubah beberapa hal di middleware <strong>hasRole</strong> ini, yaitu ada bagian</p>
+<p>kemudian akan kita tambahkan ke kernel sehingga akan disaring dahulu apakah dapat mengakses atau tidak</p>
+<p>middleware <strong>HasRole</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>class HasRole
+{
+    public function handle($request, Closure $next, $role)
+    {
+        if ($request-&gt;user()-&gt;role == $role) {
+            return $next($request);
+        }
+        return redirect(&#39;home&#39;)-&gt;with(&#39;message&#39;, &#39;Anda tidak memiliki akses untuk halaman tersebut.&#39;);
+    }
+}
+</pre></div>
+</div>
+<p>menambahkan middleware ke kernel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>class Kernel extends HttpKernel
+{
+
+    ....
+
+    protected $routeMiddleware = [
+
+    ....
+
+        &#39;role&#39; =&gt; \App\Http\Middleware\HasRole::class,
+    ];
+}
+</pre></div>
+</div>
+<p>Menambahkan route dengan method get, yang mana dalam route ini akan disaring menurut role:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event-schedule&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;middleware&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;auth&#39;</span><span class="p">,</span> <span class="s1">&#39;role:organizer&#39;</span><span class="p">],</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;Berhasil mengakses halaman event schedule&quot;</span><span class="p">;</span>
+<span class="p">}]);</span>
+
+
+<span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event-history&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;middleware&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;auth&#39;</span><span class="p">,</span> <span class="s1">&#39;role:participant&#39;</span><span class="p">],</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">return</span> <span class="s2">&quot;Berhasil mengakses event history.&quot;</span><span class="p">;</span>
+<span class="p">}]);</span>
+</pre></div>
+</div>
+<p>Gambar : hasil dari pada teknik RBAC</p>
+<p>login sebagai organizer (user ryan)</p>
+<p>dapat mengakses event schedule</p>
+<img alt="_images/13.2.6.rbactipe1_2.jpg" src="_images/13.2.6.rbactipe1_2.jpg" />
+<p>namun tidak dapat mengakses event-history, dan akan terlempar ke halaman home</p>
+<img alt="_images/13.2.7.rbactipe1_3.jpg" src="_images/13.2.7.rbactipe1_3.jpg" />
+<p>login sebagai participant (user rani)</p>
+<p>dapat mengakses event-history</p>
+<img alt="_images/13.2.7.rbactipe1_4.jpg" src="_images/13.2.7.rbactipe1_4.jpg" />
+<p>namun tidak dapat mengakses event-schedule</p>
+<img alt="_images/13.2.7.rbactipe1_5.jpg" src="_images/13.2.7.rbactipe1_5.jpg" />
+<p>Penjelasan kode</p>
+<p>Dari contoh diatas kita menggunakan RBAC tipe 1 (satu user satu role).</p>
+<p>Proses autorize disini dilakukan di dalam middleware (<strong>HasRole</strong>).</p>
+<p>Saat route (<code class="docutils literal"><span class="pre">event-schedule</span></code> atau <code class="docutils literal"><span class="pre">event-history</span></code>) diakses maka ini akan mempassing role ke dalam method <strong>handle</strong> ($role).</p>
+<p>Kemudian dalam method tersebut juga diberikan kondisi yang mana jika user memiliki role (yang didapatkan dari field role) itu sama dengan value role yang dipassing maka akan dapat mengakses ke request selanjutnya.</p>
+<p>syntax <code class="docutils literal"><span class="pre">$next($request);</span></code> akan melanjutkan request ke selanjutnya (halaman yang dikehendaki, dalam studi kasus ini adalah return string).</p>
+<p>syntax <code class="docutils literal"><span class="pre">$request-&gt;user()-&gt;role</span></code> adalah mengambil data di field role pada user yang telah login.</p>
+</div>
+<div class="section" id="ability-policy-dan-gate">
+<h2>Ability, Policy, dan Gate<a class="headerlink" href="#ability-policy-dan-gate" title="Permalink to this headline">¶</a></h2>
+<p><strong>Ability</strong> (kemampuan) secara garis besar diartikan sebagai logic yang menentukan akses. Hal mendasar dalam penggunaan ability ini adalah kita akan menggunakan instansiasi user (yang telah login) yang mana selanjutnya akan dapat mendapatkan data baik di dalam tabel users atau dari tabel yang berelasi.</p>
+<p>Selain itu juga kita dapat menggunakan adanya passing instance dari model lain dalam menggunakan ability ini. Sekedar preview nama variabal dari instance ini akan mengiktui nama model, seperti tabel users maka nama variabelnya adalah <code class="docutils literal"><span class="pre">$user</span></code> dan semisal tabel events maka nama variabelnya adalah <code class="docutils literal"><span class="pre">$event</span></code></p>
+<p><strong>Policy</strong> adalah kumpulan dari ability yang dikelompokkan, sekedar catatan bahwa ability sebenarnya sudah dapat dituliskan di dalam <strong>AuthServiceProvider</strong> namun ketika ability ini terlalu banyak maka diperlukan suatu class yang dapat mengelompokkan ability, class tersebut adalah policy</p>
+<p><strong>Gate</strong> adalah facade yang akan digunakan dalam mengecek user memiliki ability yang digunakan untuk mengakses suatu resource.</p>
+<p>Gate ini dapat diletakkan di controller, model, bahkan di view sehingga sangat fleksibel dalam memberikan adanya hak akses pada suatu resource.</p>
+<p>Contoh penggunaan ability di dalam middleware</p>
+<p>Penggunaan ability adalah dengan menggunakan method <code class="docutils literal"><span class="pre">can</span></code>, method ini akan mereturn boolean (true / false) yang mana jika true maka kita akan memiiki hak akses pada request yang dikehendaki.</p>
+<p>Namun sebelumnya kita akan mendefinisikan ability tersebut, pendefinisian ability dilakukan di <strong>AuthServiceProvider</strong> dengan menggunakan gate (GateContract).</p>
+<p>Perlu diketahui bahwa meski secara teknis ini hampir sama dengan RBAC yaitu dengan role user yang dimiliki, namun kita sebenarnya mendefinsikan adanya suatu ability yang mana ability tersebut menjadi patokan dalam mengakses di beberapa komponen (dapat dilakukan di controller, model dan view).</p>
+<p>secara mudahnya kita dapat memberikan syntax ability seperti berikut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$gate-&gt;define(&#39;nama-ability&#39;, function ($user) {
+    // logic ability
+});
+</pre></div>
+</div>
+<p>kita akan mempassing instansiasi user ke dalam closure parameter kedua, perlu diketahui bahwa instansiasi user ini adalah bentuk lain daripada <code class="docutils literal"><span class="pre">Auth::user()</span></code> yang mana kita dapat mengakses data di tabel users pada user yang login.</p>
+<p>Menambahkan ability di dalam <strong>AuthServiceProvider</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="o">....</span>
+
+<span class="k">class</span> <span class="nc">AuthServiceProvider</span> <span class="k">extends</span> <span class="nx">ServiceProvider</span>
+
+<span class="p">{</span>
+
+    <span class="o">....</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">boot</span><span class="p">(</span><span class="nx">GateContract</span> <span class="nv">$gate</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">registerPolicies</span><span class="p">(</span><span class="nv">$gate</span><span class="p">);</span>
+        <span class="nv">$gate</span><span class="o">-&gt;</span><span class="na">define</span><span class="p">(</span><span class="s1">&#39;be-organizer&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">role</span> <span class="o">==</span> <span class="s1">&#39;organizer&#39;</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="nv">$gate</span><span class="o">-&gt;</span><span class="na">define</span><span class="p">(</span><span class="s1">&#39;be-participant&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">role</span> <span class="o">==</span> <span class="s1">&#39;participant&#39;</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Membuat adanya gate di dalam middleware</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="o">....</span>
+
+<span class="k">class</span> <span class="nc">HasRole</span>
+
+<span class="p">{</span>
+
+    <span class="o">....</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nx">Closure</span> <span class="nv">$next</span><span class="p">,</span> <span class="nv">$role</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">can</span><span class="p">(</span><span class="s1">&#39;be-&#39;</span><span class="o">.</span><span class="nv">$role</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$next</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;Anda tidak memiliki akses untuk halaman tersebut.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Penjelasan kode</p>
+<p>Setelah kita login maka file <strong>AuthServiceProvideri</strong> ini akan dijalankan, kemudian akan menjalankan method <strong>boot</strong>, disinilah kita dapat mendefinisikan konfigurasi daripada ability.</p>
+<p>Dalam contoh diatas terdapat syntax <code class="docutils literal"><span class="pre">$gate-&gt;define('be-organizer',</span> <span class="pre">function</span> <span class="pre">($user)</span> <span class="pre">{return</span> <span class="pre">$user-&gt;role</span> <span class="pre">==</span> <span class="pre">'organizer';});</span></code>, yang mana ability <code class="docutils literal"><span class="pre">be-organizer</span></code> akan ada jika parameter 2 bernilai true, parameter 2 yang dimaksud adalah closure yang mana menginstansiasi user (tabel users) yang sedang login kemudian mereturn apakah memiliki role organizer atau tidak.</p>
+<p>Jika semisal parameter 2 bernilai false, maka user tidak akan memiliki ability <code class="docutils literal"><span class="pre">be-organizer</span></code>, hal ini juga berlaku</p>
+<p>Selanjutnya ketika kita akan mengases route dengen method get (event-schedule dan event-history) dikarenakan adanya middleware role dengan adanya penambahan role yang diinput (jika event-schedule ada penambahan organizer dan event-history ada penambahan participant) yang mana penambahan ini akan masuk ke method handle parameter 3 ($role).</p>
+<p>Selanjutnya kita akan mengecek dengan kondisi syntax <code class="docutils literal"><span class="pre">if</span> <span class="pre">($request-&gt;user()-&gt;can('be-'.$role))</span></code>, yaitu jika semisal user ini memiliki adanya ability <code class="docutils literal"><span class="pre">be-namarole</span></code> yang dimaksud semisal <code class="docutils literal"><span class="pre">be-organizer</span></code>, maka akan dapat melanjutkan request middleware.</p>
+<p>Perlu dicatat penggunaan ACL diatas memiliki perbedaan dengan RBAC, khususnya pada bagian kita tidak menentukan hak akses berdasarkan role tetapi menentukan/mengkonfigurasi hak akses dari role yang dimiliki.</p>
+<p>Dan satu hal lagi yaitu pendefinisian ability ini bkan hanya memakai patokan user saja, namun juga bisa dengan model/tabel lain, intinya adalah kita dapat mendefinisikan beberapa logic dari beberapat tabel untuk dapat menentukan apakah user memiliki ability tersebut atau tidak, berbeda dengan teknik RBAC yang secara monoton menentukan hak akses berdasarkan dari role saja (bukan dari ability/kemampuan user dalam mengakses), mungkin contoh selanjutnya akan sedikit lebih menjelaskan.</p>
+<p>Gambar : hasil dalam ACL ini tidak jauh berbeda dengan RBAC</p>
+<p>login sebagai organizer (user ryan)</p>
+<p>dapatmengakses event schedule</p>
+<img alt="_images/13.2.6.rbactipe1_2.jpg" src="_images/13.2.6.rbactipe1_2.jpg" />
+<p>namun tidak dapat mengakses event-history, dan akan terlempar ke halaman home</p>
+<img alt="_images/13.2.7.rbactipe1_3.jpg" src="_images/13.2.7.rbactipe1_3.jpg" />
+<p>login sebagai participant (user rani)</p>
+<p>dapat mengakses event-history</p>
+<img alt="_images/13.2.7.rbactipe1_4.jpg" src="_images/13.2.7.rbactipe1_4.jpg" />
+<p>namun tidak dapat mengakses event-schedule</p>
+<img alt="_images/13.2.7.rbactipe1_5.jpg" src="_images/13.2.7.rbactipe1_5.jpg" />
+</div>
+<div class="section" id="contoh-penggunaan-ability-di-dalam-view">
+<h2>Contoh penggunaan ability di dalam view<a class="headerlink" href="#contoh-penggunaan-ability-di-dalam-view" title="Permalink to this headline">¶</a></h2>
+<p>Contoh penggunaan dalam view adalah misalkan kita ingin dapat menampilkan conten yang mana user memiliki ability yang ditentukan, seperti misalkan pada suatu halaman akan menampilkan adanya link(anchor) dan terdapat link yang mana terdapat autorize ability.</p>
+<p>Secara mudahnya kita dapat saja menggunakan instansiasi user secara langsung (<code class="docutils literal"><span class="pre">Auth::user()</span></code>) kemudian mengambil data yang diperlukan dalam autorize (seperti misal data role) namun ini sangat tidak memiliki adanya suatu pendefinisian yang lebih mendetail.</p>
+<p>Apalagi jika semisal ternyata membutuhkan beberapa model/tabel yang terlibat dalam pembuatan hak akses dalam menampilkan konten di view.</p>
+<p>Tentu ini jauh lebih mudah bila menggunakan ability dan kita dapat memasang method can (gate) di view.</p>
+<p>Contoh penggunaan instansiasi user dalam autorize di dalam view:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@if</span> <span class="p">(</span><span class="n">Auth</span><span class="p">::</span><span class="n">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;organizer&#39;</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/event&quot;</span><span class="o">&gt;</span><span class="n">Event</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="nd">@endif</span>
+<span class="nd">@if</span> <span class="p">(</span><span class="n">Auth</span><span class="p">::</span><span class="n">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;participant&#39;</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/event-history&quot;</span><span class="o">&gt;</span><span class="n">Event</span> <span class="n">History</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="nd">@endif</span>
+</pre></div>
+</div>
+<p>Contoh penggunaan gate di view:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@can</span><span class="p">(</span><span class="s1">&#39;be-organizer&#39;</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/event&quot;</span><span class="o">&gt;</span><span class="n">Event</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="nd">@endcan</span>
+<span class="nd">@can</span><span class="p">(</span><span class="s1">&#39;be-participant&#39;</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/event-history&quot;</span><span class="o">&gt;</span><span class="n">Event</span> <span class="n">History</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="nd">@endcan</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="penggunaan-ability-di-dalam-controller">
+<h2>Penggunaan ability di dalam controller<a class="headerlink" href="#penggunaan-ability-di-dalam-controller" title="Permalink to this headline">¶</a></h2>
+<p>Saat akan mengakses sesuatu di controller kita juga dapat memberikan autorize dari ability yang dimiliki user.</p>
+<p>Namun perlu diketahui bahwa dalam penggunaan ability ini tidak dapat dengan menggunakan middleware role:… dalam menentukan pembatasan hak akses atau menggunakan method <code class="docutils literal"><span class="pre">can</span></code>.</p>
+<p>Terdapat 2 cara dalam menggunakan ability di dalam controller yaitu :</p>
+<ol class="arabic simple">
+<li>menggunakan facade gate diikuti dengan method allows yang mempassing nama ability</li>
+</ol>
+<p><code class="docutils literal"><span class="pre">Gate::allows('nama-ability')</span></code></p>
+<p>Dengan syntax tersebut maka ini akan mereturn boolean atau false, dan dari value boolean tersebut kita dapat menentukan langkah apa saja yang akan dieksekusi, semisal menampilkan view atau hal lainnya.</p>
+<p>Dalam penggunaan facade ini maka akan digunakan konditinal (if structure).</p>
+<ol class="arabic simple" start="2">
+<li>menggunakan method autorize()</li>
+</ol>
+<p>cara ini tidak memerlukan adanya syntax conditional seperti allows, syntax ini hanya menggunakan method <code class="docutils literal"><span class="pre">autorize()</span></code> dan ketika kita tidak memilki adanya ability yang dibutuhkan maka proses selanjutnya akan tidak dapat dilanjutkan.</p>
+<p>method <code class="docutils literal"><span class="pre">autorize</span></code> dapat dipassing dengan nama ability, sehingga ketika tidak ada maka akan melanjutkan ke halaman tidak boleh diakses.</p>
+<p>Method ini secara default akan menghasilkan <strong>HTTPException</strong> dengan status code 403 Not Authorized jika user yang sedang login tidak dapat memvalidasi ability yang dibutuhkan.</p>
+<p>Perbedaan keduanya sebenarnya sangat sedikit, hanya tergantung dalam mekanisme sistem yang akan dijalankan.</p>
+<p>Dalam kasus yang lebih mudah adalah jika semisal kita memiliki adanya hak akses di mekanisme di dalam controller misal jika user memiliki ability tertentu maka akan menampilkan view tertentu.</p>
+<p>Sedangkan penggunaan autorize ini digunakan di bagian paling awal dan ketika gagal akan melempar ke halaman error (akan menuju view <code class="docutils literal"><span class="pre">error.403.blade.php</span></code>).</p>
+<p>Artinya pada facade gate masih dapat melakukan kondisional sedangkan method autorize tidak dapat dilakukan sama sekali.</p>
+<p>Kalaupun menggunakan struktur kondisional (if) pada method autorize() maka ketika user tidak memiliki ability yang dimaksud tetap akan menuju view error.</p>
+<p>Contoh penggunaan gate allows, kita akan menambah route dengan method get dan akan menuju method settings:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;settings&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;middleware&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;auth&#39;</span><span class="p">,</span> <span class="s1">&#39;uses&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;HomeController@settings&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Dalam method settings ini akan dibuatkan sebuah pernyataan kondisional ketika memiliki adanya ability maka akan dapat megeksekusi view,</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="o">....</span>
+
+<span class="k">use</span> <span class="nx">Gate</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HomeController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+
+<span class="p">{</span>
+
+    <span class="o">....</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">settings</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">Gate</span><span class="o">::</span><span class="na">allows</span><span class="p">(</span><span class="s1">&#39;be-organizer&#39;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;settings.organizer&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">Gate</span><span class="o">::</span><span class="na">allows</span><span class="p">(</span><span class="s1">&#39;be-participant&#39;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;settings.participant&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Gambar :</p>
+<p>login sebagai organizer</p>
+<img alt="_images/13.2.8.acl_gate_1.jpg" src="_images/13.2.8.acl_gate_1.jpg" />
+<p>login sebagai participant</p>
+<img alt="_images/13.2.9.acl_gate_2.jpg" src="_images/13.2.9.acl_gate_2.jpg" />
+</div>
+<div class="section" id="peggunaan-method-autorize">
+<h2>Peggunaan method autorize<a class="headerlink" href="#peggunaan-method-autorize" title="Permalink to this headline">¶</a></h2>
+<p>Seperti yang telah dijelaskan diatas bahwa ketika kita menjalankan method ‘autorize’ maka jika ability yang dimiliki user tidak ada selanjutnya akan mereturn erorr bahwa user tidak terautoisasi (unautorized) dan melempar ke halaman <code class="docutils literal"><span class="pre">error.403.blade.php</span></code>.</p>
+<p>Bahkan ketika dibuat struktur kondisional, method autorize ini juga tidak akan dapat mengembalikan nilai boolean (true/false), sehingga struktur kondisional juga tidak akan dapat disandingkan dengan method autorize ini.</p>
+<p>Untuk contoh kali ini semisal kita akan membuat adanya ability premium access, dimana user yang memiliki tipe <code class="docutils literal"><span class="pre">membership</span></code> gold atau platinum yang dapat memiliki ability premium-access ini.</p>
+<p>Berikut semisal data yang akan digunakan</p>
+<img alt="_images/13.2.9.acl_autorize_1.jpg" src="_images/13.2.9.acl_autorize_1.jpg" />
+<p>Pembuatan ability (AuthServiceProvider) yang mana user dengan membership gold atau platinum dapat memiliki ability premium-access:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$gate-&gt;define(&#39;premium-access&#39;, function ($user) {
+    return $user-&gt;membership == &#39;gold&#39; || $user-&gt;membership == &#39;platinum&#39;;
+});
+</pre></div>
+</div>
+<p>Pembuatan route dengan method get yang mengakses method premium:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;premium&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;middleware&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;auth&#39;</span><span class="p">],</span> <span class="s1">&#39;uses&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;HomeController@premium&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Pembuatan autorize pada method premium:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function premium() {
+    $this-&gt;authorize(&#39;premium-access&#39;);
+    return &#39;Halaman premium...&#39;;
+}
+</pre></div>
+</div>
+<p>Gambar :</p>
+<p>login dengan user yang tidak memiliki membership gold dan platinum , user ryan hanya memiliki membership silver</p>
+<img alt="_images/13.2.9.acl_autorize_2.jpg" src="_images/13.2.9.acl_autorize_2.jpg" />
+<p>login dengan user yang tidak memiliki membership gold dan platinum , user rani dan robby memiliki membership gold dan platinum</p>
+<img alt="_images/13.2.12.acl_autorize_3.jpg" src="_images/13.2.12.acl_autorize_3.jpg" />
+<p>pembuatan file <strong>views/403.blade.php</strong> sehingga ketika method autorize gagal maka akan dilempar ke view file ini
+Anda tidak berhak untuk mengakses halaman ini</p>
+<img alt="_images/13.2.13.acl_autorize_4.jpg" src="_images/13.2.13.acl_autorize_4.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>method autorize tidak akan mereturn value boolean</p>
+<p>Semisal kita memberikan adanya struktur kondisional pada method premium di class HomeController ini:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function premium() {
+    if($this-&gt;authorize(&#39;premium-access&#39;)) {
+        return &#39;Halaman premium...&#39;;
+    }
+    return &#39;Halaman non-premium...&#39;;
+}
+</pre></div>
+</div>
+<p class="last">maka ketika autorize gagal tidak akan menjalankan syntax return ‘Halaman non-premium…’;, karena method autorize ini tidak mereturn boolean (true/false).</p>
+</div>
+</div>
+<div class="section" id="passing-model-lain-ke-ability">
+<h2>Passing model lain ke ability<a class="headerlink" href="#passing-model-lain-ke-ability" title="Permalink to this headline">¶</a></h2>
+<p>Salah satu kelebihan dalam penggunaan ability adalah kita dapat menggunakan model lain sebagai bagian logic dari ability ini, sehingga tidak hanya menggunakan field role atau model user saja.</p>
+<p>Semisal saja ketika akan melakukan proses edit data di tabel lain, dan data di tabel lain tersebut hanya dapat diedit oleh si pembuatnya, maka diperlukan adanya pengecekan dari sisi pembuat data.</p>
+<p>Studi kasus adalah misal kita memiliki tabel event, data di tabel event ini hanya dapat diedit oleh si pembuat data event, maka diperlukan adanya field <code class="docutils literal"><span class="pre">organizer_id</span></code> yang dapat menyaring filter tersebut.</p>
+<p>Misalkan kita memiliki data pada tabel users dan events sebagai berikut</p>
+<img alt="_images/13.2.14.acl_passing_another_model_1.jpg" src="_images/13.2.14.acl_passing_another_model_1.jpg" />
+<img alt="_images/13.2.15.acl_passing_another_model_2.jpg" src="_images/13.2.15.acl_passing_another_model_2.jpg" />
+<ul class="simple">
+<li>2 orang organizer, Jajang dan Ucok.</li>
+<li>1 orang participant, Beni.</li>
+<li>Event Meetup JS dengan organizer Jajang dan sudah dipublish.</li>
+<li>Event Meetup Laravel dengan organizer Ucok tapi belum dipublish.</li>
+</ul>
+<p><strong>AuthServiceProvider</strong>, Kita akan membuat ability yang mana akan mengecek apakah user id yang dimiliki user adalah yang membuat data event:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$gate-&gt;define(&#39;edit-event&#39;, function($user, $event) {
+    return $user-&gt;id == $event-&gt;organizer_id;
+});
+</pre></div>
+</div>
+<p>Penambahan route method get yang mana memberikan adanya parameter berupa id(event):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;edit-event/</span><span class="si">{id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;HomeController@editEvent&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>HomeController, Pembuatan autorisasi edit event, pada parameter 2 kita mempassing model eloquent event yang mana datanya adalah sesuai dengan id yang dipassing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function editEvent($id)
+{
+    $event = \App\Event::findOrFail($id);
+    $this-&gt;authorize(&#39;edit-event&#39;, $event);
+    return &quot;Anda sedang mengakses halaman edit event &quot; . $event-&gt;name;
+}
+</pre></div>
+</div>
+<p>Pemberian keterangan pada view <strong>home.blade.php</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;h3&gt;Semua Event&lt;/h3&gt;
+@foreach (App\Event::get() as $event)
+    &lt;p&gt;&lt;strong&gt;Event: {{ $event-&gt;name }}&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;{{ $event-&gt;description }}&lt;/p&gt;
+    &lt;p&gt;Tempat/Waktu: {{ $event-&gt;location }}, {{ $event-&gt;begin_date }} - {{ $event-&gt;finish_date }}&lt;/p&gt;
+    @can (&#39;be-organizer&#39;)
+        &lt;a href=&quot;{{ route(&#39;edit-event&#39;,$event-&gt;id) }}&quot;&gt;Edit Event&lt;/a&gt;
+    @endcan
+@endforeach
+</pre></div>
+</div>
+<img alt="_images/13.2.16.acl_passing_another_model_3.jpg" src="_images/13.2.16.acl_passing_another_model_3.jpg" />
+<img alt="_images/13.2.17.acl_passing_another_model_4.jpg" src="_images/13.2.17.acl_passing_another_model_4.jpg" />
+<img alt="_images/13.2.18.acl_passing_another_model_5.jpg" src="_images/13.2.18.acl_passing_another_model_5.jpg" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="validation.html" class="btn btn-neutral float-right" title="Validasi di Laravel" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="middleware.html" class="btn btn-neutral" title="Middleware" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+Jobs
+======================
+
+
+sumbr tulisan : https://scotch.io/tutorials/why-laravel-queues-are-awesome
+laravel jobs adalah pengeksekusian script php di luar controller (tidak melalui request get/post dari route map)
+
+ini sangat berguna ketika kita akan mengeksekusi suatu script yang akan dilakukan di saat kita mengakses method controller
+
+ada beberapa hal yang perlu diperhatikan dalam menggunakan laravel job ini
+
+kita akan membuat migrasi dan membuat tabel "jobs" dengan isian field "queue","payload","attempt","reserved"
+untuk mempemudahnya kita tinggal menggunakan 2 langkah berikut yang dieksekusi di command prompt
+php artisan queue:table
+
+php artisan migrate
+
+selanjutnya kita akan mendefinisikan queue driver, meskipun jika menggunakan default ("sync")
+
+QUEUE_DRIVER=database

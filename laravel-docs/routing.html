@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Routing di Laravel &mdash; laravel mdd 1.01 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="laravel mdd 1.01 documentation" href="index.html"/>
+        <link rel="next" title="Database" href="database.html"/>
+        <link rel="prev" title="Konfigurasi Laravel" href="laravel-config.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> laravel mdd
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.01
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-concept.html">Konsep Dasar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-architecture.html">Laravel Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html">Konfigurasi Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-config.html#error-compiled-php">error <code class="docutils literal"><span class="pre">compiled.php</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Routing di Laravel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#http-verb">HTTP Verb</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mengakses-verb-lebih-dari-satu-pada-satu-route">Mengakses verb lebih dari satu pada satu route</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mengakses-beberapa-verb-match">Mengakses beberapa verb (match)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-dalam-routing">Parameter dalam routing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#regex-parameter">Regex parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-pattern">Global pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-parameter">Optional Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#named-route">Named Route</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#route-groups">Route Groups</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-eloquent.html">1&nbsp;&nbsp;&nbsp;Model Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relationship-eloquent.html">Relationship</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collection-eloquent.html">Collection Eloquent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Request dan Response di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">Laravel Validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html">Autentikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticate-authorization-grant-access.html#autorize">Autorize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validasi di Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html">Manajemen FIle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-management.html#path-dan-url">Path dan URL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-multi-branch-and-set-deploy.html">Multi Branch di Laravel dan setting untuk deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile-apps.html">Mobile Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html">Laravel Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#pembuatan-repository-pattern-di-laravel">Pembuatan Repository pattern di <code class="docutils literal"><span class="pre">Laravel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository-pattern.html#authorize-di-dalam-repository-pattern">Authorize di dalam Repository pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-simple-register-activation.html">Registrasi Akun Laravel dan Aktivasi Akun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-new-project-recommended-structure.html">Rekomendasi struktur project baru laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-tips.html">Laravel Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html">Catatan laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#routing-note">Routing note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-script-code-structure">Laravel Script Code Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-path-dan-url-untuk-menggunakan-file">Laravel Path dan URL untuk menggunakan file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-emergency.html#laravel-token-mismatch-exception">Laravel token mismatch exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timezone-laravel.html">Timezone Laravel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laravel-problem-and-solving.html">Masalah Laravel dan pemecahannya</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html">Artisan Console (CLI laravel)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="artisan-console.html#contoh-penggunaan-command-laravel-dalam-export-import-database-mysql">Contoh penggunaan command laravel dalam export import database mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content-baru.html">Content Baru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">laravel mdd</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Routing di Laravel</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/routing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="routing-di-laravel">
+<h1>Routing di Laravel<a class="headerlink" href="#routing-di-laravel" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="http-verb">
+<h2>HTTP Verb<a class="headerlink" href="#http-verb" title="Permalink to this headline">¶</a></h2>
+<p><strong>Http Verb</strong> adalah semacam aksi dari request yang diberikan.</p>
+<p>Suatu website sebenarnya tidak hanya berkutat dengan hal-hal sederhana seperti <cite>alamat url</cite>.</p>
+<p>Lebih dari itu suatu website sebenarnya memiliki cakupan yang luas dalam menjalankannya, namun hanya karena seringnya menjalankan komponen yang itu itu saja, membuat beberapa user menganggap bahwa komponen website itu sedikit.</p>
+<p>Seperti misalkan <code class="docutils literal"><span class="pre">HTTP</span> <span class="pre">verb</span></code>, yaitu suatu pengaksesan/pemrosesan resource berdasarkan request yang diberikan, request ini tentu diberikan (trigger) oleh user yang selanjutnya diproses oleh server.</p>
+<p>Resource sendiri dapat diartikan sebagai data yang akan digunakan.</p>
+<p>Atau dapat pula diartikan, resource adalah sesuatu yang diproses/diolah, jadi apapun itu yang berlalu lalang dalam proses website disebut sebagai resource(kita menerima resource, mengolah dan mengirimkannya lagi ke bagian lain, dan bagian lain akan melakukan hal yang sama sampai pada output/hasil).</p>
+<p>Contohnya adalah ketika kita melakukan create, read, update, delete, kesemuanya merupakan resource yang saat itu juga sedang diakses oleh website.</p>
+<p>Untuk dapat mengakses website itu sendiri juga dibutuhkan adanya manajemen dalam jalur pengaksesan, karena dalam website saat akan mengakses suatu resource semua tergantung dari request yang diberikan.</p>
+<p>verb ini lah yang akan menentukan jalur mana yang akan mengakses resource tersebut.</p>
+<hr class="docutils" />
+<p>Secara umum ketika kita akan membuka/mengakses sesuatu pada website(dalam kasus ini disebut sebagai mengakses resource) maka kita mengetikkan alamat address tersebut.</p>
+<p>Namun kita tidak bisa menggambarkan secara sederhana bahwa suatu website hanya menjalankan proses dari alamat(dalam kasus verb disebut get), malainkan kita juga melakukan / memproses hal lain dari request yang ada.</p>
+<p>Misalkan ketika kita akan mengubah data pada database, kita mengambil data itu kemudian memprosesnya sampai data itu bisa berubah di database, tentu semua bahan dari pemrosesan itu disebut sebagai resource.</p>
+<p>Nah resource ini sendiri sebenarnya diakses sebelumnya melalui request yang akan menentukan jalur pemrosesannya, dan jalur ini tidak hanya berkutat pada satu jalur namun beberapa jalur.</p>
+<p>Jalur inilah yang disebut dengan HTTP verb.</p>
+<p>Terdapat 5 jenis verb pada http, yaitu <code class="docutils literal"><span class="pre">get</span></code>, <code class="docutils literal"><span class="pre">post</span></code>, <code class="docutils literal"><span class="pre">patch</span></code>, <code class="docutils literal"><span class="pre">put</span></code>, dan <code class="docutils literal"><span class="pre">delete</span></code>.</p>
+<p>Ketika kita mengetikkan alamat pada address bar maka kita mengakses verb <strong>get</strong> dengan nama yang sama yang ditentukan dari URI(bukan URL).</p>
+<p>Kemudian bagaimana dengan verb yang lain, ternyata semuanya bisa saja memiliki URI yang sama, namun dengan pembagian verb ini kita bisa memberikan jalur yang berbeda-beda.</p>
+<p>HTTP memberikan perbedaan request untuk mempermudah jika misalkan kita mengakses dengan alamat URI yang sama.</p>
+<p>Berikut adalah rincian lengkap daripada HTTP verb :</p>
+<ol class="arabic simple">
+<li>GET : Digunakan untuk meminta resource dari server.</li>
+<li>POST : Digunakan untuk menyimpan resource ke server.</li>
+<li>PUT : Digunakan untuk melakukan update resource di server.</li>
+<li>PATCH : Digunakan untuk melakukan update resource di server.</li>
+<li>DELETE : Digunakan untuk menghapus resource di server.</li>
+</ol>
+<p>PUT dan PATCH sering digunakan untuk hal yang sama (meng-update).</p>
+<p>Perbedaan keduanya, secara teoritis PUT bekerja dengan menimpa (replace) resource dengan resource yang baru.</p>
+<p>Sementara PATCH digunakan untuk meng-update sebagian field dari resource.</p>
+<p>Namun biasanya verb PUT adalah yang paling sering digunakan .</p>
+<p>Dalam laravel kita akan membuat routing beserta dengan verb sehingga resource yang akan diproses difilter melalui request verb nya, berikut adalah penulisannya.</p>
+<p>Route::get(‘URI’,action);
+Route::post(‘URI’,action);
+Route::put(‘URI’,action);
+Route::patch(‘URI’,action);
+Route::delete(‘URI’,action);</p>
+<p>secara default ketika kita hanya mengetikkan alamat pada address bar maka kita akan menggunakan verb ‘get’</p>
+<p>Misal kita akan mengakses request get dengan uri <code class="docutils literal"><span class="pre">kontak</span></code></p>
+<p>file <strong>app/Http/Routes.php</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/kontak&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="k">return</span> <span class="s1">&#39;ini halaman kontak&#39;</span><span class="p">;</span>
+
+<span class="p">});</span>
+</pre></div>
+</div>
+<img alt="_images/4.1.verbhttp.jpg" src="_images/4.1.verbhttp.jpg" />
+<p>Seperti yang diketahui bahwa method <code class="docutils literal"><span class="pre">get</span></code> akan membaca resource, resource yang digunakan adalah daripada isisan website, tersebut berbeda dengan verb lain yang harus mengirimkan resourcenya untuk nantinya diolah.</p>
+<p>Kemudian bagaimana dengan verb lain digunakan???</p>
+<p>Untuk mudahnya mari kita membahas tentang verb <code class="docutils literal"><span class="pre">post</span></code>.</p>
+<p>Request ini akan dijalankan begitu adanya request post, caranya adalah kita bisa memasukkan resource dari suatu form yaitu dengan menambahkan atribut method post.</p>
+<p>file <strong>app/Http/Routes</strong></p>
+<blockquote>
+<div><p>Route::get(‘/aksesform’, ‘ContohController&#64;halamanForm’);</p>
+<p>Route::post(‘/aksesform’, ‘ContohController&#64;aksesResource’);</p>
+</div></blockquote>
+<p>file <strong>app/Http/Controllers/ContohController</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">namespace</span> <span class="nx">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Http\Requests</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Http\Controllers\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ContohController</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">halamanForm</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">aksesResource</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]))</span>
+        <span class="p">{</span>
+            <span class="nv">$str</span> <span class="o">=</span> <span class="s1">&#39;, terdapat request yaitu =&#39;</span><span class="o">.</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="s2">&quot;mengakses resource dari form </span><span class="si">$str</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>file <strong>app/Http/Routes</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        &lt;title&gt;&lt;/title&gt;</span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        &lt;form method=&quot;POST&quot; action=&quot;{{ url(&#39;aksesform&#39;) }}&quot;&gt;</span>
+<span class="x">            &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;{{ csrf_token() }}&quot;&gt;</span>
+<span class="x">            &lt;input type=&quot;text&quot; name=&quot;input&quot;&gt;</span>
+<span class="x">            &lt;input type=&quot;submit&quot;&gt;</span>
+<span class="x">        &lt;/form&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<img alt="_images/4.1.1.getpost.jpg" src="_images/4.1.1.getpost.jpg" />
+<img alt="_images/4.1.1.getpost2.jpg" src="_images/4.1.1.getpost2.jpg" />
+<p>Kemudian bagaimana kita dapat mengakses dengan verb selain <code class="docutils literal"><span class="pre">get</span></code> dan <code class="docutils literal"><span class="pre">post</span></code>, seperti <code class="docutils literal"><span class="pre">put</span></code>, <code class="docutils literal"><span class="pre">patch</span></code>, dan <code class="docutils literal"><span class="pre">delete</span></code>???</p>
+<p>Satu satunya cara adalah dengan menggunakan method <code class="docutils literal"><span class="pre">spoofing</span></code>, yaitu menggunakan form dengan menambahkan element yang bernama key <code class="docutils literal"><span class="pre">_method</span></code> dan bervalue verbnya, namun ini masih menggunakan method <code class="docutils literal"><span class="pre">post</span></code>.</p>
+<p>Untuk mendapatkan hasilnya kita akan menggunakan add on <cite>apps</cite> <strong>Postman</strong> di Chrome.</p>
+<p>file <strong>app/Http/Routes.php</strong></p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>Route::get(&#39;testget&#39;, function() {
+
+return &quot;menggunakan verb get&quot;;
+
+});
+
+Route::post(&#39;testpost&#39;, function() {
+
+return &quot;menggunakan verb post&quot;;
+
+});
+
+Route::put(&#39;testput&#39;, function() {
+
+return &quot;menggunakan verb put&quot;;
+
+});
+
+Route::patch(&#39;testpatch&#39;, function() {
+
+return &quot;menggunakan verb patch&quot;;
+
+});
+
+Route::delete(&#39;testdelete&#39;, function() {
+
+return &quot;menggunakan verb delete&quot;;
+
+});
+</pre></div>
+</div>
+<img alt="_images/4.1.2.getverb.jpg" src="_images/4.1.2.getverb.jpg" />
+<img alt="_images/4.1.3.postverb.jpg" src="_images/4.1.3.postverb.jpg" />
+<img alt="_images/4.1.4.putverb.jpg" src="_images/4.1.4.putverb.jpg" />
+<img alt="_images/4.1.5.patchverb.jpg" src="_images/4.1.5.patchverb.jpg" />
+<img alt="_images/4.1.6.deleteverb.jpg" src="_images/4.1.6.deleteverb.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Error akan terjadi ketika kita megakses verb dengan bukan requestnya ,semisal mengakses verb post dengan method get.</p>
+</div>
+<img alt="_images/4.1.7.wrongverb.jpg" src="_images/4.1.7.wrongverb.jpg" />
+<img alt="_images/4.1.8.wrongverb.jpg" src="_images/4.1.8.wrongverb.jpg" />
+<div class="section" id="mengakses-verb-lebih-dari-satu-pada-satu-route">
+<h3>Mengakses verb lebih dari satu pada satu route<a class="headerlink" href="#mengakses-verb-lebih-dari-satu-pada-satu-route" title="Permalink to this headline">¶</a></h3>
+<p>Pada contoh diatas kita mengakses satu verb dalam satu route, sebenarnya bisa saja dalam beberapa verb diakses dengan satu route, namun cara ini cukup jarang digunakan.</p>
+<p>caranya dengan menggunakan <code class="docutils literal"><span class="pre">match</span></code> dan <code class="docutils literal"><span class="pre">any</span></code> route, yang mana ketika terdapat verb tertentu akan tetap dapat diakses.</p>
+<div class="section" id="mengakses-beberapa-verb-match">
+<h4>Mengakses beberapa verb (match)<a class="headerlink" href="#mengakses-beberapa-verb-match" title="Permalink to this headline">¶</a></h4>
+<p>kita bisa mengakses beberapa verb ke dalam satu route dengan menggunakan ‘match’, misalkan get dan post.</p>
+<p>file <strong>app/Http/Routes.php</strong></p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>Route::match([&#39;get&#39;, &#39;post&#39;],&#39;testmatchverb&#39;, function() {
+    $html = &#39;&lt;h1&gt;halaman kontak&lt;/h1&gt;&#39;;
+    $html .= &#39;Anda mengakses dengan method &#39; . Request::method();
+    if (isset($_REQUEST[&#39;pesan&#39;])) {
+        $html .= &#39;&lt;br&gt;Anda mengirim pesan &#39; . $_REQUEST[&#39;pesan&#39;];
+    }
+    return $html;
+});
+</pre></div>
+</div>
+<img alt="_images/4.1.9.testmatchverb1.jpg" src="_images/4.1.9.testmatchverb1.jpg" />
+<img alt="_images/4.1.10.testmatchverb2.jpg" src="_images/4.1.10.testmatchverb2.jpg" />
+<p>mengakses semua verb (any)</p>
+<p>file <strong>app/Http/Routes.php</strong></p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>Route::any(&#39;testanyverb&#39;, function() {
+    $html = &#39;&lt;h1&gt;halaman kontak&lt;/h1&gt;&#39;;
+    $html .= &#39;Anda mengakses dengan method &#39; . Request::method();
+    return $html;
+});
+</pre></div>
+</div>
+<img alt="_images/4.1.11.anyverbget.jpg" src="_images/4.1.11.anyverbget.jpg" />
+<img alt="_images/4.1.12.anyverbpost.jpg" src="_images/4.1.12.anyverbpost.jpg" />
+<img alt="_images/4.1.13.anyverbput.jpg" src="_images/4.1.13.anyverbput.jpg" />
+<img alt="_images/4.1.14.anyverbpatch.jpg" src="_images/4.1.14.anyverbpatch.jpg" />
+<img alt="_images/4.1.15.anyverbdelete.jpg" src="_images/4.1.15.anyverbdelete.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Pada verb <code class="docutils literal"><span class="pre">PUT</span></code>, <code class="docutils literal"><span class="pre">PATCH</span></code> dan <code class="docutils literal"><span class="pre">DELETE</span></code> kita dapat juga memberikan adanya key seperti hal nya pada verb post.</p>
+<p>misal:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span>Route::put(&#39;testput&#39;, function() {
+    $html = &#39;&lt;h1&gt;halaman kontak&lt;/h1&gt;&#39;;
+    $html .= &#39;Anda mengakses dengan method &#39; . Request::method();
+    if (isset($_REQUEST[&#39;pesan&#39;])) {
+        $html .= &#39;&lt;br&gt;Anda mengirim pesan &#39; . $_REQUEST[&#39;pesan&#39;];
+    }
+    return $html;
+});
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parameter-dalam-routing">
+<h2>Parameter dalam routing<a class="headerlink" href="#parameter-dalam-routing" title="Permalink to this headline">¶</a></h2>
+<p>Dalam php native biasanya kita dapat mengakses input dari user dengan parameter url, seperti <code class="docutils literal"><span class="pre">/welcome?nama=ryan</span></code>.</p>
+<p>Dalam laravel hal tersebut dapat pula dilakukan, namun caranya agak berbeda.</p>
+<p>Parameter dalam laravel diakses dengan URI dan bukan dengan tanda tanya(?).</p>
+<p>Untuk mengakses parameter tersebut kita harus manambahkan uri dengan ditutup dengan tanda kurung kurawa,seperti <code class="docutils literal"><span class="pre">{key}</span></code> , kemudian parameter tersebut juga dipassong(dibua parameter) ke dalam closure(anonymous function) ataupun dengan method yang ada pada controller(jika menggunakan controller terntunya).</p>
+<p>file <strong>app/Http/Routes.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">Route::get(&#39;parameterurl/{param}&#39;, function ($param) {</span>
+<span class="x">return &quot;parameter dalam URL ini adalah = &quot;.$param;</span>
+<span class="x">});</span>
+
+
+<span class="x">Route::get(&#39;multiparameterurl/{param1}/{param2}&#39;, function($param1, $param2){</span>
+<span class="x">return &quot;parameter pertama adalah = &quot;.$param1.&quot; dan parameter kedua adalah = &quot;.$param2;</span>
+<span class="x">});</span>
+</pre></div>
+</div>
+<img alt="_images/4.2.1.parameterurl.jpg" src="_images/4.2.1.parameterurl.jpg" />
+<img alt="_images/4.2.2.parameterurl2.jpg" src="_images/4.2.2.parameterurl2.jpg" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">parameter dalam route nantinya akan diakses dengan passing daripada parameter closure, namun perlu diketahui bahwa setiap parameter closure akan di-assign dengan urutan pada parameter route, atau penempatan passing parameter closure berdasarkan letak URI</p>
+</div>
+<p>misalkan route multiparameter diatas kita ubah menjadi:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;multiparameterurl/{param1}/{param2}&#39;, function($param2,$param1){
+    return &quot;parameter pertama adalah = &quot;.$param1.&quot; dan parameter kedua adalah = &quot;.$param2;
+});
+</pre></div>
+</div>
+<img alt="_images/4.2.3.parameterurl3.jpg" src="_images/4.2.3.parameterurl3.jpg" />
+<p>Selain itu meskipun antara parameter URI dengan nama variabelnya berbeda ini juga masih dapat diakses , misalkan:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Route::get(&#39;multiparameterurl/{parm1}/{pram2}&#39;, function($aram2,$para1){
+    return &quot;parameter pertama adalah = &quot;.$para1.&quot; dan parameter kedua adalah = &quot;.$aram2;
+});
+</pre></div>
+</div>
+<img alt="_images/4.2.3.parameterurl3.jpg" src="_images/4.2.3.parameterurl3.jpg" />
+<p>parameter ini biasanya akan diakses pada method controller(dipassing ke dalam parameter method):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameterpadaurl/</span><span class="si">{param21}</span><span class="s1">/</span><span class="si">{param12}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;TestparamController@aksesparamurl&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>dalam controller TestparamController:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>public function aksesparamurl($param1, $param2) {
+    return &quot;parameter pertama adalah = &quot;.$param1.&quot; dan parameter kedua adalah = &quot;.$param2;
+}
+</pre></div>
+</div>
+<img alt="_images/4.2.4.parameterurlpadacontroller.jpg" src="_images/4.2.4.parameterurlpadacontroller.jpg" />
+<div class="section" id="regex-parameter">
+<h3>Regex parameter<a class="headerlink" href="#regex-parameter" title="Permalink to this headline">¶</a></h3>
+<p>Kita bisa membatasi input yang akan masuk ke dalam parameter url dengan memberikan method <code class="docutils literal"><span class="pre">where</span></code> setelah mengakses method ‘namaverb’(misal <code class="docutils literal"><span class="pre">get</span></code>).</p>
+<p>Misalkan input yang diberikan harus huruf(besar mauoun kecil) dan bukan angka.</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>Route::get(&#39;regexparameter/{nama}&#39;, function($nama) {
+    return &quot;nama = &quot;.$nama;
+})-&gt;where(&#39;nama&#39;, &#39;[A-Za-z]+&#39;);
+</pre></div>
+</div>
+<img alt="_images/4.3.1.regexparameter1.jpg" src="_images/4.3.1.regexparameter1.jpg" />
+<img alt="_images/4.3.2.regexparameter2.jpg" src="_images/4.3.2.regexparameter2.jpg" />
+</div>
+<div class="section" id="global-pattern">
+<h3>Global pattern<a class="headerlink" href="#global-pattern" title="Permalink to this headline">¶</a></h3>
+<p>Global pattern merupakan regex parameter yang digunakan secara global.</p>
+<p>Caranya dengan menggunakan syntax <code class="docutils literal"><span class="pre">Route::pattern('parameterurl','regexfilter');</span></code> dan syntax ini dituliskan pada baris paling awal(baris 2 setelah tag &lt;?php)</p>
+<p>Global pattern ini akan digunakan pada setiap route.</p>
+<p>Contoh file <strong>app/Http/Routes.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">Route</span><span class="o">::</span><span class="na">pattern</span><span class="p">(</span><span class="s1">&#39;nama&#39;</span><span class="p">,</span> <span class="s1">&#39;[A-Za-z]+&#39;</span><span class="p">);</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;regexparameter/{nama}&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$nama</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="s2">&quot;nama = &quot;</span><span class="o">.</span><span class="nv">$nama</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<img alt="_images/4.3.1.regexparameter1.jpg" src="_images/4.3.1.regexparameter1.jpg" />
+<img alt="_images/4.3.2.regexparameter2.jpg" src="_images/4.3.2.regexparameter2.jpg" />
+</div>
+<div class="section" id="optional-parameter">
+<h3>Optional Parameter<a class="headerlink" href="#optional-parameter" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Opsional</span> <span class="pre">parameter</span></code> adalah parameter yang diberikan default value, sehingga apabila kita tidak memberikan parameternya di url maka kita akan menggunakan default valuennya.</p>
+<p>Sebagai tambahan jika dalam route kite memberikannya adanya parameter namun dalam URL tidak kita berikan maka hasilnya akan error.</p>
+<p>Kita akan memberikan default value pada parameter closure.</p>
+<p>file <strong>app/Http/routes.php</strong></p>
+<blockquote>
+<div><p>Route::get(‘nodefaultvalueparameter/{name}’, function($name) {
+return “nama = “.$name;
+});</p>
+<p>Route::get(‘withdefaultvalueparameter/{name?}’, function($name = ‘ryan’) {
+return “nama = “.$name;
+});</p>
+</div></blockquote>
+<img alt="_images/4.4.1.nodefultvalue.jpg" src="_images/4.4.1.nodefultvalue.jpg" />
+</div>
+<div class="section" id="named-route">
+<h3>Named Route<a class="headerlink" href="#named-route" title="Permalink to this headline">¶</a></h3>
+<p>Setiap route dapat diberikan dengan nama.</p>
+<p>Tujuannya selain mudah untuk menggunakan route adalah ketika terjadi perubahan dalam nama url(url route)nya maka masih bisa digunakan.</p>
+<p>Untuk dapat memberikan nama pada route caranya adalah menganti parameter kedua dari method ‘namaverb’ (misal ‘get’).</p>
+<p>Kita dapat mengecek nama route dengan <code class="docutils literal"><span class="pre">php</span> <span class="pre">artisan</span> <span class="pre">route:list</span></code> di command prompt.</p>
+<p>Untuk menggunakan route tersebut, semisal untuk pindah halaman , dapat menggunakan method ‘route(namaroute)’,misal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;Kunjungi &lt;a href=&quot;&#39;</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;home.welcome&#39;</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;&quot;&gt;Halaman Welcome&lt;/a&gt;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Contoh:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Route</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;routedengannama&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;as&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;route dengan nama&quot;</span><span class="p">;</span>
+<span class="p">}]);</span>
+</pre></div>
+</div>
+<img alt="_images/4.5.namedroute.jpg" src="_images/4.5.namedroute.jpg" />
+</div>
+<div class="section" id="route-groups">
+<h3>Route Groups<a class="headerlink" href="#route-groups" title="Permalink to this headline">¶</a></h3>
+<p>Dalam laravel kita dapat mengelompokkan route dengan <code class="docutils literal"><span class="pre">route</span> <span class="pre">group</span></code>.</p>
+<p>Dalam pengelompokkan ini kita juga dapat menambahkan beberapa hal seperti:</p>
+<p>1.Prefix</p>
+<p>2.Middleware</p>
+<p>3.Namespace</p>
+<p>4.Sub domain</p>
+<p>Dalam bafgian ini hanya akan dijelaskan pada bagian prefix, untuk yang lainnya akan dijelaskan pada materi lain.</p>
+<p>Untuk sub domain tidak akan dijelaskan dikarenakan membutuhkan konfigurasi internal hosts, dan tidak setiap komputer/laptop dapat menjalankannya.</p>
+<p>Kita mulai dari prefix, dengan prefix kita akan menambahkan prefix/awalam berupa URI sebelum mengakses route di dalamnya.</p>
+<p>file <strong>app/Http/routes.php</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">Route::group([&#39;prefix&#39;=&gt;&#39;dashboard&#39;], function() {</span>
+<span class="x">    Route::get(&#39;settings&#39;, function() {</span>
+<span class="x">        return &#39;halaman dashboard &gt; settings&#39;;</span>
+<span class="x">    });</span>
+
+<span class="x">    Route::get(&#39;profile&#39;, function() {</span>
+<span class="x">        return &#39;halaman dashboard &gt; profile&#39;;</span>
+<span class="x">    });</span>
+
+<span class="x">    Route::get(&#39;inbox&#39;, function() {</span>
+<span class="x">        return &#39;halaman dashboard &gt; inbox&#39;;</span>
+<span class="x">    });</span>
+<span class="x">});</span>
+</pre></div>
+</div>
+<img alt="_images/4.6.prefixroute1.jpg" src="_images/4.6.prefixroute1.jpg" />
+<img alt="_images/4.6.2.prefixroute2.jpg" src="_images/4.6.2.prefixroute2.jpg" />
+<img alt="_images/4.6.3.prefixroute3.jpg" src="_images/4.6.3.prefixroute3.jpg" />
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="database.html" class="btn btn-neutral float-right" title="Database" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="laravel-config.html" class="btn btn-neutral" title="Konfigurasi Laravel" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, ryan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.01',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
